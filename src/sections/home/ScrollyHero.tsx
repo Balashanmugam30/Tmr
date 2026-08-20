@@ -288,15 +288,15 @@ export const ScrollyHero: React.FC = () => {
           </div>
         )}
 
-        {/* CINEMATIC EDITORIAL OVERLAY (LEFT ANCHORED 12-COLUMN POSITIONING) */}
-        <div className="relative z-10 px-6 md:px-12 max-w-[1360px] mx-auto w-full flex-grow flex items-center pt-24 md:pt-32">
+        {/* CINEMATIC SPATIAL EDITORIAL OVERLAY (FRAME-AWARE POSITIONS) */}
+        <div className="relative z-10 w-full h-full pointer-events-none">
           
-          {/* STATE 01 — SURFACE */}
+          {/* STATE 01 — SURFACE (BOTTOM-LEFT / LEFT-CENTER: left 8vw, top 44vh) */}
           <div
-            className={`w-full max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute left-[6vw] lg:left-[8vw] top-[40vh] md:top-[44vh] w-[88vw] max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 0
-                ? 'opacity-100 translate-y-0 pointer-events-auto'
-                : 'opacity-0 -translate-y-4 pointer-events-none absolute'
+                ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
+                : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
             <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
@@ -323,12 +323,12 @@ export const ScrollyHero: React.FC = () => {
             </div>
           </div>
 
-          {/* STATE 02 — REVEAL */}
+          {/* STATE 02 — REVEAL (TOP-LEFT / UPPER THIRD: left 8vw, top 22vh) */}
           <div
-            className={`w-full max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute left-[6vw] lg:left-[8vw] top-[18vh] md:top-[22vh] w-[88vw] max-w-lg transition-all duration-500 ease-out ${
               activeStateIndex === 1
-                ? 'opacity-100 translate-y-0 pointer-events-auto'
-                : 'opacity-0 -translate-y-4 pointer-events-none absolute'
+                ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
+                : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
             <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
@@ -343,12 +343,12 @@ export const ScrollyHero: React.FC = () => {
             </p>
           </div>
 
-          {/* STATE 03 — APPROACH */}
+          {/* STATE 03 — APPROACH (RIGHT SIDE / MID-LOW: right 8vw, top 48vh) */}
           <div
-            className={`w-full max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute right-[6vw] lg:right-[8vw] top-[44vh] md:top-[48vh] w-[88vw] max-w-md text-left transition-all duration-500 ease-out ${
               activeStateIndex === 2
-                ? 'opacity-100 translate-y-0 pointer-events-auto'
-                : 'opacity-0 -translate-y-4 pointer-events-none absolute'
+                ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
+                : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
             <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
@@ -363,12 +363,12 @@ export const ScrollyHero: React.FC = () => {
             </p>
           </div>
 
-          {/* STATE 04 — CRAFT */}
+          {/* STATE 04 — CRAFT (UPPER-RIGHT CAPTION: right 8vw, top 20vh) */}
           <div
-            className={`w-full max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute right-[6vw] lg:right-[8vw] top-[16vh] md:top-[20vh] w-[88vw] max-w-md text-left transition-all duration-500 ease-out ${
               activeStateIndex === 3
-                ? 'opacity-100 translate-y-0 pointer-events-auto'
-                : 'opacity-0 -translate-y-4 pointer-events-none absolute'
+                ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
+                : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
             <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
@@ -383,12 +383,12 @@ export const ScrollyHero: React.FC = () => {
             </p>
           </div>
 
-          {/* STATE 05 — FINISH */}
+          {/* STATE 05 — FINISH (CENTER-LEFT / TOP-LEFT: left 8vw, top 28vh) */}
           <div
-            className={`w-full max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute left-[6vw] lg:left-[8vw] top-[24vh] md:top-[28vh] w-[88vw] max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 4
-                ? 'opacity-100 translate-y-0 pointer-events-auto'
-                : 'opacity-0 -translate-y-4 pointer-events-none absolute'
+                ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
+                : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
             <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
