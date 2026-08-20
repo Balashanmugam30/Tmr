@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Button } from '@/components/Button';
-import { companyData } from '@/data/company';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,10 +36,6 @@ export const ScrollyHero: React.FC = () => {
   const [displayProgress, setDisplayProgress] = useState<number>(0);
   const [isFirstFrameLoaded, setIsFirstFrameLoaded] = useState<boolean>(false);
 
-  const whatsappUrl = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(
-    'Hello TMR Car Care! I would like to book a detailing or consultation slot.'
-  )}`;
-
   // Single Frame Preloader with non-blocking decode
   const loadSingleFrame = useCallback((index: number): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
@@ -72,7 +67,7 @@ export const ScrollyHero: React.FC = () => {
     });
   }, []);
 
-  // Bucket-based cache manager (only runs when targetFrame crosses into a new bucket)
+  // Bucket-based cache manager
   const manageCacheBucket = useCallback(
     (centerIndex: number) => {
       const bucket = Math.floor(centerIndex / 15);
@@ -110,7 +105,6 @@ export const ScrollyHero: React.FC = () => {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Fast bounded fallback search for preloaded frame
       let img = imageCacheRef.current.get(frameIdx);
       if (!img || !img.complete || img.naturalWidth === 0) {
         for (let offset = 1; offset <= 15; offset++) {
@@ -129,7 +123,6 @@ export const ScrollyHero: React.FC = () => {
 
       if (!img) return;
 
-      // Device Pixel Ratio & Canvas Sizing
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
@@ -143,7 +136,6 @@ export const ScrollyHero: React.FC = () => {
       ctx.scale(dpr, dpr);
       ctx.clearRect(0, 0, viewportWidth, viewportHeight);
 
-      // Object-fit: cover logic
       const imgWidth = img.naturalWidth || 1920;
       const imgHeight = img.naturalHeight || 1080;
       const scale = Math.max(viewportWidth / imgWidth, viewportHeight / imgHeight);
@@ -159,12 +151,11 @@ export const ScrollyHero: React.FC = () => {
     []
   );
 
-  // Smooth RAF Render Loop (Interpolates renderedFrame -> targetFrame)
+  // Smooth RAF Render Loop
   useEffect(() => {
     let animFrameId: number;
 
     const renderLoop = () => {
-      // Small smoothing interpolation (~80ms visual damping)
       const diff = targetFrameRef.current - renderedFrameRef.current;
       if (Math.abs(diff) > 0.01) {
         renderedFrameRef.current += diff * 0.14;
@@ -184,7 +175,7 @@ export const ScrollyHero: React.FC = () => {
     return () => cancelAnimationFrame(animFrameId);
   }, [renderCanvasFrame, manageCacheBucket]);
 
-  // Initial Load Strategy: Load frame 1 immediately, then trigger initial render
+  // Initial Load Strategy
   useEffect(() => {
     let isMounted = true;
 
@@ -211,7 +202,7 @@ export const ScrollyHero: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [renderCanvasFrame]);
 
-  // GSAP ScrollTrigger Setup (Decoupled from high-frequency React rerenders)
+  // GSAP ScrollTrigger Setup
   useEffect(() => {
     if (!containerRef.current) return;
 
@@ -225,39 +216,35 @@ export const ScrollyHero: React.FC = () => {
         end: 'bottom bottom',
         scrub: 0.1,
         onUpdate: (self) => {
-          const progress = self.progress; // 0 to 1
+          const progress = self.progress;
 
-          // Map frame sequence to 0 -> 0.833333 progress (first 500vh); hold final frame 959 for 0.833333 -> 1.0 (final 100vh transition)
           const cameraProgress = Math.min(1, progress / SEQUENCE_END);
           targetFrameRef.current = cameraProgress * (TOTAL_FRAMES - 1);
 
-          // Update low-frequency UI state for active visual phase
           let newState = 0;
           if (progress < 0.166) newState = 0;
           else if (progress < 0.333) newState = 1;
           else if (progress < 0.50) newState = 2;
           else if (progress < 0.666) newState = 3;
           else if (progress < 0.833) newState = 4;
-          else newState = 5; // Exit phase (83.33% to 100%)
+          else newState = 5;
 
           if (newState !== stateIndexRef.current) {
             stateIndexRef.current = newState;
             setActiveStateIndex(newState);
           }
 
-          // Progress Percentage update
           const pct = Math.round(progress * 100);
           if (pct !== progressPercentRef.current) {
             progressPercentRef.current = pct;
             setDisplayProgress(pct);
           }
 
-          // Hero Exit Choreography (Final 100vh transition: 83.33% -> 100%)
           if (stickyRef.current) {
             if (progress > SEQUENCE_END) {
               const exitProgress = (progress - SEQUENCE_END) / (1 - SEQUENCE_END);
-              const scale = 1 - exitProgress * 0.04; // 1 -> 0.96
-              const opacity = 1 - exitProgress * 0.35; // 1 -> 0.65
+              const scale = 1 - exitProgress * 0.04;
+              const opacity = 1 - exitProgress * 0.35;
               stickyRef.current.style.transform = `scale(${scale})`;
               stickyRef.current.style.opacity = `${opacity}`;
             } else {
@@ -277,7 +264,7 @@ export const ScrollyHero: React.FC = () => {
       ref={containerRef}
       className="relative w-full h-[600vh] bg-tmr-black selection:bg-tmr-orange selection:text-white z-10"
     >
-      {/* FULL-VIEWPORT STICKY CONTAINER (Pins throughout 600vh) */}
+      {/* FULL-VIEWPORT STICKY CONTAINER */}
       <div
         ref={stickyRef}
         className="sticky top-0 left-0 w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between transition-transform duration-100 ease-out origin-center"
@@ -288,175 +275,165 @@ export const ScrollyHero: React.FC = () => {
           className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
         />
 
-        {/* LIGHTER ATMOSPHERIC GRADIENT (Vehicle graphite paint & reflections clearly visible) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-tmr-black/80 via-transparent to-tmr-black/40 pointer-events-none z-[1]" />
+        {/* CONTROLLABLE ATMOSPHERIC GRADIENT (Preserves vehicle paint reflections) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-tmr-black/70 via-tmr-black/20 to-transparent pointer-events-none z-[1]" />
 
         {/* MINIMAL INITIAL LOAD PLACEHOLDER */}
         {!isFirstFrameLoaded && (
-          <div className="absolute inset-0 z-50 bg-tmr-black flex items-center justify-center font-manrope">
-            <div className="flex flex-col items-center gap-3">
-              <div className="flex items-center gap-2 font-black text-white tracking-widest text-xs uppercase">
-                <span>TMR CAR CARE</span>
-                <span className="w-2 h-2 rounded-full bg-tmr-orange animate-ping" />
-              </div>
+          <div className="absolute inset-0 z-50 bg-tmr-black flex items-center justify-center font-intertight">
+            <div className="flex items-center gap-2 font-bold text-white tracking-widest text-xs uppercase">
+              <span>TMR CAR CARE</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-tmr-orange animate-ping" />
             </div>
           </div>
         )}
 
-        {/* REFINED EDITORIAL TYPOGRAPHY OVERLAY (5 STRICT STATES ON A 12-COLUMN GRID) */}
-        <div className="relative z-10 px-6 md:px-12 max-w-[1360px] mx-auto w-full flex-grow flex items-center pt-16">
-          {/* STATE 01 — SURFACE (0% - 16.6%) */}
+        {/* CINEMATIC EDITORIAL OVERLAY (LEFT ANCHORED 12-COLUMN POSITIONING) */}
+        <div className="relative z-10 px-6 md:px-12 max-w-[1360px] mx-auto w-full flex-grow flex items-center pt-24 md:pt-32">
+          
+          {/* STATE 01 — SURFACE */}
           <div
-            className={`w-full max-w-3xl transition-all duration-500 ease-out ${
+            className={`w-full max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 0
                 ? 'opacity-100 translate-y-0 pointer-events-auto'
                 : 'opacity-0 -translate-y-4 pointer-events-none absolute'
             }`}
           >
-            <span className="font-manrope font-extrabold text-xs text-tmr-orange uppercase tracking-[0.3em] mb-4 block">
-              01 / SURFACE
-            </span>
-            <h1 className="font-manrope font-black text-5xl sm:text-7xl md:text-8xl lg:text-[100px] text-white uppercase leading-[0.88] tracking-tighter mb-6">
-              THE ART
-              <br />
-              <span className="text-tmr-orange">/</span> OF CAR CARE
+            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
+              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
+              <span>01 — SURFACE</span>
+            </div>
+            <h1 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[84px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
+              THE ART OF CAR CARE.
             </h1>
-            <p className="font-editorial text-xl sm:text-2xl text-white/80 italic mb-8 max-w-lg">
-              PRECISION BEGINS WITH THE SURFACE.
+            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic mb-6 leading-tight">
+              Precision begins with the surface.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="accent" size="md" href="/services">
-                EXPLORE SERVICES →
-              </Button>
-              <Button variant="outline" size="md" href="/contact">
-                VISIT WORKSHOP →
-              </Button>
+            <div>
+              <Link
+                to="/services"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              >
+                <span className="inline-flex items-center gap-1.5">
+                  <span>EXPLORE SERVICES</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                </span>
+                <span className="h-[1.5px] w-12 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
+              </Link>
             </div>
           </div>
 
-          {/* STATE 02 — REVEAL (16.6% - 33.3%) */}
+          {/* STATE 02 — REVEAL */}
           <div
-            className={`w-full max-w-2xl transition-all duration-500 ease-out ${
+            className={`w-full max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 1
                 ? 'opacity-100 translate-y-0 pointer-events-auto'
                 : 'opacity-0 -translate-y-4 pointer-events-none absolute'
             }`}
           >
-            <span className="font-manrope font-extrabold text-xs text-tmr-orange uppercase tracking-[0.3em] mb-4 block">
-              02 / REVEAL
-            </span>
-            <h2 className="font-manrope font-black text-4xl sm:text-6xl md:text-7xl text-white uppercase leading-[0.9] tracking-tighter mb-4">
-              EVERY SURFACE
-              <br />
-              MATTERS.
+            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
+              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
+              <span>02 — REVEAL</span>
+            </div>
+            <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
+              EVERY SURFACE MATTERS.
             </h2>
-            <p className="font-editorial text-xl sm:text-2xl text-white/80 italic max-w-md">
-              LIGHT, PAINT AND REFLECTION TELL THE STORY.
+            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic leading-tight">
+              Paint. Reflection. Finish.
             </p>
           </div>
 
-          {/* STATE 03 — APPROACH (33.3% - 50%) */}
+          {/* STATE 03 — APPROACH */}
           <div
-            className={`w-full max-w-2xl ml-auto text-right transition-all duration-500 ease-out ${
+            className={`w-full max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 2
                 ? 'opacity-100 translate-y-0 pointer-events-auto'
                 : 'opacity-0 -translate-y-4 pointer-events-none absolute'
             }`}
           >
-            <span className="font-manrope font-extrabold text-xs text-tmr-orange uppercase tracking-[0.3em] mb-4 block">
-              03 / APPROACH
-            </span>
-            <h2 className="font-manrope font-black text-4xl sm:text-6xl md:text-7xl text-white uppercase leading-[0.9] tracking-tighter mb-4">
-              PRECISION
-              <br />
-              IN MOTION.
+            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
+              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
+              <span>03 — APPROACH</span>
+            </div>
+            <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
+              PRECISION IN MOTION.
             </h2>
-            <p className="font-editorial text-xl sm:text-2xl text-white/80 italic ml-auto max-w-md">
-              EVERY PASS IS CONTROLLED. EVERY DETAIL IS INTENTIONAL.
+            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic leading-tight">
+              Measured work. Controlled finish.
             </p>
           </div>
 
-          {/* STATE 04 — CRAFT (50% - 66.6%) */}
+          {/* STATE 04 — CRAFT */}
           <div
-            className={`w-full max-w-2xl transition-all duration-500 ease-out ${
+            className={`w-full max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 3
                 ? 'opacity-100 translate-y-0 pointer-events-auto'
                 : 'opacity-0 -translate-y-4 pointer-events-none absolute'
             }`}
           >
-            <span className="font-manrope font-extrabold text-xs text-tmr-orange uppercase tracking-[0.3em] mb-4 block">
-              04 / CRAFT
-            </span>
-            <h2 className="font-manrope font-black text-4xl sm:text-6xl md:text-7xl text-white uppercase leading-[0.9] tracking-tighter mb-4">
-              CRAFT,
-              <br />
-              NOT COMMERCE.
+            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
+              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
+              <span>04 — CRAFT</span>
+            </div>
+            <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
+              CRAFT, NOT COMMERCE.
             </h2>
-            <p className="font-editorial text-xl sm:text-2xl text-white/80 italic max-w-md">
-              CONTROLLED TOOLS. CONTROLLED MOTION. A FINISH BUILT BY HAND.
+            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic leading-tight">
+              Every pass is intentional.
             </p>
           </div>
 
-          {/* STATE 05 — FINISH (66.6% - 83.3%) */}
+          {/* STATE 05 — FINISH */}
           <div
-            className={`w-full max-w-3xl transition-all duration-500 ease-out ${
+            className={`w-full max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 4
                 ? 'opacity-100 translate-y-0 pointer-events-auto'
                 : 'opacity-0 -translate-y-4 pointer-events-none absolute'
             }`}
           >
-            <span className="font-manrope font-extrabold text-xs text-tmr-orange uppercase tracking-[0.3em] mb-4 block">
-              05 / FINISH
-            </span>
-            <h2 className="font-manrope font-black text-5xl sm:text-7xl md:text-8xl text-white uppercase leading-[0.9] tracking-tighter mb-6">
-              FINISHED
-              <br />
-              WITH INTENT.
+            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
+              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
+              <span>05 — FINISH</span>
+            </div>
+            <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
+              FINISHED WITH INTENT.
             </h2>
-            <p className="font-editorial text-xl sm:text-2xl text-white/80 italic mb-8 max-w-md">
-              TMR CAR CARE — TIRUPPUR
+            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic mb-6 leading-tight">
+              The final surface is the standard.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button variant="accent" size="md" href="/services">
-                BOOK SERVICES →
-              </Button>
-              <Button variant="outline" size="md" href={whatsappUrl} target="_blank">
-                WHATSAPP US →
-              </Button>
+            <div>
+              <Link
+                to="/services"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              >
+                <span className="inline-flex items-center gap-1.5">
+                  <span>BOOK YOUR DETAIL</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                </span>
+                <span className="h-[1.5px] w-12 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
+              </Link>
             </div>
           </div>
+
         </div>
 
-        {/* SUBTLE BOTTOM PROGRESS INDICATOR & INITIAL SCROLL CUE */}
-        <div className="relative z-10 pb-8 px-6 md:px-12 flex items-end justify-between font-manrope pointer-events-none">
+        {/* MINIMAL SUBTLE BOTTOM INDICATOR & INITIAL SCROLL CUE */}
+        <div className="relative z-10 pb-8 px-6 md:px-12 flex items-end justify-between font-intertight pointer-events-none">
           {/* Scroll Cue (Fades out when scrolling begins) */}
           <div
-            className={`flex items-center gap-3 transition-opacity duration-500 ${
-              displayProgress > 3 ? 'opacity-0' : 'opacity-100'
+            className={`flex items-center gap-2.5 transition-opacity duration-500 ${
+              displayProgress > 2 ? 'opacity-0' : 'opacity-100'
             }`}
           >
-            <span className="text-xs font-bold uppercase tracking-widest text-white/70">SCROLL</span>
-            <div className="w-px h-10 bg-white/30 relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1/2 bg-tmr-orange animate-pulse" />
-            </div>
+            <span className="text-[11px] font-bold uppercase tracking-widest text-white/70">SCROLL</span>
+            <span className="text-[#FF4B00] text-xs font-bold animate-bounce">↓</span>
           </div>
 
-          {/* Minimal Editorial State Pill */}
-          <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2">
-              <div className="w-20 h-1 bg-white/20 rounded-full overflow-hidden">
-                <div
-                  style={{ width: `${displayProgress}%` }}
-                  className="h-full bg-tmr-orange transition-all duration-75"
-                />
-              </div>
-            </div>
-
-            <div className="bg-[#0F0F0F]/80 backdrop-blur-xl border border-white/10 px-3.5 py-1.5 rounded-full font-manrope font-extrabold text-[11px] uppercase tracking-widest text-white flex items-center gap-1.5 shadow-xl">
-              <span className="text-tmr-orange">0{Math.min(5, activeStateIndex + 1)}</span>
-              <span className="text-white/30">/</span>
-              <span className="text-white/60">05</span>
-            </div>
+          {/* Minimal Phase Indicator */}
+          <div className="flex items-center gap-3 text-xs font-bold text-white/60 tracking-widest uppercase">
+            <span className="text-[#FF4B00]">0{Math.min(5, activeStateIndex + 1)}</span>
+            <span className="w-6 h-[1.5px] bg-[#FF4B00]/60 inline-block" />
+            <span>05</span>
           </div>
         </div>
       </div>

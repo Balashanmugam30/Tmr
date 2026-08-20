@@ -24,6 +24,7 @@ export default {
       fontFamily: {
         sans: ['Manrope', 'sans-serif'],
         manrope: ['Manrope', 'sans-serif'],
+        intertight: ['Inter Tight', 'sans-serif'],
         serif: ['Instrument Serif', 'serif'],
         editorial: ['Instrument Serif', 'serif'],
       },
