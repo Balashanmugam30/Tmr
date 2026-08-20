@@ -21,85 +21,111 @@ export const ManifestoSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. Top Divider Line Draw
+      // MASTER REVEAL TIMELINE (PAUSED INITIALLY, DRIVEN BY SCROLL-ENTRY TRIGGER)
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: 'power4.out' },
+      });
+
+      // 1. Top Divider & Meta Row (0.00s)
       if (dividerRef.current) {
-        gsap.fromTo(
+        tl.fromTo(
           dividerRef.current,
           { scaleX: 0 },
-          {
-            scaleX: 1,
-            duration: 0.8,
-            ease: 'power3.out',
-            transformOrigin: 'left center',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 78%',
-            },
-          }
+          { scaleX: 1, duration: 0.8, transformOrigin: 'left center' },
+          0
         );
       }
 
-      // 2. Top Meta Row Fade-In
       if (metaRef.current) {
-        gsap.fromTo(
+        tl.fromTo(
           metaRef.current,
           { opacity: 0, y: 12 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 78%',
-            },
-          }
+          { opacity: 1, y: 0, duration: 0.5 },
+          0.05
         );
       }
 
-      // 3. Vertical Orange Rule Scale
+      // 2. Vertical Orange Accent Rule (0.08s)
       if (ruleRef.current) {
-        gsap.fromTo(
+        tl.fromTo(
           ruleRef.current,
           { scaleY: 0 },
-          {
-            scaleY: 1,
-            duration: 0.7,
-            ease: 'power3.out',
-            transformOrigin: 'top center',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 75%',
-            },
-          }
+          { scaleY: 1, duration: 0.7, transformOrigin: 'top center' },
+          0.08
         );
       }
 
-      // 4. Headline Lines Staggered Reveal
+      // 3. Staggered Masked Headline Reveal (0.12s -> 0.40s)
       if (headlineRef.current) {
         const lines = headlineRef.current.querySelectorAll('.manifesto-line');
         if (lines.length > 0) {
-          gsap.fromTo(
+          tl.fromTo(
             lines,
-            { opacity: 0, y: 24, clipPath: 'inset(100% 0 0 0)' },
+            { opacity: 0, y: 28, clipPath: 'inset(100% 0 0 0)' },
             {
               opacity: 1,
               y: 0,
               clipPath: 'inset(0% 0 0 0)',
               duration: 0.75,
-              stagger: 0.1,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 72%',
-              },
-            }
+              stagger: 0.09,
+            },
+            0.12
           );
         }
+      }
 
-        // Differential Line Parallax Depth
+      // 4. Horizontal Image Mask Curtain Reveal (0.24s -> 1.1s)
+      if (imageRef.current) {
+        const imgEl = imageRef.current.querySelector('img');
+
+        // Image wrapper mask curtain expands horizontally from left to right
+        tl.fromTo(
+          imageRef.current,
+          { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
+          {
+            opacity: 1,
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 1.1,
+            ease: 'power4.out',
+          },
+          0.24
+        );
+
+        // Subtle image shift and scale settling inside the expanding curtain
+        if (imgEl) {
+          tl.fromTo(
+            imgEl,
+            { x: 24, scale: 1.04 },
+            { x: 0, scale: 1.0, duration: 1.1, ease: 'power4.out' },
+            0.24
+          );
+        }
+      }
+
+      // 5. Bottom Metadata Row Entrance (0.85s)
+      if (bottomMetaRef.current) {
+        tl.fromTo(
+          bottomMetaRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6 },
+          0.85
+        );
+      }
+
+      // SCROLLTRIGGER SCROLL-ENTRY TRIGGER (Triggers ONCE when entering Manifesto from Hero)
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 78%',
+        animation: tl,
+        toggleActions: 'play none none none',
+      });
+
+      // POST-REVEAL CONTINUOUS SCROLL PARALLAX (3-Layer Depth)
+      if (headlineRef.current) {
+        const lines = headlineRef.current.querySelectorAll('.manifesto-line');
         lines.forEach((line, index) => {
-          const depth = -14 - index * 3; // -14px, -17px, -20px, -23px
+          const depth = -14 - index * 3;
           gsap.to(line, {
             y: depth,
             ease: 'none',
@@ -113,26 +139,7 @@ export const ManifestoSection: React.FC = () => {
         });
       }
 
-      // 5. Image Entrance Reveal & Subtle Scroll Parallax
       if (imageRef.current) {
-        gsap.fromTo(
-          imageRef.current,
-          { opacity: 0, scale: 1.06, y: 30, clipPath: 'inset(8% 0 8% 0)' },
-          {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            clipPath: 'inset(0% 0 0% 0)',
-            duration: 0.9,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 68%',
-            },
-          }
-        );
-
-        // Parallax Scroll Effect (-30px)
         gsap.to(imageRef.current, {
           y: -30,
           ease: 'none',
@@ -143,24 +150,6 @@ export const ManifestoSection: React.FC = () => {
             scrub: true,
           },
         });
-      }
-
-      // 6. Bottom Meta Row Entrance
-      if (bottomMetaRef.current) {
-        gsap.fromTo(
-          bottomMetaRef.current,
-          { opacity: 0, y: 16 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 60%',
-            },
-          }
-        );
       }
     }, sectionRef);
 
@@ -174,7 +163,7 @@ export const ManifestoSection: React.FC = () => {
     >
       <Container>
         {/* TOP DIVIDER */}
-        <div ref={dividerRef} className="w-full h-px bg-black/10 mb-8" />
+        <div ref={dividerRef} className="w-full h-px bg-black/10 mb-8 origin-left" />
 
         {/* TOP META ROW */}
         <div
@@ -197,7 +186,7 @@ export const ManifestoSection: React.FC = () => {
             {/* VERTICAL ORANGE ACCENT RULE */}
             <div
               ref={ruleRef}
-              className="w-1.5 h-32 md:h-44 bg-[#FF4B00] rounded-full shrink-0 mt-3"
+              className="w-1.5 h-32 md:h-44 bg-[#FF4B00] rounded-full shrink-0 mt-3 origin-top"
             />
 
             {/* UNIFIED #050505 TYPOGRAPHIC STATEMENT */}
@@ -205,17 +194,25 @@ export const ManifestoSection: React.FC = () => {
               ref={headlineRef}
               className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[92px] uppercase text-[#050505] leading-[0.90] tracking-[-0.05em]"
             >
-              <span className="manifesto-line block text-[#050505]">FOR PEOPLE</span>
-              <span className="manifesto-line block ml-4 sm:ml-8 md:ml-12 text-[#050505]">
-                WHO CARE
-              </span>
-              <span className="manifesto-line block ml-8 sm:ml-14 md:ml-20 text-[#050505]">
-                ABOUT THEIR
-              </span>
-              <span className="manifesto-line flex items-center gap-2.5 ml-12 sm:ml-20 md:ml-28 text-[#050505]">
-                <span>CARS.</span>
-                <span className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#FF4B00] inline-block shrink-0" />
-              </span>
+              <div className="overflow-hidden">
+                <span className="manifesto-line block text-[#050505]">FOR PEOPLE</span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="manifesto-line block ml-4 sm:ml-8 md:ml-12 text-[#050505]">
+                  WHO CARE
+                </span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="manifesto-line block ml-8 sm:ml-14 md:ml-20 text-[#050505]">
+                  ABOUT THEIR
+                </span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="manifesto-line flex items-center gap-2.5 ml-12 sm:ml-20 md:ml-28 text-[#050505]">
+                  <span>CARS.</span>
+                  <span className="w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#FF4B00] inline-block shrink-0" />
+                </span>
+              </div>
             </h2>
           </div>
 
