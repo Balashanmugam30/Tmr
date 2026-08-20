@@ -20,7 +20,7 @@ export const ManifestoSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Top Divider Expansion
+      // Top Divider Line Expansion
       if (dividerRef.current) {
         gsap.fromTo(
           dividerRef.current,
@@ -38,7 +38,7 @@ export const ManifestoSection: React.FC = () => {
         );
       }
 
-      // Meta Row Entrance
+      // Top Meta Row Entrance
       if (metaRef.current) {
         gsap.fromTo(
           metaRef.current,
@@ -56,7 +56,7 @@ export const ManifestoSection: React.FC = () => {
         );
       }
 
-      // Vertical Orange Rule Scale
+      // Vertical Orange Accent Rule Scale
       if (ruleRef.current) {
         gsap.fromTo(
           ruleRef.current,
@@ -74,18 +74,18 @@ export const ManifestoSection: React.FC = () => {
         );
       }
 
-      // Headline Lines Staggered Reveal
+      // Headline Lines Line-by-Line Reveal
       if (headlineRef.current) {
         const lines = headlineRef.current.querySelectorAll('.manifesto-line');
         if (lines.length > 0) {
           gsap.fromTo(
             lines,
-            { opacity: 0, y: 28 },
+            { opacity: 0, y: 18 },
             {
               opacity: 1,
               y: 0,
               duration: 0.7,
-              stagger: 0.12,
+              stagger: 0.08,
               ease: 'power3.out',
               scrollTrigger: {
                 trigger: sectionRef.current,
@@ -96,11 +96,11 @@ export const ManifestoSection: React.FC = () => {
         }
       }
 
-      // Image Reveal & Subtle Parallax
+      // Dedicated Image Reveal & Subtle Parallax
       if (imageRef.current) {
         gsap.fromTo(
           imageRef.current,
-          { opacity: 0, scale: 1.04, y: 32 },
+          { opacity: 0, scale: 1.04, y: 20 },
           {
             opacity: 1,
             scale: 1,
@@ -114,9 +114,9 @@ export const ManifestoSection: React.FC = () => {
           }
         );
 
-        // Subtle Parallax Scroll Effect
+        // Subtle Parallax Effect (18px vertical shift)
         gsap.to(imageRef.current, {
-          y: -24,
+          y: -20,
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -143,62 +143,62 @@ export const ManifestoSection: React.FC = () => {
         {/* TOP META ROW */}
         <div
           ref={metaRef}
-          className="flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.2em] mb-12 md:mb-20 text-[#050505]"
+          className="flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.12em] mb-12 md:mb-16 text-[#050505]"
         >
           <div className="flex items-center gap-2.5">
             <span className="text-[#FF4B00]">01</span>
             <span className="text-black/30">/</span>
-            <span className="text-[#050505]">TMR CAR CARE</span>
+            <span className="text-[#050505]">TMR</span>
           </div>
-          <span className="text-[#858585] tracking-[0.25em]">MANIFESTO</span>
+          <span className="text-[#777777] tracking-[0.2em]">MANIFESTO</span>
         </div>
 
         {/* ASYMMETRIC 12-COLUMN EDITORIAL GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative min-h-[500px]">
           
-          {/* LEFT / MAIN STATEMENT COLUMN (8 COLUMNS) */}
-          <div className="lg:col-span-8 flex gap-6 md:gap-8 items-start relative z-10">
-            {/* VERTICAL ORANGE RULE */}
+          {/* LEFT / MAIN STATEMENT COLUMN (COLUMNS 2–8, MAX-WIDTH 820px) */}
+          <div className="lg:col-span-8 flex gap-6 md:gap-8 items-start relative z-10 max-w-[820px]">
+            {/* VERTICAL ORANGE ACCENT RULE */}
             <div
               ref={ruleRef}
-              className="w-1.5 h-36 md:h-52 bg-[#FF4B00] rounded-full shrink-0 mt-2"
+              className="w-1.5 h-36 md:h-48 bg-[#FF4B00] rounded-full shrink-0 mt-3"
             />
 
-            {/* ASYMMETRIC TYPOGRAPHIC STATEMENT */}
+            {/* UNIFIED #050505 UNIFIED TYPOGRAPHIC STATEMENT */}
             <h2
               ref={headlineRef}
-              className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-8xl lg:text-[108px] uppercase text-[#050505] leading-[0.88] tracking-[-0.055em]"
+              className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-8xl lg:text-[108px] uppercase text-[#050505] leading-[0.90] tracking-[-0.055em]"
             >
-              <span className="manifesto-line block">FOR PEOPLE</span>
-              <span className="manifesto-line block ml-6 sm:ml-12 md:ml-20 text-[#050505]">
+              <span className="manifesto-line block text-[#050505]">FOR PEOPLE</span>
+              <span className="manifesto-line block ml-4 sm:ml-8 md:ml-12 text-[#050505]">
                 WHO CARE
               </span>
-              <span className="manifesto-line block ml-12 sm:ml-24 md:ml-40 text-[#666666]">
+              <span className="manifesto-line block ml-10 sm:ml-20 md:ml-32 text-[#050505]">
                 ABOUT THEIR
               </span>
-              <span className="manifesto-line flex items-center gap-3 ml-16 sm:ml-32 md:ml-56 text-[#050505]">
+              <span className="manifesto-line flex items-center gap-3 ml-14 sm:ml-28 md:ml-44 text-[#050505]">
                 <span>CARS.</span>
-                <span className="w-3 h-3 md:w-5 md:h-5 rounded-full bg-[#FF4B00] inline-block shrink-0" />
+                <span className="w-3.5 h-3.5 rounded-full bg-[#FF4B00] inline-block shrink-0" />
               </span>
             </h2>
           </div>
 
-          {/* RIGHT / OVERLAPPING EDITORIAL PHOTOGRAPH (4 COLUMNS) */}
+          {/* RIGHT / OVERLAPPING DEDICATED MANIFESTO PHOTOGRAPH (COLUMNS 8–12) */}
           <div className="lg:col-span-4 relative mt-8 lg:mt-0">
             <div
               ref={imageRef}
-              className="relative rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.14)] border border-black/10 aspect-[4/5] lg:-ml-12 z-20 group"
+              className="relative rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.16)] border border-black/10 aspect-[3/4] max-w-[460px] mx-auto lg:max-w-none lg:-ml-16 z-20 group"
             >
               <img
-                src="/hero-sequence/frame-0480.webp"
-                alt="TMR Car Care studio craftsmanship detailing"
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                src="/images/manifesto/manifesto-editorial.webp"
+                alt="TMR Car Care studio detailing craftsmanship"
+                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               
               <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                <span className="bg-[#050505]/80 backdrop-blur-md px-3.5 py-1.5 rounded-full font-intertight text-[10px] font-extrabold uppercase tracking-widest text-white">
-                  STUDIO CRAFT // 01
+                <span className="bg-[#050505]/85 backdrop-blur-md px-3.5 py-1.5 rounded-full font-intertight text-[10px] font-bold uppercase tracking-widest text-white">
+                  STUDIO CRAFT / TMR
                 </span>
                 <span className="text-[#FF4B00] font-intertight text-xs font-bold">
                   TIRUPPUR
@@ -210,8 +210,8 @@ export const ManifestoSection: React.FC = () => {
         </div>
 
         {/* BOTTOM SUPPORTING STATEMENT ROW */}
-        <div className="mt-16 md:mt-24 border-t border-black/10 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4 font-intertight text-xs uppercase tracking-wider text-[#666666]">
-          <span className="font-bold text-[#050505]">
+        <div className="mt-16 md:mt-24 border-t border-black/10 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4 font-intertight text-[11px] font-semibold uppercase tracking-wider text-[#555555]">
+          <span className="text-[#050505]">
             CONTROLLED ENVIRONMENT // TIRUPPUR STUDIO FACILITY
           </span>
           <span>
