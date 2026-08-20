@@ -291,7 +291,7 @@ export const ScrollyHero: React.FC = () => {
         {/* CINEMATIC SPATIAL EDITORIAL OVERLAY (FRAME-AWARE POSITIONS) */}
         <div className="relative z-10 w-full h-full pointer-events-none">
           
-          {/* STATE 01 — SURFACE (BOTTOM-LEFT / LEFT-CENTER: left 8vw, top 44vh) */}
+          {/* STATE 01 — SURFACE (BOTTOM-LEFT / LOWER-LEFT ANCHOR: left 8vw, top 44vh) */}
           <div
             className={`absolute left-[6vw] lg:left-[8vw] top-[40vh] md:top-[44vh] w-[88vw] max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 0
@@ -383,9 +383,9 @@ export const ScrollyHero: React.FC = () => {
             </p>
           </div>
 
-          {/* STATE 05 — FINISH (CENTER-LEFT / TOP-LEFT: left 8vw, top 28vh) */}
+          {/* STATE 05 — FINISH (EDITORIAL BOOKEND: LOWER-LEFT ANCHOR MATCHING STATE 01) */}
           <div
-            className={`absolute left-[6vw] lg:left-[8vw] top-[24vh] md:top-[28vh] w-[88vw] max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute left-[6vw] lg:left-[8vw] top-[40vh] md:top-[44vh] w-[88vw] max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 4
                 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
