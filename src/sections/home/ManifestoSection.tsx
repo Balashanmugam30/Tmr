@@ -21,13 +21,13 @@ export const ManifestoSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // MASTER REVEAL TIMELINE (PAUSED INITIALLY, DRIVEN BY SCROLL-ENTRY TRIGGER)
+      // 1. MASTER REVEAL TIMELINE (PAUSED INITIALLY, CONTROLLED BY VIEWPORT ENTRY)
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power4.out' },
       });
 
-      // 1. Top Divider & Meta Row (0.00s)
+      // 1a. Top Divider & Meta Row (0.00s)
       if (dividerRef.current) {
         tl.fromTo(
           dividerRef.current,
@@ -46,7 +46,7 @@ export const ManifestoSection: React.FC = () => {
         );
       }
 
-      // 2. Vertical Orange Accent Rule (0.08s)
+      // 1b. Vertical Orange Accent Rule (0.08s)
       if (ruleRef.current) {
         tl.fromTo(
           ruleRef.current,
@@ -56,7 +56,7 @@ export const ManifestoSection: React.FC = () => {
         );
       }
 
-      // 3. Staggered Masked Headline Reveal (0.12s -> 0.40s)
+      // 1c. Staggered Masked Headline Reveal (0.12s -> 0.40s)
       if (headlineRef.current) {
         const lines = headlineRef.current.querySelectorAll('.manifesto-line');
         if (lines.length > 0) {
@@ -75,7 +75,7 @@ export const ManifestoSection: React.FC = () => {
         }
       }
 
-      // 4. Horizontal Image Mask Curtain Reveal (0.24s -> 1.1s)
+      // 1d. Horizontal Image Mask Curtain Reveal (0.24s -> 1.1s)
       if (imageRef.current) {
         const imgEl = imageRef.current.querySelector('img');
 
@@ -92,18 +92,18 @@ export const ManifestoSection: React.FC = () => {
           0.24
         );
 
-        // Subtle image shift and scale settling inside the expanding curtain
+        // Subtle image shift inside the expanding curtain
         if (imgEl) {
           tl.fromTo(
             imgEl,
-            { x: 24, scale: 1.04 },
-            { x: 0, scale: 1.0, duration: 1.1, ease: 'power4.out' },
+            { x: 24 },
+            { x: 0, duration: 1.1, ease: 'power4.out' },
             0.24
           );
         }
       }
 
-      // 5. Bottom Metadata Row Entrance (0.85s)
+      // 1e. Bottom Metadata Row Entrance (0.85s)
       if (bottomMetaRef.current) {
         tl.fromTo(
           bottomMetaRef.current,
@@ -113,15 +113,26 @@ export const ManifestoSection: React.FC = () => {
         );
       }
 
-      // SCROLLTRIGGER SCROLL-ENTRY TRIGGER (Triggers ONCE when entering Manifesto from Hero)
+      // 2. SCROLLTRIGGER VIEWPORT ENTER / LEAVE LIFECYCLE (REPLAYS ON VIEWPORT RE-ENTRY)
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 78%',
-        animation: tl,
-        toggleActions: 'play none none none',
+        end: 'bottom 20%',
+        onEnter: () => {
+          tl.restart();
+        },
+        onEnterBack: () => {
+          tl.restart();
+        },
+        onLeave: () => {
+          tl.pause(0);
+        },
+        onLeaveBack: () => {
+          tl.pause(0);
+        },
       });
 
-      // POST-REVEAL CONTINUOUS SCROLL PARALLAX (3-Layer Depth)
+      // 3. CONTINUOUS SCROLL PARALLAX (3-Layer Depth)
       if (headlineRef.current) {
         const lines = headlineRef.current.querySelectorAll('.manifesto-line');
         lines.forEach((line, index) => {
@@ -150,6 +161,35 @@ export const ManifestoSection: React.FC = () => {
             scrub: true,
           },
         });
+      }
+
+      // 4. RESTORE DEDICATED IMAGE HOVER EFFECT (scale 1.0 -> 1.025)
+      if (imageRef.current) {
+        const imgContainer = imageRef.current;
+        const imgEl = imgContainer.querySelector('img');
+
+        if (imgEl) {
+          const handleMouseEnter = () => {
+            gsap.to(imgEl, {
+              scale: 1.025,
+              duration: 0.5,
+              ease: 'power2.out',
+              overwrite: 'auto',
+            });
+          };
+
+          const handleMouseLeave = () => {
+            gsap.to(imgEl, {
+              scale: 1.0,
+              duration: 0.5,
+              ease: 'power2.out',
+              overwrite: 'auto',
+            });
+          };
+
+          imgContainer.addEventListener('mouseenter', handleMouseEnter);
+          imgContainer.addEventListener('mouseleave', handleMouseLeave);
+        }
       }
     }, sectionRef);
 
@@ -220,12 +260,12 @@ export const ManifestoSection: React.FC = () => {
           <div className="lg:col-span-5 relative mt-8 lg:mt-0 z-0">
             <div
               ref={imageRef}
-              className="relative rounded-[16px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.14)] border border-black/10 aspect-[4/5] max-w-[460px] mx-auto lg:max-w-none group"
+              className="relative rounded-[16px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.14)] border border-black/10 aspect-[4/5] max-w-[460px] mx-auto lg:max-w-none group cursor-pointer"
             >
               <img
                 src="/images/manifesto/manifesto-editorial.webp"
                 alt="TMR Car Care studio detailing craftsmanship"
-                className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.025] group-hover:brightness-[1.03]"
+                className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:brightness-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               
