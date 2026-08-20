@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-tmr-orange: #FF4B00;
+    --color-tmr-black: #050505;
+    --color-tmr-softblack: #111111;
+    --color-tmr-warmwhite: #F5F4EF;
+    --color-tmr-white: #FFFFFF;
+    --color-tmr-concrete: #D8D8D5;
+    --color-tmr-muted: #858585;
+  }
+
+  html {
+    font-family: 'Manrope', sans-serif;
+    color: #111111;
+    background-color: #F5F4EF;
+  }
+
+  /* Accessibility focus ring */
+  *:focus-visible {
+    outline: 2px solid #FF4B00;
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .font-editorial {
+    font-family: 'Instrument Serif', serif;
+  }
+  
+  .font-manrope {
+    font-family: 'Manrope', sans-serif;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #FF4B00;
+    border-radius: 2px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #d53d00;
+  }
+}
+
+/* Lenis smooth scrolling helper styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
