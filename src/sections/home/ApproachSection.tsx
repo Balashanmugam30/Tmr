@@ -161,12 +161,12 @@ export const ApproachSection: React.FC = () => {
         </div>
       </Container>
 
-      {/* MAIN CINEMATIC COMPOSITION: LEFT (45% NEGATIVE SPACE + BOTTOM EDITORIAL TEXT) / RIGHT (55% DOMINANT VIDEO) */}
+      {/* MAIN CINEMATIC COMPOSITION: LEFT (45% NEGATIVE SPACE + BOTTOM EDITORIAL TEXT) / RIGHT (PORTRAIT EDITORIAL VIDEO) */}
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 my-auto relative z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[70vh] lg:min-h-[78vh]">
           
-          {/* LEFT COLUMN (COLUMNS 1–5 / ~45% WIDTH): INTENTIONAL LARGE NEGATIVE SPACE WITH LOWER-LEFT EDITORIAL COPY */}
-          <div className="lg:col-span-5 relative flex flex-col justify-between h-full py-6 lg:py-12">
+          {/* LEFT COLUMN (COLUMNS 1–6 / ~45% WIDTH): INTENTIONAL LARGE NEGATIVE SPACE WITH LOWER-LEFT EDITORIAL COPY */}
+          <div className="lg:col-span-6 relative flex flex-col justify-between h-full py-6 lg:py-12">
             
             {/* INTENTIONAL LARGE TOP NEGATIVE SPACE */}
             <div className="hidden lg:block flex-1 min-h-[180px]" />
@@ -205,22 +205,22 @@ export const ApproachSection: React.FC = () => {
 
           </div>
 
-          {/* RIGHT COLUMN (COLUMNS 6–12 / ~55% WIDTH): DOMINANT CINEMATIC AUTOMOTIVE DETAILING VIDEO */}
-          <div className="lg:col-span-7 relative w-full flex justify-end">
+          {/* RIGHT COLUMN (COLUMNS 7–12): TALL VERTICAL PORTRAIT EDITORIAL CINEMATIC VIDEO (9:16 ASPECT RATIO) */}
+          <div className="lg:col-span-6 relative w-full flex justify-center lg:justify-end">
             <div
               ref={videoWrapperRef}
-              className="relative w-full lg:w-[56vw] aspect-[16/10] max-h-[78vh] overflow-hidden rounded-[18px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group bg-black"
+              className="relative w-full max-w-[380px] lg:w-[35vw] aspect-[9/16] max-h-[82vh] overflow-hidden rounded-[18px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group bg-black"
             >
               {/* POSTER LOADING FALLBACK LAYER (FADES OUT WHEN VIDEO IS PLAYING) */}
               <img
                 src="/videos/approach/approach-poster.webp"
                 alt="TMR Cinematic Automotive Detailing Studio"
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 pointer-events-none z-10 ${
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 pointer-events-none z-10 ${
                   isVideoPlaying ? 'opacity-0' : 'opacity-100'
                 }`}
               />
 
-              {/* LOCAL H.264 MP4 CINEMATIC VIDEO */}
+              {/* LOCAL H.264 MP4 CINEMATIC VIDEO (PORTRAIT COVER CROP) */}
               <video
                 ref={videoRef}
                 src="/videos/approach/approach-cinematic.mp4"
@@ -229,7 +229,7 @@ export const ApproachSection: React.FC = () => {
                 loop
                 playsInline
                 preload="auto"
-                className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.02] z-0 ${
+                className={`w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.02] z-0 ${
                   isVideoPlaying ? 'opacity-100' : 'opacity-0'
                 }`}
               >
@@ -241,8 +241,8 @@ export const ApproachSection: React.FC = () => {
 
               {/* REFINED GLASSMORPHIC BADGE */}
               <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight z-20">
-                <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
-                  CINEMATIC STUDIO REFINEMENT // TIRUPPUR
+                <span className="bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest text-white border border-white/10">
+                  CINEMATIC STUDIO REFINEMENT // 9:16
                 </span>
               </div>
             </div>
