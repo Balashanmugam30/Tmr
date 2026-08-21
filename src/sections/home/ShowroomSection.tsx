@@ -26,8 +26,8 @@ export const ShowroomSection: React.FC = () => {
       if (imageRef.current) {
         tl.fromTo(
           imageRef.current,
-          { opacity: 0.8, scale: 1.04 },
-          { opacity: 1, scale: 1.0, duration: 1.1 },
+          { opacity: 0.85, scale: 1.025 },
+          { opacity: 1, scale: 1.0, duration: 1.0 },
           0
         );
       }
@@ -36,9 +36,9 @@ export const ShowroomSection: React.FC = () => {
         const items = contentRef.current.querySelectorAll('.showroom-anim-item');
         tl.fromTo(
           items,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.75, stagger: 0.08 },
-          0.15
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 },
+          0.1
         );
       }
 
@@ -68,18 +68,18 @@ export const ShowroomSection: React.FC = () => {
         ref={imageRef}
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrGobyku5YJCXyB2Rc0aowUUYUcvOsUHhFFYxg9qCACu7gFr-kFiwSKAx0hYp8qMGzf_D70GQMVNwX_SjbhsUI5NF9dEQPxxVHoUUsrqWESfHMzjz6XchhOZAAsG__azrHGdukeQWWcGpC7yfuCkaJ1GXFeOgV5pJMK2CLlynLo_QnKbd6Hp1BqYHhfwoeYoxHWhDlv-0pLT1VzFIAKoy1Kf8vooQeryIOsNaeWKFpFBZVQZO8MTA3"
         alt="TMR Car Care studio exterior in Tiruppur"
-        className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-1000 ease-out"
+        className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-1000 ease-out pointer-events-none"
         onError={(e) => {
           const target = e.target as HTMLImageElement;
           target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="900" viewBox="0 0 1920 900"><rect width="1920" height="900" fill="%23070809"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="32" fill="%23FF4B00">TMR TIRUPPUR STUDIO FACILITY</text></svg>`;
         }}
       />
 
-      {/* DARK CINEMATIC VIGNETTE & GRADIENT OVERLAYS */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#070809] via-black/50 to-[#070809]/80 pointer-events-none z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#070809]/90 via-[#070809]/60 to-transparent pointer-events-none z-10 w-full lg:w-8/12" />
+      {/* DARK CINEMATIC GRADIENT OVERLAYS FOR CRISP READABILITY & ATMOSPHERE */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#070809] via-black/40 to-[#070809]/70 pointer-events-none z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#070809]/95 via-[#070809]/60 to-transparent pointer-events-none z-10 w-full lg:w-8/12" />
 
-      {/* 2. TOP ARCHITECTURAL METADATA ROW */}
+      {/* 2. TOP METADATA ROW */}
       <Container className="relative z-20 pt-2">
         <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
           <div className="flex items-center gap-2.5">
@@ -94,13 +94,13 @@ export const ShowroomSection: React.FC = () => {
         </div>
       </Container>
 
-      {/* 3. INTEGRATED EDITORIAL LOCATION BLOCK (ANCHORED IN LOWER VIEWPORT) */}
+      {/* 3. REFINED EDITORIAL LOCATION TEXT BLOCK (COMPACT, LOWER-LEFT VIEWPORT) */}
       <Container className="relative z-20 my-auto py-6 lg:py-8">
-        <div ref={contentRef} className="max-w-[620px] space-y-6">
+        <div ref={contentRef} className="max-w-[560px] space-y-5">
           
           {/* EYEBROW */}
           <div className="showroom-anim-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
-            08 // THE PHYSICAL DESTINATION
+            TIRUPPUR STUDIO
           </div>
 
           {/* MAIN HEADLINE */}
@@ -109,25 +109,18 @@ export const ShowroomSection: React.FC = () => {
             THE <span className="text-[#FF4B00]">DIFFERENCE.</span>
           </h2>
 
-          {/* ACCENT TAGLINE */}
+          {/* EDITORIAL SUBTITLE */}
           <p className="showroom-anim-item font-editorial text-2xl sm:text-3xl italic text-[#FF4B00]">
-            Our Tiruppur Studio
+            Our Tiruppur Studio.
           </p>
 
-          {/* ADDRESS & CONTACT BLOCK */}
-          <div className="showroom-anim-item pt-2 border-t border-white/10 space-y-2 text-xs sm:text-sm text-white/80 font-intertight">
-            <p className="font-semibold leading-relaxed max-w-[440px]">
-              {companyData.address.fullText}
-            </p>
-            <div className="flex flex-wrap items-center gap-4 text-[11px] font-bold text-white/50 tracking-wider uppercase pt-1">
-              <span>PHONE: {companyData.contact.phoneFormatted}</span>
-              <span>•</span>
-              <span>MON — SAT: 09:00 — 20:00</span>
-            </div>
-          </div>
+          {/* ONE COMPACT ADDRESS LINE */}
+          <p className="showroom-anim-item font-intertight text-xs sm:text-sm text-white/80 font-semibold leading-relaxed max-w-[440px] pt-1">
+            {companyData.address.fullText}
+          </p>
 
-          {/* EDITORIAL CTA BUTTONS */}
-          <div className="showroom-anim-item pt-4 flex items-center gap-8 font-intertight">
+          {/* PRIMARY & SECONDARY ACTION LINKS */}
+          <div className="showroom-anim-item pt-3 flex items-center gap-8 font-intertight">
             <a
               href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
               target="_blank"
@@ -154,11 +147,11 @@ export const ShowroomSection: React.FC = () => {
         </div>
       </Container>
 
-      {/* 4. BOTTOM TECHNICAL DIRECTION FOOTER */}
+      {/* 4. BOTTOM TECHNICAL FOOTER */}
       <Container className="relative z-20 pb-2">
         <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
           <span>TMR / TIRUPPUR STUDIO</span>
-          <span>MONDAY — SATURDAY 09:00 — 20:00</span>
+          <span>PHYSICAL DESTINATION</span>
         </div>
       </Container>
     </section>

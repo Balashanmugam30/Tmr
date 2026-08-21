@@ -1,69 +1,148 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '@/components/Container';
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface TestimonialItem {
+  id: string;
+  number: string;
+  avatar: string;
+  name: string;
+  vehicle: string;
+  service: string;
+  quote: string;
+}
+
+const testimonialsData: TestimonialItem[] = [
+  {
+    id: 'karthik',
+    number: '01',
+    avatar: 'KR',
+    name: 'Karthik R.',
+    vehicle: 'Range Rover SV',
+    service: 'CERAMIC COATING + PPF MATRIX',
+    quote: 'The attention to detail at TMR is unmatched. My car looks better than the day it rolled off the showroom floor. True artisans of their craft.',
+  },
+  {
+    id: 'kumar',
+    number: '02',
+    avatar: 'SK',
+    name: 'S. Kumar',
+    vehicle: 'BMW M340i',
+    service: 'CERAMIC COATING MATRIX',
+    quote: 'Absolutely flawless ceramic coating job. The gloss is unbelievable and washing it now is a breeze.',
+  },
+  {
+    id: 'arvind',
+    number: '03',
+    avatar: 'AT',
+    name: 'Arvind T.',
+    vehicle: 'Mercedes-Benz W124',
+    service: 'CLASSIC INTERIOR RESTORATION',
+    quote: 'Professional, punctual, and passionate. The interior restoration brought my classic back to life.',
+  },
+];
+
 export const TestimonialsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const textGroupRef = useRef<HTMLDivElement>(null);
-  const sideGroupRef = useRef<HTMLDivElement>(null);
+  const quoteWrapperRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [isInViewport, setIsInViewport] = useState<boolean>(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
+  const activeItem = testimonialsData[activeIndex];
+
+  // ANIMATED COORDINATED TRANSITION WHEN ACTIVE INDEX CHANGES
+  const switchTestimonial = useCallback((newIndex: number) => {
+    if (newIndex === activeIndex) return;
+
+    if (quoteWrapperRef.current) {
+      gsap.to(quoteWrapperRef.current, {
+        opacity: 0,
+        y: -10,
+        duration: 0.25,
+        ease: 'power2.in',
+        onComplete: () => {
+          setActiveIndex(newIndex);
+          gsap.fromTo(
+            quoteWrapperRef.current,
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }
+          );
+        },
+      });
+    } else {
+      setActiveIndex(newIndex);
+    }
+  }, [activeIndex]);
+
+  // VIEWPORT ENTRY DETECTOR
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isReducedMotion) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setIsInViewport(entry.isIntersecting);
+        });
+      },
+      { threshold: 0.3 }
+    );
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        paused: true,
-        defaults: { ease: 'power4.out' },
-      });
-
-      if (textGroupRef.current) {
-        const textItems = textGroupRef.current.querySelectorAll('.proof-anim-item');
-        tl.fromTo(
-          textItems,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.75, stagger: 0.09 },
-          0
-        );
-      }
-
-      if (sideGroupRef.current) {
-        const sideItems = sideGroupRef.current.querySelectorAll('.proof-side-item');
-        tl.fromTo(
-          sideItems,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.65, stagger: 0.1 },
-          0.25
-        );
-      }
-
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top 78%',
-        end: 'bottom 20%',
-        onEnter: () => tl.restart(),
-        onEnterBack: () => tl.restart(),
-        onLeave: () => tl.pause(0),
-        onLeaveBack: () => tl.pause(0),
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
+
+  // AUTOPLAY TIMER (6 SECONDS PER TESTIMONIAL, PAUSES ON HOVER OR INACTIVE VIEWPORT)
+  useEffect(() => {
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion || isHovered || !isInViewport) return;
+
+    const timer = setInterval(() => {
+      const nextIndex = (activeIndex + 1) % testimonialsData.length;
+      switchTestimonial(nextIndex);
+    }, 6000);
+
+    return () => clearInterval(timer);
+  }, [activeIndex, isHovered, isInViewport, switchTestimonial]);
+
+  // TOUCH SWIPE HANDLERS FOR MOBILE
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        // Swipe Left -> Next
+        switchTestimonial((activeIndex + 1) % testimonialsData.length);
+      } else {
+        // Swipe Right -> Prev
+        switchTestimonial((activeIndex - 1 + testimonialsData.length) % testimonialsData.length);
+      }
+    }
+    setTouchStartX(null);
+  };
 
   return (
     <section
       ref={sectionRef}
       id="client-proof"
-      className="w-full min-h-[90svh] py-16 md:py-24 bg-[#F3F0EA] text-[#111111] border-t border-b border-black/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between"
+      className="w-full min-h-[90svh] py-16 md:py-24 bg-[#F3F0EA] text-[#111111] border-t border-b border-black/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between select-none"
       style={{ backgroundColor: '#F3F0EA' }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
-      {/* SUBTLE NOISE & FINE GRID OVERLAY */}
+      {/* SUBTLE FINE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-4 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
       {/* TOP ARCHITECTURAL METADATA ROW */}
@@ -75,112 +154,125 @@ export const TestimonialsSection: React.FC = () => {
             <span>CLIENT PROOF</span>
           </div>
           <span className="text-black/50 tracking-[0.2em] hidden sm:inline-block">
-            VERIFIED CLIENT TESTIMONIALS // TIRUPPUR STUDIO
+            EDITORIAL CLIENT FOCUS SLIDER // TIRUPPUR STUDIO
           </span>
         </div>
       </Container>
 
-      {/* MAIN ASYMMETRICAL 12-COLUMN EDITORIAL PROOF COMPOSITION */}
+      {/* MAIN CONTENT: ASYMMETRICAL 12-COLUMN EDITORIAL FOCUS SLIDER */}
       <Container className="relative z-20 my-auto py-8 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
-          {/* LEFT COLUMN: HERO FEATURED CLIENT PROOF (COLUMNS 1–7 / ~60%) */}
-          <div ref={textGroupRef} className="lg:col-span-7 space-y-6">
+          {/* LEFT COLUMN: ACTIVE FEATURED CLIENT TESTIMONIAL (COLUMNS 1–7 / ~60%) */}
+          <div className="lg:col-span-7 space-y-6">
             
             {/* EYEBROW */}
-            <div className="proof-anim-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+            <div className="font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
               07 // WHAT CLIENTS NOTICE
             </div>
 
             {/* MAIN HEADLINE */}
-            <h2 className="proof-anim-item font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-[#111111] leading-[0.90] tracking-[-0.04em]">
+            <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-[#111111] leading-[0.90] tracking-[-0.04em]">
               WHAT CLIENTS <br />
               <span className="text-[#FF4B00]">NOTICE.</span>
             </h2>
 
-            {/* OVERSIZED EDITORIAL QUOTE MARK */}
-            <div className="proof-anim-item font-editorial text-7xl sm:text-9xl text-[#FF4B00] leading-none select-none pointer-events-none -mb-8 opacity-80">
-              “
-            </div>
-
-            {/* HERO FEATURED QUOTE */}
-            <blockquote className="proof-anim-item font-editorial italic text-2xl sm:text-4xl lg:text-[44px] leading-[1.12] text-[#111111] max-w-[640px]">
-              "The attention to detail at TMR is unmatched. My car looks better than the day it rolled off the showroom floor. True artisans of their craft."
-            </blockquote>
-
-            {/* FEATURED CLIENT INITIAL AVATAR & METADATA */}
-            <div className="proof-anim-item pt-4 flex items-center gap-4">
-              {/* INITIAL AVATAR CIRCLE */}
-              <div className="w-12 h-12 rounded-full bg-[#111111] text-white border-2 border-[#FF4B00] flex items-center justify-center font-intertight font-black text-xs tracking-wider shadow-lg shrink-0">
-                KR
+            {/* ANIMATED FEATURED QUOTE & IDENTITY CONTAINER */}
+            <div ref={quoteWrapperRef} className="space-y-6 pt-2 min-h-[260px] flex flex-col justify-between">
+              
+              {/* OVERSIZED EDITORIAL QUOTE MARK & QUOTE TEXT */}
+              <div>
+                <div className="font-editorial text-6xl sm:text-8xl text-[#FF4B00] leading-none select-none pointer-events-none -mb-6 opacity-80">
+                  “
+                </div>
+                <blockquote className="font-editorial italic text-2xl sm:text-4xl lg:text-[42px] leading-[1.14] text-[#111111] max-w-[640px]">
+                  "{activeItem.quote}"
+                </blockquote>
               </div>
 
-              {/* CLIENT DETAILS */}
-              <div className="font-intertight">
-                <div className="font-extrabold text-sm text-[#111111] uppercase tracking-wider flex items-center gap-2">
-                  <span>Karthik R.</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />
-                  <span className="text-black/50 text-xs font-semibold">TIRUPPUR</span>
+              {/* CLIENT IDENTITY BADGE & SERVICE METADATA */}
+              <div className="pt-4 flex items-center gap-4 border-t border-black/10">
+                {/* INITIAL AVATAR CIRCLE */}
+                <div className="w-12 h-12 rounded-full bg-[#111111] text-white border-2 border-[#FF4B00] flex items-center justify-center font-intertight font-black text-xs tracking-wider shadow-lg shrink-0">
+                  {activeItem.avatar}
                 </div>
-                <div className="text-[11px] font-bold uppercase tracking-widest text-[#FF4B00] mt-0.5">
-                  RANGE ROVER SV // CERAMIC COATING + PPF
+
+                {/* CLIENT DETAILS */}
+                <div className="font-intertight">
+                  <div className="font-extrabold text-sm text-[#111111] uppercase tracking-wider flex items-center gap-2">
+                    <span>{activeItem.name}</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />
+                    <span className="text-black/50 text-xs font-semibold">{activeItem.vehicle}</span>
+                  </div>
+                  <div className="text-[11px] font-bold uppercase tracking-widest text-[#FF4B00] mt-0.5">
+                    {activeItem.service}
+                  </div>
                 </div>
               </div>
+
             </div>
 
           </div>
 
-          {/* RIGHT COLUMN: SUPPORTING CLIENT PROOF STACK (COLUMNS 8–12 / ~40%) */}
-          <div ref={sideGroupRef} className="lg:col-span-5 lg:border-l border-black/15 lg:pl-10 space-y-8">
-            
-            {/* SUPPORTING ENTRY 1 */}
-            <div className="proof-side-item space-y-3 pb-8 border-b border-black/10">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-black/10 text-[#111111] border border-black/15 flex items-center justify-center font-intertight font-black text-[11px] shrink-0">
-                  SK
-                </div>
-                <div>
-                  <div className="font-intertight font-extrabold text-xs text-[#111111] uppercase tracking-wider">
-                    S. Kumar
-                  </div>
-                  <div className="font-intertight text-[10px] font-bold text-black/50 uppercase tracking-widest">
-                    BMW M340i
-                  </div>
-                </div>
-              </div>
-
-              <p className="font-intertight text-xs sm:text-sm text-[#333333] leading-relaxed">
-                "Absolutely flawless ceramic coating job. The gloss is unbelievable and washing it now is a breeze."
-              </p>
-
-              <div className="inline-block text-[9px] font-extrabold text-[#FF4B00] tracking-widest uppercase bg-[#FF4B00]/10 px-2.5 py-1 rounded-full border border-[#FF4B00]/20">
-                CERAMIC COATING MATRIX
-              </div>
+          {/* RIGHT COLUMN: INTERACTIVE CLIENT NAVIGATION LIST (COLUMNS 8–12 / ~40%) */}
+          <div className="lg:col-span-5 lg:border-l border-black/15 lg:pl-10 space-y-4">
+            <div className="text-[10px] font-intertight font-extrabold uppercase tracking-widest text-black/40 pb-2">
+              CLIENT STORIES // SELECT TO FEATURE
             </div>
 
-            {/* SUPPORTING ENTRY 2 */}
-            <div className="proof-side-item space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-black/10 text-[#111111] border border-black/15 flex items-center justify-center font-intertight font-black text-[11px] shrink-0">
-                  AT
-                </div>
-                <div>
-                  <div className="font-intertight font-extrabold text-xs text-[#111111] uppercase tracking-wider">
-                    Arvind T.
-                  </div>
-                  <div className="font-intertight text-[10px] font-bold text-black/50 uppercase tracking-widest">
-                    Mercedes-Benz W124
-                  </div>
-                </div>
-              </div>
+            <div className="space-y-3">
+              {testimonialsData.map((item, idx) => {
+                const isActive = activeIndex === idx;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    aria-current={isActive ? 'true' : undefined}
+                    onClick={() => switchTestimonial(idx)}
+                    className={`w-full text-left p-4 rounded-xl transition-all duration-300 border ${
+                      isActive
+                        ? 'bg-black/5 border-[#FF4B00]/40 shadow-sm translate-x-1.5'
+                        : 'border-transparent hover:bg-black/5 text-black/60'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between font-intertight mb-1">
+                      <div className="flex items-center gap-3">
+                        <span className={`text-xs font-extrabold ${isActive ? 'text-[#FF4B00]' : 'text-black/30'}`}>
+                          {item.number}
+                        </span>
+                        <span className={`font-extrabold text-sm uppercase tracking-wider ${isActive ? 'text-[#111111]' : 'text-black/60'}`}>
+                          {item.name}
+                        </span>
+                      </div>
 
-              <p className="font-intertight text-xs sm:text-sm text-[#333333] leading-relaxed">
-                "Professional, punctual, and passionate. The interior restoration brought my classic back to life."
-              </p>
+                      <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest">
+                        {item.vehicle}
+                      </span>
+                    </div>
 
-              <div className="inline-block text-[9px] font-extrabold text-[#FF4B00] tracking-widest uppercase bg-[#FF4B00]/10 px-2.5 py-1 rounded-full border border-[#FF4B00]/20">
-                CLASSIC INTERIOR RESTORATION
-              </div>
+                    {/* ANIMATED PROGRESS BAR LINE FOR ACTIVE ITEM */}
+                    {isActive && (
+                      <div className="w-full h-[2px] bg-black/10 rounded-full overflow-hidden mt-2">
+                        <div
+                          className={`h-full bg-[#FF4B00] transition-all duration-300 ${
+                            isInViewport && !isHovered ? 'animate-progress-fill' : 'w-full'
+                          }`}
+                          style={{
+                            animationDuration: '6000ms',
+                            animationTimingFunction: 'linear',
+                          }}
+                        />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* AUTOPLAY PAUSE INDICATOR HINT */}
+            <div className="pt-2 text-[10px] font-intertight font-bold text-black/40 uppercase tracking-widest flex items-center gap-2">
+              <span className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-[#FF4B00]' : 'bg-black/20'}`} />
+              <span>{isHovered ? 'AUTOPLAY PAUSED (HOVERING)' : 'AUTOPLAY ACTIVE (6S CYCLE)'}</span>
             </div>
 
           </div>
@@ -192,7 +284,7 @@ export const TestimonialsSection: React.FC = () => {
       <Container className="relative z-20 pb-2">
         <div className="w-full border-t border-black/15 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-black/50 uppercase tracking-widest">
           <span>TMR / CLIENT EXPERIENCE / TIRUPPUR</span>
-          <span>EVERY DETAIL IS VERIFIED</span>
+          <span>AUTHENTIC CLIENT VERIFICATION</span>
         </div>
       </Container>
     </section>

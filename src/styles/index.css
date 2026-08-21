@@ -51,6 +51,20 @@
   }
 }
 
+/* Keyframes for active testimonial 6s progress line */
+@keyframes progress-fill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress-fill {
+  animation: progress-fill 6000ms linear forwards;
+}
+
 /* Lenis smooth scrolling helper styles */
 html.lenis, html.lenis body {
   height: auto;
