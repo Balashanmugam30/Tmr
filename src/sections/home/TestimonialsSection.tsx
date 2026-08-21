@@ -48,22 +48,31 @@ const testimonialsData: TestimonialItem[] = [
 export const TestimonialsSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const quoteWrapperRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isInViewport, setIsInViewport] = useState<boolean>(false);
+  const [isTabVisible, setIsTabVisible] = useState<boolean>(true);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   const activeItem = testimonialsData[activeIndex];
 
-  // ANIMATED COORDINATED TRANSITION WHEN ACTIVE INDEX CHANGES
-  const switchTestimonial = useCallback((newIndex: number) => {
-    if (newIndex === activeIndex) return;
+  // STABLE TIMER CLEANUP
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
 
+  // ANIMATED COORDINATED CONTENT TRANSITION (QUOTE, AVATAR, NAME, VEHICLE, SERVICE)
+  const animateContentSwitch = useCallback((newIndex: number) => {
     if (quoteWrapperRef.current) {
       gsap.to(quoteWrapperRef.current, {
         opacity: 0,
         y: -10,
-        duration: 0.25,
+        duration: 0.22,
         ease: 'power2.in',
         onComplete: () => {
           setActiveIndex(newIndex);
@@ -77,9 +86,38 @@ export const TestimonialsSection: React.FC = () => {
     } else {
       setActiveIndex(newIndex);
     }
-  }, [activeIndex]);
+  }, []);
 
-  // VIEWPORT ENTRY DETECTOR
+  // MANUAL OR AUTOMATIC SELECTION SWITCH (RESETS TIMER TO 0)
+  const selectTestimonial = useCallback((newIndex: number) => {
+    if (newIndex === activeIndex) return;
+    stopTimer();
+    animateContentSwitch(newIndex);
+  }, [activeIndex, animateContentSwitch, stopTimer]);
+
+  // STABLE AUTOPLAY ROTATION TIMER (6 SECONDS PER TESTIMONIAL)
+  const startTimer = useCallback(() => {
+    stopTimer();
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion || isHovered || !isInViewport || !isTabVisible) return;
+
+    timerRef.current = setInterval(() => {
+      setActiveIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % testimonialsData.length;
+        if (quoteWrapperRef.current) {
+          gsap.fromTo(
+            quoteWrapperRef.current,
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }
+          );
+        }
+        return nextIndex;
+      });
+    }, 6000);
+  }, [isHovered, isInViewport, isTabVisible, stopTimer]);
+
+  // VIEWPORT ENTRY OBSERVER & DOCUMENT VISIBILITY HANDLER
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -89,25 +127,34 @@ export const TestimonialsSection: React.FC = () => {
           setIsInViewport(entry.isIntersecting);
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
 
     observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
 
-  // AUTOPLAY TIMER (6 SECONDS PER TESTIMONIAL, PAUSES ON HOVER OR INACTIVE VIEWPORT)
+    const handleVisibilityChange = () => {
+      setIsTabVisible(document.visibilityState === 'visible');
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      stopTimer();
+    };
+  }, [stopTimer]);
+
+  // EFFECT TO MANAGE AUTOPLAY CYCLE WHEN VISIBILITY OR HOVER CHANGES
   useEffect(() => {
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isReducedMotion || isHovered || !isInViewport) return;
+    if (isInViewport && isTabVisible && !isHovered) {
+      startTimer();
+    } else {
+      stopTimer();
+    }
 
-    const timer = setInterval(() => {
-      const nextIndex = (activeIndex + 1) % testimonialsData.length;
-      switchTestimonial(nextIndex);
-    }, 6000);
-
-    return () => clearInterval(timer);
-  }, [activeIndex, isHovered, isInViewport, switchTestimonial]);
+    return () => stopTimer();
+  }, [isInViewport, isTabVisible, isHovered, activeIndex, startTimer, stopTimer]);
 
   // TOUCH SWIPE HANDLERS FOR MOBILE
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -122,10 +169,10 @@ export const TestimonialsSection: React.FC = () => {
     if (Math.abs(diff) > 40) {
       if (diff > 0) {
         // Swipe Left -> Next
-        switchTestimonial((activeIndex + 1) % testimonialsData.length);
+        selectTestimonial((activeIndex + 1) % testimonialsData.length);
       } else {
         // Swipe Right -> Prev
-        switchTestimonial((activeIndex - 1 + testimonialsData.length) % testimonialsData.length);
+        selectTestimonial((activeIndex - 1 + testimonialsData.length) % testimonialsData.length);
       }
     }
     setTouchStartX(null);
@@ -228,7 +275,9 @@ export const TestimonialsSection: React.FC = () => {
                     key={item.id}
                     type="button"
                     aria-current={isActive ? 'true' : undefined}
-                    onClick={() => switchTestimonial(idx)}
+                    onClick={() => selectTestimonial(idx)}
+                    onFocus={() => setIsHovered(true)}
+                    onBlur={() => setIsHovered(false)}
                     className={`w-full text-left p-4 rounded-xl transition-all duration-300 border ${
                       isActive
                         ? 'bg-black/5 border-[#FF4B00]/40 shadow-sm translate-x-1.5'
@@ -254,13 +303,10 @@ export const TestimonialsSection: React.FC = () => {
                     {isActive && (
                       <div className="w-full h-[2px] bg-black/10 rounded-full overflow-hidden mt-2">
                         <div
-                          className={`h-full bg-[#FF4B00] transition-all duration-300 ${
-                            isInViewport && !isHovered ? 'animate-progress-fill' : 'w-full'
+                          key={`progress-${activeIndex}`}
+                          className={`h-full bg-[#FF4B00] ${
+                            isInViewport && !isHovered && isTabVisible ? 'animate-progress-fill' : 'w-full'
                           }`}
-                          style={{
-                            animationDuration: '6000ms',
-                            animationTimingFunction: 'linear',
-                          }}
                         />
                       </div>
                     )}
@@ -272,7 +318,7 @@ export const TestimonialsSection: React.FC = () => {
             {/* AUTOPLAY PAUSE INDICATOR HINT */}
             <div className="pt-2 text-[10px] font-intertight font-bold text-black/40 uppercase tracking-widest flex items-center gap-2">
               <span className={`w-1.5 h-1.5 rounded-full ${isHovered ? 'bg-[#FF4B00]' : 'bg-black/20'}`} />
-              <span>{isHovered ? 'AUTOPLAY PAUSED (HOVERING)' : 'AUTOPLAY ACTIVE (6S CYCLE)'}</span>
+              <span>{isHovered ? 'AUTOPLAY PAUSED (HOVER / FOCUS)' : 'AUTOPLAY ACTIVE (6S CYCLE)'}</span>
             </div>
 
           </div>
