@@ -61,7 +61,7 @@ export const CeramicSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="ceramic-coating-refined"
-      className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 -mt-[100vh] min-h-screen py-12 md:py-20 flex flex-col justify-between isolate"
+      className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 min-h-screen py-12 md:py-20 flex flex-col justify-between isolate"
       style={{ opacity: 1, backgroundColor: '#070809' }}
     >
       {/* SUBTLE NOISE OVERLAY */}

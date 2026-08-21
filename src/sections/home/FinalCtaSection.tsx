@@ -8,7 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const FinalCtaSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const ctaForegroundRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -27,10 +27,10 @@ export const FinalCtaSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. DOWNWARD ENTRANCE REVEAL ("CTA RISES FROM BELOW" OVER FAQ)
-      if (videoWrapperRef.current) {
+      // 1. UNIFIED FOREGROUND ENTRANCE REVEAL ("ENTIRE CTA COMPOSITION RISES FROM BELOW" OVER FAQ)
+      if (ctaForegroundRef.current) {
         gsap.fromTo(
-          videoWrapperRef.current,
+          ctaForegroundRef.current,
           { yPercent: 100 },
           {
             yPercent: 0,
@@ -45,7 +45,7 @@ export const FinalCtaSection: React.FC = () => {
         );
       }
 
-      // 2. SUBTLE FAQ RECESSION WHILE CTA RISES
+      // 2. SUBTLE FAQ RECESSION WHILE CTA FOREGROUND RISES
       const faqSection = document.getElementById('faq-section');
       if (faqSection) {
         gsap.fromTo(
@@ -65,7 +65,7 @@ export const FinalCtaSection: React.FC = () => {
         );
       }
 
-      // 3. CONTENT ENTRANCE TIMELINE
+      // 3. CONTENT FADE & STAGGERED ENTRANCE TIMELINE
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },
@@ -109,84 +109,87 @@ export const FinalCtaSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="final-cta"
-      className="w-full min-h-[100svh] h-[100svh] bg-[#050505] text-[#F5F4EF] border-t border-b border-white/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between z-20"
+      className="w-full min-h-[100svh] h-[100svh] bg-[#050505] text-[#F5F4EF] border-t border-b border-white/10 relative overflow-hidden isolate font-intertight z-20"
       style={{ backgroundColor: '#050505' }}
     >
-      {/* 4K FULL BLEED CINEMATIC VIDEO BACKGROUND (RISING FROM BELOW) */}
-      <div ref={videoWrapperRef} className="absolute inset-0 z-0 overflow-hidden w-full h-full">
-        <video
-          ref={videoRef}
-          src="/videos/cta/cta-cinematic.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="w-full h-full object-cover object-center scale-105"
-        />
+      {/* UNIFIED CTA FOREGROUND LAYER (VIDEO + OVERLAY + TEXT CONTENT + METADATA) */}
+      <div
+        ref={ctaForegroundRef}
+        className="relative w-full h-full min-h-[100svh] flex flex-col justify-between overflow-hidden"
+      >
+        {/* 4K FULL BLEED CINEMATIC VIDEO BACKGROUND */}
+        <div className="absolute inset-0 z-0 overflow-hidden w-full h-full pointer-events-none">
+          <video
+            ref={videoRef}
+            src="/videos/cta/cta-cinematic.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover object-center scale-105"
+          />
 
-        {/* SUBTLE CINEMATIC READABILITY GRADIENT OVERLAY (KEEPING VIDEO DOMINANT) */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/25 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent z-10 pointer-events-none" />
+          {/* SUBTLE CINEMATIC READABILITY GRADIENT OVERLAY (KEEPING VIDEO DOMINANT) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/25 z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent z-10 pointer-events-none" />
+        </div>
+
+        {/* REFINED EDITORIAL CONVERTING CONTENT CONTAINER */}
+        <Container className="relative z-20 max-w-[1380px] mx-auto w-full h-full flex flex-col justify-between py-12 md:py-16">
+          {/* TOP SPACE HOLDER */}
+          <div className="w-full h-8" />
+
+          {/* LOWER-LEFT EDITORIAL CONVERTING TEXT COMPOSITION */}
+          <div ref={contentRef} className="w-full max-w-[700px] space-y-6 text-left my-auto pt-16 md:pt-24 pl-0 sm:pl-4">
+            {/* EYEBROW */}
+            <div className="cta-anim-item flex items-center gap-3 font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+              <span className="w-8 h-[1.5px] bg-[#FF4B00]" />
+              <span>FINAL STEP // TMR CAR CARE</span>
+            </div>
+
+            {/* EDITORIAL RESTRAINED HEADLINE */}
+            <h2 className="cta-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-[72px] uppercase text-white leading-[0.90] tracking-[-0.03em] max-w-[620px] text-left">
+              THE FINISH MATTERS<span className="text-[#FF4B00]">.</span>
+            </h2>
+
+            {/* ONE SHORT SUPPORTING SENTENCE */}
+            <p className="cta-anim-item font-intertight text-sm sm:text-base text-white/75 font-medium leading-relaxed max-w-[440px] text-left">
+              Precision care for the vehicle you care about.
+            </p>
+
+            {/* CONVERSIONS: ARCHITECTURAL PRIMARY CTA & SECONDARY LINK */}
+            <div className="cta-anim-item pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 font-intertight">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 h-[54px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.35)] hover:-translate-y-0.5"
+              >
+                <span>BOOK A CONSULTATION</span>
+                <span className="group-hover:translate-x-1.5 transition-transform">↗</span>
+              </a>
+
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-white/70 hover:text-white transition-colors py-2"
+              >
+                <span>GET DIRECTIONS</span>
+                <span className="text-[#FF4B00] group-hover:translate-x-1 transition-transform">↗</span>
+              </a>
+            </div>
+          </div>
+
+          {/* BOTTOM METADATA STRIP */}
+          <div className="cta-anim-item w-full pt-6 border-t border-white/15 flex items-center justify-between text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.22em] text-white/50 relative z-20">
+            <span>TMR / TIRUPPUR STUDIO</span>
+            <span className="hidden sm:inline">PRECISION / PROTECTION / PERFECTION</span>
+            <span>EST. 2024</span>
+          </div>
+        </Container>
       </div>
-
-      <Container className="relative z-20 max-w-[1380px] mx-auto w-full h-full flex flex-col justify-between py-12 md:py-16">
-        
-        {/* TOP SPACE HOLDER */}
-        <div className="w-full h-8" />
-
-        {/* LOWER-LEFT REFINED EDITORIAL CONVERTING TEXT COMPOSITION */}
-        <div ref={contentRef} className="w-full max-w-[700px] space-y-6 text-left my-auto pt-16 md:pt-24 pl-0 sm:pl-4">
-          
-          {/* EYEBROW */}
-          <div className="cta-anim-item flex items-center gap-3 font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
-            <span className="w-8 h-[1.5px] bg-[#FF4B00]" />
-            <span>FINAL STEP // TMR CAR CARE</span>
-          </div>
-
-          {/* EDITORIAL RESTRAINED HEADLINE */}
-          <h2 className="cta-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-[72px] uppercase text-white leading-[0.90] tracking-[-0.03em] max-w-[620px] text-left">
-            THE FINISH MATTERS<span className="text-[#FF4B00]">.</span>
-          </h2>
-
-          {/* ONE SHORT SUPPORTING SENTENCE */}
-          <p className="cta-anim-item font-intertight text-sm sm:text-base text-white/75 font-medium leading-relaxed max-w-[440px] text-left">
-            Precision care for the vehicle you care about.
-          </p>
-
-          {/* CONVERSIONS: ARCHITECTURAL PRIMARY CTA & SECONDARY LINK */}
-          <div className="cta-anim-item pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 font-intertight">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 h-[54px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.35)] hover:-translate-y-0.5"
-            >
-              <span>BOOK A CONSULTATION</span>
-              <span className="group-hover:translate-x-1.5 transition-transform">↗</span>
-            </a>
-
-            <a
-              href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-white/70 hover:text-white transition-colors py-2"
-            >
-              <span>GET DIRECTIONS</span>
-              <span className="text-[#FF4B00] group-hover:translate-x-1 transition-transform">↗</span>
-            </a>
-          </div>
-
-        </div>
-
-        {/* BOTTOM METADATA STRIP */}
-        <div className="cta-anim-item w-full pt-6 border-t border-white/15 flex items-center justify-between text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.22em] text-white/50 relative z-20">
-          <span>TMR / TIRUPPUR STUDIO</span>
-          <span className="hidden sm:inline">PRECISION / PROTECTION / PERFECTION</span>
-          <span>EST. 2024</span>
-        </div>
-
-      </Container>
     </section>
   );
 };
