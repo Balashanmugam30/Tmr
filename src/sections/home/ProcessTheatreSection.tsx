@@ -28,15 +28,12 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     let lastIndex = -1;
 
     const ctx = gsap.context(() => {
-      // SINGLE GSAP SCROLLTRIGGER PINNING INSTANCE (NO CSS POSITION: STICKY)
+      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT
       ScrollTrigger.create({
-        trigger: containerRef.current, // 500vh outer scroll territory
+        trigger: containerRef.current,
         start: 'top top',
         end: 'bottom bottom',
-        pin: stickyRef.current, // 100vh inner visual theatre
-        pinSpacing: false,
         scrub: 0.1,
-        invalidateOnRefresh: true,
         onUpdate: (self) => {
           const progress = self.progress;
 
@@ -65,16 +62,8 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
       });
     }, containerRef);
 
-    // Refresh ScrollTrigger geometry after mounting
-    const timer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 150);
-
-    return () => {
-      clearTimeout(timer);
-      ctx.revert();
-    };
-  }, []); // STABLE MOUNT DEPENDENCY ARRAY ONLY
+    return () => ctx.revert();
+  }, []); // STABLE MOUNT DEPENDENCY ARRAY (DO NOT ADD activeStageIndex HERE!)
 
   return (
     <div
@@ -82,11 +71,10 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
       id="process-theatre"
       className="relative w-full h-[500vh] z-20 selection:bg-[#FF4B00] selection:text-white"
     >
-      {/* 100VH FULLSCREEN GSAP-PINNED DARK THEATRE VIEWPORT CONTAINER (DATA-PROCESS-VIEWPORT) */}
+      {/* 100VH FULLSCREEN STICKY DARK THEATRE VIEWPORT CONTAINER */}
       <div
         ref={stickyRef}
-        data-process-viewport="true"
-        className="relative w-full h-screen overflow-hidden flex flex-col justify-between transition-colors duration-700 ease-out text-white"
+        className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-between transition-colors duration-700 ease-out text-white"
         style={{
           backgroundColor: currentStage.bgColor,
         }}

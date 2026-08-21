@@ -98,146 +98,142 @@ export const ApproachSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="approach"
-      className="w-full py-24 md:py-36 bg-[#0A0A0A] text-white overflow-hidden relative z-20 border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-[250vh]"
+      className="w-full bg-[#0A0A0A] text-white overflow-hidden relative z-20 border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-screen lg:min-h-[115vh] py-16 md:py-24 flex flex-col justify-between"
     >
-      {/* STICKY CONTENT WRAPPER SO TEXT & GRID REMAIN STABLE WHILE POLISHER OBJECT TRAVERSES 250VH */}
-      <div className="sticky top-0 left-0 w-full min-h-screen flex flex-col justify-between py-12 md:py-20 z-10">
-        
-        {/* TECHNICAL BACKGROUND GRID LINES & ARCHITECTURAL COORDINATES */}
-        <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
-          <div className="w-full h-full border-b border-white/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:5rem_5rem]" />
+      {/* TECHNICAL BACKGROUND GRID LINES & ARCHITECTURAL COORDINATES */}
+      <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
+        <div className="w-full h-full border-b border-white/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:5rem_5rem]" />
+      </div>
+
+      <Container className="relative z-10 my-auto">
+        {/* TOP DIVIDER */}
+        <div ref={dividerRef} className="w-full h-px bg-white/10 mb-8 origin-left" />
+
+        {/* TOP META ROW */}
+        <div
+          ref={metaRef}
+          className="flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] mb-10 md:mb-14 text-white"
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#FF4B00]">02</span>
+            <span className="text-white/30">/</span>
+            <span className="text-white">APPROACH</span>
+          </div>
+          <span className="text-white/50 tracking-[0.2em]">THE TMR METHOD // ARCHITECTURAL CHOREOGRAPHY</span>
         </div>
 
-        <Container className="relative z-10 my-auto">
-          {/* TOP DIVIDER */}
-          <div ref={dividerRef} className="w-full h-px bg-white/10 mb-8 origin-left" />
-
-          {/* TOP META ROW */}
-          <div
-            ref={metaRef}
-            className="flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] mb-12 md:mb-16 text-white"
-          >
-            <div className="flex items-center gap-2.5">
-              <span className="text-[#FF4B00]">02</span>
-              <span className="text-white/30">/</span>
-              <span className="text-white">APPROACH</span>
+        {/* DARK ARCHITECTURAL HEADLINE & STATEMENT */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          {/* LEFT: VERY LARGE DARK DISPLAY TYPOGRAPHY (COLUMNS 1–8) */}
+          <div className="lg:col-span-8 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-intertight font-bold uppercase tracking-widest text-white">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" />
+              <span>TECHNICAL PROCESS ARCHITECTURE</span>
             </div>
-            <span className="text-white/50 tracking-[0.2em]">THE TMR METHOD // ARCHITECTURAL CHOREOGRAPHY</span>
+
+            <h2
+              ref={headlineRef}
+              className="font-intertight font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-[130px] uppercase text-white leading-[0.84] tracking-[-0.06em]"
+            >
+              <div className="overflow-hidden">
+                <span className="approach-dark-line block text-white">PRECISION</span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="approach-dark-line block text-white">IS A</span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="approach-dark-line block text-[#FF4B00]">PROCESS.</span>
+              </div>
+            </h2>
+
+            <p
+              ref={statementRef}
+              className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-white/90 leading-tight italic max-w-2xl"
+            >
+              "We engineer every stage around the condition of the vehicle, the surface, and the finish."
+            </p>
           </div>
 
-          {/* DARK ARCHITECTURAL HEADLINE & STATEMENT */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
-            {/* LEFT: VERY LARGE DARK DISPLAY TYPOGRAPHY (COLUMNS 1–8) */}
-            <div className="lg:col-span-8 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-intertight font-bold uppercase tracking-widest text-white">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>TECHNICAL PROCESS ARCHITECTURE</span>
+          {/* RIGHT: TECHNICAL SPECIFICATION PANEL (COLUMNS 9–12) */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-6 pt-4 border-l border-white/10 pl-6 lg:pl-10">
+            <div className="font-intertight text-xs uppercase tracking-widest text-white/60 space-y-3">
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-white/40">LOCATION</span>
+                <span className="font-bold text-white">TIRUPPUR STUDIO</span>
               </div>
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-white/40">ENVIRONMENT</span>
+                <span className="font-bold text-white">CLIMATE-CONTROLLED</span>
+              </div>
+              <div className="flex justify-between border-b border-white/10 pb-2">
+                <span className="text-white/40">OBJECT PATH</span>
+                <span className="font-bold text-[#FF4B00]">CONTINUOUS CHOREOGRAPHY</span>
+              </div>
+            </div>
 
-              <h2
-                ref={headlineRef}
-                className="font-intertight font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-[140px] uppercase text-white leading-[0.84] tracking-[-0.06em]"
+            <div className="pt-4">
+              <Link
+                to="/services"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
               >
-                <div className="overflow-hidden">
-                  <span className="approach-dark-line block text-white">PRECISION</span>
-                </div>
-                <div className="overflow-hidden">
-                  <span className="approach-dark-line block text-white">IS A</span>
-                </div>
-                <div className="overflow-hidden">
-                  <span className="approach-dark-line block text-[#FF4B00]">PROCESS.</span>
-                </div>
-              </h2>
-
-              <p
-                ref={statementRef}
-                className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-white/90 leading-tight italic max-w-2xl"
-              >
-                "We engineer every stage around the condition of the vehicle, the surface, and the finish."
-              </p>
+                <span className="inline-flex items-center gap-2">
+                  <span>DISCOVER OUR METHOD</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+                </span>
+                <span className="h-[1.5px] w-12 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
+              </Link>
             </div>
-
-            {/* RIGHT: TECHNICAL SPECIFICATION PANEL (COLUMNS 9–12) */}
-            <div className="lg:col-span-4 flex flex-col justify-between space-y-6 pt-4 border-l border-white/10 pl-6 lg:pl-10">
-              <div className="font-intertight text-xs uppercase tracking-widest text-white/60 space-y-3">
-                <div className="flex justify-between border-b border-white/10 pb-2">
-                  <span className="text-white/40">LOCATION</span>
-                  <span className="font-bold text-white">TIRUPPUR STUDIO</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-2">
-                  <span className="text-white/40">ENVIRONMENT</span>
-                  <span className="font-bold text-white">CLIMATE-CONTROLLED</span>
-                </div>
-                <div className="flex justify-between border-b border-white/10 pb-2">
-                  <span className="text-white/40">OBJECT PATH</span>
-                  <span className="font-bold text-[#FF4B00]">CONTINUOUS CHOREOGRAPHY</span>
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <Link
-                  to="/services"
-                  className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <span>DISCOVER OUR METHOD</span>
-                    <span className="text-[#FF4B00] group-hover:translate-x-1.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
-                  </span>
-                  <span className="h-[1.5px] w-12 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
-                </Link>
-              </div>
-            </div>
-
           </div>
 
-          {/* THREE TECHNICAL SPECIFICATION PILLARS */}
-          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 md:mt-20">
-            
-            <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
-              <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
-                01 // DIAGNOSTICS
-              </span>
-              <h3 className="font-intertight font-bold text-lg text-white uppercase">
-                PAINT SURFACE MAPPING
-              </h3>
-              <p className="font-intertight text-xs text-white/55 leading-relaxed">
-                Ultrasonic depth gauges measure clearcoat thickness across all panels to establish safe correction boundaries.
-              </p>
-            </div>
-
-            <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
-              <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
-                02 // PREPARATION
-              </span>
-              <h3 className="font-intertight font-bold text-lg text-white uppercase">
-                DECONTAMINATION & MASKING
-              </h3>
-              <p className="font-intertight text-xs text-white/55 leading-relaxed">
-                Iron fallout extraction, clay bar treatment, and automotive trim masking prepare every contour for refinement.
-              </p>
-            </div>
-
-            <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
-              <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
-                03 // REFINEMENT
-              </span>
-              <h3 className="font-intertight font-bold text-lg text-white uppercase">
-                DUAL-ACTION POLISHING
-              </h3>
-              <p className="font-intertight text-xs text-white/55 leading-relaxed">
-                Controlled multi-pass polishing eliminates swirls and scratches, unlocking true specular paint clarity.
-              </p>
-            </div>
-
-          </div>
-        </Container>
-
-        {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
-        <div className="w-full border-t border-white/10 pt-4 pb-2 px-6 md:px-12 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest relative z-10">
-          <span>CONTINUOUS TOOL TRAJECTORY →</span>
-          <span>APPROACH → PROCESS THEATRE HANDOFF</span>
         </div>
+
+        {/* THREE TECHNICAL SPECIFICATION PILLARS */}
+        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 md:mt-16">
+          
+          <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
+            <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
+              01 // DIAGNOSTICS
+            </span>
+            <h3 className="font-intertight font-bold text-lg text-white uppercase">
+              PAINT SURFACE MAPPING
+            </h3>
+            <p className="font-intertight text-xs text-white/55 leading-relaxed">
+              Ultrasonic depth gauges measure clearcoat thickness across all panels to establish safe correction boundaries.
+            </p>
+          </div>
+
+          <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
+            <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
+              02 // PREPARATION
+            </span>
+            <h3 className="font-intertight font-bold text-lg text-white uppercase">
+              DECONTAMINATION & MASKING
+            </h3>
+            <p className="font-intertight text-xs text-white/55 leading-relaxed">
+              Iron fallout extraction, clay bar treatment, and automotive trim masking prepare every contour for refinement.
+            </p>
+          </div>
+
+          <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
+            <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
+              03 // REFINEMENT
+            </span>
+            <h3 className="font-intertight font-bold text-lg text-[#FFFFFF] uppercase">
+              DUAL-ACTION POLISHING
+            </h3>
+            <p className="font-intertight text-xs text-white/55 leading-relaxed">
+              Controlled multi-pass polishing eliminates swirls and scratches, unlocking true specular paint clarity.
+            </p>
+          </div>
+
+        </div>
+      </Container>
+
+      {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
+      <div className="w-full border-t border-white/10 pt-4 pb-2 px-6 md:px-12 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest relative z-10 mt-12">
+        <span>CONTINUOUS TOOL TRAJECTORY →</span>
+        <span>APPROACH → PROCESS THEATRE HANDOFF</span>
       </div>
     </section>
   );
