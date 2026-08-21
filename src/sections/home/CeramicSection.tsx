@@ -18,23 +18,24 @@ export const CeramicSection: React.FC = () => {
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
-    const processTheatre = document.querySelector('#process-theatre');
+    // TARGET ONLY THE STICKY VIEWPORT INSIDE #process-theatre (NEVER TRANSFORM THE 500VH ROOT CONTAINER)
+    const processSticky = document.querySelector('#process-theatre .sticky');
 
     const ctx = gsap.context(() => {
-      // 1. TEMPORARY VISUAL PROCESS -> PROTECTION HANDOFF TIMELINE (NO PERMANENT LAYOUT DISPLACEMENT)
+      // 1. TEMPORARY VISUAL PROCESS -> PROTECTION HANDOFF TIMELINE (TARGETS STICKY VIEWPORT ONLY)
       const boundaryTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top bottom', // Begins as Protection top reaches bottom of viewport while Process is pinned!
+          start: 'top bottom', // Begins as Protection top reaches bottom of viewport while Process sticky viewport is active
           end: 'top top', // Completes when Protection fills viewport cleanly
           scrub: 0.1,
         },
       });
 
-      if (processTheatre) {
-        // Process Theatre sticky viewport subtly recedes behind
+      if (processSticky) {
+        // Sticky viewport subtly recedes behind (leaves #process-theatre 500vh root geometry 100% untouched)
         boundaryTl.to(
-          processTheatre,
+          processSticky,
           { scale: 0.97, y: '-2vh', opacity: 0.88, ease: 'none' },
           0
         );
