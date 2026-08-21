@@ -19,6 +19,7 @@ export const ApproachSection: React.FC = () => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Force muted & playsInline for browser autoplay compliance
     video.muted = true;
     video.playsInline = true;
 
@@ -33,6 +34,7 @@ export const ApproachSection: React.FC = () => {
       }
     });
 
+    // Programmatic play attempt
     const playVideo = async () => {
       try {
         video.muted = true;
@@ -43,6 +45,7 @@ export const ApproachSection: React.FC = () => {
       }
     };
 
+    // IntersectionObserver to play video when in viewport and pause when out
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -145,6 +148,7 @@ export const ApproachSection: React.FC = () => {
         ref={videoWrapperRef}
         className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 overflow-hidden bg-black rounded-none"
       >
+        {/* POSTER LOADING FALLBACK LAYER */}
         <img
           src="/videos/approach/approach-poster.webp"
           alt="TMR Cinematic Automotive Detailing Studio"
@@ -153,6 +157,7 @@ export const ApproachSection: React.FC = () => {
           }`}
         />
 
+        {/* LOCAL H.264 MP4 CINEMATIC VIDEO (FULL-BLEED COVER CROP) */}
         <video
           ref={videoRef}
           src="/videos/approach/approach-cinematic.mp4"
@@ -168,6 +173,7 @@ export const ApproachSection: React.FC = () => {
           Your browser does not support the video tag.
         </video>
 
+        {/* SUBTLE CINEMATIC GRADIENT OVERLAY ON VIDEO */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none z-20" />
       </div>
 
@@ -178,12 +184,9 @@ export const ApproachSection: React.FC = () => {
       />
 
       {/* CONTENT LAYER OVER 50/50 SPLIT SCREEN */}
-      <div className="relative z-20 w-full min-h-screen flex flex-col justify-between py-12 md:py-16">
-        <Container className="w-full pt-4">
-          <div className="w-full border-t border-white/10" />
-        </Container>
-
-        {/* MAIN EDITORIAL CONTENT */}
+      <div className="relative z-20 w-full min-h-screen flex flex-col justify-center py-12 md:py-16">
+        
+        {/* MAIN EDITORIAL CONTENT: LEFT 50% VIEWPORT CONTAINING RESTRAINED LOWER-LEFT EDITORIAL COPY */}
         <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 my-auto">
           <div className="w-full lg:w-1/2 flex flex-col justify-end lg:pr-12 py-8 lg:py-16">
             <div ref={textGroupRef} className="space-y-4 max-w-[380px]">
@@ -214,9 +217,6 @@ export const ApproachSection: React.FC = () => {
           </div>
         </div>
 
-        <Container className="w-full pb-2">
-          <div className="w-full border-t border-white/10" />
-        </Container>
       </div>
     </section>
   );

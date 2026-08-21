@@ -18,6 +18,7 @@ export const CeramicSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
+      // PROTECTION EDITORIAL & HERO VISUAL ENTRANCE TIMELINE ONCE SCROLLED INTO VIEWPORT
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },
@@ -60,20 +61,17 @@ export const CeramicSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="ceramic-coating-refined"
-      className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 min-h-screen py-12 md:py-20 flex flex-col justify-between isolate"
+      className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 min-h-screen py-12 md:py-20 flex flex-col justify-center isolate"
       style={{ opacity: 1, backgroundColor: '#070809' }}
     >
+      {/* SUBTLE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
-      <Container className="relative z-20 pt-2">
-        <div className="w-full border-t border-white/10" />
-      </Container>
-
-      {/* MAIN CINEMATIC COMPOSITION */}
+      {/* MAIN CINEMATIC COMPOSITION: LEFT EDITORIAL TEXT (5 COLS) / RIGHT HERO CAMPAIGN VISUAL (7 COLS) */}
       <Container className="relative z-20 my-auto py-8 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* LEFT / RESTRAINED EDITORIAL COPY GROUP */}
+          {/* LEFT / RESTRAINED EDITORIAL COPY GROUP (COLUMNS 1–5) */}
           <div ref={textGroupRef} className="lg:col-span-5 space-y-6 max-w-[440px]">
             {/* MAIN HEADLINE */}
             <h2 className="prot-editorial-item font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-white leading-[0.92] tracking-[-0.04em]">
@@ -108,7 +106,7 @@ export const CeramicSection: React.FC = () => {
               </div>
               <div>
                 <span className="block text-[10px] text-white/40 font-bold">HYDROPHOBIC</span>
-                <span className="font-extrabold text-[#FF4B00] text-[#FF4B00] text-sm">ACTIVE</span>
+                <span className="font-extrabold text-[#FF4B00] text-sm">ACTIVE</span>
               </div>
               <div>
                 <span className="block text-[10px] text-white/40 font-bold">DURABILITY</span>
@@ -118,7 +116,7 @@ export const CeramicSection: React.FC = () => {
 
           </div>
 
-          {/* RIGHT / DOMINANT HERO CAMPAIGN VISUAL */}
+          {/* RIGHT / DOMINANT HERO CAMPAIGN VISUAL (COLUMNS 6–12) */}
           <div className="lg:col-span-7 relative w-full flex justify-end">
             <div
               ref={visualRef}
@@ -130,20 +128,10 @@ export const CeramicSection: React.FC = () => {
                 className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-
-              <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight">
-                <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
-                  NANO-SiO2 MOLECULAR MATRIX // CERAMIC
-                </span>
-              </div>
             </div>
           </div>
 
         </div>
-      </Container>
-
-      <Container className="relative z-20 pb-2">
-        <div className="w-full border-t border-white/10" />
       </Container>
     </section>
   );

@@ -11,7 +11,6 @@ export const ManifestoSection: React.FC = () => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const ruleRef = useRef<HTMLDivElement>(null);
-  const bottomMetaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -20,7 +19,7 @@ export const ManifestoSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. MASTER REVEAL TIMELINE
+      // 1. MASTER REVEAL TIMELINE (PAUSED INITIALLY, CONTROLLED BY VIEWPORT ENTRY)
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power4.out' },
@@ -69,6 +68,7 @@ export const ManifestoSection: React.FC = () => {
       if (imageRef.current) {
         const imgEl = imageRef.current.querySelector('img');
 
+        // Image wrapper mask curtain expands horizontally from left to right
         tl.fromTo(
           imageRef.current,
           { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
@@ -81,6 +81,7 @@ export const ManifestoSection: React.FC = () => {
           0.24
         );
 
+        // Subtle image shift inside the expanding curtain
         if (imgEl) {
           tl.fromTo(
             imgEl,
@@ -91,28 +92,26 @@ export const ManifestoSection: React.FC = () => {
         }
       }
 
-      // 1e. Bottom Metadata Row Entrance (0.85s)
-      if (bottomMetaRef.current) {
-        tl.fromTo(
-          bottomMetaRef.current,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.6 },
-          0.85
-        );
-      }
-
-      // 2. SCROLLTRIGGER VIEWPORT ENTER / LEAVE LIFECYCLE
+      // 2. SCROLLTRIGGER VIEWPORT ENTER / LEAVE LIFECYCLE (REPLAYS ON VIEWPORT RE-ENTRY)
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 78%',
         end: 'bottom 20%',
-        onEnter: () => tl.restart(),
-        onEnterBack: () => tl.restart(),
-        onLeave: () => tl.pause(0),
-        onLeaveBack: () => tl.pause(0),
+        onEnter: () => {
+          tl.restart();
+        },
+        onEnterBack: () => {
+          tl.restart();
+        },
+        onLeave: () => {
+          tl.pause(0);
+        },
+        onLeaveBack: () => {
+          tl.pause(0);
+        },
       });
 
-      // 3. CONTINUOUS SCROLL PARALLAX
+      // 3. CONTINUOUS SCROLL PARALLAX (3-Layer Depth)
       if (headlineRef.current) {
         const lines = headlineRef.current.querySelectorAll('.manifesto-line');
         lines.forEach((line, index) => {
@@ -143,7 +142,7 @@ export const ManifestoSection: React.FC = () => {
         });
       }
 
-      // 4. RESTORE DEDICATED IMAGE HOVER EFFECT
+      // 4. RESTORE DEDICATED IMAGE HOVER EFFECT (scale 1.0 -> 1.025)
       if (imageRef.current) {
         const imgContainer = imageRef.current;
         const imgEl = imgContainer.querySelector('img');
@@ -179,16 +178,16 @@ export const ManifestoSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full py-20 md:py-28 bg-[#F5F4EF] overflow-hidden relative z-20 -mt-[100vh] border-b border-black/10 shadow-[0_-25px_60px_rgba(0,0,0,0.7)] selection:bg-[#FF4B00] selection:text-white"
+      className="w-full py-24 md:py-32 bg-[#F5F4EF] overflow-hidden relative z-20 -mt-[100vh] border-b border-black/10 shadow-[0_-25px_60px_rgba(0,0,0,0.7)] selection:bg-[#FF4B00] selection:text-white"
     >
       <Container>
         {/* TOP DIVIDER */}
-        <div ref={dividerRef} className="w-full h-px bg-black/10 mb-8 md:mb-12 origin-left" />
+        <div ref={dividerRef} className="w-full h-px bg-black/10 mb-12 origin-left" />
 
-        {/* STRICT 12-COLUMN EDITORIAL GRID */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative min-h-[440px]">
+        {/* STRICT 12-COLUMN EDITORIAL GRID (COLLISION-FREE BETWEEN TEXT & IMAGE) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative min-h-[480px]">
           
-          {/* LEFT / HEADLINE COLUMN (COLUMNS 1–7) */}
+          {/* LEFT / HEADLINE COLUMN (COLUMNS 1–7, STRICT Z-10 HIGH PRIORITY) */}
           <div className="lg:col-span-7 flex gap-6 md:gap-8 items-start relative z-10 max-w-[700px]">
             {/* VERTICAL ORANGE ACCENT RULE */}
             <div
@@ -223,7 +222,7 @@ export const ManifestoSection: React.FC = () => {
             </h2>
           </div>
 
-          {/* RIGHT / DEDICATED MANIFESTO PHOTOGRAPH (COLUMNS 8–12) */}
+          {/* RIGHT / DEDICATED MANIFESTO PHOTOGRAPH (COLUMNS 8–12, STRICT Z-0 NON-COLLIDING) */}
           <div className="lg:col-span-5 relative mt-8 lg:mt-0 z-0">
             <div
               ref={imageRef}
@@ -238,16 +237,6 @@ export const ManifestoSection: React.FC = () => {
             </div>
           </div>
 
-        </div>
-
-        {/* BOTTOM SUPPORTING STATEMENT ROW */}
-        <div
-          ref={bottomMetaRef}
-          className="mt-12 md:mt-16 border-t border-black/10 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4 font-intertight text-[11px] font-semibold uppercase tracking-wider text-[#555555]"
-        >
-          <span>
-            EVERY PASS IS MEASURED. EVERY SURFACE IS RESTORED.
-          </span>
         </div>
       </Container>
     </section>

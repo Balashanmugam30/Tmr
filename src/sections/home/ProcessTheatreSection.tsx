@@ -28,6 +28,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     let lastIndex = -1;
 
     const ctx = gsap.context(() => {
+      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT (500VH TOTAL SCROLL TERRITORY = 100VH PER STAGE)
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -40,16 +41,19 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             onProgressUpdate(progress);
           }
 
+          // 5 PROCESS STAGES EQUALLY DISTRIBUTED ACROSS 500VH (20% PROGRESS PER STAGE)
           const index = Math.min(
             processStages.length - 1,
             Math.floor(progress * processStages.length)
           );
 
+          // Update React state ONLY when active index actually changes
           if (index !== lastIndex) {
             lastIndex = index;
             setActiveStageIndex(index);
           }
 
+          // Smooth background color update on stickyRef.current
           if (stickyRef.current) {
             const targetColor = processStages[index].bgColor;
             stickyRef.current.style.backgroundColor = targetColor;
@@ -70,20 +74,21 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
       {/* 100VH FULLSCREEN STICKY LIGHT PASTEL THEATRE VIEWPORT CONTAINER */}
       <div
         ref={stickyRef}
-        className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-between transition-colors duration-700 ease-out text-[#111111]"
+        className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-center transition-colors duration-700 ease-out text-[#111111]"
         style={{
           backgroundColor: currentStage.bgColor,
         }}
       >
-        <Container className="h-full flex flex-col justify-between py-4 md:py-6 lg:py-8 relative z-10 overflow-hidden">
-          {/* DIVIDER LINE */}
-          <div className="w-full border-t border-black/15 shrink-0" />
-
+        <Container className="h-full flex flex-col justify-center py-4 md:py-6 lg:py-8 relative z-10 overflow-hidden">
           {/* MAIN 12-COLUMN LIGHT EDITORIAL THEATRE GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center flex-1 min-h-0 my-auto relative overflow-hidden py-2 sm:py-4">
             
             {/* LEFT / EDITORIAL STAGE RAIL NAVIGATION (COLUMNS 1–5) */}
             <div className="lg:col-span-5 relative z-10 space-y-3 sm:space-y-4 lg:space-y-5">
+              <div className="font-intertight font-bold text-[10px] sm:text-xs text-[#FF4B00] tracking-[0.25em] uppercase">
+                0{activeStageIndex + 1} // {currentStage.subtitle}
+              </div>
+
               {/* ACTIVE STAGE DESCRIPTOR STATEMENT */}
               <p className="font-intertight font-extrabold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight tracking-wide text-[#111111] max-w-[400px]">
                 "{currentStage.description}"
@@ -145,7 +150,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                         alt={stage.alt}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
                     </div>
                   );
                 })}
@@ -154,9 +159,6 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             </div>
 
           </div>
-
-          {/* DIVIDER LINE */}
-          <div className="w-full border-t border-black/15 shrink-0" />
         </Container>
       </div>
     </div>

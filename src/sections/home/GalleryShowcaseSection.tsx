@@ -61,11 +61,8 @@ export const GalleryShowcaseSection: React.FC = () => {
       className="w-full bg-[#070809] text-[#F5F4EF] border-t border-b border-white/10 py-16 md:py-24 relative overflow-hidden isolate font-intertight"
       style={{ backgroundColor: '#070809' }}
     >
+      {/* SUBTLE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
-
-      <Container className="relative z-20 pt-2">
-        <div className="w-full border-t border-white/10" />
-      </Container>
 
       {/* MAIN CONTENT COMPOSITION */}
       <Container className="relative z-20 my-auto py-8 lg:py-12 space-y-12">
@@ -73,8 +70,8 @@ export const GalleryShowcaseSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
           <div className="lg:col-span-7 space-y-3">
             <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.9] tracking-[-0.04em]">
-              THE GALLERY <br />
-              <span className="text-[#FF4B00]">PROOF IN THE REFLECTION.</span>
+              PROOF IN THE <br />
+              <span className="text-[#FF4B00]">REFLECTION.</span>
             </h2>
           </div>
 
@@ -85,7 +82,7 @@ export const GalleryShowcaseSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 4-IMAGE ASYMMETRICAL EDITORIAL TEASER GRID */}
+        {/* 4-IMAGE ASYMMETRICAL EDITORIAL TEASER GRID (EACH ITEM HAS INDEPENDENT OBSERVER REVEAL) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {homepageGalleryItems.map((item) => (
             <GalleryRevealItem
