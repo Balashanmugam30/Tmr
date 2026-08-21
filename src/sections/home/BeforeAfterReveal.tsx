@@ -27,6 +27,7 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     setIsDragging(true);
+    e.currentTarget.setPointerCapture(e.pointerId);
     updatePosition(e.clientX);
   };
 
@@ -35,15 +36,24 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
     updatePosition(e.clientX);
   };
 
-  const handlePointerUp = () => {
-    setIsDragging(false);
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      setIsDragging(false);
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {
+        // Safe release
+      }
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'ArrowLeft') {
-      setSliderPos((prev) => Math.max(0, prev - 2));
+      const step = e.shiftKey ? 10 : 2;
+      setSliderPos((prev) => Math.max(0, prev - step));
     } else if (e.key === 'ArrowRight') {
-      setSliderPos((prev) => Math.min(100, prev + 2));
+      const step = e.shiftKey ? 10 : 2;
+      setSliderPos((prev) => Math.min(100, prev + step));
     }
   };
 
@@ -51,7 +61,7 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
     <div
       ref={containerRef}
       role="slider"
-      aria-label="Before and after paint correction visual comparison slider"
+      aria-label="Before and after paint correction comparison slider. Click anywhere or drag to reveal changes."
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={Math.round(sliderPos)}
@@ -60,18 +70,18 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
-      onPointerLeave={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       onKeyDown={handleKeyDown}
     >
       {/* 1. BEFORE IMAGE (BASE UNDERLAY) */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full pointer-events-none">
         <img
           src={beforeImage}
           alt="Vehicle paint panel showing swirl marks and defects before correction"
           className="w-full h-full object-cover"
         />
         {/* BEFORE EDITORIAL LABEL */}
-        <div className="absolute top-6 left-6 pointer-events-none z-10 font-intertight">
+        <div className="absolute top-6 left-6 font-intertight">
           <span className="bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-white/70 border border-white/10">
             {beforeLabel}
           </span>
@@ -91,7 +101,7 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
           className="w-full h-full object-cover"
         />
         {/* AFTER EDITORIAL LABEL */}
-        <div className="absolute top-6 right-6 pointer-events-none z-10 font-intertight">
+        <div className="absolute top-6 right-6 font-intertight">
           <span className="bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-[#FF4B00] border border-[#FF4B00]/30">
             {afterLabel}
           </span>
@@ -117,7 +127,7 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
 
       {/* BOTTOM DRAG INSTRUCTION BAR */}
       <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none font-intertight text-[10px] font-bold uppercase tracking-widest text-white/50 z-20">
-        <span>DRAG SLIDER TO INSPECT CLEARCOAT RECOVERY</span>
+        <span>CLICK OR DRAG ANYWHERE TO INSPECT CLEARCOAT RECOVERY</span>
         <span className="text-[#FF4B00]">MULTI-STAGE CORRECTION</span>
       </div>
     </div>
