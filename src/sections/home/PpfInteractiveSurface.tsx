@@ -2,23 +2,28 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface PpfInteractiveSurfaceProps {
   imageSrc: string;
-  altText: string;
+  isHovered: boolean;
+  pointerPos: { x: number; y: number };
+  velocity: number;
 }
 
 export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
   imageSrc,
-  altText,
+  isHovered,
+  pointerPos,
+  velocity,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [webglSupported, setWebglSupported] = useState<boolean>(true);
-  const [isHovered, setIsHovered] = useState<boolean>(false);
 
-  // Motion refs for high 60fps performance without React state re-renders
+  // Shader refs for 60fps performance without React re-renders
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0.5, y: 0.5 });
-  const targetMouseRef = useRef<{ x: number; y: number }>({ x: 0.5, y: 0.5 });
   const velocityRef = useRef<number>(0);
-  const lastMouseRef = useRef<{ x: number; y: number; time: number }>({ x: 0.5, y: 0.5, time: 0 });
+
+  useEffect(() => {
+    mouseRef.current = pointerPos;
+    velocityRef.current = velocity;
+  }, [pointerPos, velocity]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -36,7 +41,7 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
       return;
     }
 
-    // 1. VERTEX SHADER
+    // VERTEX SHADER
     const vsSource = `
       attribute vec2 a_position;
       attribute vec2 a_texCoord;
@@ -47,7 +52,7 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
       }
     `;
 
-    // 2. FRAGMENT SHADER (LIQUID PPF REFRACTION & SPECULAR REFLECTION SHADER)
+    // FRAGMENT SHADER (FULL-VIEWPORT PPF OPTICAL REFRACTION & SPECULAR SHADOW SHADER)
     const fsSource = `
       precision mediump float;
       uniform sampler2D u_image;
@@ -61,31 +66,35 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
       void main() {
         vec2 uv = v_texCoord;
         
-        // Correct aspect ratio distortion
+        // Aspect ratio correction
         vec2 aspectUV = uv;
         aspectUV.x *= (u_resolution.x / u_resolution.y);
         vec2 aspectMouse = u_mouse;
         aspectMouse.x *= (u_resolution.x / u_resolution.y);
 
-        // Distance from cursor
+        // Distance from pointer
         float dist = distance(aspectUV, aspectMouse);
 
-        // PPF Liquid Ripple Refraction
-        float ripple = sin(dist * 38.0 - u_time * 4.5) * exp(-dist * 6.5) * (0.012 + u_velocity * 0.035) * u_hover;
+        // Optical PPF clear-film wave refraction
+        float ripple = sin(dist * 32.0 - u_time * 3.5) * exp(-dist * 5.5) * (0.008 + u_velocity * 0.025) * u_hover;
         
-        // Distorted UV
+        // Refracted UV sampling
         vec2 dir = normalize(aspectUV - aspectMouse + vec2(0.0001));
         vec2 distortedUV = uv + dir * ripple;
         distortedUV = clamp(distortedUV, 0.0, 1.0);
 
-        // Sample base PPF campaign image
+        // Base image texture
         vec4 color = texture2D(u_image, distortedUV);
 
-        // Specular light highlight along transparent PPF film reflection
-        float specular = exp(-dist * 12.0) * (0.15 + u_velocity * 0.4) * u_hover;
-        vec3 specularColor = vec3(1.0, 0.97, 0.94) * specular;
+        // Soft specular light streak moving across clearcoat
+        float specular = exp(-dist * 9.0) * (0.08 + u_velocity * 0.25) * u_hover;
+        vec3 specularColor = vec3(1.0, 0.96, 0.92) * specular;
 
-        // Subtle clear-coat depth gradient
+        // Subtle dark vignette near viewport edges
+        float vignette = 1.0 - length(uv - 0.5) * 0.45;
+        color.rgb *= vignette;
+
+        // Add specular light
         color.rgb += specularColor;
 
         gl_FragColor = color;
@@ -124,7 +133,6 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
 
     gl.useProgram(program);
 
-    // Look up uniforms & attributes
     const positionLoc = gl.getAttribLocation(program, 'a_position');
     const texCoordLoc = gl.getAttribLocation(program, 'a_texCoord');
     const resolutionLoc = gl.getUniformLocation(program, 'u_resolution');
@@ -133,7 +141,6 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
     const timeLoc = gl.getUniformLocation(program, 'u_time');
     const hoverLoc = gl.getUniformLocation(program, 'u_hover');
 
-    // Create quad geometry
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(
@@ -164,7 +171,6 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
       gl.STATIC_DRAW
     );
 
-    // Load Texture
     const texture = gl.createTexture();
     const image = new Image();
     image.crossOrigin = 'anonymous';
@@ -184,11 +190,12 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
 
     let animationFrameId: number;
     let hoverValue = 0;
+    let currentMouse = { x: 0.5, y: 0.5 };
 
     const render = (time: number) => {
-      if (containerRef.current && canvas) {
-        const width = containerRef.current.clientWidth;
-        const height = containerRef.current.clientHeight;
+      if (canvas.parentElement) {
+        const width = canvas.parentElement.clientWidth;
+        const height = canvas.parentElement.clientHeight;
         if (canvas.width !== width || canvas.height !== height) {
           canvas.width = width;
           canvas.height = height;
@@ -196,22 +203,17 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
         }
       }
 
-      // Smooth Lerp Mouse Positions
-      mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * 0.08;
-      mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * 0.08;
+      currentMouse.x += (mouseRef.current.x - currentMouse.x) * 0.08;
+      currentMouse.y += (mouseRef.current.y - currentMouse.y) * 0.08;
 
-      // Velocity Decay
-      velocityRef.current *= 0.94;
-
-      // Hover Fade
       const targetHover = isHovered ? 1.0 : 0.0;
-      hoverValue += (targetHover - hoverValue) * 0.06;
+      hoverValue += (targetHover - hoverValue) * 0.05;
 
       if (imageLoaded) {
         gl.useProgram(program);
 
         gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
-        gl.uniform2f(mouseLoc, mouseRef.current.x, mouseRef.current.y);
+        gl.uniform2f(mouseLoc, currentMouse.x, currentMouse.y);
         gl.uniform1f(velocityLoc, velocityRef.current);
         gl.uniform1f(timeLoc, time * 0.001);
         gl.uniform1f(hoverLoc, hoverValue);
@@ -237,59 +239,14 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
     };
   }, [imageSrc, isHovered]);
 
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
+  if (!webglSupported) {
+    return (
+      <div
+        className="absolute inset-0 w-full h-full bg-cover bg-center opacity-60"
+        style={{ backgroundImage: `url(${imageSrc})` }}
+      />
+    );
+  }
 
-    targetMouseRef.current = { x, y };
-
-    const now = performance.now();
-    const dt = Math.max(1, now - lastMouseRef.current.time);
-    const dx = x - lastMouseRef.current.x;
-    const dy = y - lastMouseRef.current.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    const speed = dist / dt;
-
-    velocityRef.current = Math.min(1.0, velocityRef.current + speed * 12.0);
-    lastMouseRef.current = { x, y, time: now };
-  };
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-full min-h-[320px] overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.8)] group cursor-crosshair bg-black"
-      onPointerEnter={() => setIsHovered(true)}
-      onPointerLeave={() => setIsHovered(false)}
-      onPointerMove={handlePointerMove}
-    >
-      {webglSupported ? (
-        <canvas ref={canvasRef} className="w-full h-full object-cover block" />
-      ) : (
-        <img
-          src={imageSrc}
-          alt={altText}
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-        />
-      )}
-
-      {/* FALLBACK IMG FOR SEARCH ENGINES & NO-JS */}
-      <noscript>
-        <img src={imageSrc} alt={altText} className="w-full h-full object-cover" />
-      </noscript>
-
-      {/* REFINED GLASSMORPHIC PPF MATERIAL INDICATOR BADGE */}
-      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none font-intertight z-20">
-        <div className="flex items-center gap-2.5 bg-black/85 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-white border border-white/15 shadow-xl">
-          <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-          <span>INTERACTIVE PPF SURFACE // REFRACTION ACTIVE</span>
-        </div>
-
-        <span className="text-[#FF4B00] text-[10px] font-extrabold tracking-widest hidden sm:inline-block">
-          HOVER SURFACE TO DISTORT REFLECTION
-        </span>
-      </div>
-    </div>
-  );
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full object-cover block pointer-events-none z-0" />;
 };
