@@ -19,38 +19,53 @@ export const FinalCtaSection: React.FC = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    // Ensure video plays smoothly if browser autoplay requires user interaction or intersection
     if (videoRef.current) {
-      videoRef.current.play().catch(() => {
-        // Autoplay handle fallback
-      });
+      videoRef.current.play().catch(() => {});
     }
 
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. REVEAL FROM BELOW MOTION ("RISING SCENE" EFFECT)
+      // 1. DOWNWARD ENTRANCE REVEAL ("CTA RISES FROM BELOW" OVER FAQ)
       if (videoWrapperRef.current) {
         gsap.fromTo(
           videoWrapperRef.current,
-          { yPercent: 10, scale: 0.98, opacity: 0.8 },
+          { yPercent: 100 },
           {
             yPercent: 0,
-            scale: 1.0,
-            opacity: 1,
-            ease: 'power2.out',
+            ease: 'none',
             scrollTrigger: {
               trigger: sectionRef.current,
               start: 'top bottom',
               end: 'top top',
-              scrub: 0.6,
+              scrub: true,
             },
           }
         );
       }
 
-      // 2. CONTENT ENTRANCE TIMELINE
+      // 2. SUBTLE FAQ RECESSION WHILE CTA RISES
+      const faqSection = document.getElementById('faq-section');
+      if (faqSection) {
+        gsap.fromTo(
+          faqSection,
+          { scale: 1, y: 0 },
+          {
+            scale: 0.985,
+            y: -15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              end: 'top top',
+              scrub: true,
+            },
+          }
+        );
+      }
+
+      // 3. CONTENT ENTRANCE TIMELINE
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },
@@ -68,7 +83,7 @@ export const FinalCtaSection: React.FC = () => {
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top 75%',
+        start: 'top 70%',
         end: 'bottom 20%',
         onEnter: () => {
           tl.restart();
@@ -94,10 +109,10 @@ export const FinalCtaSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="final-cta"
-      className="w-full min-h-[100svh] h-[100svh] bg-[#050505] text-[#F5F4EF] border-t border-b border-white/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between"
+      className="w-full min-h-[100svh] h-[100svh] bg-[#050505] text-[#F5F4EF] border-t border-b border-white/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between z-20"
       style={{ backgroundColor: '#050505' }}
     >
-      {/* 4K FULL BLEED CINEMATIC VIDEO BACKGROUND */}
+      {/* 4K FULL BLEED CINEMATIC VIDEO BACKGROUND (RISING FROM BELOW) */}
       <div ref={videoWrapperRef} className="absolute inset-0 z-0 overflow-hidden w-full h-full">
         <video
           ref={videoRef}

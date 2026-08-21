@@ -28,28 +28,23 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     let lastIndex = -1;
 
     const ctx = gsap.context(() => {
-      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT (600VH TOTAL SCROLL TERRITORY)
+      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT (500VH TOTAL SCROLL TERRITORY = 100VH PER STAGE)
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
         end: 'bottom bottom',
         scrub: 0.1,
         onUpdate: (self) => {
-          const progress = self.progress;
+          const progress = Math.max(0, Math.min(1, self.progress));
 
           if (onProgressUpdate) {
             onProgressUpdate(progress);
           }
 
-          // 5 PROCESS STAGES OCCUPY THE FIRST 500VH (PROGRESS 0.00 -> 0.833333)
-          const PROCESS_SEQUENCE_END = 5 / 6;
-
-          const stageProgress = Math.min(1, progress / PROCESS_SEQUENCE_END);
-
-          // Calculate active stage index (0 to 4)
+          // 5 PROCESS STAGES EQUALLY DISTRIBUTED ACROSS 500VH (20% PROGRESS PER STAGE)
           const index = Math.min(
             processStages.length - 1,
-            Math.floor(stageProgress * processStages.length)
+            Math.floor(progress * processStages.length)
           );
 
           // Update React state ONLY when active index actually changes
@@ -58,26 +53,10 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             setActiveStageIndex(index);
           }
 
-          // Smooth background color & exit recession animation on stickyRef.current
+          // Smooth background color update on stickyRef.current
           if (stickyRef.current) {
             const targetColor = processStages[index].bgColor;
             stickyRef.current.style.backgroundColor = targetColor;
-
-            // Exit recession logic during final 10% progress of the 600vh territory (0.90 -> 1.00)
-            const EXIT_START = 0.90;
-            const EXIT_END = 1.00;
-
-            if (progress >= EXIT_START) {
-              const exitProgress = (progress - EXIT_START) / (EXIT_END - EXIT_START);
-              const exitScale = 1 - exitProgress * 0.04;
-              const exitOpacity = 1 - exitProgress * 0.12;
-              const exitY = -exitProgress * 2;
-              stickyRef.current.style.transform = `translate3d(0, ${exitY}vh, 0) scale(${exitScale})`;
-              stickyRef.current.style.opacity = `${exitOpacity}`;
-            } else {
-              stickyRef.current.style.transform = 'translate3d(0, 0, 0) scale(1)';
-              stickyRef.current.style.opacity = '1';
-            }
           }
         },
       });
@@ -90,7 +69,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     <div
       ref={containerRef}
       id="process-theatre"
-      className="relative w-full h-[600vh] z-20 selection:bg-[#FF4B00] selection:text-white"
+      className="relative w-full h-[500vh] z-20 selection:bg-[#FF4B00] selection:text-white"
     >
       {/* 100VH FULLSCREEN STICKY LIGHT PASTEL THEATRE VIEWPORT CONTAINER */}
       <div
