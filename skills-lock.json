@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "liquid-glass": {
+      "source": "Zettersten/skills",
+      "sourceType": "github",
+      "skillPath": "skills/liquid-glass/SKILL.md",
+      "computedHash": "cbc4a2b546693bbb9eae512ddae1644ce3dc2108afab1ec424a01973127a5746"
+    }
+  }
+}

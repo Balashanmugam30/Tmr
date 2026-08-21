@@ -5,6 +5,7 @@ import { navigationItems } from '@/data/navigation';
 import { megaMenuData } from '@/data/megaMenu';
 import { Logo } from './Logo';
 import { MegaMenuPanel } from './MegaMenuPanel';
+import { LiquidGlassSurface } from './LiquidGlassSurface';
 
 export const Navbar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -90,6 +91,43 @@ export const Navbar: React.FC = () => {
 
   return (
     <>
+      {/* HIDDEN SVG FILTER PRIMITIVE FOR LIQUID GLASS REFRACTION ENGINE */}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={0}
+        height={0}
+        style={{ position: 'absolute', overflow: 'hidden' }}
+        aria-hidden="true"
+      >
+        <defs>
+          <filter
+            id="lg-nav-filter"
+            colorInterpolationFilters="sRGB"
+            x="0%"
+            y="0%"
+            width="100%"
+            height="100%"
+          >
+            <feImage
+              result="dispMap"
+              x={0}
+              y={0}
+              width={600}
+              height={60}
+              preserveAspectRatio="none"
+              href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'600'%20height%3D'60'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'gx'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'100%25'%20y2%3D'0%25'%3E%3Cstop%20offset%3D'0%25'%20stop-color%3D'%23000'%2F%3E%3Cstop%20offset%3D'100%25'%20stop-color%3D'%23f00'%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D'gy'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'0%25'%20y2%3D'100%25'%3E%3Cstop%20offset%3D'0%25'%20stop-color%3D'%23000'%2F%3E%3Cstop%20offset%3D'100%25'%20stop-color%3D'%230f0'%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D'b'%3E%3CfeGaussianBlur%20stdDeviation%3D'8'%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'url(%23gx)'%20style%3D'mix-blend-mode%3Ascreen'%2F%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'url(%23gy)'%20style%3D'mix-blend-mode%3Ascreen'%2F%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'%23808080'%20filter%3D'url(%23b)'%2F%3E%3C%2Fsvg%3E"
+            />
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="dispMap"
+              scale={-35}
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
+        </defs>
+      </svg>
+
       {/* GLOBAL NAVBAR CONTAINER LAYER */}
       <header
         className={`fixed top-4 md:top-6 left-0 right-0 z-[1000] px-4 md:px-8 pointer-events-none transition-all duration-300 ${
@@ -103,7 +141,7 @@ export const Navbar: React.FC = () => {
             <Logo />
           </div>
 
-          {/* ZONE 2: CENTER DYNAMIC ISLAND NAVIGATION DOCK */}
+          {/* ZONE 2: CENTER APPLE LIQUID GLASS DYNAMIC NAVIGATION DOCK */}
           <div
             ref={centerDockRef}
             onMouseEnter={() => {
@@ -116,8 +154,8 @@ export const Navbar: React.FC = () => {
             onMouseLeave={handleMouseLeaveNav}
             className="pointer-events-auto hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 z-[1100]"
           >
-            <div className="bg-[#F5F4EF] backdrop-blur-xl border border-black/10 rounded-full shadow-[0_8px_30px_rgba(0,0,0,0.12)] min-h-[58px] flex items-center px-4 py-2">
-              <nav className="flex items-center gap-1 font-manrope text-xs font-bold uppercase tracking-wider">
+            <LiquidGlassSurface className="min-h-[58px] px-3 py-1.5 border border-white/20">
+              <nav className="flex items-center gap-1 font-manrope text-xs font-bold uppercase tracking-wider relative z-10">
                 {navigationItems.map((item) => {
                   const itemKey = item.label.trim().toUpperCase();
                   const isActive =
@@ -135,32 +173,41 @@ export const Navbar: React.FC = () => {
                         to={item.href}
                         className={`relative px-4 py-2 rounded-full transition-all duration-200 flex items-center gap-1.5 ${
                           isActive
-                            ? 'text-[#FF4B00] bg-black/5 font-extrabold'
+                            ? 'text-[#050505] font-black shadow-sm'
                             : isHovered
-                            ? 'text-[#050505] bg-black/5 font-extrabold'
+                            ? 'text-[#050505] font-extrabold'
                             : 'text-[#050505]/80 hover:text-[#050505]'
                         }`}
                       >
-                        <span>{item.label}</span>
+                        {/* NESTED ACTIVE INNER GLASS BUBBLE (LIFTED SELECTED STATE EFFECT) */}
                         {isActive && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] inline-block" />
+                          <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none z-0">
+                            <div className="absolute inset-0 backdrop-blur-md brightness-110" />
+                            <div className="absolute inset-0 bg-white/85 shadow-[inset_0_1px_0_rgba(255,255,255,1.0),inset_0_-1px_0_rgba(0,0,0,0.1)]" />
+                          </div>
+                        )}
+
+                        <span className="relative z-10">{item.label}</span>
+                        {isActive && (
+                          <span className="relative z-10 w-1.5 h-1.5 rounded-full bg-[#FF4B00] inline-block" />
                         )}
                       </Link>
                     </div>
                   );
                 })}
               </nav>
-            </div>
+            </LiquidGlassSurface>
           </div>
 
-          {/* ZONE 3: INDEPENDENT RIGHT CONTACT ACTION CAPSULE (WARM-WHITE SURFACE) */}
+          {/* ZONE 3: INDEPENDENT RIGHT CONTACT ACTION CAPSULE (LIQUID GLASS TREATMENT) */}
           <div className="pointer-events-auto shrink-0 z-[1010]">
-            <Link
-              to="/contact"
-              className="group flex items-center gap-1.5 bg-[#F5F4EF] border border-black/10 hover:border-[#FF4B00]/50 text-[#050505] px-5 py-3 rounded-full font-manrope font-extrabold text-xs uppercase tracking-widest shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all min-h-[58px]"
-            >
-              <span>CONTACT</span>
-              <ArrowUpRight className="w-4 h-4 text-[#FF4B00] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
+            <Link to="/contact">
+              <LiquidGlassSurface className="min-h-[58px] px-5 py-3 border border-white/30 hover:border-[#FF4B00]/60 transition-colors">
+                <div className="group flex items-center gap-1.5 text-[#050505] font-manrope font-extrabold text-xs uppercase tracking-widest relative z-10">
+                  <span>CONTACT</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#FF4B00] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </LiquidGlassSurface>
             </Link>
           </div>
 
@@ -182,11 +229,11 @@ export const Navbar: React.FC = () => {
         />
       )}
 
-      {/* MOBILE TRIGGER & FULLSCREEN DRAWER */}
+      {/* MOBILE TRIGGER BUTTON WITH COMPACT GLASS SURFACE */}
       <div className="lg:hidden fixed top-4 right-4 z-[1050] pointer-events-auto">
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="p-3 bg-[#F5F4EF] border border-black/10 rounded-full text-[#050505] hover:text-[#FF4B00] transition-colors shadow-[0_8px_30px_rgba(0,0,0,0.12)] min-h-[48px] min-w-[48px] flex items-center justify-center"
+          className="p-3 bg-[#F5F4EF]/85 backdrop-blur-xl border border-black/10 rounded-full text-[#050505] hover:text-[#FF4B00] transition-colors shadow-[0_8px_30px_rgba(0,0,0,0.12)] min-h-[48px] min-w-[48px] flex items-center justify-center"
           aria-label="Toggle Navigation Menu"
         >
           {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -195,7 +242,7 @@ export const Navbar: React.FC = () => {
 
       {/* MOBILE FULLSCREEN DRAWER */}
       {isMobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-[1040] bg-[#F5F4EF] text-[#050505] backdrop-blur-2xl pt-24 px-6 pb-12 overflow-y-auto flex flex-col justify-between">
+        <div className="lg:hidden fixed inset-0 z-[1040] bg-[#F5F4EF]/95 text-[#050505] backdrop-blur-2xl pt-24 px-6 pb-12 overflow-y-auto flex flex-col justify-between">
           <div className="space-y-6">
             <div className="flex items-center justify-between border-b border-black/10 pb-3">
               <Logo heightClassName="h-7" />
