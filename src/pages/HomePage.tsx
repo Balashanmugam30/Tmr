@@ -9,6 +9,7 @@ import { GalleryShowcaseSection } from '@/sections/home/GalleryShowcaseSection';
 import { TestimonialsSection } from '@/sections/home/TestimonialsSection';
 import { ShowroomSection } from '@/sections/home/ShowroomSection';
 import { FaqCtaSection } from '@/sections/home/FaqCtaSection';
+import { FinalCtaSection } from '@/sections/home/FinalCtaSection';
 
 export const HomePage: React.FC = () => {
   return (
@@ -40,8 +41,11 @@ export const HomePage: React.FC = () => {
       {/* 10. Tiruppur Showroom Location */}
       <ShowroomSection />
 
-      {/* 11. FAQ & Final CTA */}
+      {/* 11. FAQ: Questions, Answered */}
       <FaqCtaSection />
+
+      {/* 12. Final Decision CTA: Your Car Deserves Better */}
+      <FinalCtaSection />
     </div>
   );
 };
