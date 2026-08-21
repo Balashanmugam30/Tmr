@@ -17,26 +17,8 @@ export const CeramicSection: React.FC = () => {
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
-    const processTheatre = document.querySelector('#process-theatre');
-
     const ctx = gsap.context(() => {
-      // 1. BOUNDARY TRANSITION: PROCESS THEATRE SUBTLY RECEDES AS PROTECTION ENTERS VIEWPORT
-      if (processTheatre) {
-        gsap.to(processTheatre, {
-          scale: 0.97,
-          y: '-2vh',
-          opacity: 0.88,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom', // As Protection top reaches viewport bottom
-            end: 'top top', // As Protection fills viewport
-            scrub: 0.1,
-          },
-        });
-      }
-
-      // 2. PROTECTION EDITORIAL & HERO VISUAL ENTRANCE TIMELINE
+      // PROTECTION EDITORIAL & HERO VISUAL ENTRANCE TIMELINE
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },

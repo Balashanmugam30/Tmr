@@ -2,7 +2,6 @@ import React from 'react';
 import { ScrollyHero } from '@/sections/home/ScrollyHero';
 import { ManifestoSection } from '@/sections/home/ManifestoSection';
 import { ApproachProcessJourney } from '@/sections/home/ApproachProcessJourney';
-import { CeramicSection } from '@/sections/home/CeramicSection';
 import { PpfSection } from '@/sections/home/PpfSection';
 import { TransformationSection } from '@/sections/home/TransformationSection';
 import { StandardSection } from '@/sections/home/StandardSection';
@@ -20,11 +19,8 @@ export const HomePage: React.FC = () => {
       {/* 2. Manifesto: 01 / TMR */}
       <ManifestoSection />
 
-      {/* 3 & 4. Continuous Approach + Process Theatre Journey */}
+      {/* 3, 4 & 5. Continuous Approach + Process Theatre + Overlapping Protection Journey */}
       <ApproachProcessJourney />
-
-      {/* 5. Ceramic Coating: 03 / PROTECTION */}
-      <CeramicSection />
 
       {/* 6. PPF: The Invisible Shield */}
       <PpfSection />
