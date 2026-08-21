@@ -1,138 +1,185 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '@/components/Container';
-import { SectionNumber } from '@/components/SectionNumber';
+import { processStages, ProcessStage } from './processSceneData';
 
-const processStages = [
-  {
-    number: '01',
-    title: 'ARRIVE',
-    description: 'Every great finish starts with the right first look.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC8cr1Efg12-NOle3puc89GzCo0eX_ixLg0zALHN8742PUWy4IkxQ9ihbs2EInrham1Hfi9FmB2ZcNIuVzo1ru_hf5r_NpKjRrzkiRRsCY_Yn-3zOfZ-AQuxoYCJQ-Enj0eV-CZ6l_jLgS0B-zLVFxSTU6Lg2JJXub2un3JVfSweRaZWIQ9K-IGY6c9yrXOCjLsn7kFYgICEeZFHDD-L2AjqjCL8otlMD-Oc7oGupcj0rAEl-7E7G2h',
-    alt: 'A premium dark automotive garage at night',
-  },
-  {
-    number: '02',
-    title: 'INSPECT',
-    description: 'Understand the vehicle before deciding what it needs.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuBqw0yQ70QJlHwUDed75WXT3KXO5qZjcXshvb_vKF6E0WrSg2hXTosyeXYufu5RZI-Wq25bJfj50htC0nWgAkJOxUJ4NZJgN6yv7fJMc5uzH9EqsWGd284JccNkS9yeHGKVJXUWhcULwhsZ3ByB_T4CkkczN3SpemGj-2mZPwjdhaidCFG1emXPOoDN8EYBnQeM_HdeM4lfLND0JaXb0Q-ilvY83V32Jl0bgrJ9hGUjSZW5DZTwzmyv',
-    alt: 'Professional automotive detailer inspecting car paint with LED light',
-  },
-  {
-    number: '03',
-    title: 'PREPARE',
-    description: 'Prepare every surface for the work ahead.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDJ463qSMfdkCWneZe6i_q34Bib--fwGadaYLYPYGKSzaEdwZhzREvyBp11gkD6ub7kGWnex1lJ37wsD7PCC5T7R-mkesnOQXlHweXF01lqTqY1mfSV4l0H5UWpI2c5Yg54aF-2IIwGgUApkvJD--fYAgpOGmZ3GWlD6_7hGm7DWynoqVRTgcK-u9scg93HZ0odl23eF9VuaRaUX5nTB2jUEo8nKfWp1A8gxZbjQxXIEIN6Rskoc3YU',
-    alt: 'Sports car prepared for detailing with foam and masking tape',
-  },
-  {
-    number: '04',
-    title: 'TRANSFORM',
-    description: 'The detail work begins to change the vehicle.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC26ZtDDKhpG4TWMFS4BiPB91xSglt4htT89bPS_OpkdqwVkcBpX2kGYoc_ey--qZVVZfft0qpXeWJ6fYccWbaHG04WEH7K529wYhqpQEMhPnJpHcpiGdJcT76o1L1GVgT6T5FXG2ut_jS-vFp9DwUdmrL9Ao6DEgJ1l4uACTVGJjh1rDnNY-wYqWVF95irmI-jcMn1PoUMNIowPclQxcyTiUWAD9kvvCK6qwI0wRXwNkMsQMx8ruth',
-    alt: 'Machine polishing and paint correction process',
-  },
-  {
-    number: '05',
-    title: 'REVEAL',
-    description: 'The finished vehicle, ready to leave looking its best.',
-    image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDM2nU_Ha9AYwiZwkkcPba6eCVHqmf9T8seVmju3W3iKkOGD5pPBHhuI2lpQXnE7NATt2lguwqr0K5Ij8k0bhXSThZu1lHS1Je5VcTU225Xd8buoaxgpLBnmtUj78Bm3oHw7wQDon72xSxK_MLy0sgq0IQQKBWQM5RSWDHufYxGipbdRk0--SbruB9Up3TAQrvn8gUXqIniHG7Y_7H51iXGxloLOL7NNGK-M2WF7_K1zpgZVF8fah5u',
-    alt: 'Finished premium sports car in detailing studio',
-  },
-];
+gsap.registerPlugin(ScrollTrigger);
 
-export const ProcessTheatreSection: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+interface ProcessTheatreSectionProps {
+  onProgressUpdate?: (stageProgress: number) => void;
+}
+
+export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
+  onProgressUpdate,
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const [activeStageIndex, setActiveStageIndex] = useState<number>(0);
+
+  const currentStage: ProcessStage = processStages[activeStageIndex] || processStages[0];
+
+  useEffect(() => {
+    if (!containerRef.current || !stickyRef.current) return;
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion) return;
+
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.2,
+        onUpdate: (self) => {
+          const progress = self.progress;
+
+          // Notify parent of stage progress (0.0 to 1.0 within process theatre)
+          if (onProgressUpdate) {
+            onProgressUpdate(progress);
+          }
+
+          // Calculate active stage index (0 to 4)
+          const index = Math.min(
+            processStages.length - 1,
+            Math.floor(progress * processStages.length)
+          );
+
+          if (index !== activeStageIndex) {
+            setActiveStageIndex(index);
+          }
+
+          // Smooth background color interpolation based on scroll progress
+          if (stickyRef.current) {
+            const targetColor = processStages[index].bgColor;
+            const targetTextColor = processStages[index].textColor;
+
+            stickyRef.current.style.backgroundColor = targetColor;
+            stickyRef.current.style.color = targetTextColor;
+          }
+        },
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [activeStageIndex, onProgressUpdate]);
 
   return (
-    <section className="w-full bg-tmr-softblack text-white py-24 md:py-section-gap relative" id="process-theatre">
-      <Container>
-        {/* Header Bar */}
-        <div className="border-t border-white/10 pt-6 mb-12 flex items-center justify-between font-manrope font-bold text-xs uppercase tracking-widest">
-          <div className="flex items-center gap-3">
-            <SectionNumber number="04" accent />
-            <span className="text-white/50">/ THE PROCESS</span>
-          </div>
-          <span className="text-white/30">Cinematic Storytelling</span>
-        </div>
-
-        {/* Content Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-gutter items-center">
-          {/* Left Column (5 Cols): Editorial Navigation Rail */}
-          <div className="lg:col-span-5 relative z-20">
-            <div className="font-manrope font-bold text-xs text-tmr-orange mb-4 tracking-widest">
-              0{activeIndex + 1} / 05
+    <div
+      ref={containerRef}
+      id="process-theatre"
+      className="relative w-full h-[500vh] z-20 selection:bg-[#FF4B00] selection:text-white"
+    >
+      {/* 100VH STICKY VIEWPORT CONTAINER */}
+      <div
+        ref={stickyRef}
+        className="sticky top-0 left-0 w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between transition-colors duration-500 ease-out"
+        style={{
+          backgroundColor: currentStage.bgColor,
+          color: currentStage.textColor,
+        }}
+      >
+        <Container className="h-full flex flex-col justify-between py-12 md:py-16">
+          {/* HEADER BAR */}
+          <div className="w-full border-t border-current/15 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em]">
+            <div className="flex items-center gap-2.5">
+              <span className="text-[#FF4B00]">04</span>
+              <span className="opacity-40">/</span>
+              <span>THE PROCESS THEATRE</span>
             </div>
-            <h2 className="font-manrope font-black text-3xl sm:text-5xl lg:text-6xl text-white uppercase mb-8 leading-tight tracking-tighter">
-              FROM ARRIVAL
-              <br />
-              TO FINISH.
-            </h2>
+            <span className="opacity-60 tracking-[0.2em]">STAGE 0{activeStageIndex + 1} // 05</span>
+          </div>
 
-            <ul className="space-y-0 w-full border-l border-white/10">
-              {processStages.map((stage, index) => {
-                const isActive = activeIndex === index;
-                return (
-                  <li
-                    key={stage.number}
-                    onClick={() => setActiveIndex(index)}
-                    className={`py-5 pl-6 sm:pl-8 cursor-pointer transition-all duration-300 border-l-4 ${
-                      isActive ? 'border-tmr-orange bg-white/5' : 'border-transparent hover:bg-white/[0.02]'
-                    }`}
-                  >
-                    <div className="flex flex-col gap-1">
-                      <h3
-                        className={`font-manrope font-extrabold text-xl sm:text-2xl uppercase transition-colors ${
-                          isActive ? 'text-tmr-orange' : 'text-white/30'
-                        }`}
-                      >
-                        {stage.number} {stage.title}
-                      </h3>
-                      {isActive && (
-                        <p className="font-manrope text-sm text-white/70 leading-relaxed mt-1 animate-fadeIn">
-                          {stage.description}
-                        </p>
-                      )}
+          {/* MAIN 12-COLUMN PROCESS CONTENT GRID */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto relative">
+            
+            {/* LEFT / NAVIGATION RAIL & ACTIVE STAGE NARRATIVE (COLUMNS 1–5) */}
+            <div className="lg:col-span-5 relative z-10 space-y-6">
+              <div className="font-intertight font-bold text-xs text-[#FF4B00] tracking-[0.25em] uppercase">
+                0{activeStageIndex + 1} — {currentStage.title}
+              </div>
+
+              <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase leading-[0.92] tracking-[-0.045em]">
+                FROM ARRIVAL
+                <br />
+                <span className="text-[#FF4B00]">TO FINISH.</span>
+              </h2>
+
+              <p className="font-editorial text-xl sm:text-2xl lg:text-3xl italic opacity-90 leading-tight">
+                "{currentStage.description}"
+              </p>
+
+              {/* VERTICAL STAGE NAVIGATION RAIL */}
+              <div className="pt-4 border-l border-current/15 space-y-3 pl-4 sm:pl-6">
+                {processStages.map((stage, idx) => {
+                  const isActive = activeStageIndex === idx;
+                  return (
+                    <div
+                      key={stage.id}
+                      className={`flex items-center justify-between cursor-pointer transition-all duration-300 font-intertight text-xs uppercase tracking-wider py-1 ${
+                        isActive ? 'text-[#FF4B00] font-bold pl-2' : 'opacity-40 hover:opacity-80'
+                      }`}
+                      onClick={() => setActiveStageIndex(idx)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span>{stage.number}</span>
+                        <span>{stage.title}</span>
+                      </div>
+                      {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />}
                     </div>
-                  </li>
-                );
-              })}
-            </ul>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* RIGHT / CINEMATIC MEDIA DISPLAY (COLUMNS 6–12) */}
+            <div className="lg:col-span-7 relative w-full">
+              <div className="w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10] max-h-[580px] relative overflow-hidden rounded-2xl border border-current/15 shadow-[0_30px_70px_rgba(0,0,0,0.25)]">
+                {processStages.map((stage, idx) => {
+                  const isActive = activeStageIndex === idx;
+                  return (
+                    <div
+                      key={stage.id}
+                      className={`absolute inset-0 w-full h-full transition-all duration-700 ease-out ${
+                        isActive
+                          ? 'opacity-100 scale-100 clip-path-full z-10'
+                          : 'opacity-0 scale-105 clip-path-inset z-0'
+                      }`}
+                    >
+                      <img
+                        src={stage.image}
+                        alt={stage.alt}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                      
+                      {/* GLASSMORPHIC STAGE BADGE */}
+                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between font-intertight">
+                        <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-white border border-white/10">
+                          {stage.number} // {stage.title} — {stage.subtitle}
+                        </span>
+                        <span className="text-[#FF4B00] text-xs font-extrabold hidden sm:inline-block">
+                          TMR STUDIO
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
           </div>
 
-          {/* Right Column (7 Cols): Cinematic Media Display */}
-          <div className="lg:col-span-7 relative w-full">
-            <div className="w-full h-[450px] sm:h-[550px] lg:h-[650px] relative overflow-hidden rounded-tmr bg-tmr-black border border-white/10 shadow-2xl">
-              {processStages.map((stage, index) => (
-                <div
-                  key={stage.number}
-                  className={`absolute inset-0 w-full h-full transition-opacity duration-700 ease-in-out ${
-                    activeIndex === index ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                  }`}
-                >
-                  <img
-                    src={stage.image}
-                    alt={stage.alt}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23050505"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="28" fill="%23FF4B00">STAGE 0${index + 1} — ${stage.title}</text></svg>`;
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-tmr-black/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-6 left-6 bg-tmr-softblack/90 text-white px-4 py-2 text-xs font-manrope font-bold uppercase tracking-widest border border-white/10 backdrop-blur-sm">
-                    {stage.number} / {stage.title}
-                  </div>
-                </div>
-              ))}
+          {/* BOTTOM TECHNICAL SPECIFICATION FOOTER */}
+          <div className="w-full border-t border-current/15 pt-4 flex flex-col md:flex-row md:items-center justify-between gap-2 font-intertight text-[11px] font-bold uppercase tracking-wider opacity-70">
+            <div className="flex items-center gap-3">
+              <span className="text-[#FF4B00]">PROTOCOL:</span>
+              <span>{currentStage.technicalDetails.join(' • ')}</span>
             </div>
+            <div>TIRUPPUR FACILITY</div>
           </div>
-        </div>
-      </Container>
-    </section>
+        </Container>
+      </div>
+    </div>
   );
 };
