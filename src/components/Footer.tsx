@@ -53,22 +53,22 @@ export const Footer: React.FC = () => {
   return (
     <footer
       ref={footerRef}
-      className="w-full bg-[#063A34] text-[#F5F4EF] pt-12 md:pt-16 pb-8 border-t border-white/10 relative overflow-hidden font-intertight flex flex-col justify-between"
-      style={{ backgroundColor: '#063A34' }}
+      className="w-full bg-[#050505] text-[#F5F4EF] pt-12 md:pt-16 pb-8 border-t border-white/10 relative overflow-hidden font-intertight flex flex-col justify-between"
+      style={{ backgroundColor: '#050505' }}
     >
       {/* SUBTLE FINE NOISE & GRID OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-4 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
       <Container className="relative z-10 space-y-12 md:space-y-16">
         
-        {/* SECTION A — CONTACT STRIP (TOP COMPACT HORIZONTAL BAR WITH VERTICAL DIVIDERS) */}
-        <div className="border-b border-white/14 pb-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-white/14">
+        {/* SECTION A — CONTACT STRIP (TOP COMPACT HORIZONTAL BAR WITH SUBTLE VERTICAL DIVIDERS) */}
+        <div className="border-b border-white/12 pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 divide-y md:divide-y-0 md:divide-x divide-white/12">
             
-            {/* STRIP 1: CALL / WHATSAPP */}
+            {/* ZONE 1: CALL US */}
             <div className="md:pr-8 space-y-1">
-              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#F5F4EF]/45">
-                CALL / WHATSAPP
+              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#F5F4EF]/50">
+                CALL US
               </div>
               <a
                 href={`tel:${companyData.contact.phone}`}
@@ -78,9 +78,9 @@ export const Footer: React.FC = () => {
               </a>
             </div>
 
-            {/* STRIP 2: LOCATION */}
+            {/* ZONE 2: LOCATION */}
             <div className="md:px-8 pt-4 md:pt-0 space-y-1">
-              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#F5F4EF]/45">
+              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#F5F4EF]/50">
                 LOCATION
               </div>
               <div className="font-extrabold text-sm sm:text-base text-[#F5F4EF]">
@@ -88,9 +88,9 @@ export const Footer: React.FC = () => {
               </div>
             </div>
 
-            {/* STRIP 3: WORKING HOURS */}
+            {/* ZONE 3: WORKING HOURS */}
             <div className="md:pl-8 pt-4 md:pt-0 space-y-1">
-              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#F5F4EF]/45">
+              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#F5F4EF]/50">
                 WORKING HOURS
               </div>
               <div className="font-extrabold text-xs sm:text-sm text-[#F5F4EF]">
@@ -116,7 +116,7 @@ export const Footer: React.FC = () => {
               </div>
             </div>
             <p className="text-xs text-[#F5F4EF]/75 font-medium leading-relaxed max-w-[260px]">
-              Precision detailing, protection and finish for exceptional motor vehicles.
+              Precision detailing, protection and finish.
             </p>
           </div>
 
@@ -189,10 +189,10 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* COLUMN 5 — FOLLOW / CONNECT (2 Cols) */}
+          {/* COLUMN 5 — CONNECT (2 Cols) */}
           <div className="lg:col-span-2 space-y-4">
             <h3 className="text-xs font-extrabold uppercase tracking-widest text-[#FF4B00]">
-              FOLLOW / CONNECT
+              CONNECT
             </h3>
             <ul className="space-y-2.5 text-xs font-extrabold uppercase tracking-wider text-[#F5F4EF]/85">
               <li>
@@ -258,7 +258,7 @@ export const Footer: React.FC = () => {
         {/* SECTION C — GIANT TMR BRAND ENDING */}
         <div className="relative w-full pt-10 pb-2 border-t border-white/10 overflow-hidden select-none pointer-events-none">
           <div ref={giantBrandRef} className="w-full text-center transition-transform duration-700 ease-out">
-            <span className="font-intertight font-black text-[28vw] sm:text-[31vw] lg:text-[34vw] leading-none text-[rgba(245,244,239,0.06)] tracking-[-0.07em] block uppercase">
+            <span className="font-intertight font-black text-[28vw] sm:text-[30vw] lg:text-[32vw] leading-none text-[rgba(245,244,239,0.06)] tracking-[-0.07em] block uppercase">
               TMR
             </span>
             <div className="flex items-center justify-between text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.3em] text-[#FF4B00]/70 px-4 -mt-4 sm:-mt-8">
@@ -275,10 +275,10 @@ export const Footer: React.FC = () => {
 
           <div className="flex items-center gap-6">
             <Link to="/contact" className="hover:text-white transition-colors">
-              Privacy Policy
+              PRIVACY POLICY
             </Link>
             <Link to="/contact" className="hover:text-white transition-colors">
-              Terms & Conditions
+              TERMS & CONDITIONS
             </Link>
             <span className="hidden sm:inline-block">TIRUPPUR, TAMIL NADU</span>
             <button
