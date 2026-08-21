@@ -1,69 +1,175 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import { Container } from '@/components/Container';
-import { Button } from '@/components/Button';
-import { companyData } from '@/data/company';
+import { PpfInteractiveSurface } from './PpfInteractiveSurface';
 
 export const PpfSection: React.FC = () => {
-  const whatsappUrl = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(
-    'Hello TMR Car Care! I would like an estimate for PPF (Paint Protection Film) installation.'
-  )}`;
+  const sectionRef = useRef<HTMLElement>(null);
+  const textGroupRef = useRef<HTMLDivElement>(null);
+  const visualWrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion) return;
+
+    // ONE-TIME ELEGANT MOUNT ENTRANCE ANIMATION (NOT SCROLLTRIGGER THEATRE)
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      if (textGroupRef.current) {
+        const textItems = textGroupRef.current.querySelectorAll('.ppf-anim-item');
+        tl.fromTo(
+          textItems,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 },
+          0.1
+        );
+      }
+
+      if (visualWrapperRef.current) {
+        tl.fromTo(
+          visualWrapperRef.current,
+          { opacity: 0, scale: 1.03 },
+          { opacity: 1, scale: 1.00, duration: 0.9 },
+          0.2
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="w-full py-24 md:py-section-gap bg-tmr-black text-white overflow-hidden relative">
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-center">
-          {/* Left Column (7 Cols): PPF Laser Image & Watermark */}
-          <div className="lg:col-span-7 relative group">
-            <div className="aspect-video overflow-hidden relative rounded-tmr shadow-2xl bg-tmr-softblack">
-              <img
-                src="https://lh3.googleusercontent.com/aida/AP1WRLvQQfIqcXcZOAl4e-4mlcK-4w8R0wuNVXd-bnlon4KLk4iJRU9cCeFiQhYV91XBfzmaFc2A2j0xUbVBEUlXXhEt1J4KpiELHNhqUT7d6qsO8llv5kCL2EjoxvblVTm8MxauYZV4RDdCaF_47siXdD2fo9orXzGJDigCilM-4cjrgxTX4GeIuLnZPuluRaEHuRYd3lZXLmqg0vZsTBYnDhqnqh-fSSXSYpNb-7YPUVXwAuaG5o-UB2BRKUs"
-                alt="PPF Paint Protection Film Application"
-                className="w-full h-full object-cover opacity-80"
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"><rect width="1200" height="675" fill="%23111111"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="28" fill="%23FF4B00">PPF SELF-HEALING TPU ARMOR</text></svg>`;
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent w-1/2 -skew-x-12 animate-pulse pointer-events-none" />
-              {/* Laser Line Accent */}
-              <div className="absolute top-0 left-1/2 w-0.5 h-full bg-tmr-orange shadow-[0_0_15px_rgba(255,75,0,0.8)] z-20" />
-            </div>
+    <section
+      ref={sectionRef}
+      id="ppf-protection"
+      className="relative w-full min-h-[100svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-between py-8 lg:py-12 isolate"
+      style={{ backgroundColor: '#070809' }}
+    >
+      {/* SUBTLE NOISE OVERLAY */}
+      <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
-            {/* Typography Watermark */}
-            <div className="absolute -bottom-10 -right-6 text-7xl sm:text-9xl md:text-[140px] font-manrope font-black text-white/5 leading-none select-none pointer-events-none hidden sm:block">
-              SHIELD
-            </div>
+      {/* TOP METADATA ROW */}
+      <Container className="relative z-20 pt-2">
+        <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#FF4B00]">03</span>
+            <span className="text-white/30">/</span>
+            <span>PROTECTION</span>
+            <span className="text-white/30">•</span>
+            <span className="text-white/60">THE INVISIBLE SHIELD</span>
           </div>
+          <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">
+            PAINT PROTECTION FILM // OPTICAL CLEAR
+          </span>
+        </div>
+      </Container>
 
-          {/* Right Column (5 Cols): Content */}
-          <div className="lg:col-span-5 space-y-8">
-            <div>
-              <span className="font-manrope font-bold text-xs text-tmr-orange uppercase tracking-[0.3em] mb-4 block">
-                The Invisible Shield
-              </span>
-              <h2 className="font-manrope font-black text-4xl sm:text-5xl lg:text-6xl leading-none uppercase tracking-tighter">
-                PROTECTION
-                <br />
-                YOU CAN{' '}
-                <span className="font-editorial italic lowercase text-tmr-orange font-normal">
-                  see.
-                </span>
-              </h2>
+      {/* MAIN FULLVIEWPORT 12-COLUMN EDGE-TO-EDGE GRID */}
+      <Container className="relative z-20 my-auto py-6 lg:py-8 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center h-full">
+          
+          {/* LEFT COLUMN: RESTRAINED EDITORIAL COPY GROUP (COLUMNS 1–5 / ~45% WIDTH) */}
+          <div ref={textGroupRef} className="lg:col-span-5 space-y-6 max-w-[480px]">
+            
+            {/* EYEBROW */}
+            <div className="ppf-anim-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+              03 // PROTECTION — THE INVISIBLE SHIELD
             </div>
 
-            <p className="font-manrope text-base text-white/60 leading-relaxed max-w-md">
-              The ultimate invisible shield against rock chips, scratches, and road debris. Self-healing technology keeps your investment flawless.
+            {/* MAIN HEADLINE */}
+            <h2 className="ppf-anim-item font-intertight font-extrabold text-5xl sm:text-7xl lg:text-[80px] uppercase text-white leading-[0.9] tracking-[-0.04em]">
+              THE INVISIBLE <br />
+              <span className="text-[#FF4B00]">SHIELD.</span>
+            </h2>
+
+            {/* EDITORIAL STATEMENT */}
+            <p className="ppf-anim-item font-editorial text-lg sm:text-2xl italic text-white/85 leading-tight">
+              "Protection you don't notice. Performance you don't compromise."
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Button variant="primary" className="bg-white text-tmr-softblack hover:bg-tmr-orange hover:text-white" href="/services/ppf-paint-protection">
-                Explore PPF
-              </Button>
-              <Button variant="outline" href={whatsappUrl} target="_blank">
-                WhatsApp TMR
-              </Button>
+            {/* TECHNICAL DESCRIPTION */}
+            <p className="ppf-anim-item font-intertight text-xs sm:text-sm text-white/65 leading-relaxed">
+              A precision-engineered transparent polyurethane matrix designed to absorb road debris, stone chips, and environmental contamination while preserving original factory clearcoat depth.
+            </p>
+
+            {/* TECHNICAL SPECIFICATION SHEET GRID */}
+            <div className="ppf-anim-item pt-4 border-t border-white/10 grid grid-cols-2 gap-4 font-intertight text-xs uppercase tracking-wider">
+              <div>
+                <span className="block text-[10px] text-white/40 font-bold">MATERIAL</span>
+                <span className="font-extrabold text-white text-sm">TPU FILM (8-10 MIL)</span>
+              </div>
+              <div>
+                <span className="block text-[10px] text-white/40 font-bold">PROPERTY</span>
+                <span className="font-extrabold text-[#FF4B00] text-sm">SELF-HEALING MATRIX</span>
+              </div>
+              <div>
+                <span className="block text-[10px] text-white/40 font-bold">CLARITY</span>
+                <span className="font-extrabold text-white text-sm">OPTICAL ULTRA HIGH GLOSS</span>
+              </div>
+              <div>
+                <span className="block text-[10px] text-white/40 font-bold">DURABILITY</span>
+                <span className="font-extrabold text-white text-sm">10-YEAR WARRANTY</span>
+              </div>
             </div>
+
+            {/* MICRO TECHNICAL LAYER DIAGRAM */}
+            <div className="ppf-anim-item pt-4 border-t border-white/10 space-y-2">
+              <div className="text-[10px] font-intertight font-extrabold uppercase tracking-widest text-white/40">
+                OPTICAL CROSS-SECTION DIAGRAM
+              </div>
+              <div className="grid grid-cols-4 gap-1.5 font-intertight text-[9px] font-bold uppercase tracking-wider text-center">
+                <div className="py-1.5 px-1 bg-white/5 rounded border border-white/10 text-white/60">ROAD IMPACT</div>
+                <div className="py-1.5 px-1 bg-[#FF4B00]/20 rounded border border-[#FF4B00]/40 text-[#FF4B00]">PPF FILM 8 MIL</div>
+                <div className="py-1.5 px-1 bg-white/5 rounded border border-white/10 text-white/60">CLEARCOAT</div>
+                <div className="py-1.5 px-1 bg-white/5 rounded border border-white/10 text-white/60">PAINT PANEL</div>
+              </div>
+            </div>
+
+            {/* CTA BUTTON GROUP */}
+            <div className="ppf-anim-item pt-2 flex items-center gap-6">
+              <Link
+                to="/services"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <span>EXPLORE PPF PACKAGES</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+                </span>
+                <span className="h-[1.5px] w-10 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
+              </Link>
+
+              <a
+                href="https://wa.me/919876543210"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-intertight font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+              >
+                WHATSAPP TMR
+              </a>
+            </div>
+
           </div>
+
+          {/* RIGHT COLUMN: DOMINANT INTERACTIVE WEBGL PPF SURFACE (COLUMNS 6–12 / ~55% WIDTH) */}
+          <div ref={visualWrapperRef} className="lg:col-span-7 relative w-full h-[52vh] sm:h-[60vh] lg:h-[72vh] flex items-center">
+            <PpfInteractiveSurface
+              imageSrc="/images/ppf/ppf-hero.webp"
+              altText="TMR Paint Protection Film Hydrophobic Interactive Surface"
+            />
+          </div>
+
+        </div>
+      </Container>
+
+      {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
+      <Container className="relative z-20 pb-2">
+        <div className="w-full border-t border-white/10 pt-3 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
+          <span>HIGH-IMPACT TPU MATRIX // THERMAL RECOVERY</span>
+          <span>TMR / AUTOMOTIVE CARE</span>
         </div>
       </Container>
     </section>
