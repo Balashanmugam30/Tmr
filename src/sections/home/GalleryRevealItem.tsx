@@ -12,7 +12,6 @@ interface GalleryRevealItemProps {
 }
 
 export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
-  number,
   title,
   service,
   image,
@@ -38,12 +37,10 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
       return;
     }
 
-    // INDIVIDUAL ITEM-LEVEL INTERSECTION OBSERVER WITH ENTER & LEAVE LIFECYCLE REPLAY
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // ITEM ENTERS VIEWPORT: REVEAL ANIMATION (NO IMAGE -> IMAGE ARRIVES -> SETTLES)
             gsap.to(card, {
               clipPath: 'inset(0 0% 0 0)',
               opacity: 1,
@@ -59,7 +56,6 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
               overwrite: 'auto',
             });
           } else {
-            // ITEM LEAVES VIEWPORT: RESET TO MASKED HIDDEN STATE FOR FUTURE RE-ENTRY REVEAL
             gsap.to(card, {
               clipPath: 'inset(0 100% 0 0)',
               opacity: 0,
@@ -96,7 +92,6 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
       data-gallery-image="true"
       className={`${gridSpan} ${overlapClass} relative w-full`}
     >
-      {/* STATIC LAYOUT CONTAINER (PREVENTS VERTICAL LAYOUT SHIFTS) */}
       <div
         ref={cardRef}
         className={`w-full ${aspect} relative overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
@@ -118,20 +113,7 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
             transform: 'translateX(-24px) scale(1.025)',
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none opacity-60 group-hover:opacity-85 transition-opacity duration-500" />
-
-        {/* FLOATING GLASSMORPHIC EDITORIAL PROJECT BADGE */}
-        <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between font-intertight pointer-events-none z-10">
-          <div className="flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-white border border-white/15 shadow-lg">
-            <span className="text-[#FF4B00]">{number}</span>
-            <span className="text-white/30">/</span>
-            <span>{title}</span>
-          </div>
-
-          <span className="bg-[#FF4B00]/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest text-white hidden sm:inline-block shadow-md">
-            {service}
-          </span>
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none opacity-40 group-hover:opacity-70 transition-opacity duration-500" />
       </div>
     </div>
   );

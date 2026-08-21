@@ -8,7 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 export const ManifestoSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const dividerRef = useRef<HTMLDivElement>(null);
-  const metaRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
   const ruleRef = useRef<HTMLDivElement>(null);
@@ -21,28 +20,19 @@ export const ManifestoSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. MASTER REVEAL TIMELINE (PAUSED INITIALLY, CONTROLLED BY VIEWPORT ENTRY)
+      // 1. MASTER REVEAL TIMELINE
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power4.out' },
       });
 
-      // 1a. Top Divider & Meta Row (0.00s)
+      // 1a. Top Divider (0.00s)
       if (dividerRef.current) {
         tl.fromTo(
           dividerRef.current,
           { scaleX: 0 },
           { scaleX: 1, duration: 0.8, transformOrigin: 'left center' },
           0
-        );
-      }
-
-      if (metaRef.current) {
-        tl.fromTo(
-          metaRef.current,
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.5 },
-          0.05
         );
       }
 
@@ -79,7 +69,6 @@ export const ManifestoSection: React.FC = () => {
       if (imageRef.current) {
         const imgEl = imageRef.current.querySelector('img');
 
-        // Image wrapper mask curtain expands horizontally from left to right
         tl.fromTo(
           imageRef.current,
           { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
@@ -92,7 +81,6 @@ export const ManifestoSection: React.FC = () => {
           0.24
         );
 
-        // Subtle image shift inside the expanding curtain
         if (imgEl) {
           tl.fromTo(
             imgEl,
@@ -113,26 +101,18 @@ export const ManifestoSection: React.FC = () => {
         );
       }
 
-      // 2. SCROLLTRIGGER VIEWPORT ENTER / LEAVE LIFECYCLE (REPLAYS ON VIEWPORT RE-ENTRY)
+      // 2. SCROLLTRIGGER VIEWPORT ENTER / LEAVE LIFECYCLE
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top 78%',
         end: 'bottom 20%',
-        onEnter: () => {
-          tl.restart();
-        },
-        onEnterBack: () => {
-          tl.restart();
-        },
-        onLeave: () => {
-          tl.pause(0);
-        },
-        onLeaveBack: () => {
-          tl.pause(0);
-        },
+        onEnter: () => tl.restart(),
+        onEnterBack: () => tl.restart(),
+        onLeave: () => tl.pause(0),
+        onLeaveBack: () => tl.pause(0),
       });
 
-      // 3. CONTINUOUS SCROLL PARALLAX (3-Layer Depth)
+      // 3. CONTINUOUS SCROLL PARALLAX
       if (headlineRef.current) {
         const lines = headlineRef.current.querySelectorAll('.manifesto-line');
         lines.forEach((line, index) => {
@@ -163,7 +143,7 @@ export const ManifestoSection: React.FC = () => {
         });
       }
 
-      // 4. RESTORE DEDICATED IMAGE HOVER EFFECT (scale 1.0 -> 1.025)
+      // 4. RESTORE DEDICATED IMAGE HOVER EFFECT
       if (imageRef.current) {
         const imgContainer = imageRef.current;
         const imgEl = imgContainer.querySelector('img');
@@ -199,29 +179,16 @@ export const ManifestoSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full py-24 md:py-32 bg-[#F5F4EF] overflow-hidden relative z-20 -mt-[100vh] border-b border-black/10 shadow-[0_-25px_60px_rgba(0,0,0,0.7)] selection:bg-[#FF4B00] selection:text-white"
+      className="w-full py-20 md:py-28 bg-[#F5F4EF] overflow-hidden relative z-20 -mt-[100vh] border-b border-black/10 shadow-[0_-25px_60px_rgba(0,0,0,0.7)] selection:bg-[#FF4B00] selection:text-white"
     >
       <Container>
         {/* TOP DIVIDER */}
-        <div ref={dividerRef} className="w-full h-px bg-black/10 mb-8 origin-left" />
+        <div ref={dividerRef} className="w-full h-px bg-black/10 mb-8 md:mb-12 origin-left" />
 
-        {/* TOP META ROW */}
-        <div
-          ref={metaRef}
-          className="flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.12em] mb-12 md:mb-16 text-[#050505]"
-        >
-          <div className="flex items-center gap-2.5">
-            <span className="text-[#FF4B00]">01</span>
-            <span className="text-black/30">/</span>
-            <span className="text-[#050505]">TMR</span>
-          </div>
-          <span className="text-[#777777] tracking-[0.2em]">MANIFESTO</span>
-        </div>
-
-        {/* STRICT 12-COLUMN EDITORIAL GRID (COLLISION-FREE BETWEEN TEXT & IMAGE) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative min-h-[480px]">
+        {/* STRICT 12-COLUMN EDITORIAL GRID */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative min-h-[440px]">
           
-          {/* LEFT / HEADLINE COLUMN (COLUMNS 1–7, STRICT Z-10 HIGH PRIORITY) */}
+          {/* LEFT / HEADLINE COLUMN (COLUMNS 1–7) */}
           <div className="lg:col-span-7 flex gap-6 md:gap-8 items-start relative z-10 max-w-[700px]">
             {/* VERTICAL ORANGE ACCENT RULE */}
             <div
@@ -256,7 +223,7 @@ export const ManifestoSection: React.FC = () => {
             </h2>
           </div>
 
-          {/* RIGHT / DEDICATED MANIFESTO PHOTOGRAPH (COLUMNS 8–12, STRICT Z-0 NON-COLLIDING) */}
+          {/* RIGHT / DEDICATED MANIFESTO PHOTOGRAPH (COLUMNS 8–12) */}
           <div className="lg:col-span-5 relative mt-8 lg:mt-0 z-0">
             <div
               ref={imageRef}
@@ -268,15 +235,6 @@ export const ManifestoSection: React.FC = () => {
                 className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:brightness-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-              
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                <span className="bg-[#050505]/85 backdrop-blur-md px-3.5 py-1.5 rounded-full font-intertight text-[10px] font-bold uppercase tracking-widest text-white">
-                  STUDIO CRAFT / TMR
-                </span>
-                <span className="text-[#FF4B00] font-intertight text-xs font-bold">
-                  TIRUPPUR
-                </span>
-              </div>
             </div>
           </div>
 
@@ -285,11 +243,8 @@ export const ManifestoSection: React.FC = () => {
         {/* BOTTOM SUPPORTING STATEMENT ROW */}
         <div
           ref={bottomMetaRef}
-          className="mt-16 md:mt-24 border-t border-black/10 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4 font-intertight text-[11px] font-semibold uppercase tracking-wider text-[#555555]"
+          className="mt-12 md:mt-16 border-t border-black/10 pt-6 flex flex-col md:flex-row md:items-center justify-between gap-4 font-intertight text-[11px] font-semibold uppercase tracking-wider text-[#555555]"
         >
-          <span className="text-[#050505]">
-            CONTROLLED ENVIRONMENT // TIRUPPUR STUDIO FACILITY
-          </span>
           <span>
             EVERY PASS IS MEASURED. EVERY SURFACE IS RESTORED.
           </span>

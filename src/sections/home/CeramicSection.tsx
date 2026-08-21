@@ -18,7 +18,6 @@ export const CeramicSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // PROTECTION EDITORIAL & HERO VISUAL ENTRANCE TIMELINE ONCE SCROLLED INTO VIEWPORT
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },
@@ -64,34 +63,18 @@ export const CeramicSection: React.FC = () => {
       className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 min-h-screen py-12 md:py-20 flex flex-col justify-between isolate"
       style={{ opacity: 1, backgroundColor: '#070809' }}
     >
-      {/* SUBTLE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
-      {/* TOP ARCHITECTURAL METADATA ROW */}
       <Container className="relative z-20 pt-2">
-        <div className="w-full border-t border-white/10 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
-          <div className="flex items-center gap-2.5">
-            <span className="text-[#FF4B00]">03</span>
-            <span className="text-white/30">/</span>
-            <span>PROTECTION</span>
-          </div>
-          <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">
-            NANO-CERAMIC MOLECULAR MATRIX // TIRUPPUR
-          </span>
-        </div>
+        <div className="w-full border-t border-white/10" />
       </Container>
 
-      {/* MAIN CINEMATIC COMPOSITION: LEFT EDITORIAL TEXT (5 COLS) / RIGHT HERO CAMPAIGN VISUAL (7 COLS) */}
+      {/* MAIN CINEMATIC COMPOSITION */}
       <Container className="relative z-20 my-auto py-8 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          {/* LEFT / RESTRAINED EDITORIAL COPY GROUP (COLUMNS 1–5) */}
+          {/* LEFT / RESTRAINED EDITORIAL COPY GROUP */}
           <div ref={textGroupRef} className="lg:col-span-5 space-y-6 max-w-[440px]">
-            {/* EYEBROW */}
-            <div className="prot-editorial-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
-              03 // PROTECTION
-            </div>
-
             {/* MAIN HEADLINE */}
             <h2 className="prot-editorial-item font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-white leading-[0.92] tracking-[-0.04em]">
               PROTECT <br />
@@ -135,7 +118,7 @@ export const CeramicSection: React.FC = () => {
 
           </div>
 
-          {/* RIGHT / DOMINANT HERO CAMPAIGN VISUAL (COLUMNS 6–12) */}
+          {/* RIGHT / DOMINANT HERO CAMPAIGN VISUAL */}
           <div className="lg:col-span-7 relative w-full flex justify-end">
             <div
               ref={visualRef}
@@ -148,7 +131,6 @@ export const CeramicSection: React.FC = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
 
-              {/* REFINED GLASSMORPHIC BADGE */}
               <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight">
                 <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
                   NANO-SiO2 MOLECULAR MATRIX // CERAMIC
@@ -160,12 +142,8 @@ export const CeramicSection: React.FC = () => {
         </div>
       </Container>
 
-      {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
       <Container className="relative z-20 pb-2">
-        <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
-          <span>SURFACE PREPARATION → PROTECTIVE SHIELD</span>
-          <span>TMR / AUTOMOTIVE CARE</span>
-        </div>
+        <div className="w-full border-t border-white/10" />
       </Container>
     </section>
   );

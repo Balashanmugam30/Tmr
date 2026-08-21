@@ -61,21 +61,10 @@ export const GalleryShowcaseSection: React.FC = () => {
       className="w-full bg-[#070809] text-[#F5F4EF] border-t border-b border-white/10 py-16 md:py-24 relative overflow-hidden isolate font-intertight"
       style={{ backgroundColor: '#070809' }}
     >
-      {/* SUBTLE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
-      {/* TOP ARCHITECTURAL METADATA ROW */}
       <Container className="relative z-20 pt-2">
-        <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
-          <div className="flex items-center gap-2.5">
-            <span className="text-[#FF4B00]">06</span>
-            <span className="text-white/30">/</span>
-            <span>GALLERY</span>
-          </div>
-          <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">
-            TMR STUDIO ARCHIVE // TIRUPPUR
-          </span>
-        </div>
+        <div className="w-full border-t border-white/10" />
       </Container>
 
       {/* MAIN CONTENT COMPOSITION */}
@@ -83,12 +72,9 @@ export const GalleryShowcaseSection: React.FC = () => {
         {/* EDITORIAL HEADER GROUP */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
           <div className="lg:col-span-7 space-y-3">
-            <div className="font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
-              06 // TMR STUDIO ARCHIVE
-            </div>
             <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.9] tracking-[-0.04em]">
-              PROOF IN THE <br />
-              <span className="text-[#FF4B00]">REFLECTION.</span>
+              THE GALLERY <br />
+              <span className="text-[#FF4B00]">PROOF IN THE REFLECTION.</span>
             </h2>
           </div>
 
@@ -99,7 +85,7 @@ export const GalleryShowcaseSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 4-IMAGE ASYMMETRICAL EDITORIAL TEASER GRID (EACH ITEM HAS INDEPENDENT OBSERVER REVEAL) */}
+        {/* 4-IMAGE ASYMMETRICAL EDITORIAL TEASER GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {homepageGalleryItems.map((item) => (
             <GalleryRevealItem
@@ -127,10 +113,6 @@ export const GalleryShowcaseSection: React.FC = () => {
             </span>
             <span className="h-[1.5px] w-10 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
           </Link>
-
-          <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 hidden sm:inline-block">
-            TMR STUDIO // TIRUPPUR FACILITY
-          </span>
         </div>
       </Container>
     </section>

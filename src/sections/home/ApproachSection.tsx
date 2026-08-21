@@ -19,7 +19,6 @@ export const ApproachSection: React.FC = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Force muted & playsInline for browser autoplay compliance
     video.muted = true;
     video.playsInline = true;
 
@@ -34,7 +33,6 @@ export const ApproachSection: React.FC = () => {
       }
     });
 
-    // Programmatic play attempt
     const playVideo = async () => {
       try {
         video.muted = true;
@@ -45,7 +43,6 @@ export const ApproachSection: React.FC = () => {
       }
     };
 
-    // IntersectionObserver to play video when in viewport and pause when out
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -148,7 +145,6 @@ export const ApproachSection: React.FC = () => {
         ref={videoWrapperRef}
         className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 overflow-hidden bg-black rounded-none"
       >
-        {/* POSTER LOADING FALLBACK LAYER */}
         <img
           src="/videos/approach/approach-poster.webp"
           alt="TMR Cinematic Automotive Detailing Studio"
@@ -157,7 +153,6 @@ export const ApproachSection: React.FC = () => {
           }`}
         />
 
-        {/* LOCAL H.264 MP4 CINEMATIC VIDEO (FULL-BLEED COVER CROP) */}
         <video
           ref={videoRef}
           src="/videos/approach/approach-cinematic.mp4"
@@ -173,15 +168,7 @@ export const ApproachSection: React.FC = () => {
           Your browser does not support the video tag.
         </video>
 
-        {/* SUBTLE CINEMATIC GRADIENT OVERLAY ON VIDEO */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none z-20" />
-
-        {/* REFINED GLASSMORPHIC MEDIA BADGE */}
-        <div className="absolute bottom-8 right-8 flex items-center gap-3 pointer-events-none font-intertight z-20">
-          <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
-            CINEMATIC STUDIO REFINEMENT // 50:50 SPLIT
-          </span>
-        </div>
       </div>
 
       {/* SUBTLE CINEMATIC FILM GRAIN / NOISE OVERLAY */}
@@ -192,28 +179,14 @@ export const ApproachSection: React.FC = () => {
 
       {/* CONTENT LAYER OVER 50/50 SPLIT SCREEN */}
       <div className="relative z-20 w-full min-h-screen flex flex-col justify-between py-12 md:py-16">
-        
-        {/* TOP ARCHITECTURAL METADATA ROW */}
         <Container className="w-full pt-4">
-          <div className="w-full border-t border-white/10 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
-            <div className="flex items-center gap-2.5">
-              <span className="text-[#FF4B00]">02</span>
-              <span className="text-white/30">/</span>
-              <span className="text-white">APPROACH</span>
-            </div>
-            <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">THE TMR METHOD // TIRUPPUR STUDIO</span>
-          </div>
+          <div className="w-full border-t border-white/10" />
         </Container>
 
-        {/* MAIN EDITORIAL CONTENT: LEFT 50% VIEWPORT CONTAINING RESTRAINED LOWER-LEFT EDITORIAL COPY */}
+        {/* MAIN EDITORIAL CONTENT */}
         <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 my-auto">
           <div className="w-full lg:w-1/2 flex flex-col justify-end lg:pr-12 py-8 lg:py-16">
             <div ref={textGroupRef} className="space-y-4 max-w-[380px]">
-              {/* EYEBROW */}
-              <div className="approach-text-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
-                02 // APPROACH
-              </div>
-
               {/* RESTRAINED MAIN HEADLINE */}
               <h2 className="approach-text-item font-intertight font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white uppercase leading-[0.94] tracking-[-0.04em]">
                 PRECISION IN MOTION.
@@ -241,14 +214,9 @@ export const ApproachSection: React.FC = () => {
           </div>
         </div>
 
-        {/* BOTTOM TECHNICAL METADATA DIRECTION FOOTER */}
         <Container className="w-full pb-2">
-          <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
-            <span>CONTINUOUS TOOL TRAJECTORY →</span>
-            <span>TMR / AUTOMOTIVE CARE</span>
-          </div>
+          <div className="w-full border-t border-white/10" />
         </Container>
-
       </div>
     </section>
   );

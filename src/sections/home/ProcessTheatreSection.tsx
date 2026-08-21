@@ -28,7 +28,6 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     let lastIndex = -1;
 
     const ctx = gsap.context(() => {
-      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT (500VH TOTAL SCROLL TERRITORY = 100VH PER STAGE)
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -41,19 +40,16 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             onProgressUpdate(progress);
           }
 
-          // 5 PROCESS STAGES EQUALLY DISTRIBUTED ACROSS 500VH (20% PROGRESS PER STAGE)
           const index = Math.min(
             processStages.length - 1,
             Math.floor(progress * processStages.length)
           );
 
-          // Update React state ONLY when active index actually changes
           if (index !== lastIndex) {
             lastIndex = index;
             setActiveStageIndex(index);
           }
 
-          // Smooth background color update on stickyRef.current
           if (stickyRef.current) {
             const targetColor = processStages[index].bgColor;
             stickyRef.current.style.backgroundColor = targetColor;
@@ -80,25 +76,14 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
         }}
       >
         <Container className="h-full flex flex-col justify-between py-4 md:py-6 lg:py-8 relative z-10 overflow-hidden">
-          {/* COMPACT HEADER BAR */}
-          <div className="w-full border-t border-black/15 pt-2 sm:pt-3 flex items-center justify-between font-intertight font-bold text-[10px] sm:text-xs uppercase tracking-[0.14em] text-[#111111] shrink-0">
-            <div className="flex items-center gap-2.5">
-              <span className="text-[#FF4B00]">04</span>
-              <span className="text-black/30">/</span>
-              <span>THE PROCESS THEATRE</span>
-            </div>
-            <span className="text-black/50 tracking-[0.2em]">STAGE 0{activeStageIndex + 1} // 05</span>
-          </div>
+          {/* DIVIDER LINE */}
+          <div className="w-full border-t border-black/15 shrink-0" />
 
-          {/* MAIN 12-COLUMN LIGHT EDITORIAL THEATRE GRID (FLEX-1 MIN-H-0 CONSTRAINED) */}
+          {/* MAIN 12-COLUMN LIGHT EDITORIAL THEATRE GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center flex-1 min-h-0 my-auto relative overflow-hidden py-2 sm:py-4">
             
             {/* LEFT / EDITORIAL STAGE RAIL NAVIGATION (COLUMNS 1–5) */}
             <div className="lg:col-span-5 relative z-10 space-y-3 sm:space-y-4 lg:space-y-5">
-              <div className="font-intertight font-bold text-[10px] sm:text-xs text-[#FF4B00] tracking-[0.25em] uppercase">
-                0{activeStageIndex + 1} // {currentStage.subtitle}
-              </div>
-
               {/* ACTIVE STAGE DESCRIPTOR STATEMENT */}
               <p className="font-intertight font-extrabold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight tracking-wide text-[#111111] max-w-[400px]">
                 "{currentStage.description}"
@@ -160,17 +145,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                         alt={stage.alt}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                      
-                      {/* GLASSMORPHIC STAGE BADGE */}
-                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between font-intertight">
-                        <span className="bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-white border border-white/10">
-                          {stage.number} // {stage.title} — {stage.subtitle}
-                        </span>
-                        <span className="text-[#FF4B00] text-[10px] sm:text-xs font-extrabold hidden sm:inline-block">
-                          TMR STUDIO
-                        </span>
-                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
                     </div>
                   );
                 })}
@@ -180,14 +155,8 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
 
           </div>
 
-          {/* COMPACT BOTTOM TECHNICAL SPECIFICATION FOOTER */}
-          <div className="w-full border-t border-black/15 pt-2 sm:pt-3 flex flex-col md:flex-row md:items-center justify-between gap-1.5 font-intertight text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#333333] shrink-0">
-            <div className="flex items-center gap-3">
-              <span className="text-[#FF4B00]">PROTOCOL:</span>
-              <span>{currentStage.technicalDetails.join(' • ')}</span>
-            </div>
-            <div>TIRUPPUR FACILITY</div>
-          </div>
+          {/* DIVIDER LINE */}
+          <div className="w-full border-t border-black/15 shrink-0" />
         </Container>
       </div>
     </div>
