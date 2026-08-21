@@ -15,8 +15,6 @@ interface TeaserGalleryItem {
   aspect: string;
   gridSpan: string;
   overlapClass?: string;
-  revealMask: string;
-  shiftInitial: { x: number; y: number };
 }
 
 const homepageGalleryItems: TeaserGalleryItem[] = [
@@ -28,8 +26,6 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     image: '/images/gallery/gallery-01.webp',
     aspect: 'aspect-[16/9]',
     gridSpan: 'lg:col-span-12',
-    revealMask: 'inset(0 100% 0 0)',
-    shiftInitial: { x: 24, y: 0 },
   },
   {
     id: 'scorpio',
@@ -39,8 +35,6 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     image: '/images/gallery/gallery-07.webp',
     aspect: 'aspect-[4/5]',
     gridSpan: 'lg:col-span-5',
-    revealMask: 'inset(100% 0 0 0)',
-    shiftInitial: { x: 0, y: 24 },
   },
   {
     id: 'safari',
@@ -51,8 +45,6 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     aspect: 'aspect-[3/4]',
     gridSpan: 'lg:col-span-7',
     overlapClass: 'lg:-mt-8',
-    revealMask: 'inset(0 0 0 100%)',
-    shiftInitial: { x: -24, y: 0 },
   },
   {
     id: 'tucson',
@@ -62,8 +54,6 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     image: '/images/gallery/gallery-06.webp',
     aspect: 'aspect-[16/9]',
     gridSpan: 'lg:col-span-12',
-    revealMask: 'inset(100% 0 0 0)',
-    shiftInitial: { x: 0, y: 24 },
   },
 ];
 
@@ -96,20 +86,18 @@ export const GalleryShowcaseSection: React.FC = () => {
         );
       }
 
-      // 1b. Sequential Manifesto-Style Curtain Mask Reveal for the 4 Teaser Gallery Images
+      // 1b. UNIFIED MANIFESTO-STYLE LEFT -> RIGHT CURTAIN REVEAL FOR ALL 4 TEASER GALLERY IMAGES
       if (gridRef.current) {
         const cards = gridRef.current.querySelectorAll<HTMLDivElement>('.gallery-reveal-card');
 
         cards.forEach((card, index) => {
           const imgEl = card.querySelector('img');
-          const maskInitial = homepageGalleryItems[index]?.revealMask || 'inset(0 100% 0 0)';
-          const shift = homepageGalleryItems[index]?.shiftInitial || { x: 24, y: 0 };
-          const startTime = 0.20 + index * 0.14; // Staggered arrival sequence
+          const startTime = 0.20 + index * 0.12; // Sequential 120ms arrival stagger
 
-          // Outer mask curtain expands to reveal image
+          // Outer curtain mask expands horizontally from Left to Right
           tl.fromTo(
             card,
-            { opacity: 0, clipPath: maskInitial },
+            { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
             {
               opacity: 1,
               clipPath: 'inset(0 0% 0 0)',
@@ -119,12 +107,12 @@ export const GalleryShowcaseSection: React.FC = () => {
             startTime
           );
 
-          // Subtle internal image shift inside expanding curtain
+          // Internal image shift inside expanding curtain (x: -24px -> 0px)
           if (imgEl) {
             tl.fromTo(
               imgEl,
-              { x: shift.x, y: shift.y },
-              { x: 0, y: 0, duration: 1.0, ease: 'power4.out' },
+              { x: -24, scale: 1.03 },
+              { x: 0, scale: 1.0, duration: 1.0, ease: 'power4.out' },
               startTime
             );
           }
@@ -227,6 +215,7 @@ export const GalleryShowcaseSection: React.FC = () => {
             <div
               key={item.id}
               data-home-gallery-image="true"
+              data-gallery-image="true"
               className={`${item.gridSpan} ${item.overlapClass || ''} relative w-full`}
             >
               {/* STATIC LAYOUT CONTAINER (PREVENTS VERTICAL LAYOUT SHIFTS) */}
