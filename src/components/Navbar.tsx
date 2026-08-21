@@ -136,12 +136,12 @@ export const Navbar: React.FC = () => {
       >
         <div className="max-w-[1400px] mx-auto flex items-center justify-between relative">
           
-          {/* ZONE 1: INDEPENDENT LEFT BRAND LOGO CAPSULE */}
+          {/* ZONE 1: UNIFIED LEFT BRAND LOGO LIQUID GLASS CAPSULE */}
           <div className="pointer-events-auto shrink-0 z-[1010]">
-            <Logo />
+            <Logo useGlass={true} />
           </div>
 
-          {/* ZONE 2: CENTER APPLE LIQUID GLASS DYNAMIC NAVIGATION DOCK */}
+          {/* ZONE 2: CENTER DYNAMIC NAVIGATION DOCK (SINGLE LIQUID GLASS MATERIAL CAPSULE) */}
           <div
             ref={centerDockRef}
             onMouseEnter={() => {
@@ -175,8 +175,8 @@ export const Navbar: React.FC = () => {
                           isActive
                             ? 'text-[#050505] font-black shadow-sm'
                             : isHovered
-                            ? 'text-[#050505] font-extrabold'
-                            : 'text-[#050505]/80 hover:text-[#050505]'
+                            ? 'text-[#050505] font-extrabold bg-black/5'
+                            : 'text-[#050505]/80 hover:text-[#050505] hover:bg-black/5'
                         }`}
                       >
                         {/* NESTED ACTIVE INNER GLASS BUBBLE (LIFTED SELECTED STATE EFFECT) */}
@@ -199,10 +199,10 @@ export const Navbar: React.FC = () => {
             </LiquidGlassSurface>
           </div>
 
-          {/* ZONE 3: INDEPENDENT RIGHT CONTACT ACTION CAPSULE (LIQUID GLASS TREATMENT) */}
+          {/* ZONE 3: INDEPENDENT RIGHT CONTACT ACTION CAPSULE (UNIFIED LIQUID GLASS MATERIAL) */}
           <div className="pointer-events-auto shrink-0 z-[1010]">
             <Link to="/contact">
-              <LiquidGlassSurface className="min-h-[58px] px-5 py-3 border border-white/30 hover:border-[#FF4B00]/60 transition-colors">
+              <LiquidGlassSurface className="min-h-[58px] px-5 py-3 border border-white/20 hover:border-[#FF4B00]/60 transition-colors">
                 <div className="group flex items-center gap-1.5 text-[#050505] font-manrope font-extrabold text-xs uppercase tracking-widest relative z-10">
                   <span>CONTACT</span>
                   <ArrowUpRight className="w-4 h-4 text-[#FF4B00] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
@@ -229,11 +229,11 @@ export const Navbar: React.FC = () => {
         />
       )}
 
-      {/* MOBILE TRIGGER BUTTON WITH COMPACT GLASS SURFACE */}
+      {/* MOBILE TRIGGER BUTTON WITH UNIFIED GLASS MATERIAL SURFACE */}
       <div className="lg:hidden fixed top-4 right-4 z-[1050] pointer-events-auto">
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="p-3 bg-[#F5F4EF]/85 backdrop-blur-xl border border-black/10 rounded-full text-[#050505] hover:text-[#FF4B00] transition-colors shadow-[0_8px_30px_rgba(0,0,0,0.12)] min-h-[48px] min-w-[48px] flex items-center justify-center"
+          className="p-3 bg-[#F5F4EF]/85 backdrop-blur-xl border border-white/20 rounded-full text-[#050505] hover:text-[#FF4B00] transition-colors shadow-[0_8px_30px_rgba(0,0,0,0.12)] min-h-[48px] min-w-[48px] flex items-center justify-center"
           aria-label="Toggle Navigation Menu"
         >
           {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

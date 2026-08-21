@@ -22,7 +22,7 @@ export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
   children,
   className = '',
   filterId = 'lg-nav-filter',
-  tint = 'rgba(245, 244, 239, 0.55)',
+  tint = 'rgba(245, 244, 239, 0.68)',
   blur = 16,
   specular = true,
 }) => {
@@ -33,7 +33,7 @@ export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
     : `blur(${blur}px) brightness(1.06) saturate(1.25)`;
 
   return (
-    <div className={`relative rounded-full overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.18),0_2px_8px_rgba(0,0,0,0.12)] border border-black/10 ${className}`}>
+    <div className={`relative rounded-full overflow-hidden shadow-[0_12px_40px_rgba(0,0,0,0.18),0_2px_8px_rgba(0,0,0,0.12)] border border-white/20 transition-all duration-300 ${className}`}>
       {/* LAYER 0: REFRACTION BACKDROP FILTER */}
       <div
         aria-hidden="true"
