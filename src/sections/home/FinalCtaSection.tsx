@@ -8,8 +8,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 export const FinalCtaSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const rightDetailRef = useRef<HTMLDivElement>(null);
 
   const whatsappUrl = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(
     'Hello TMR Car Care! I would like to book a consultation or request a detailing quote.'
@@ -18,11 +19,38 @@ export const FinalCtaSection: React.FC = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    // Ensure video plays smoothly if browser autoplay requires user interaction or intersection
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay handle fallback
+      });
+    }
+
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // ENTRANCE TIMELINE
+      // 1. REVEAL FROM BELOW MOTION ("RISING SCENE" EFFECT)
+      if (videoWrapperRef.current) {
+        gsap.fromTo(
+          videoWrapperRef.current,
+          { yPercent: 10, scale: 0.98, opacity: 0.8 },
+          {
+            yPercent: 0,
+            scale: 1.0,
+            opacity: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              end: 'top top',
+              scrub: 0.6,
+            },
+          }
+        );
+      }
+
+      // 2. CONTENT ENTRANCE TIMELINE
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },
@@ -32,47 +60,31 @@ export const FinalCtaSection: React.FC = () => {
         const items = contentRef.current.querySelectorAll('.cta-anim-item');
         tl.fromTo(
           items,
-          { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 0.8, stagger: 0.08 },
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.75, stagger: 0.08 },
           0
         );
       }
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top 82%',
+        start: 'top 75%',
         end: 'bottom 20%',
-        onEnter: () => tl.restart(),
-        onEnterBack: () => tl.restart(),
+        onEnter: () => {
+          tl.restart();
+          if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().catch(() => {});
+          }
+        },
+        onEnterBack: () => {
+          tl.restart();
+          if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().catch(() => {});
+          }
+        },
         onLeave: () => tl.pause(0),
         onLeaveBack: () => tl.pause(0),
       });
-
-      // SUBTLE MOUSE PARALLAX ON RIGHT TECHNICAL DETAIL (MAX 4px MOVEMENT)
-      const handleMouseMove = (e: MouseEvent) => {
-        if (!rightDetailRef.current || !sectionRef.current) return;
-        const rect = sectionRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        gsap.to(rightDetailRef.current, {
-          x: x * 8,
-          y: y * 8,
-          duration: 0.6,
-          ease: 'power2.out',
-        });
-      };
-
-      const sectionEl = sectionRef.current;
-      if (sectionEl) {
-        sectionEl.addEventListener('mousemove', handleMouseMove);
-      }
-
-      return () => {
-        if (sectionEl) {
-          sectionEl.removeEventListener('mousemove', handleMouseMove);
-        }
-      };
     }, sectionRef);
 
     return () => ctx.revert();
@@ -85,89 +97,75 @@ export const FinalCtaSection: React.FC = () => {
       className="w-full min-h-[100svh] h-[100svh] bg-[#050505] text-[#F5F4EF] border-t border-b border-white/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between"
       style={{ backgroundColor: '#050505' }}
     >
-      {/* SUBTLE FINE NOISE & MICRO-GRID TEXTURE */}
-      <div className="absolute inset-0 pointer-events-none z-0 opacity-4 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px]" />
+      {/* 4K FULL BLEED CINEMATIC VIDEO BACKGROUND */}
+      <div ref={videoWrapperRef} className="absolute inset-0 z-0 overflow-hidden w-full h-full">
+        <video
+          ref={videoRef}
+          src="/videos/cta/cta-cinematic.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          className="w-full h-full object-cover object-center scale-105"
+        />
 
-      <Container className="relative z-10 max-w-[1380px] mx-auto w-full h-full flex flex-col justify-between py-12 md:py-16">
+        {/* SUBTLE CINEMATIC READABILITY GRADIENT OVERLAY (KEEPING VIDEO DOMINANT) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/25 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/30 to-transparent z-10 pointer-events-none" />
+      </div>
+
+      <Container className="relative z-20 max-w-[1380px] mx-auto w-full h-full flex flex-col justify-between py-12 md:py-16">
         
-        {/* ASYMMETRICAL 55/45 MAIN BODY CONTAINER */}
-        <div ref={contentRef} className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end my-auto w-full pt-12 md:pt-16">
+        {/* TOP SPACE HOLDER */}
+        <div className="w-full h-8" />
+
+        {/* LOWER-LEFT REFINED EDITORIAL CONVERTING TEXT COMPOSITION */}
+        <div ref={contentRef} className="w-full max-w-[700px] space-y-6 text-left my-auto pt-16 md:pt-24 pl-0 sm:pl-4">
           
-          {/* LEFT ~55%: EDITORIAL ATELIER HEADLINE & CONVERSIONS */}
-          <div className="lg:col-span-7 space-y-8 text-left">
-            
-            {/* EYEBROW */}
-            <div className="cta-anim-item flex items-center gap-3 font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
-              <span className="w-8 h-[1.5px] bg-[#FF4B00]" />
-              <span>10 // FINAL DECISION</span>
-            </div>
-
-            {/* EDITORIAL HEADLINE */}
-            <h2 className="cta-anim-item font-intertight font-extrabold text-5xl sm:text-7xl lg:text-[88px] xl:text-[100px] uppercase text-white leading-[0.88] tracking-[-0.03em] max-w-[760px] text-left">
-              YOUR VEHICLE.<br />
-              OUR <span className="text-[#FF4B00]">STANDARD.</span>
-            </h2>
-
-            {/* RESTRAINED SUPPORTING COPY */}
-            <p className="cta-anim-item font-intertight text-sm sm:text-base text-white/55 font-medium leading-relaxed max-w-[480px] text-left">
-              Precision automotive care, engineered around your vehicle, its surface and the finish it deserves.
-            </p>
-
-            {/* CONVERSIONS: ARCHITECTURAL PRIMARY CTA & SECONDARY LINK */}
-            <div className="cta-anim-item pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 font-intertight">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 h-[56px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.3)] hover:-translate-y-0.5"
-              >
-                <span>BOOK A CONSULTATION</span>
-                <span className="group-hover:translate-x-1.5 transition-transform">↗</span>
-              </a>
-
-              <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-white/60 hover:text-white transition-colors py-2"
-              >
-                <span>GET DIRECTIONS</span>
-                <span className="text-[#FF4B00] group-hover:translate-x-1 transition-transform">↗</span>
-              </a>
-            </div>
-
+          {/* EYEBROW */}
+          <div className="cta-anim-item flex items-center gap-3 font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+            <span className="w-8 h-[1.5px] bg-[#FF4B00]" />
+            <span>FINAL STEP // TMR CAR CARE</span>
           </div>
 
-          {/* RIGHT ~45%: QUIET NEGATIVE SPACE + TECHNICAL STUDIO SIGNATURE */}
-          <div className="lg:col-span-5 hidden lg:flex flex-col items-end justify-end text-right pb-2">
-            <div ref={rightDetailRef} className="cta-anim-item space-y-4 max-w-[280px] text-right">
-              
-              <div className="flex items-center justify-end gap-2 text-right">
-                <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-ping" />
-                <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#FF4B00]">TMR / STUDIO</span>
-              </div>
+          {/* EDITORIAL RESTRAINED HEADLINE */}
+          <h2 className="cta-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-[72px] uppercase text-white leading-[0.90] tracking-[-0.03em] max-w-[620px] text-left">
+            THE FINISH MATTERS<span className="text-[#FF4B00]">.</span>
+          </h2>
 
-              {/* LIVING HORIZONTAL ACCENT LINE */}
-              <div className="w-full h-[1px] bg-white/12 relative overflow-hidden my-2">
-                <div className="absolute inset-y-0 w-12 bg-gradient-to-r from-transparent via-[#FF4B00] to-transparent animate-[pulse_4s_infinite]" />
-              </div>
+          {/* ONE SHORT SUPPORTING SENTENCE */}
+          <p className="cta-anim-item font-intertight text-sm sm:text-base text-white/75 font-medium leading-relaxed max-w-[440px] text-left">
+            Precision care for the vehicle you care about.
+          </p>
 
-              <div className="text-[11px] font-mono tracking-wider text-white/45 space-y-1">
-                <p>11.1085° N // 77.3411° E</p>
-                <p className="text-[10px] font-extrabold uppercase text-white/65 tracking-widest">TIRUPPUR, TAMIL NADU</p>
-              </div>
+          {/* CONVERSIONS: ARCHITECTURAL PRIMARY CTA & SECONDARY LINK */}
+          <div className="cta-anim-item pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 font-intertight">
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 h-[54px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.35)] hover:-translate-y-0.5"
+            >
+              <span>BOOK A CONSULTATION</span>
+              <span className="group-hover:translate-x-1.5 transition-transform">↗</span>
+            </a>
 
-              <div className="pt-2 text-[10px] font-extrabold uppercase tracking-[0.22em] text-white/35">
-                PRECISION / PROTECTION / PERFECTION
-              </div>
-
-            </div>
+            <a
+              href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-white/70 hover:text-white transition-colors py-2"
+            >
+              <span>GET DIRECTIONS</span>
+              <span className="text-[#FF4B00] group-hover:translate-x-1 transition-transform">↗</span>
+            </a>
           </div>
 
         </div>
 
         {/* BOTTOM METADATA STRIP */}
-        <div className="cta-anim-item w-full pt-6 border-t border-white/10 flex items-center justify-between text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.22em] text-white/40">
+        <div className="cta-anim-item w-full pt-6 border-t border-white/15 flex items-center justify-between text-[10px] sm:text-[11px] font-extrabold uppercase tracking-[0.22em] text-white/50 relative z-20">
           <span>TMR / TIRUPPUR STUDIO</span>
           <span className="hidden sm:inline">PRECISION / PROTECTION / PERFECTION</span>
           <span>EST. 2024</span>
