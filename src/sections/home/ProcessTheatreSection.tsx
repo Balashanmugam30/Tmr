@@ -79,9 +79,9 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
           backgroundColor: currentStage.bgColor,
         }}
       >
-        <Container className="h-full flex flex-col justify-between py-12 md:py-16 relative z-10">
-          {/* HEADER BAR */}
-          <div className="w-full border-t border-black/15 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-[#111111]">
+        <Container className="h-full flex flex-col justify-between py-4 md:py-6 lg:py-8 relative z-10 overflow-hidden">
+          {/* COMPACT HEADER BAR */}
+          <div className="w-full border-t border-black/15 pt-2 sm:pt-3 flex items-center justify-between font-intertight font-bold text-[10px] sm:text-xs uppercase tracking-[0.14em] text-[#111111] shrink-0">
             <div className="flex items-center gap-2.5">
               <span className="text-[#FF4B00]">04</span>
               <span className="text-black/30">/</span>
@@ -90,35 +90,35 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             <span className="text-black/50 tracking-[0.2em]">STAGE 0{activeStageIndex + 1} // 05</span>
           </div>
 
-          {/* MAIN 12-COLUMN LIGHT EDITORIAL THEATRE GRID */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto relative">
+          {/* MAIN 12-COLUMN LIGHT EDITORIAL THEATRE GRID (FLEX-1 MIN-H-0 CONSTRAINED) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center flex-1 min-h-0 my-auto relative overflow-hidden py-2 sm:py-4">
             
             {/* LEFT / EDITORIAL STAGE RAIL NAVIGATION (COLUMNS 1–5) */}
-            <div className="lg:col-span-5 relative z-10 space-y-8">
-              <div className="font-intertight font-bold text-xs text-[#FF4B00] tracking-[0.25em] uppercase">
+            <div className="lg:col-span-5 relative z-10 space-y-3 sm:space-y-4 lg:space-y-5">
+              <div className="font-intertight font-bold text-[10px] sm:text-xs text-[#FF4B00] tracking-[0.25em] uppercase">
                 0{activeStageIndex + 1} // {currentStage.subtitle}
               </div>
 
               {/* ACTIVE STAGE DESCRIPTOR STATEMENT */}
-              <p className="font-intertight font-extrabold text-lg sm:text-xl md:text-2xl uppercase leading-tight tracking-wide text-[#111111] max-w-[420px]">
+              <p className="font-intertight font-extrabold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight tracking-wide text-[#111111] max-w-[400px]">
                 "{currentStage.description}"
               </p>
 
-              {/* LARGE EDITORIAL STAGE RAIL */}
-              <div className="pt-4 border-l border-black/15 space-y-4 pl-4 sm:pl-6">
+              {/* COMPACT EDITORIAL STAGE RAIL */}
+              <div className="pt-2 sm:pt-3 border-l border-black/15 space-y-2 sm:space-y-3 pl-3 sm:pl-4">
                 {processStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
                   return (
                     <div
                       key={stage.id}
-                      className={`flex items-center justify-between cursor-pointer transition-all duration-500 font-intertight uppercase tracking-wider py-1.5 ${
+                      className={`flex items-center justify-between cursor-pointer transition-all duration-300 font-intertight uppercase tracking-wider py-1 ${
                         isActive
-                          ? 'text-[#111111] font-extrabold translate-x-3 text-lg sm:text-xl'
-                          : 'text-black/35 hover:text-black/70 text-sm'
+                          ? 'text-[#111111] font-extrabold translate-x-2 text-base sm:text-lg'
+                          : 'text-black/35 hover:text-black/70 text-xs sm:text-sm'
                       }`}
                       onClick={() => setActiveStageIndex(idx)}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2.5">
                         <span className={isActive ? 'text-[#FF4B00]' : 'text-black/30'}>
                           {stage.number}
                         </span>
@@ -133,17 +133,17 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
               </div>
             </div>
 
-            {/* RIGHT / VERY LARGE ACTIVE DISPLAY TITLE & CINEMATIC STAGE VISUAL (COLUMNS 6–12) */}
-            <div className="lg:col-span-7 relative w-full flex flex-col items-start lg:items-end">
+            {/* RIGHT / RESPONSIVE ACTIVE DISPLAY TITLE & CINEMATIC STAGE VISUAL (COLUMNS 6–12) */}
+            <div className="lg:col-span-7 relative w-full flex flex-col items-start lg:items-end justify-center">
               
-              {/* VERY LARGE ACTIVE DISPLAY TITLE */}
-              <h2 className="font-intertight font-extrabold text-6xl sm:text-8xl md:text-[140px] lg:text-[180px] uppercase text-[#111111] leading-[0.82] tracking-[-0.065em] mb-4 text-left lg:text-right w-full">
+              {/* RESPONSIVE CLAMPED DISPLAY TITLE */}
+              <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[110px] uppercase text-[#111111] leading-[0.85] tracking-[-0.05em] mb-2 sm:mb-3 text-left lg:text-right w-full shrink-0">
                 <span className="text-[#FF4B00]">0{activeStageIndex + 1}</span>{' '}
                 <span className="text-[#111111]">{currentStage.title}</span>
               </h2>
 
-              {/* CINEMATIC STAGE IMAGE FRAME */}
-              <div className="w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10] max-h-[500px] relative overflow-hidden rounded-2xl border border-black/15 shadow-[0_25px_60px_rgba(0,0,0,0.12)] bg-black">
+              {/* VIEWPORT-HEIGHT CONSTRAINED STAGE IMAGE FRAME */}
+              <div className="w-full aspect-[16/10] max-h-[32vh] sm:max-h-[36vh] lg:max-h-[42vh] max-h-[420px] relative overflow-hidden rounded-2xl border border-black/15 shadow-[0_20px_50px_rgba(0,0,0,0.12)] bg-black shrink-0">
                 {processStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
                   return (
@@ -163,11 +163,11 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
                       
                       {/* GLASSMORPHIC STAGE BADGE */}
-                      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between font-intertight">
-                        <span className="bg-black/85 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-white border border-white/10">
+                      <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between font-intertight">
+                        <span className="bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-widest text-white border border-white/10">
                           {stage.number} // {stage.title} — {stage.subtitle}
                         </span>
-                        <span className="text-[#FF4B00] text-xs font-extrabold hidden sm:inline-block">
+                        <span className="text-[#FF4B00] text-[10px] sm:text-xs font-extrabold hidden sm:inline-block">
                           TMR STUDIO
                         </span>
                       </div>
@@ -180,8 +180,8 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
 
           </div>
 
-          {/* BOTTOM TECHNICAL SPECIFICATION FOOTER */}
-          <div className="w-full border-t border-black/15 pt-4 flex flex-col md:flex-row md:items-center justify-between gap-2 font-intertight text-[11px] font-bold uppercase tracking-wider text-[#333333]">
+          {/* COMPACT BOTTOM TECHNICAL SPECIFICATION FOOTER */}
+          <div className="w-full border-t border-black/15 pt-2 sm:pt-3 flex flex-col md:flex-row md:items-center justify-between gap-1.5 font-intertight text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#333333] shrink-0">
             <div className="flex items-center gap-3">
               <span className="text-[#FF4B00]">PROTOCOL:</span>
               <span>{currentStage.technicalDetails.join(' • ')}</span>
