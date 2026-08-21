@@ -1,86 +1,136 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import { Container } from '@/components/Container';
+import { BeforeAfterReveal } from './BeforeAfterReveal';
 
 export const TransformationSection: React.FC = () => {
-  const [sliderPos, setSliderPos] = useState(50);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const textGroupRef = useRef<HTMLDivElement>(null);
+  const revealWrapperRef = useRef<HTMLDivElement>(null);
 
-  const handleMove = (clientX: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    let percentage = (x / rect.width) * 100;
-    if (percentage < 5) percentage = 5;
-    if (percentage > 95) percentage = 95;
-    setSliderPos(percentage);
-  };
+  useEffect(() => {
+    if (!sectionRef.current) return;
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    handleMove(e.touches[0].clientX);
-  };
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion) return;
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current) return;
-    handleMove(e.clientX);
-  };
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      if (textGroupRef.current) {
+        const textItems = textGroupRef.current.querySelectorAll('.trans-anim-item');
+        tl.fromTo(
+          textItems,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 },
+          0.1
+        );
+      }
+
+      if (revealWrapperRef.current) {
+        tl.fromTo(
+          revealWrapperRef.current,
+          { opacity: 0, scale: 1.02 },
+          { opacity: 1, scale: 1.00, duration: 0.85 },
+          0.2
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="w-full py-24 md:py-section-gap bg-tmr-warmwhite overflow-hidden" id="transformation-slider">
-      <Container>
-        <div className="max-w-3xl mx-auto mb-12 text-center space-y-3">
-          <h2 className="font-manrope font-black text-3xl sm:text-5xl uppercase tracking-tighter text-tmr-softblack">
-            THE TRANSFORMATION
-          </h2>
-          <p className="font-manrope text-sm md:text-base text-tmr-muted">
-            Drag the slider to reveal the transformation.
-          </p>
+    <section
+      ref={sectionRef}
+      id="transformation"
+      className="relative w-full min-h-[100svh] bg-[#080909] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white py-10 lg:py-16 flex flex-col justify-between isolate font-intertight"
+      style={{ backgroundColor: '#080909' }}
+    >
+      {/* SUBTLE FINE NOISE & TECHNICAL GRID BACKGROUND */}
+      <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
+
+      {/* TOP METADATA ROW */}
+      <Container className="relative z-20 pt-2">
+        <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#FF4B00]">05</span>
+            <span className="text-white/30">/</span>
+            <span>RESULT</span>
+          </div>
+          <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">
+            PAINT CORRECTION // FINAL SURFACE
+          </span>
+        </div>
+      </Container>
+
+      {/* MAIN CONTENT COMPOSITION */}
+      <Container className="relative z-20 my-auto py-6 lg:py-8 space-y-8">
+        {/* EDITORIAL HEADER GROUP */}
+        <div ref={textGroupRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+          <div className="lg:col-span-6 space-y-4">
+            <div className="trans-anim-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+              05 // TRANSFORMATION
+            </div>
+            <h2 className="trans-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-[-0.04em]">
+              FROM <br />
+              DEFECT <br />
+              TO <span className="text-[#FF4B00]">REFLECTION.</span>
+            </h2>
+          </div>
+
+          <div className="lg:col-span-6 space-y-4 lg:pb-2">
+            <p className="trans-anim-item font-editorial text-lg sm:text-2xl italic text-white/85 leading-tight">
+              "Every correction starts with seeing what the surface is actually doing."
+            </p>
+            <div className="trans-anim-item flex items-center gap-6 font-intertight">
+              <Link
+                to="/gallery"
+                className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <span>SEE OUR WORK</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+                </span>
+                <span className="h-[1.5px] w-10 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
+              </Link>
+            </div>
+          </div>
         </div>
 
-        {/* Before / After Drag Container */}
-        <div
-          ref={containerRef}
-          onMouseDown={() => (isDragging.current = true)}
-          onMouseUp={() => (isDragging.current = false)}
-          onMouseLeave={() => (isDragging.current = false)}
-          onMouseMove={handleMouseMove}
-          onTouchMove={handleTouchMove}
-          className="relative w-full h-[60vh] sm:h-[70vh] min-h-[450px] cursor-ew-resize select-none overflow-hidden rounded-tmr shadow-2xl bg-tmr-black border border-tmr-concrete"
-        >
-          {/* Before Image (Background Layer) */}
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwsqfsC1bD3kYsC5GE6phmjZaTei3MTDj4y78_DBvQeTUSsWRgPtcry120UWz8DtEMb4Y7O59xSoVj1_5keYGuUVvA4s6PLsKjUOGKnQCfsLqpye0jUXRh1ZOQQgMnNuFSrLOGW3TFHASN-fgJL0w95s4ujWxzXpZUQerxQQBprFLzZ5RKgCyNHXPOLzajN1ue5xQ8LhST2yzEImx_G_d1XTGzUhpxk_9hcoSESCRKkXy6x7W5GVr5"
-            alt="Before Car Detail Untouched"
-            className="absolute inset-0 w-full h-full object-cover"
+        {/* DOMINANT DRAGGABLE BEFORE/AFTER REVEAL SLIDER */}
+        <div ref={revealWrapperRef} className="w-full">
+          <BeforeAfterReveal
+            beforeImage="/images/transformation/before.webp"
+            afterImage="/images/transformation/after.webp"
+            beforeLabel="BEFORE / PAINT DEFECTS"
+            afterLabel="AFTER / HIGH GLOSS"
           />
-          <div className="absolute bottom-6 right-6 bg-tmr-softblack/90 text-white px-4 py-2 text-xs font-manrope font-bold uppercase tracking-widest z-10 border border-white/10 backdrop-blur-sm">
-            Before / Untouched
+        </div>
+      </Container>
+
+      {/* BOTTOM TECHNICAL RESULT METRICS FOOTER */}
+      <Container className="relative z-20 pb-2">
+        <div className="w-full border-t border-white/10 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
+          <div className="flex items-center gap-4 sm:gap-6 text-white/70">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-[#FF4B00]" />
+              <span>PAINT CORRECTION: MULTI-STAGE</span>
+            </span>
+            <span className="text-white/20">•</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-[#FF4B00]" />
+              <span>SURFACE: RESTORED</span>
+            </span>
+            <span className="text-white/20">•</span>
+            <span className="flex items-center gap-1.5">
+              <span className="w-1 h-1 rounded-full bg-[#FF4B00]" />
+              <span>FINISH: MIRROR SPECULAR GLOSS</span>
+            </span>
           </div>
 
-          {/* After Image (Clipped Reveal Layer) */}
-          <div
-            style={{ width: `${sliderPos}%` }}
-            className="absolute inset-0 h-full overflow-hidden border-r-2 border-tmr-orange transition-all duration-75"
-          >
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFT7j6VaSQ3P6MJt62TKxH_tg0GxLxrORpyqoyHw1eCUewRZ6ZHsUjwXiIF0eIQTwCJDRHVXyXsXReHqwWRBeWfGmywGxShfKrtqXLsekmw2m6X-VOyvV1v__kb9ErU9lTkFfUV9a0jwSoipXDwgr3bUSJFomPOb-NciYmiIp3QGS2gSP5SIC96aPDQi-NnDSG1TTHU4rtbFEGR348Rt6Y3LdktBbZ5a0z-TsUiyNyv_-EQK6DNRJA"
-              alt="After Paint Correction Flawless Finish"
-              className="absolute inset-0 w-[100vw] h-full object-cover max-w-none"
-            />
-            <div className="absolute bottom-6 left-6 bg-tmr-softblack/90 text-white px-4 py-2 text-xs font-manrope font-bold uppercase tracking-widest z-10 border border-white/10 backdrop-blur-sm">
-              After / Flawless
-            </div>
-          </div>
-
-          {/* Drag Handle Bar */}
-          <div
-            style={{ left: `${sliderPos}%` }}
-            className="absolute top-0 bottom-0 -translate-x-1/2 w-1 bg-tmr-orange z-30 pointer-events-none"
-          >
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-tmr-orange rounded-full flex items-center justify-center text-white shadow-2xl border-2 border-white">
-              <span className="text-base font-bold">⇄</span>
-            </div>
-          </div>
+          <div>TMR / AUTOMOTIVE CARE</div>
         </div>
       </Container>
     </section>

@@ -5,7 +5,6 @@ import { ApproachProcessJourney } from '@/sections/home/ApproachProcessJourney';
 import { CeramicSection } from '@/sections/home/CeramicSection';
 import { PpfSection } from '@/sections/home/PpfSection';
 import { TransformationSection } from '@/sections/home/TransformationSection';
-import { StandardSection } from '@/sections/home/StandardSection';
 import { GalleryShowcaseSection } from '@/sections/home/GalleryShowcaseSection';
 import { TestimonialsSection } from '@/sections/home/TestimonialsSection';
 import { ShowroomSection } from '@/sections/home/ShowroomSection';
@@ -32,19 +31,16 @@ export const HomePage: React.FC = () => {
       {/* 7. Before / After Transformation Slider */}
       <TransformationSection />
 
-      {/* 8. TMR Standard: 04 / STANDARD */}
-      <StandardSection />
-
-      {/* 9. The Gallery Showcase */}
+      {/* 8. The Gallery Showcase */}
       <GalleryShowcaseSection />
 
-      {/* 10. Testimonials / Customer Proof */}
+      {/* 9. Testimonials / Customer Proof */}
       <TestimonialsSection />
 
-      {/* 11. Tiruppur Showroom Location */}
+      {/* 10. Tiruppur Showroom Location */}
       <ShowroomSection />
 
-      {/* 12. FAQ & Final CTA */}
+      {/* 11. FAQ & Final CTA */}
       <FaqCtaSection />
     </div>
   );
