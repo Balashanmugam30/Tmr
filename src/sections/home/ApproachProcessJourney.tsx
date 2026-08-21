@@ -3,15 +3,12 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ApproachSection } from './ApproachSection';
 import { ProcessTheatreSection } from './ProcessTheatreSection';
-import { CeramicSection } from './CeramicSection';
 import { TravellingObject } from './TravellingObject';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const ApproachProcessJourney: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const processWrapperRef = useRef<HTMLDivElement>(null);
-  const protectionWrapperRef = useRef<HTMLDivElement>(null);
   const [masterProgress, setMasterProgress] = useState<number>(0);
   const [isInTerritory, setIsInTerritory] = useState<boolean>(false);
 
@@ -22,11 +19,11 @@ export const ApproachProcessJourney: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // 1. SINGLE MASTER SCROLLTRIGGER TRACKING COMBINED APPROACH + PROCESS THEATRE SCROLL TERRITORY
+      // SINGLE MASTER SCROLLTRIGGER TRACKING COMBINED APPROACH + PROCESS THEATRE SCROLL TERRITORY
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top bottom', // Begins tracking as soon as Approach enters bottom of viewport
-        end: 'bottom bottom', // Ends tracking when Process Theatre territory completes
+        end: 'bottom bottom', // Ends tracking when Process Theatre completes
         scrub: 0.1,
         onUpdate: (self) => {
           setMasterProgress(self.progress);
@@ -43,33 +40,6 @@ export const ApproachProcessJourney: React.FC = () => {
           setIsInTerritory(false);
         },
       });
-
-      // 2. TRUE PROCESS -> PROTECTION OVERLAP TRANSITION TIMELINE
-      if (processWrapperRef.current && protectionWrapperRef.current) {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: protectionWrapperRef.current,
-            start: 'top bottom', // Begins as Protection top reaches viewport bottom while Process is still pinned!
-            end: 'top top', // Completes as Protection fills viewport completely
-            scrub: 0.1,
-          },
-        });
-
-        // Process Theatre sticky viewport subtly recedes behind
-        tl.to(
-          processWrapperRef.current,
-          { scale: 0.97, y: '-2vh', opacity: 0.88, ease: 'none' },
-          0
-        );
-
-        // Protection rises cleanly in foreground as a 100% solid, opaque layer (opacity remains 1)
-        tl.fromTo(
-          protectionWrapperRef.current,
-          { translateY: '100vh', scale: 1.01 },
-          { translateY: '0vh', scale: 1.00, ease: 'none' },
-          0
-        );
-      }
     }, containerRef);
 
     // Refresh ScrollTrigger geometry after mounting
@@ -91,25 +61,10 @@ export const ApproachProcessJourney: React.FC = () => {
       {/* SECTION 02: APPROACH */}
       <ApproachSection />
 
-      {/* STACKED CONTAINER FOR PROCESS THEATRE + OVERLAPPING PROTECTION */}
-      <div className="relative w-full">
-        {/* SECTION 04: PROCESS THEATRE (500VH STICKY THEATRE, Z-INDEX 10) */}
-        <div ref={processWrapperRef} className="relative z-10">
-          <ProcessTheatreSection />
-        </div>
-
-        {/* SECTION 03 / PROTECTION: OVERLAPPING FOREGROUND LAYER (-100VH OFFSET ON FINAL PROCESS VIEWPORT, Z-INDEX 20) */}
-        <div
-          ref={protectionWrapperRef}
-          className="relative z-20 -mt-[100vh] isolate"
-          style={{ opacity: 1 }}
-        >
-          <CeramicSection />
-        </div>
+      {/* SECTION 04: PROCESS THEATRE (500VH STICKY THEATRE) */}
+      <div className="relative z-10">
+        <ProcessTheatreSection />
       </div>
-      
-      {/* 100VH COMPENSATION SPACER TO PREVENT PPF GAP OR UNWANTED PREMATURE OVERLAP */}
-      <div className="h-[100vh] w-full pointer-events-none -mt-[100vh]" />
     </div>
   );
 };
