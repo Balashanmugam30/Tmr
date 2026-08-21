@@ -54,6 +54,7 @@ export const TestimonialsSection: React.FC = () => {
 
   const activeItem = testimonialsData[activeIndex];
 
+  // ANIMATED COORDINATED CONTENT TRANSITION (QUOTE, AVATAR, NAME, VEHICLE, SERVICE)
   const animateContentSwitch = useCallback((newIndex: number) => {
     if (quoteWrapperRef.current) {
       gsap.to(quoteWrapperRef.current, {
@@ -75,11 +76,13 @@ export const TestimonialsSection: React.FC = () => {
     }
   }, []);
 
+  // MANUAL SELECTION SWITCH BY CLICKING LIST ITEM
   const selectTestimonial = useCallback((newIndex: number) => {
     if (newIndex === activeIndex) return;
     animateContentSwitch(newIndex);
   }, [activeIndex, animateContentSwitch]);
 
+  // CONTINUOUS AUTOMATIC AUTOPLAY TIMER (5 SECONDS PER TESTIMONIAL, NO HOVER PAUSE)
   useEffect(() => {
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
@@ -101,6 +104,7 @@ export const TestimonialsSection: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // TOUCH SWIPE HANDLERS FOR MOBILE
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
   };
@@ -112,8 +116,10 @@ export const TestimonialsSection: React.FC = () => {
 
     if (Math.abs(diff) > 40) {
       if (diff > 0) {
+        // Swipe Left -> Next
         selectTestimonial((activeIndex + 1) % testimonialsData.length);
       } else {
+        // Swipe Right -> Prev
         selectTestimonial((activeIndex - 1 + testimonialsData.length) % testimonialsData.length);
       }
     }
@@ -124,23 +130,21 @@ export const TestimonialsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="client-proof"
-      className="w-full min-h-[90svh] py-16 md:py-24 bg-[#F3F0EA] text-[#111111] border-t border-b border-black/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between select-none"
+      className="w-full min-h-[90svh] py-16 md:py-24 bg-[#F3F0EA] text-[#111111] border-t border-b border-black/10 relative overflow-hidden isolate font-intertight flex flex-col justify-center select-none"
       style={{ backgroundColor: '#F3F0EA' }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
+      {/* SUBTLE FINE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-4 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
-      <Container className="relative z-20 pt-2">
-        <div className="w-full border-t border-black/15" />
-      </Container>
-
-      {/* MAIN CONTENT */}
+      {/* MAIN CONTENT: ASYMMETRICAL 12-COLUMN EDITORIAL FOCUS SLIDER */}
       <Container className="relative z-20 my-auto py-8 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
-          {/* LEFT COLUMN: ACTIVE FEATURED CLIENT TESTIMONIAL */}
+          {/* LEFT COLUMN: ACTIVE FEATURED CLIENT TESTIMONIAL (COLUMNS 1–7 / ~60%) */}
           <div className="lg:col-span-7 space-y-6">
+            
             {/* MAIN HEADLINE */}
             <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-[#111111] leading-[0.90] tracking-[-0.04em]">
               WHAT CLIENTS <br />
@@ -149,6 +153,8 @@ export const TestimonialsSection: React.FC = () => {
 
             {/* ANIMATED FEATURED QUOTE & IDENTITY CONTAINER */}
             <div ref={quoteWrapperRef} className="space-y-6 pt-2 min-h-[260px] flex flex-col justify-between">
+              
+              {/* OVERSIZED EDITORIAL QUOTE MARK & QUOTE TEXT */}
               <div>
                 <div className="font-editorial text-6xl sm:text-8xl text-[#FF4B00] leading-none select-none pointer-events-none -mb-6 opacity-80">
                   “
@@ -158,11 +164,14 @@ export const TestimonialsSection: React.FC = () => {
                 </blockquote>
               </div>
 
+              {/* CLIENT IDENTITY BADGE & SERVICE METADATA */}
               <div className="pt-4 flex items-center gap-4 border-t border-black/10">
+                {/* INITIAL AVATAR CIRCLE */}
                 <div className="w-12 h-12 rounded-full bg-[#111111] text-white border-2 border-[#FF4B00] flex items-center justify-center font-intertight font-black text-xs tracking-wider shadow-lg shrink-0">
                   {activeItem.avatar}
                 </div>
 
+                {/* CLIENT DETAILS */}
                 <div className="font-intertight">
                   <div className="font-extrabold text-sm text-[#111111] uppercase tracking-wider flex items-center gap-2">
                     <span>{activeItem.name}</span>
@@ -174,10 +183,12 @@ export const TestimonialsSection: React.FC = () => {
                   </div>
                 </div>
               </div>
+
             </div>
+
           </div>
 
-          {/* RIGHT COLUMN: INTERACTIVE CLIENT NAVIGATION LIST */}
+          {/* RIGHT COLUMN: INTERACTIVE CLIENT NAVIGATION LIST (COLUMNS 8–12 / ~40%) */}
           <div className="lg:col-span-5 lg:border-l border-black/15 lg:pl-10 space-y-4">
             <div className="text-[10px] font-intertight font-extrabold uppercase tracking-widest text-black/40 pb-2">
               CLIENT STORIES // SELECT TO FEATURE
@@ -213,6 +224,7 @@ export const TestimonialsSection: React.FC = () => {
                       </span>
                     </div>
 
+                    {/* ANIMATED PROGRESS BAR LINE FOR ACTIVE ITEM */}
                     {isActive && (
                       <div className="w-full h-[2px] bg-black/10 rounded-full overflow-hidden mt-2">
                         <div
@@ -225,13 +237,10 @@ export const TestimonialsSection: React.FC = () => {
                 );
               })}
             </div>
+
           </div>
 
         </div>
-      </Container>
-
-      <Container className="relative z-20 pb-2">
-        <div className="w-full border-t border-black/15" />
       </Container>
     </section>
   );

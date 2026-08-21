@@ -85,10 +85,6 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             
             {/* LEFT / EDITORIAL STAGE RAIL NAVIGATION (COLUMNS 1–5) */}
             <div className="lg:col-span-5 relative z-10 space-y-3 sm:space-y-4 lg:space-y-5">
-              <div className="font-intertight font-bold text-[10px] sm:text-xs text-[#FF4B00] tracking-[0.25em] uppercase">
-                0{activeStageIndex + 1} // {currentStage.subtitle}
-              </div>
-
               {/* ACTIVE STAGE DESCRIPTOR STATEMENT */}
               <p className="font-intertight font-extrabold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight tracking-wide text-[#111111] max-w-[400px]">
                 "{currentStage.description}"
