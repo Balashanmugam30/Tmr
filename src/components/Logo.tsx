@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LiquidGlassSurface } from './LiquidGlassSurface';
 
+export const CANONICAL_TMR_LOGO_SRC = '/images/tmr-logo-navbar.png';
+
 interface LogoProps {
   className?: string;
   heightClassName?: string;
@@ -15,7 +17,7 @@ export const Logo: React.FC<LogoProps> = ({
 }) => {
   const content = (
     <img
-      src="/images/tmr-logo-navbar.png"
+      src={CANONICAL_TMR_LOGO_SRC}
       alt="TMR Car Care - Precision • Protection • Perfection"
       className={`${heightClassName} w-auto object-contain shrink-0 max-h-[38px] filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]`}
     />
