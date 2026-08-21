@@ -53,10 +53,26 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             setActiveStageIndex(index);
           }
 
-          // Smooth background color interpolation across light pastel tones (#F6D9E2 -> #DCE8D5 -> #E3DDF2 -> #F4DDD0 -> #DCE8F2)
+          // Smooth background color & exit recession animation on stickyRef.current
           if (stickyRef.current) {
             const targetColor = processStages[index].bgColor;
             stickyRef.current.style.backgroundColor = targetColor;
+
+            // Exit recession logic during final 10% progress (0.90 -> 1.00)
+            const EXIT_START = 0.90;
+            const EXIT_END = 1.00;
+
+            if (progress >= EXIT_START) {
+              const exitProgress = (progress - EXIT_START) / (EXIT_END - EXIT_START);
+              const exitScale = 1 - exitProgress * 0.04;
+              const exitOpacity = 1 - exitProgress * 0.12;
+              const exitY = -exitProgress * 2;
+              stickyRef.current.style.transform = `translate3d(0, ${exitY}vh, 0) scale(${exitScale})`;
+              stickyRef.current.style.opacity = `${exitOpacity}`;
+            } else {
+              stickyRef.current.style.transform = 'translate3d(0, 0, 0) scale(1)';
+              stickyRef.current.style.opacity = '1';
+            }
           }
         },
       });
