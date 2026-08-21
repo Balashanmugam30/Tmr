@@ -114,7 +114,11 @@ export const Footer: React.FC = () => {
           
           {/* COLUMN 1 — BRAND (3 Cols) */}
           <div className="lg:col-span-3 space-y-4">
-            <Logo heightClassName="h-8 sm:h-9 md:h-10" useGlass={false} />
+            <Logo
+              heightClassName="h-12 sm:h-[52px] md:h-[56px]"
+              imgClassName="w-[165px] sm:w-[175px] md:w-[185px]"
+              useGlass={false}
+            />
             <div className="space-y-1 pt-1">
               <div className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-[#FF4B00]">
                 PRECISION AUTOMOTIVE CARE

@@ -242,7 +242,11 @@ export const Navbar: React.FC = () => {
         <div className="lg:hidden fixed inset-0 z-[1040] bg-[#050505]/85 text-white backdrop-blur-2xl pt-24 px-6 pb-12 overflow-y-auto flex flex-col justify-between">
           <div className="space-y-6">
             <div className="flex items-center justify-between border-b border-white/15 pb-4">
-              <Logo heightClassName="h-7" useGlass={false} />
+              <Logo
+                heightClassName="h-9 sm:h-10"
+                imgClassName="w-[130px] sm:w-[140px]"
+                useGlass={false}
+              />
             </div>
 
             <nav className="space-y-3 font-manrope">
