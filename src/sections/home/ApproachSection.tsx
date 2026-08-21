@@ -85,7 +85,7 @@ export const ApproachSection: React.FC = () => {
       if (videoWrapperRef.current) {
         tl.fromTo(
           videoWrapperRef.current,
-          { opacity: 0, scale: 1.04 },
+          { opacity: 0, scale: 1.03 },
           { opacity: 1, scale: 1.00, duration: 1.1 },
           0
         );
@@ -122,7 +122,7 @@ export const ApproachSection: React.FC = () => {
 
       if (videoWrapperRef.current) {
         gsap.to(videoWrapperRef.current, {
-          y: -25,
+          y: -20,
           ease: 'none',
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -141,50 +141,86 @@ export const ApproachSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="approach"
-      className="w-full bg-[#050505] text-white overflow-hidden relative z-20 border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-screen lg:min-h-[115vh] py-12 md:py-20 flex flex-col justify-between"
+      className="w-full bg-[#050505] text-white overflow-hidden relative z-20 border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-screen flex flex-col justify-between"
     >
+      {/* RIGHT HALF (50% VIEWPORT WIDTH, 100% HEIGHT): FULL-BLEED CINEMATIC VIDEO PANEL */}
+      <div
+        ref={videoWrapperRef}
+        className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 overflow-hidden bg-black rounded-none"
+      >
+        {/* POSTER LOADING FALLBACK LAYER */}
+        <img
+          src="/videos/approach/approach-poster.webp"
+          alt="TMR Cinematic Automotive Detailing Studio"
+          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 pointer-events-none z-10 ${
+            isVideoPlaying ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
+
+        {/* LOCAL H.264 MP4 CINEMATIC VIDEO (FULL-BLEED COVER CROP) */}
+        <video
+          ref={videoRef}
+          src="/videos/approach/approach-cinematic.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className={`w-full h-full object-cover object-center transition-all duration-700 ease-out z-0 ${
+            isVideoPlaying ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          Your browser does not support the video tag.
+        </video>
+
+        {/* SUBTLE CINEMATIC GRADIENT OVERLAY ON VIDEO */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 pointer-events-none z-20" />
+
+        {/* REFINED GLASSMORPHIC MEDIA BADGE */}
+        <div className="absolute bottom-8 right-8 flex items-center gap-3 pointer-events-none font-intertight z-20">
+          <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
+            CINEMATIC STUDIO REFINEMENT // 50:50 SPLIT
+          </span>
+        </div>
+      </div>
+
       {/* SUBTLE CINEMATIC FILM GRAIN / NOISE OVERLAY */}
       <div
         ref={grainRef}
         className="absolute inset-0 pointer-events-none z-10 opacity-7 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:16px_16px]"
       />
 
-      {/* TOP ARCHITECTURAL METADATA ROW */}
-      <Container className="relative z-20 pt-4">
-        <div className="w-full border-t border-white/10 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
-          <div className="flex items-center gap-2.5">
-            <span className="text-[#FF4B00]">02</span>
-            <span className="text-white/30">/</span>
-            <span className="text-white">APPROACH</span>
+      {/* CONTENT LAYER OVER 50/50 SPLIT SCREEN */}
+      <div className="relative z-20 w-full min-h-screen flex flex-col justify-between py-12 md:py-16">
+        
+        {/* TOP ARCHITECTURAL METADATA ROW */}
+        <Container className="w-full pt-4">
+          <div className="w-full border-t border-white/10 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
+            <div className="flex items-center gap-2.5">
+              <span className="text-[#FF4B00]">02</span>
+              <span className="text-white/30">/</span>
+              <span className="text-white">APPROACH</span>
+            </div>
+            <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">THE TMR METHOD // TIRUPPUR STUDIO</span>
           </div>
-          <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">THE TMR METHOD // TIRUPPUR STUDIO</span>
-        </div>
-      </Container>
+        </Container>
 
-      {/* MAIN CINEMATIC COMPOSITION: LEFT (40% NEGATIVE SPACE + BOTTOM EDITORIAL TEXT) / RIGHT (DOMINANT 4:5 PORTRAIT VIDEO) */}
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 my-auto relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[72vh] lg:min-h-[82vh]">
-          
-          {/* LEFT COLUMN (COLUMNS 1–5 / ~40% WIDTH): INTENTIONAL LARGE NEGATIVE SPACE WITH LOWER-LEFT EDITORIAL COPY */}
-          <div className="lg:col-span-5 relative flex flex-col justify-between h-full py-6 lg:py-12">
-            
-            {/* INTENTIONAL LARGE TOP NEGATIVE SPACE */}
-            <div className="hidden lg:block flex-1 min-h-[180px]" />
-
-            {/* LOWER-LEFT RESTRAINED EDITORIAL COPY GROUP */}
-            <div ref={textGroupRef} className="space-y-4 max-w-[380px] lg:pl-4">
+        {/* MAIN EDITORIAL CONTENT: LEFT 50% VIEWPORT CONTAINING RESTRAINED LOWER-LEFT EDITORIAL COPY */}
+        <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 my-auto">
+          <div className="w-full lg:w-1/2 flex flex-col justify-end lg:pr-12 py-8 lg:py-16">
+            <div ref={textGroupRef} className="space-y-4 max-w-[380px]">
               {/* EYEBROW */}
               <div className="approach-text-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
                 02 // APPROACH
               </div>
 
-              {/* RESTRAINED MAIN HEADLINE (28–40px) */}
-              <h2 className="approach-text-item font-intertight font-extrabold text-3xl sm:text-4xl text-white uppercase leading-[0.96] tracking-[-0.04em]">
+              {/* RESTRAINED MAIN HEADLINE */}
+              <h2 className="approach-text-item font-intertight font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white uppercase leading-[0.94] tracking-[-0.04em]">
                 PRECISION IN MOTION.
               </h2>
 
               {/* SHORT EDITORIAL STATEMENT */}
-              <p className="approach-text-item font-editorial text-base sm:text-lg italic text-white/80 leading-relaxed">
+              <p className="approach-text-item font-editorial text-base sm:text-lg lg:text-xl italic text-white/85 leading-relaxed">
                 "We engineer every stage around the condition of the vehicle, the surface, and the finish."
               </p>
 
@@ -202,62 +238,18 @@ export const ApproachSection: React.FC = () => {
                 </Link>
               </div>
             </div>
-
           </div>
-
-          {/* RIGHT COLUMN (COLUMNS 6–12 / ~60% WIDTH): DOMINANT CINEMATIC AUTOMOTIVE DETAILING VIDEO PANEL (4:5 PORTRAIT) */}
-          <div className="lg:col-span-7 relative w-full flex justify-center lg:justify-end pr-0 lg:pr-4">
-            <div
-              ref={videoWrapperRef}
-              className="relative w-full max-w-[620px] lg:w-[44vw] aspect-[4/5] max-h-[85vh] overflow-hidden rounded-[18px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group bg-black"
-            >
-              {/* POSTER LOADING FALLBACK LAYER (FADES OUT WHEN VIDEO IS PLAYING) */}
-              <img
-                src="/videos/approach/approach-poster.webp"
-                alt="TMR Cinematic Automotive Detailing Studio"
-                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 pointer-events-none z-10 ${
-                  isVideoPlaying ? 'opacity-0' : 'opacity-100'
-                }`}
-              />
-
-              {/* LOCAL H.264 MP4 CINEMATIC VIDEO (4:5 PORTRAIT EDITORIAL COVER CROP) */}
-              <video
-                ref={videoRef}
-                src="/videos/approach/approach-cinematic.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-                className={`w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-[1.02] z-0 ${
-                  isVideoPlaying ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                Your browser does not support the video tag.
-              </video>
-
-              {/* SUBTLE CINEMATIC GRADIENT OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none z-20" />
-
-              {/* REFINED GLASSMORPHIC BADGE */}
-              <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight z-20">
-                <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
-                  CINEMATIC STUDIO REFINEMENT // PORTRAIT 4:5
-                </span>
-              </div>
-            </div>
-          </div>
-
         </div>
+
+        {/* BOTTOM TECHNICAL METADATA DIRECTION FOOTER */}
+        <Container className="w-full pb-2">
+          <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
+            <span>CONTINUOUS TOOL TRAJECTORY →</span>
+            <span>TMR / AUTOMOTIVE CARE</span>
+          </div>
+        </Container>
+
       </div>
-
-      {/* BOTTOM TECHNICAL METADATA DIRECTION FOOTER */}
-      <Container className="relative z-20 pb-2">
-        <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
-          <span>CONTINUOUS TOOL TRAJECTORY →</span>
-          <span>TMR / AUTOMOTIVE CARE</span>
-        </div>
-      </Container>
     </section>
   );
 };
