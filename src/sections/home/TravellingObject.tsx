@@ -27,89 +27,90 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
   let opacity = 0;
   let visibilityStyle: 'visible' | 'hidden' = 'hidden';
 
-  if (isVisible && progress > 0.00 && progress < 0.99) {
+  if (isVisible && progress >= 0.00 && progress <= 1.00) {
     visibilityStyle = 'visible';
     if (progress < 0.03) {
-      opacity = (progress - 0.00) / 0.03; // Smooth fade-in on Approach entry
-    } else if (progress > 0.95) {
-      opacity = Math.max(0, 1 - (progress - 0.95) / 0.04); // Smooth fade-out at final Reveal exit
+      opacity = progress / 0.03; // Smooth fade-in on Approach top-left entry
+    } else if (progress > 0.96) {
+      opacity = Math.max(0, 1 - (progress - 0.96) / 0.04); // Smooth fade-out at Process bottom-right exit
     } else {
       opacity = 1.0;
     }
   }
 
-  // --- REPROPORTIONED TRAJECTORY FOR 300VH APPROACH + 500VH PROCESS THEATRE ---
-  // Approach: 0.00 - 0.38 | Boundary Crossing: 0.38 - 0.45 | Process Theatre: 0.45 - 1.00
+  // --- CONTINUOUS WAYPOINT TRAJECTORY (TOP-LEFT -> CENTER HERO -> BOTTOM-RIGHT) ---
+  // Waypoint 01 (0.00): x = 8vw,  y = 18vh, scale = 0.68 (Top-Left Entry)
+  // Waypoint 02 (0.15): x = 24vw, y = 30vh, scale = 0.88 (Approach Movement)
+  // Waypoint 03 (0.30): x = 50vw, y = 45vh, scale = 1.28 (CENTER HERO PRODUCT MOMENT)
+  // Waypoint 04 (0.38): x = 66vw, y = 38vh, scale = 1.00 (Approach Exit)
+  // Waypoint 05 (0.45): x = 72vw, y = 45vh, scale = 0.94 (PROCESS ENTRY BOUNDARY HANDOFF)
+  // Waypoint 06 (0.65): x = 80vw, y = 58vh, scale = 0.88 (Process Midpoint)
+  // Waypoint 07 (0.85): x = 87vw, y = 68vh, scale = 0.80 (Process Late)
+  // Waypoint 08 (1.00): x = 91vw, y = 80vh, scale = 0.70 (Process Bottom-Right Final)
 
-  let xPct = -30;
-  let yOffset = 50;
-  let scale = 0.80;
-  let rotation = -4;
+  let xPos = 8; // in vw
+  let yPos = 18; // in vh
+  let scale = 0.68;
+  let rotation = -5;
 
-  if (progress <= 0.08) {
-    const t = progress / 0.08;
-    xPct = -30 + t * 25; // -30vw -> -5vw
-    yOffset = 50 - t * 40; // +50px -> +10px
-    scale = 0.80 + t * 0.15; // 0.80 -> 0.95
-    rotation = -4 + t * 3; // -4deg -> -1deg
-  } else if (progress <= 0.28) {
-    const t = (progress - 0.08) / 0.20;
-    xPct = -5 + t * 20; // -5vw -> 15vw
-    yOffset = 10 - t * 45; // +10px -> -35px
-    scale = 0.95 + t * 0.35; // 0.95 -> 1.30 (CENTRAL HERO MOMENT IN APPROACH)
-    rotation = -1 + t * 3; // -1deg -> +2deg
+  if (progress <= 0.15) {
+    const t = progress / 0.15;
+    xPos = 8 + t * 16; // 8vw -> 24vw
+    yPos = 18 + t * 12; // 18vh -> 30vh
+    scale = 0.68 + t * 0.20; // 0.68 -> 0.88
+    rotation = -5 + t * 3; // -5deg -> -2deg
+  } else if (progress <= 0.30) {
+    const t = (progress - 0.15) / 0.15;
+    xPos = 24 + t * 26; // 24vw -> 50vw
+    yPos = 30 + t * 15; // 30vh -> 45vh
+    scale = 0.88 + t * 0.40; // 0.88 -> 1.28 (PEAK CENTER HERO MOMENT)
+    rotation = -2 + t * 4; // -2deg -> +2deg
   } else if (progress <= 0.38) {
-    const t = (progress - 0.28) / 0.10;
-    xPct = 15 + t * 20; // 15vw -> 35vw
-    yOffset = -35 + t * 30; // -35px -> -5px
-    scale = 1.30 - t * 0.18; // 1.30 -> 1.12
+    const t = (progress - 0.30) / 0.08;
+    xPos = 50 + t * 16; // 50vw -> 66vw
+    yPos = 45 - t * 7; // 45vh -> 38vh
+    scale = 1.28 - t * 0.28; // 1.28 -> 1.00
     rotation = 2 - t * 2; // +2deg -> 0deg
   } else if (progress <= 0.45) {
     const t = (progress - 0.38) / 0.07;
-    xPct = 35 + t * 17; // 35vw -> 52vw (Seamless handoff across boundary)
-    yOffset = -5 + t * 25; // -5px -> +20px
-    scale = 1.12 - t * 0.10; // 1.12 -> 1.02
+    xPos = 66 + t * 6; // 66vw -> 72vw (Seamless handoff across section boundary)
+    yPos = 38 + t * 7; // 38vh -> 45vh
+    scale = 1.00 - t * 0.06; // 1.00 -> 0.94
     rotation = 0 - t * 1; // 0deg -> -1deg
   } else if (progress <= 0.65) {
     const t = (progress - 0.45) / 0.20;
-    xPct = 52 + t * 10; // 52vw -> 62vw (Inspect stage)
-    yOffset = 20 - t * 15; // +20px -> +5px
-    scale = 1.02 + t * 0.03; // 1.02 -> 1.05
+    xPos = 72 + t * 8; // 72vw -> 80vw (Process Midpoint)
+    yPos = 45 + t * 13; // 45vh -> 58vh
+    scale = 0.94 - t * 0.06; // 0.94 -> 0.88
     rotation = -1 + t * 2; // -1deg -> +1deg
   } else if (progress <= 0.85) {
     const t = (progress - 0.65) / 0.20;
-    xPct = 62 + t * 14; // 62vw -> 76vw (Transform stage)
-    yOffset = 5 - t * 30; // +5px -> -25px
-    scale = 1.05 + t * 0.03; // 1.05 -> 1.08
-    rotation = 1 - t * 2; // +1deg -> -1deg
-  } else if (progress <= 0.94) {
-    const t = (progress - 0.85) / 0.09;
-    xPct = 76 + t * 16; // 76vw -> 92vw (Reveal stage)
-    yOffset = -25 + t * 30; // -25px -> +5px
-    scale = 1.08 - t * 0.13; // 1.08 -> 0.95
-    rotation = -1 + t * 1; // -1deg -> 0deg
+    xPos = 80 + t * 7; // 80vw -> 87vw (Process Late)
+    yPos = 58 + t * 10; // 58vh -> 68vh
+    scale = 0.88 - t * 0.08; // 0.88 -> 0.80
+    rotation = 1 - t * 3; // +1deg -> -2deg
   } else {
-    const t = Math.min(1.0, (progress - 0.94) / 0.06);
-    xPct = 92 + t * 28; // 92vw -> 120vw (Exit offscreen right)
-    yOffset = 5 - t * 10;
-    scale = 0.95 - t * 0.10;
-    rotation = 0;
+    const t = Math.min(1.0, (progress - 0.85) / 0.15);
+    xPos = 87 + t * 4; // 87vw -> 91vw (Process Bottom-Right Final)
+    yPos = 68 + t * 12; // 68vh -> 80vh
+    scale = 0.80 - t * 0.10; // 0.80 -> 0.70
+    rotation = -2 + t * 2; // -2deg -> 0deg
   }
 
   const content = (
     <div
       data-travelling-object="true"
       aria-hidden="true"
-      className="fixed top-[40vh] left-0 pointer-events-none z-[120] transition-transform duration-75 ease-out"
+      className="fixed top-0 left-0 pointer-events-none z-[120] transition-transform duration-75 ease-out"
       style={{
-        transform: `translate3d(${xPct}vw, ${yOffset}px, 0) rotate(${rotation}deg) scale(${scale})`,
+        transform: `translate3d(${xPos}vw, ${yPos}vh, 0) rotate(${rotation}deg) scale(${scale})`,
         opacity: opacity,
         visibility: visibilityStyle,
       }}
     >
-      <div className="relative max-w-[320px] sm:max-w-[440px] md:max-w-[540px] lg:max-w-[620px]">
+      <div className="relative max-w-[280px] sm:max-w-[380px] md:max-w-[480px] lg:max-w-[560px]">
         {/* Soft specular drop shadow layer */}
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-4/5 h-12 bg-black/65 blur-2xl rounded-full scale-y-50 pointer-events-none" />
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-4/5 h-10 bg-black/70 blur-2xl rounded-full scale-y-50 pointer-events-none" />
         
         {/* Isolated Transparent Polisher Object Image Element */}
         <picture>
@@ -118,7 +119,7 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
             src="/images/process/polisher-object.png"
             alt=""
             draggable={false}
-            className="w-full h-auto object-contain filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.65)]"
+            className="w-full h-auto object-contain filter drop-shadow-[0_25px_50px_rgba(0,0,0,0.7)]"
           />
         </picture>
 
