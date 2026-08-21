@@ -10,14 +10,14 @@ interface LogoProps {
 
 export const Logo: React.FC<LogoProps> = ({
   className = '',
-  heightClassName = 'h-8 sm:h-9 md:h-10 lg:h-[38px]',
+  heightClassName = 'h-7 sm:h-8 md:h-[34px]',
   useGlass = true,
 }) => {
   const content = (
     <img
       src="/images/tmr-logo-tight.png"
       alt="TMR Car Care - Precision • Protection • Perfection"
-      className={`${heightClassName} w-auto object-contain shrink-0`}
+      className={`${heightClassName} w-auto object-contain shrink-0 max-h-[36px]`}
     />
   );
 
@@ -28,7 +28,10 @@ export const Logo: React.FC<LogoProps> = ({
       aria-label="TMR Car Care Homepage"
     >
       {useGlass ? (
-        <LiquidGlassSurface className="min-h-[58px] px-5 py-2.5 border border-white/20 group-hover:border-[#FF4B00]/60 transition-colors">
+        <LiquidGlassSurface
+          roundedClassName="rounded-[20px]"
+          className="h-[62px] w-[175px] sm:w-[185px] px-4 py-2 border border-white/20 group-hover:border-[#FF4B00]/60 transition-colors flex items-center justify-center"
+        >
           {content}
         </LiquidGlassSurface>
       ) : (

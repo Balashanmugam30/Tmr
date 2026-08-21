@@ -136,7 +136,7 @@ export const Navbar: React.FC = () => {
       >
         <div className="max-w-[1400px] mx-auto flex items-center justify-between relative">
           
-          {/* ZONE 1: UNIFIED LEFT BRAND LOGO LIQUID GLASS CAPSULE */}
+          {/* ZONE 1: BOXY ARCHITECTURAL LOGO LIQUID GLASS CONTAINER */}
           <div className="pointer-events-auto shrink-0 z-[1010]">
             <Logo useGlass={true} />
           </div>
@@ -154,7 +154,7 @@ export const Navbar: React.FC = () => {
             onMouseLeave={handleMouseLeaveNav}
             className="pointer-events-auto hidden lg:block absolute left-1/2 -translate-x-1/2 top-0 z-[1100]"
           >
-            <LiquidGlassSurface className="min-h-[58px] px-3 py-1.5 border border-white/20">
+            <LiquidGlassSurface className="h-[62px] px-3 border border-white/20">
               <nav className="flex items-center gap-1 font-manrope text-xs font-bold uppercase tracking-wider relative z-10">
                 {navigationItems.map((item) => {
                   const itemKey = item.label.trim().toUpperCase();
@@ -173,18 +173,15 @@ export const Navbar: React.FC = () => {
                         to={item.href}
                         className={`relative px-4 py-2 rounded-full transition-all duration-200 flex items-center gap-1.5 ${
                           isActive
-                            ? 'text-[#050505] font-black shadow-sm'
+                            ? 'text-white font-extrabold shadow-sm'
                             : isHovered
-                            ? 'text-[#050505] font-extrabold bg-black/5'
-                            : 'text-[#050505]/80 hover:text-[#050505] hover:bg-black/5'
+                            ? 'text-white font-bold bg-white/10'
+                            : 'text-white/80 hover:text-white hover:bg-white/5'
                         }`}
                       >
-                        {/* NESTED ACTIVE INNER GLASS BUBBLE (LIFTED SELECTED STATE EFFECT) */}
+                        {/* NESTED ACTIVE INNER OPTICAL HIGHLIGHT */}
                         {isActive && (
-                          <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none z-0">
-                            <div className="absolute inset-0 backdrop-blur-md brightness-110" />
-                            <div className="absolute inset-0 bg-white/85 shadow-[inset_0_1px_0_rgba(255,255,255,1.0),inset_0_-1px_0_rgba(0,0,0,0.1)]" />
-                          </div>
+                          <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none z-0 bg-white/15 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]" />
                         )}
 
                         <span className="relative z-10">{item.label}</span>
@@ -199,13 +196,13 @@ export const Navbar: React.FC = () => {
             </LiquidGlassSurface>
           </div>
 
-          {/* ZONE 3: INDEPENDENT RIGHT CONTACT ACTION CAPSULE (UNIFIED LIQUID GLASS MATERIAL) */}
+          {/* ZONE 3: RIGHT CONTACT ACTION CAPSULE (PERFECTLY CENTERED LIQUID GLASS CONTROL) */}
           <div className="pointer-events-auto shrink-0 z-[1010]">
-            <Link to="/contact">
-              <LiquidGlassSurface className="min-h-[58px] px-5 py-3 border border-white/20 hover:border-[#FF4B00]/60 transition-colors">
-                <div className="group flex items-center gap-1.5 text-[#050505] font-manrope font-extrabold text-xs uppercase tracking-widest relative z-10">
+            <Link to="/contact" className="inline-flex">
+              <LiquidGlassSurface className="h-[62px] px-6 border border-white/20 hover:border-[#FF4B00]/60 transition-colors">
+                <div className="group inline-flex items-center justify-center gap-2 text-white font-manrope font-extrabold text-xs uppercase tracking-widest leading-none relative z-10 my-auto">
                   <span>CONTACT</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#FF4B00] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform" />
+                  <ArrowUpRight className="w-4 h-4 text-[#FF4B00] group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform shrink-0" />
                 </div>
               </LiquidGlassSurface>
             </Link>
@@ -233,28 +230,28 @@ export const Navbar: React.FC = () => {
       <div className="lg:hidden fixed top-4 right-4 z-[1050] pointer-events-auto">
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="p-3 bg-[#F5F4EF]/85 backdrop-blur-xl border border-white/20 rounded-full text-[#050505] hover:text-[#FF4B00] transition-colors shadow-[0_8px_30px_rgba(0,0,0,0.12)] min-h-[48px] min-w-[48px] flex items-center justify-center"
+          className="p-3 bg-[#050505]/75 backdrop-blur-xl border border-white/20 rounded-2xl text-white hover:text-[#FF4B00] transition-colors shadow-[0_8px_30px_rgba(0,0,0,0.25)] min-h-[48px] min-w-[48px] flex items-center justify-center"
           aria-label="Toggle Navigation Menu"
         >
           {isMobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* MOBILE FULLSCREEN DRAWER */}
+      {/* MOBILE FULLSCREEN DRAWER WITH UNIFIED LIQUID GLASS FLOATING PANEL */}
       {isMobileOpen && (
-        <div className="lg:hidden fixed inset-0 z-[1040] bg-[#F5F4EF]/95 text-[#050505] backdrop-blur-2xl pt-24 px-6 pb-12 overflow-y-auto flex flex-col justify-between">
+        <div className="lg:hidden fixed inset-0 z-[1040] bg-[#050505]/85 text-white backdrop-blur-2xl pt-24 px-6 pb-12 overflow-y-auto flex flex-col justify-between">
           <div className="space-y-6">
-            <div className="flex items-center justify-between border-b border-black/10 pb-3">
-              <Logo heightClassName="h-7" />
+            <div className="flex items-center justify-between border-b border-white/15 pb-4">
+              <Logo heightClassName="h-7" useGlass={false} />
             </div>
 
-            <nav className="space-y-4 font-manrope">
+            <nav className="space-y-3 font-manrope">
               {navigationItems.map((item) => (
-                <div key={item.label} className="border-b border-black/10 pb-3">
+                <div key={item.label} className="border-b border-white/10 pb-3">
                   <Link
                     to={item.href}
                     className={`text-xl font-extrabold uppercase tracking-wider flex items-center justify-between ${
-                      location.pathname === item.href ? 'text-[#FF4B00]' : 'text-[#050505]'
+                      location.pathname === item.href ? 'text-[#FF4B00]' : 'text-white'
                     }`}
                   >
                     <span>{item.label}</span>
@@ -265,10 +262,10 @@ export const Navbar: React.FC = () => {
             </nav>
           </div>
 
-          <div className="pt-8 border-t border-black/10">
+          <div className="pt-8 border-t border-white/15">
             <Link
               to="/contact"
-              className="flex items-center justify-center gap-2 w-full bg-[#050505] text-white font-manrope font-bold text-xs uppercase tracking-widest py-4 rounded-full shadow-lg"
+              className="flex items-center justify-center gap-2 w-full bg-[#FF4B00] text-white font-manrope font-extrabold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg hover:bg-white hover:text-black transition-colors"
             >
               <span>CONTACT TMR STUDIO →</span>
             </Link>

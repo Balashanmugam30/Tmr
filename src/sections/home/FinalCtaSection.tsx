@@ -84,11 +84,12 @@ export const FinalCtaSection: React.FC = () => {
 
           {/* CENTERED ACTIONS */}
           <div className="cta-anim-item pt-3 flex flex-col sm:flex-row items-center justify-center gap-5 font-intertight w-full">
+            {/* ARCHITECTURAL COMPACT EDITORIAL CONTROL (NOT 9999px PILL) */}
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center gap-2.5 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 py-4 rounded-full hover:bg-white hover:text-black transition-all duration-300 shadow-md"
+              className="group inline-flex items-center justify-center gap-2.5 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-7 h-[56px] rounded-[16px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.3)] hover:-translate-y-0.5"
             >
               <span>BOOK A CONSULTATION</span>
               <span className="group-hover:translate-x-1 transition-transform">↗</span>
