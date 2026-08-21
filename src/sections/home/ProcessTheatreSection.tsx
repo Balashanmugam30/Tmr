@@ -25,16 +25,18 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
+    let lastIndex = -1;
+
     const ctx = gsap.context(() => {
+      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.2,
+        scrub: 0.1,
         onUpdate: (self) => {
           const progress = self.progress;
 
-          // Notify parent of stage progress (0.0 to 1.0 within process theatre)
           if (onProgressUpdate) {
             onProgressUpdate(progress);
           }
@@ -45,11 +47,13 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             Math.floor(progress * processStages.length)
           );
 
-          if (index !== activeStageIndex) {
+          // Update React state ONLY when active index actually changes
+          if (index !== lastIndex) {
+            lastIndex = index;
             setActiveStageIndex(index);
           }
 
-          // Smooth background color interpolation across dark TMR neutral tones (#0A0A0A -> #111315 -> #181B1D -> #25282A -> #050505)
+          // Smooth background color interpolation across dark TMR neutral tones
           if (stickyRef.current) {
             const targetColor = processStages[index].bgColor;
             stickyRef.current.style.backgroundColor = targetColor;
@@ -59,7 +63,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     }, containerRef);
 
     return () => ctx.revert();
-  }, [activeStageIndex, onProgressUpdate]);
+  }, []); // STABLE MOUNT DEPENDENCY ARRAY (DO NOT ADD activeStageIndex HERE!)
 
   return (
     <div
@@ -70,7 +74,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
       {/* 100VH FULLSCREEN STICKY DARK THEATRE VIEWPORT CONTAINER */}
       <div
         ref={stickyRef}
-        className="sticky top-0 left-0 w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between transition-colors duration-700 ease-out text-white"
+        className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-between transition-colors duration-700 ease-out text-white"
         style={{
           backgroundColor: currentStage.bgColor,
         }}
