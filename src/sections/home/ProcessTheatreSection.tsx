@@ -49,13 +49,10 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             setActiveStageIndex(index);
           }
 
-          // Smooth background color interpolation based on scroll progress
+          // Smooth background color interpolation across dark TMR neutral tones (#0A0A0A -> #111315 -> #181B1D -> #25282A -> #050505)
           if (stickyRef.current) {
             const targetColor = processStages[index].bgColor;
-            const targetTextColor = processStages[index].textColor;
-
             stickyRef.current.style.backgroundColor = targetColor;
-            stickyRef.current.style.color = targetTextColor;
           }
         },
       });
@@ -70,71 +67,79 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
       id="process-theatre"
       className="relative w-full h-[500vh] z-20 selection:bg-[#FF4B00] selection:text-white"
     >
-      {/* 100VH STICKY VIEWPORT CONTAINER */}
+      {/* 100VH FULLSCREEN STICKY DARK THEATRE VIEWPORT CONTAINER */}
       <div
         ref={stickyRef}
-        className="sticky top-0 left-0 w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between transition-colors duration-500 ease-out"
+        className="sticky top-0 left-0 w-full h-screen min-h-screen overflow-hidden flex flex-col justify-between transition-colors duration-700 ease-out text-white"
         style={{
           backgroundColor: currentStage.bgColor,
-          color: currentStage.textColor,
         }}
       >
-        <Container className="h-full flex flex-col justify-between py-12 md:py-16">
+        <Container className="h-full flex flex-col justify-between py-12 md:py-16 relative z-10">
           {/* HEADER BAR */}
-          <div className="w-full border-t border-current/15 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em]">
+          <div className="w-full border-t border-white/10 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
             <div className="flex items-center gap-2.5">
               <span className="text-[#FF4B00]">04</span>
-              <span className="opacity-40">/</span>
+              <span className="text-white/30">/</span>
               <span>THE PROCESS THEATRE</span>
             </div>
-            <span className="opacity-60 tracking-[0.2em]">STAGE 0{activeStageIndex + 1} // 05</span>
+            <span className="text-white/50 tracking-[0.2em]">STAGE 0{activeStageIndex + 1} // 05</span>
           </div>
 
-          {/* MAIN 12-COLUMN PROCESS CONTENT GRID */}
+          {/* MAIN 12-COLUMN DARK CINEMATIC THEATRE GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto relative">
             
-            {/* LEFT / NAVIGATION RAIL & ACTIVE STAGE NARRATIVE (COLUMNS 1–5) */}
-            <div className="lg:col-span-5 relative z-10 space-y-6">
+            {/* LEFT / EDITORIAL STAGE RAIL NAVIGATION (COLUMNS 1–5) */}
+            <div className="lg:col-span-5 relative z-10 space-y-8">
               <div className="font-intertight font-bold text-xs text-[#FF4B00] tracking-[0.25em] uppercase">
-                0{activeStageIndex + 1} — {currentStage.title}
+                0{activeStageIndex + 1} // {currentStage.subtitle}
               </div>
 
-              <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase leading-[0.92] tracking-[-0.045em]">
-                FROM ARRIVAL
-                <br />
-                <span className="text-[#FF4B00]">TO FINISH.</span>
-              </h2>
-
-              <p className="font-editorial text-xl sm:text-2xl lg:text-3xl italic opacity-90 leading-tight">
+              {/* ACTIVE STAGE DESCRIPTOR STATEMENT */}
+              <p className="font-intertight font-extrabold text-lg sm:text-xl md:text-2xl uppercase leading-tight tracking-wide text-white/90 max-w-[420px]">
                 "{currentStage.description}"
               </p>
 
-              {/* VERTICAL STAGE NAVIGATION RAIL */}
-              <div className="pt-4 border-l border-current/15 space-y-3 pl-4 sm:pl-6">
+              {/* LARGE EDITORIAL STAGE RAIL */}
+              <div className="pt-4 border-l border-white/10 space-y-4 pl-4 sm:pl-6">
                 {processStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
                   return (
                     <div
                       key={stage.id}
-                      className={`flex items-center justify-between cursor-pointer transition-all duration-300 font-intertight text-xs uppercase tracking-wider py-1 ${
-                        isActive ? 'text-[#FF4B00] font-bold pl-2' : 'opacity-40 hover:opacity-80'
+                      className={`flex items-center justify-between cursor-pointer transition-all duration-500 font-intertight uppercase tracking-wider py-1.5 ${
+                        isActive
+                          ? 'text-white font-extrabold translate-x-3 text-lg sm:text-xl'
+                          : 'text-white/35 hover:text-white/70 text-sm'
                       }`}
                       onClick={() => setActiveStageIndex(idx)}
                     >
                       <div className="flex items-center gap-3">
-                        <span>{stage.number}</span>
+                        <span className={isActive ? 'text-[#FF4B00]' : 'text-white/30'}>
+                          {stage.number}
+                        </span>
                         <span>{stage.title}</span>
                       </div>
-                      {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />}
+                      {isActive && (
+                        <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+                      )}
                     </div>
                   );
                 })}
               </div>
             </div>
 
-            {/* RIGHT / CINEMATIC MEDIA DISPLAY (COLUMNS 6–12) */}
-            <div className="lg:col-span-7 relative w-full">
-              <div className="w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10] max-h-[580px] relative overflow-hidden rounded-2xl border border-current/15 shadow-[0_30px_70px_rgba(0,0,0,0.25)]">
+            {/* RIGHT / VERY LARGE ACTIVE DISPLAY TITLE & CINEMATIC STAGE VISUAL (COLUMNS 6–12) */}
+            <div className="lg:col-span-7 relative w-full flex flex-col items-start lg:items-end">
+              
+              {/* VERY LARGE ACTIVE DISPLAY TITLE */}
+              <h2 className="font-intertight font-extrabold text-6xl sm:text-8xl md:text-[140px] lg:text-[180px] uppercase text-white leading-[0.82] tracking-[-0.065em] mb-4 text-left lg:text-right w-full">
+                <span className="text-[#FF4B00]">0{activeStageIndex + 1}</span>{' '}
+                <span className="text-white">{currentStage.title}</span>
+              </h2>
+
+              {/* CINEMATIC STAGE IMAGE FRAME */}
+              <div className="w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[16/10] max-h-[500px] relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_80px_rgba(0,0,0,0.6)]">
                 {processStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
                   return (
@@ -151,11 +156,11 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                         alt={stage.alt}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
                       
                       {/* GLASSMORPHIC STAGE BADGE */}
                       <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between font-intertight">
-                        <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-white border border-white/10">
+                        <span className="bg-black/85 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-white border border-white/10">
                           {stage.number} // {stage.title} — {stage.subtitle}
                         </span>
                         <span className="text-[#FF4B00] text-xs font-extrabold hidden sm:inline-block">
@@ -166,12 +171,13 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                   );
                 })}
               </div>
+
             </div>
 
           </div>
 
           {/* BOTTOM TECHNICAL SPECIFICATION FOOTER */}
-          <div className="w-full border-t border-current/15 pt-4 flex flex-col md:flex-row md:items-center justify-between gap-2 font-intertight text-[11px] font-bold uppercase tracking-wider opacity-70">
+          <div className="w-full border-t border-white/10 pt-4 flex flex-col md:flex-row md:items-center justify-between gap-2 font-intertight text-[11px] font-bold uppercase tracking-wider text-white/70">
             <div className="flex items-center gap-3">
               <span className="text-[#FF4B00]">PROTOCOL:</span>
               <span>{currentStage.technicalDetails.join(' • ')}</span>
