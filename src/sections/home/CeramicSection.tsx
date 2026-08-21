@@ -18,7 +18,7 @@ export const CeramicSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Clean, single entrance timeline for Protection chapter
+      // Clean, single entrance timeline for Protection elements
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },
@@ -61,7 +61,8 @@ export const CeramicSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="ceramic-coating-refined"
-      className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-screen py-12 md:py-20 flex flex-col justify-between"
+      className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-screen py-12 md:py-20 flex flex-col justify-between isolate"
+      style={{ opacity: 1, backgroundColor: '#070809' }}
     >
       {/* SUBTLE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />

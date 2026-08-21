@@ -44,29 +44,29 @@ export const ApproachProcessJourney: React.FC = () => {
         },
       });
 
-      // 2. CONTROLLED PROCESS -> PROTECTION BOUNDARY OVERLAP TRANSITION
+      // 2. CONTROLLED PROCESS -> PROTECTION FOREGROUND COVERING TRANSITION
       if (processWrapperRef.current && protectionWrapperRef.current) {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: protectionWrapperRef.current,
             start: 'top bottom', // Begins as Protection enters bottom of viewport over Process
-            end: 'top top', // Completes when Protection settles cleanly over Process
+            end: 'top top', // Completes when Protection completely covers Process
             scrub: 0.1,
           },
         });
 
-        // Process recedes behind
+        // Process recedes behind (remains visually solid at 88% opacity)
         tl.to(
           processWrapperRef.current,
-          { scale: 0.96, opacity: 0.65, ease: 'none' },
+          { scale: 0.97, y: '-2vh', opacity: 0.88, ease: 'none' },
           0
         );
 
-        // Protection rises into foreground
+        // Protection rises into foreground as a 100% SOLID OPAQUE sheet (opacity remains 1)
         tl.fromTo(
           protectionWrapperRef.current,
-          { translateY: '100%', opacity: 0, scale: 1.02 },
-          { translateY: '0%', opacity: 1, scale: 1.00, ease: 'none' },
+          { translateY: '100vh', scale: 1.01 },
+          { translateY: '0vh', scale: 1.00, ease: 'none' },
           0
         );
       }
@@ -98,10 +98,11 @@ export const ApproachProcessJourney: React.FC = () => {
           <ProcessTheatreSection />
         </div>
 
-        {/* SECTION 03 / PROTECTION: OVERLAPPING FOREGROUND LAYER (-100VH OFFSET, Z-INDEX 20) */}
+        {/* SECTION 03 / PROTECTION: SOLID OPAQUE FOREGROUND SHEET OVERLAP (-100VH OFFSET, Z-INDEX 30) */}
         <div
           ref={protectionWrapperRef}
-          className="relative z-20 -mt-[100vh]"
+          className="relative z-30 -mt-[100vh] isolate"
+          style={{ opacity: 1 }}
         >
           <CeramicSection />
         </div>
