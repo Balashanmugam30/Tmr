@@ -24,8 +24,8 @@ export const processStages: ProcessStage[] = [
       'Underbody & Wheel Well Flush',
       'Clean Room Isolation Bay'
     ],
-    bgColor: '#3A252D', // Deep dusty rose / muted dark pink
-    textColor: '#FFFFFF',
+    bgColor: '#F6D9E2', // Baby Pink / Soft Blush
+    textColor: '#111111',
     accentColor: '#FF4B00',
     image: '/images/process/arrive.webp',
     alt: 'Dark luxury executive vehicle arriving inside TMR studio bay'
@@ -41,8 +41,8 @@ export const processStages: ProcessStage[] = [
       'Specular LED Surface Mapping',
       'Defect Severity Classification'
     ],
-    bgColor: '#263A31', // Deep pista / muted sage
-    textColor: '#FFFFFF',
+    bgColor: '#DCE8D5', // Light Pista / Soft Sage
+    textColor: '#111111',
     accentColor: '#FF4B00',
     image: '/images/process/inspect.webp',
     alt: 'Professional detailer inspecting paint surface clearcoat with specular LED light'
@@ -58,8 +58,8 @@ export const processStages: ProcessStage[] = [
       'Grade 0 Synthetic Clay Treatment',
       'Precision Automotive Trim Masking'
     ],
-    bgColor: '#302A38', // Smoky lavender / muted plum-gray
-    textColor: '#FFFFFF',
+    bgColor: '#E3DDF2', // Pale Lavender
+    textColor: '#111111',
     accentColor: '#FF4B00',
     image: '/images/process/prepare.webp',
     alt: 'Automotive masking tape and surface decontamination preparation'
@@ -75,8 +75,8 @@ export const processStages: ProcessStage[] = [
       'Diminishing Abrasive Micro-Compounds',
       'Hologram-Free Finish Verification'
     ],
-    bgColor: '#3B2A25', // Deep dusty peach / muted terracotta
-    textColor: '#FFFFFF',
+    bgColor: '#F4DDD0', // Soft Powder Peach
+    textColor: '#111111',
     accentColor: '#FF4B00',
     image: '/images/process/transform.webp',
     alt: 'Dual-action machine polishing compound paint correction'
@@ -92,8 +92,8 @@ export const processStages: ProcessStage[] = [
       'IR Thermal Curing Cycle',
       'Final Inspection & Quality Handover'
     ],
-    bgColor: '#25313B', // Deep slate blue / desaturated steel
-    textColor: '#FFFFFF',
+    bgColor: '#DCE8F2', // Pale Powder Blue
+    textColor: '#111111',
     accentColor: '#FF4B00',
     image: '/images/process/reveal.webp',
     alt: 'Finished luxury vehicle specular mirror gloss reflection reveal'

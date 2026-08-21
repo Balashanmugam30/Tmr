@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -9,9 +9,67 @@ gsap.registerPlugin(ScrollTrigger);
 export const ApproachSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const textGroupRef = useRef<HTMLDivElement>(null);
   const grainRef = useRef<HTMLDivElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
 
+  // Programmatic Video Playback & Viewport Intersection Observer
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Force muted & playsInline for browser autoplay compliance
+    video.muted = true;
+    video.playsInline = true;
+
+    const handlePlaying = () => {
+      setIsVideoPlaying(true);
+    };
+
+    video.addEventListener('playing', handlePlaying);
+    video.addEventListener('timeupdate', () => {
+      if (video.currentTime > 0 && !isVideoPlaying) {
+        setIsVideoPlaying(true);
+      }
+    });
+
+    // Programmatic play attempt
+    const playVideo = async () => {
+      try {
+        video.muted = true;
+        await video.play();
+        setIsVideoPlaying(true);
+      } catch (err) {
+        console.warn('Approach video autoplay interaction required:', err);
+      }
+    };
+
+    // IntersectionObserver to play video when in viewport and pause when out
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            playVideo();
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      video.removeEventListener('playing', handlePlaying);
+      observer.disconnect();
+    };
+  }, [isVideoPlaying]);
+
+  // GSAP Entrance Timelines
   useEffect(() => {
     if (!sectionRef.current) return;
 
@@ -19,13 +77,11 @@ export const ApproachSection: React.FC = () => {
     if (isReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // Entrance Timeline for Approach Cinematic Elements
       const tl = gsap.timeline({
         paused: true,
         defaults: { ease: 'power3.out' },
       });
 
-      // 1. Video Entrance (opacity 0 -> 1, scale 1.04 -> 1.00)
       if (videoWrapperRef.current) {
         tl.fromTo(
           videoWrapperRef.current,
@@ -35,7 +91,6 @@ export const ApproachSection: React.FC = () => {
         );
       }
 
-      // 2. Grain Fade In
       if (grainRef.current) {
         tl.fromTo(
           grainRef.current,
@@ -45,7 +100,6 @@ export const ApproachSection: React.FC = () => {
         );
       }
 
-      // 3. Staggered Lower-Left Editorial Text Entrance
       if (textGroupRef.current) {
         const textElements = textGroupRef.current.querySelectorAll('.approach-text-item');
         tl.fromTo(
@@ -66,7 +120,6 @@ export const ApproachSection: React.FC = () => {
         onLeaveBack: () => tl.pause(0),
       });
 
-      // Subtle Vertical Video Parallax inside right column
       if (videoWrapperRef.current) {
         gsap.to(videoWrapperRef.current, {
           y: -25,
@@ -156,27 +209,38 @@ export const ApproachSection: React.FC = () => {
           <div className="lg:col-span-7 relative w-full flex justify-end">
             <div
               ref={videoWrapperRef}
-              className="relative w-full lg:w-[56vw] aspect-[16/10] max-h-[78vh] overflow-hidden rounded-[18px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group"
+              className="relative w-full lg:w-[56vw] aspect-[16/10] max-h-[78vh] overflow-hidden rounded-[18px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group bg-black"
             >
+              {/* POSTER LOADING FALLBACK LAYER (FADES OUT WHEN VIDEO IS PLAYING) */}
+              <img
+                src="/videos/approach/approach-poster.webp"
+                alt="TMR Cinematic Automotive Detailing Studio"
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 pointer-events-none z-10 ${
+                  isVideoPlaying ? 'opacity-0' : 'opacity-100'
+                }`}
+              />
+
               {/* LOCAL H.264 MP4 CINEMATIC VIDEO */}
               <video
+                ref={videoRef}
+                src="/videos/approach/approach-cinematic.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
-                preload="metadata"
-                poster="/videos/approach/approach-poster.webp"
-                className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                preload="auto"
+                className={`w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-[1.02] z-0 ${
+                  isVideoPlaying ? 'opacity-100' : 'opacity-0'
+                }`}
               >
-                <source src="/videos/approach/approach-cinematic.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
 
               {/* SUBTLE CINEMATIC GRADIENT OVERLAY */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none z-20" />
 
               {/* REFINED GLASSMORPHIC BADGE */}
-              <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight">
+              <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight z-20">
                 <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
                   CINEMATIC STUDIO REFINEMENT // TIRUPPUR
                 </span>
