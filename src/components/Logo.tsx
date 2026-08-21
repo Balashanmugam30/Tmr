@@ -15,9 +15,9 @@ export const Logo: React.FC<LogoProps> = ({
 }) => {
   const content = (
     <img
-      src="/images/tmr-logo-tight.png"
+      src="/images/tmr-logo-navbar.png"
       alt="TMR Car Care - Precision • Protection • Perfection"
-      className={`${heightClassName} w-auto object-contain shrink-0 max-h-[36px]`}
+      className={`${heightClassName} w-auto object-contain shrink-0 max-h-[38px] filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]`}
     />
   );
 
