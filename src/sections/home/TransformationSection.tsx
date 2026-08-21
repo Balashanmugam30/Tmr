@@ -45,21 +45,21 @@ export const TransformationSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="transformation"
-      className="relative w-full min-h-[100svh] bg-[#080909] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white py-10 lg:py-16 flex flex-col justify-between isolate font-intertight"
-      style={{ backgroundColor: '#080909' }}
+      className="relative w-full min-h-[100svh] bg-[#F3F0EA] text-[#111111] overflow-hidden border-t border-b border-black/10 selection:bg-[#FF4B00] selection:text-white py-10 lg:py-16 flex flex-col justify-between isolate font-intertight"
+      style={{ backgroundColor: '#F3F0EA' }}
     >
-      {/* SUBTLE FINE NOISE & TECHNICAL GRID BACKGROUND */}
-      <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
+      {/* SUBTLE FINE NOISE & WARM TECHNICAL GRID TEXTURE */}
+      <div className="absolute inset-0 pointer-events-none z-10 opacity-4 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
       {/* TOP METADATA ROW */}
       <Container className="relative z-20 pt-2">
-        <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
+        <div className="w-full border-t border-black/15 pt-4 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-[#111111]">
           <div className="flex items-center gap-2.5">
             <span className="text-[#FF4B00]">05</span>
-            <span className="text-white/30">/</span>
+            <span className="text-black/30">/</span>
             <span>RESULT</span>
           </div>
-          <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">
+          <span className="text-black/50 tracking-[0.2em] hidden sm:inline-block">
             PAINT CORRECTION // FINAL SURFACE
           </span>
         </div>
@@ -73,7 +73,7 @@ export const TransformationSection: React.FC = () => {
             <div className="trans-anim-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
               05 // TRANSFORMATION
             </div>
-            <h2 className="trans-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-[-0.04em]">
+            <h2 className="trans-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.92] tracking-[-0.04em]">
               FROM <br />
               DEFECT <br />
               TO <span className="text-[#FF4B00]">REFLECTION.</span>
@@ -81,13 +81,13 @@ export const TransformationSection: React.FC = () => {
           </div>
 
           <div className="lg:col-span-6 space-y-4 lg:pb-2">
-            <p className="trans-anim-item font-editorial text-lg sm:text-2xl italic text-white/85 leading-tight">
+            <p className="trans-anim-item font-editorial text-lg sm:text-2xl italic text-[#333333] leading-tight">
               "Every correction starts with seeing what the surface is actually doing."
             </p>
             <div className="trans-anim-item flex items-center gap-6 font-intertight">
               <Link
                 to="/gallery"
-                className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+                className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-[#111111] hover:text-[#FF4B00] transition-colors"
               >
                 <span className="inline-flex items-center gap-2">
                   <span>SEE OUR WORK</span>
@@ -112,18 +112,18 @@ export const TransformationSection: React.FC = () => {
 
       {/* BOTTOM TECHNICAL RESULT METRICS FOOTER */}
       <Container className="relative z-20 pb-2">
-        <div className="w-full border-t border-white/10 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
-          <div className="flex items-center gap-4 sm:gap-6 text-white/70">
+        <div className="w-full border-t border-black/15 pt-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-intertight text-[10px] font-bold text-black/50 uppercase tracking-widest">
+          <div className="flex items-center gap-4 sm:gap-6 text-[#333333]">
             <span className="flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-[#FF4B00]" />
               <span>PAINT CORRECTION: MULTI-STAGE</span>
             </span>
-            <span className="text-white/20">•</span>
+            <span className="text-black/20">•</span>
             <span className="flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-[#FF4B00]" />
               <span>SURFACE: RESTORED</span>
             </span>
-            <span className="text-white/20">•</span>
+            <span className="text-black/20">•</span>
             <span className="flex items-center gap-1.5">
               <span className="w-1 h-1 rounded-full bg-[#FF4B00]" />
               <span>FINISH: MIRROR SPECULAR GLOSS</span>
