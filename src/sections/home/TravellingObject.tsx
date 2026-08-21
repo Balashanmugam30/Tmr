@@ -39,14 +39,14 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
   }
 
   // --- CONTINUOUS WAYPOINT TRAJECTORY (TOP-LEFT -> CENTER HERO -> BOTTOM-RIGHT) ---
-  // Waypoint 01 (0.00): x = 8vw,  y = 18vh, scale = 0.68 (Top-Left Entry)
-  // Waypoint 02 (0.15): x = 24vw, y = 30vh, scale = 0.88 (Approach Movement)
-  // Waypoint 03 (0.30): x = 50vw, y = 45vh, scale = 1.28 (CENTER HERO PRODUCT MOMENT)
-  // Waypoint 04 (0.38): x = 66vw, y = 38vh, scale = 1.00 (Approach Exit)
-  // Waypoint 05 (0.45): x = 72vw, y = 45vh, scale = 0.94 (PROCESS ENTRY BOUNDARY HANDOFF)
-  // Waypoint 06 (0.65): x = 80vw, y = 58vh, scale = 0.88 (Process Midpoint)
-  // Waypoint 07 (0.85): x = 87vw, y = 68vh, scale = 0.80 (Process Late)
-  // Waypoint 08 (1.00): x = 91vw, y = 80vh, scale = 0.70 (Process Bottom-Right Final)
+  // Waypoint A (0.00): x = 8vw,  y = 18vh, scale = 0.68 (Top-Left Entry)
+  // Waypoint B (0.15): x = 24vw, y = 30vh, scale = 0.88 (Approach Movement)
+  // Waypoint C (0.30): x = 50vw, y = 45vh, scale = 1.28 (CENTER HERO PRODUCT MOMENT)
+  // Waypoint D (0.38): x = 66vw, y = 38vh, scale = 1.00 (Approach Exit)
+  // Waypoint E (0.45): x = 72vw, y = 45vh, scale = 0.94 (PROCESS ENTRY BOUNDARY HANDOFF)
+  // Waypoint F (0.65): x = 80vw, y = 58vh, scale = 0.88 (Process Midpoint)
+  // Waypoint G (0.85): x = 87vw, y = 68vh, scale = 0.80 (Process Late)
+  // Waypoint H (1.00): x = 91vw, y = 80vh, scale = 0.70 (Process Bottom-Right Final)
 
   let xPos = 8; // in vw
   let yPos = 18; // in vh
