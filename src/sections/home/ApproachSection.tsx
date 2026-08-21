@@ -161,12 +161,12 @@ export const ApproachSection: React.FC = () => {
         </div>
       </Container>
 
-      {/* MAIN CINEMATIC COMPOSITION: LEFT (45% NEGATIVE SPACE + BOTTOM EDITORIAL TEXT) / RIGHT (PORTRAIT EDITORIAL VIDEO) */}
+      {/* MAIN CINEMATIC COMPOSITION: LEFT (40% NEGATIVE SPACE + BOTTOM EDITORIAL TEXT) / RIGHT (DOMINANT 4:5 PORTRAIT VIDEO) */}
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 my-auto relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[70vh] lg:min-h-[78vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center min-h-[72vh] lg:min-h-[82vh]">
           
-          {/* LEFT COLUMN (COLUMNS 1–6 / ~45% WIDTH): INTENTIONAL LARGE NEGATIVE SPACE WITH LOWER-LEFT EDITORIAL COPY */}
-          <div className="lg:col-span-6 relative flex flex-col justify-between h-full py-6 lg:py-12">
+          {/* LEFT COLUMN (COLUMNS 1–5 / ~40% WIDTH): INTENTIONAL LARGE NEGATIVE SPACE WITH LOWER-LEFT EDITORIAL COPY */}
+          <div className="lg:col-span-5 relative flex flex-col justify-between h-full py-6 lg:py-12">
             
             {/* INTENTIONAL LARGE TOP NEGATIVE SPACE */}
             <div className="hidden lg:block flex-1 min-h-[180px]" />
@@ -205,11 +205,11 @@ export const ApproachSection: React.FC = () => {
 
           </div>
 
-          {/* RIGHT COLUMN (COLUMNS 7–12): TALL VERTICAL PORTRAIT EDITORIAL CINEMATIC VIDEO (9:16 ASPECT RATIO) */}
-          <div className="lg:col-span-6 relative w-full flex justify-center lg:justify-end">
+          {/* RIGHT COLUMN (COLUMNS 6–12 / ~60% WIDTH): DOMINANT CINEMATIC AUTOMOTIVE DETAILING VIDEO PANEL (4:5 PORTRAIT) */}
+          <div className="lg:col-span-7 relative w-full flex justify-center lg:justify-end pr-0 lg:pr-4">
             <div
               ref={videoWrapperRef}
-              className="relative w-full max-w-[380px] lg:w-[35vw] aspect-[9/16] max-h-[82vh] overflow-hidden rounded-[18px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group bg-black"
+              className="relative w-full max-w-[620px] lg:w-[44vw] aspect-[4/5] max-h-[85vh] overflow-hidden rounded-[18px] border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group bg-black"
             >
               {/* POSTER LOADING FALLBACK LAYER (FADES OUT WHEN VIDEO IS PLAYING) */}
               <img
@@ -220,7 +220,7 @@ export const ApproachSection: React.FC = () => {
                 }`}
               />
 
-              {/* LOCAL H.264 MP4 CINEMATIC VIDEO (PORTRAIT COVER CROP) */}
+              {/* LOCAL H.264 MP4 CINEMATIC VIDEO (4:5 PORTRAIT EDITORIAL COVER CROP) */}
               <video
                 ref={videoRef}
                 src="/videos/approach/approach-cinematic.mp4"
@@ -241,8 +241,8 @@ export const ApproachSection: React.FC = () => {
 
               {/* REFINED GLASSMORPHIC BADGE */}
               <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight z-20">
-                <span className="bg-black/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest text-white border border-white/10">
-                  CINEMATIC STUDIO REFINEMENT // 9:16
+                <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
+                  CINEMATIC STUDIO REFINEMENT // PORTRAIT 4:5
                 </span>
               </div>
             </div>
