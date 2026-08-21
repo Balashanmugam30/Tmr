@@ -28,7 +28,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     let lastIndex = -1;
 
     const ctx = gsap.context(() => {
-      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT
+      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT (600VH TOTAL SCROLL TERRITORY)
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
@@ -41,10 +41,15 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             onProgressUpdate(progress);
           }
 
+          // 5 PROCESS STAGES OCCUPY THE FIRST 500VH (PROGRESS 0.00 -> 0.833333)
+          const PROCESS_SEQUENCE_END = 5 / 6;
+
+          const stageProgress = Math.min(1, progress / PROCESS_SEQUENCE_END);
+
           // Calculate active stage index (0 to 4)
           const index = Math.min(
             processStages.length - 1,
-            Math.floor(progress * processStages.length)
+            Math.floor(stageProgress * processStages.length)
           );
 
           // Update React state ONLY when active index actually changes
@@ -58,7 +63,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
             const targetColor = processStages[index].bgColor;
             stickyRef.current.style.backgroundColor = targetColor;
 
-            // Exit recession logic during final 10% progress (0.90 -> 1.00)
+            // Exit recession logic during final 10% progress of the 600vh territory (0.90 -> 1.00)
             const EXIT_START = 0.90;
             const EXIT_END = 1.00;
 
@@ -85,7 +90,7 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
     <div
       ref={containerRef}
       id="process-theatre"
-      className="relative w-full h-[500vh] z-20 selection:bg-[#FF4B00] selection:text-white"
+      className="relative w-full h-[600vh] z-20 selection:bg-[#FF4B00] selection:text-white"
     >
       {/* 100VH FULLSCREEN STICKY LIGHT PASTEL THEATRE VIEWPORT CONTAINER */}
       <div
