@@ -111,6 +111,7 @@ export const FinalCtaSection: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Book a car detailing consultation with TMR Car Care via WhatsApp"
               className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 h-[54px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.35)] hover:-translate-y-0.5"
             >
               <span>BOOK A CONSULTATION</span>
@@ -121,6 +122,7 @@ export const FinalCtaSection: React.FC = () => {
               href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Get Google Maps driving directions to TMR Studio in Tiruppur"
               className="group inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-white/80 hover:text-white transition-colors py-2"
             >
               <span>GET DIRECTIONS</span>

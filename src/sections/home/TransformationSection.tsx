@@ -70,6 +70,7 @@ export const TransformationSection: React.FC = () => {
             <div className="trans-anim-item flex items-center gap-6 font-intertight">
               <Link
                 to="/gallery"
+                aria-label="View TMR paint correction and detailing transformation gallery"
                 className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-[#111111] hover:text-[#FF4B00] transition-colors"
               >
                 <span className="inline-flex items-center gap-2">

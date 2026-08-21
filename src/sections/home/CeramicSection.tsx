@@ -88,6 +88,7 @@ export const CeramicSection: React.FC = () => {
             <div className="prot-editorial-item pt-2">
               <Link
                 to="/services"
+                aria-label="Explore TMR 10H ceramic coating packages in Tiruppur"
                 className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
               >
                 <span className="inline-flex items-center gap-2">
@@ -124,7 +125,7 @@ export const CeramicSection: React.FC = () => {
             >
               <img
                 src="/images/protection/protection-hero.webp"
-                alt="TMR Ceramic Coating Hydrophobic Surface Protection"
+                alt="Hydrophobic water beading on 10H ceramic coated car paint surface at TMR Studio Tiruppur"
                 className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />

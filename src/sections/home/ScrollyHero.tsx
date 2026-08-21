@@ -308,6 +308,7 @@ export const ScrollyHero: React.FC = () => {
             <div>
               <Link
                 to="/services"
+                aria-label="Explore TMR Car Care detailing services in Tiruppur"
                 className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
               >
                 <span className="inline-flex items-center gap-1.5">
@@ -384,6 +385,7 @@ export const ScrollyHero: React.FC = () => {
             <div>
               <Link
                 to="/services"
+                aria-label="Book a car detailing consultation at TMR Tiruppur"
                 className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
               >
                 <span className="inline-flex items-center gap-1.5">

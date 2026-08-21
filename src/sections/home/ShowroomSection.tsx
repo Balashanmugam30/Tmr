@@ -105,6 +105,7 @@ export const ShowroomSection: React.FC = () => {
               href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Get Google Maps driving directions to TMR Car Care studio in Tiruppur"
               className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
             >
               <span className="inline-flex items-center gap-2">

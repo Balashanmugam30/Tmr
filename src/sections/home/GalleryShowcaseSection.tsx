@@ -102,6 +102,7 @@ export const GalleryShowcaseSection: React.FC = () => {
         <div className="pt-4 flex items-center justify-between border-t border-white/10 font-intertight">
           <Link
             to="/gallery"
+            aria-label="View TMR Car Care full detailing gallery archive in Tiruppur"
             className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
           >
             <span className="inline-flex items-center gap-2">
