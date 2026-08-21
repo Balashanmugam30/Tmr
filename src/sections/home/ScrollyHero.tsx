@@ -299,10 +299,6 @@ export const ScrollyHero: React.FC = () => {
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
-              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
-              <span>01 — SURFACE</span>
-            </div>
             <h1 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[84px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
               THE ART OF CAR CARE.
             </h1>
@@ -331,10 +327,6 @@ export const ScrollyHero: React.FC = () => {
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
-              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
-              <span>02 — REVEAL</span>
-            </div>
             <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
               EVERY SURFACE MATTERS.
             </h2>
@@ -351,10 +343,6 @@ export const ScrollyHero: React.FC = () => {
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
-              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
-              <span>03 — APPROACH</span>
-            </div>
             <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
               PRECISION IN MOTION.
             </h2>
@@ -371,10 +359,6 @@ export const ScrollyHero: React.FC = () => {
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
-              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
-              <span>04 — CRAFT</span>
-            </div>
             <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
               CRAFT, NOT COMMERCE.
             </h2>
@@ -391,10 +375,6 @@ export const ScrollyHero: React.FC = () => {
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <div className="font-intertight font-bold text-[11px] text-[#FF4B00] uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
-              <span className="w-1 h-3.5 bg-[#FF4B00] rounded-full inline-block" />
-              <span>05 — FINISH</span>
-            </div>
             <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
               FINISHED WITH INTENT.
             </h2>
