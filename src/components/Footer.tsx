@@ -46,13 +46,13 @@ export const Footer: React.FC = () => {
 
   return (
     <footer
-      className="w-full bg-[#050505] text-[#F5F4EF] pt-12 md:pt-16 pb-8 border-t border-white/10 relative overflow-hidden font-intertight flex flex-col justify-between"
+      className="w-full bg-[#050505] text-[#F5F4EF] pt-12 md:pt-16 pb-8 border-t border-white/10 relative overflow-hidden font-intertight flex flex-col justify-between min-h-[100svh]"
       style={{ backgroundColor: '#050505' }}
     >
       {/* SUBTLE FINE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-0 opacity-4 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:18px_18px]" />
 
-      <Container className="relative z-10 space-y-12 max-w-[1360px] mx-auto">
+      <Container className="relative z-10 space-y-8 md:space-y-12 max-w-[1360px] mx-auto w-full h-full flex flex-col justify-between flex-grow">
         
         {/* SECTION A — TOP CONTACT STRIP (3 BALANCED EQUAL ZONES WITH SAME VISUAL HIERARCHY) */}
         <div className="border-b border-white/12 pb-8">
@@ -110,7 +110,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* SECTION B — MAIN FOOTER GRID (4-COLUMN EDITORIAL DESKTOP LAYOUT) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 items-start my-auto py-4">
           
           {/* COLUMN 1 — BRAND (3 Cols) */}
           <div className="lg:col-span-3 space-y-4">
