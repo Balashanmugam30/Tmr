@@ -38,58 +38,58 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
     }
   }
 
-  // --- REPROPORTIONED TRAJECTORY FOR 115VH APPROACH + 500VH PROCESS THEATRE ---
-  // Approach: 0.00 - 0.19 | Boundary Crossing: 0.19 - 0.24 | Process Theatre: 0.24 - 1.00
+  // --- REPROPORTIONED TRAJECTORY FOR 300VH APPROACH + 500VH PROCESS THEATRE ---
+  // Approach: 0.00 - 0.38 | Boundary Crossing: 0.38 - 0.45 | Process Theatre: 0.45 - 1.00
 
   let xPct = -30;
   let yOffset = 50;
   let scale = 0.80;
   let rotation = -4;
 
-  if (progress <= 0.06) {
-    const t = progress / 0.06;
+  if (progress <= 0.08) {
+    const t = progress / 0.08;
     xPct = -30 + t * 25; // -30vw -> -5vw
     yOffset = 50 - t * 40; // +50px -> +10px
     scale = 0.80 + t * 0.15; // 0.80 -> 0.95
     rotation = -4 + t * 3; // -4deg -> -1deg
-  } else if (progress <= 0.14) {
-    const t = (progress - 0.06) / 0.08;
+  } else if (progress <= 0.28) {
+    const t = (progress - 0.08) / 0.20;
     xPct = -5 + t * 20; // -5vw -> 15vw
     yOffset = 10 - t * 45; // +10px -> -35px
     scale = 0.95 + t * 0.35; // 0.95 -> 1.30 (CENTRAL HERO MOMENT IN APPROACH)
     rotation = -1 + t * 3; // -1deg -> +2deg
-  } else if (progress <= 0.19) {
-    const t = (progress - 0.14) / 0.05;
+  } else if (progress <= 0.38) {
+    const t = (progress - 0.28) / 0.10;
     xPct = 15 + t * 20; // 15vw -> 35vw
     yOffset = -35 + t * 30; // -35px -> -5px
     scale = 1.30 - t * 0.18; // 1.30 -> 1.12
     rotation = 2 - t * 2; // +2deg -> 0deg
-  } else if (progress <= 0.24) {
-    const t = (progress - 0.19) / 0.05;
+  } else if (progress <= 0.45) {
+    const t = (progress - 0.38) / 0.07;
     xPct = 35 + t * 17; // 35vw -> 52vw (Seamless handoff across boundary)
     yOffset = -5 + t * 25; // -5px -> +20px
     scale = 1.12 - t * 0.10; // 1.12 -> 1.02
     rotation = 0 - t * 1; // 0deg -> -1deg
-  } else if (progress <= 0.45) {
-    const t = (progress - 0.24) / 0.21;
+  } else if (progress <= 0.65) {
+    const t = (progress - 0.45) / 0.20;
     xPct = 52 + t * 10; // 52vw -> 62vw (Inspect stage)
     yOffset = 20 - t * 15; // +20px -> +5px
     scale = 1.02 + t * 0.03; // 1.02 -> 1.05
     rotation = -1 + t * 2; // -1deg -> +1deg
-  } else if (progress <= 0.75) {
-    const t = (progress - 0.45) / 0.30;
+  } else if (progress <= 0.85) {
+    const t = (progress - 0.65) / 0.20;
     xPct = 62 + t * 14; // 62vw -> 76vw (Transform stage)
     yOffset = 5 - t * 30; // +5px -> -25px
     scale = 1.05 + t * 0.03; // 1.05 -> 1.08
     rotation = 1 - t * 2; // +1deg -> -1deg
-  } else if (progress <= 0.92) {
-    const t = (progress - 0.75) / 0.17;
+  } else if (progress <= 0.94) {
+    const t = (progress - 0.85) / 0.09;
     xPct = 76 + t * 16; // 76vw -> 92vw (Reveal stage)
     yOffset = -25 + t * 30; // -25px -> +5px
     scale = 1.08 - t * 0.13; // 1.08 -> 0.95
     rotation = -1 + t * 1; // -1deg -> 0deg
   } else {
-    const t = Math.min(1.0, (progress - 0.92) / 0.08);
+    const t = Math.min(1.0, (progress - 0.94) / 0.06);
     xPct = 92 + t * 28; // 92vw -> 120vw (Exit offscreen right)
     yOffset = 5 - t * 10;
     scale = 0.95 - t * 0.10;

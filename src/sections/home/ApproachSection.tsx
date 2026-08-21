@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -6,234 +6,289 @@ import { Container } from '@/components/Container';
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface EditorialState {
+  number: string;
+  eyebrow: string;
+  headline: string;
+  quote?: string;
+  description: string;
+}
+
+const approachStates: EditorialState[] = [
+  {
+    number: '01',
+    eyebrow: '02 / APPROACH',
+    headline: 'PRECISION, IN MOTION.',
+    quote: '"We engineer every stage around the condition of the vehicle, the surface, and the finish."',
+    description: 'Every vehicle enters a climate-controlled studio environment designed for zero-defect surface preservation.',
+  },
+  {
+    number: '02',
+    eyebrow: '01 // DIAGNOSE',
+    headline: 'PAINT MAPPING & DIAGNOSTICS',
+    description: 'Understand the vehicle before touching the surface. Ultrasonic gauges measure clearcoat depth across all panels.',
+  },
+  {
+    number: '03',
+    eyebrow: '02 // PREPARE',
+    headline: 'SURFACE DECONTAMINATION',
+    description: 'Chemical iron extraction, clay bar treatment, and automotive masking tape protect delicate trim and rubber seals.',
+  },
+  {
+    number: '04',
+    eyebrow: '03 // REFINE',
+    headline: 'DUAL-ACTION CORRECTION',
+    description: 'Controlled multi-pass polishing eliminates 95%+ of surface swirls, unlocking true specular paint depth.',
+  },
+  {
+    number: '05',
+    eyebrow: '04 // PROCESS',
+    headline: 'EVERY PASS IS MEASURED',
+    description: 'Every panel is inspected under specular LED light arrays before handoff into Process Theatre.',
+  },
+];
+
 export const ApproachSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const dividerRef = useRef<HTMLDivElement>(null);
-  const metaRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const statementRef = useRef<HTMLParagraphElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoContainerRef = useRef<HTMLDivElement>(null);
+  const textContainerRef = useRef<HTMLDivElement>(null);
+
+  const [activeStateIndex, setActiveStateIndex] = useState<number>(0);
+  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+
+  const currentState = approachStates[activeStateIndex] || approachStates[0];
 
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || !stickyRef.current) return;
 
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
+    let lastIndex = -1;
+
     const ctx = gsap.context(() => {
-      // Entrance Timeline for Technical Dark Elements
-      const tl = gsap.timeline({
-        paused: true,
-        defaults: { ease: 'power4.out' },
-      });
-
-      if (dividerRef.current) {
-        tl.fromTo(
-          dividerRef.current,
-          { scaleX: 0 },
-          { scaleX: 1, duration: 0.8, transformOrigin: 'left center' },
-          0
-        );
-      }
-
-      if (metaRef.current) {
-        tl.fromTo(
-          metaRef.current,
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.5 },
-          0.05
-        );
-      }
-
-      if (headlineRef.current) {
-        const lines = headlineRef.current.querySelectorAll('.approach-dark-line');
-        tl.fromTo(
-          lines,
-          { opacity: 0, y: 28, clipPath: 'inset(100% 0 0 0)' },
-          {
-            opacity: 1,
-            y: 0,
-            clipPath: 'inset(0% 0 0 0)',
-            duration: 0.75,
-            stagger: 0.1,
-          },
-          0.1
-        );
-      }
-
-      if (statementRef.current) {
-        tl.fromTo(
-          statementRef.current,
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.6 },
-          0.25
-        );
-      }
-
-      if (gridRef.current) {
-        const cards = gridRef.current.querySelectorAll('.dark-tech-card');
-        tl.fromTo(
-          cards,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.6, stagger: 0.1 },
-          0.35
-        );
-      }
-
+      // 300vh STICKY SCROLLTRIGGER VIEWPORT PINNING
       ScrollTrigger.create({
         trigger: sectionRef.current,
-        start: 'top 78%',
-        end: 'bottom 20%',
-        onEnter: () => tl.restart(),
-        onEnterBack: () => tl.restart(),
-        onLeave: () => tl.pause(0),
-        onLeaveBack: () => tl.pause(0),
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.1,
+        onUpdate: (self) => {
+          const progress = self.progress;
+
+          // Map progress (0.00 to 1.00) to 5 editorial text states
+          const index = Math.min(
+            approachStates.length - 1,
+            Math.floor(progress * approachStates.length)
+          );
+
+          if (index !== lastIndex) {
+            lastIndex = index;
+            setActiveStateIndex(index);
+          }
+
+          // Subtle video parallax scale & opacity transition near handoff
+          if (videoContainerRef.current) {
+            const scale = 1.04 - progress * 0.06;
+            const opacity = progress > 0.90 ? Math.max(0, 1 - (progress - 0.90) / 0.10) : 1;
+            gsap.set(videoContainerRef.current, {
+              scale: scale,
+              opacity: opacity,
+            });
+          }
+
+          // Video scroll-scrub syncing if metadata loaded
+          if (videoRef.current && videoRef.current.duration) {
+            const targetTime = progress * videoRef.current.duration;
+            if (Math.abs(videoRef.current.currentTime - targetTime) > 0.15) {
+              videoRef.current.currentTime = targetTime;
+            }
+          }
+        },
       });
+
+      // Video Entrance Mask Reveal on Section Entry
+      if (videoContainerRef.current) {
+        gsap.fromTo(
+          videoContainerRef.current,
+          { clipPath: 'inset(10% 10% 10% 10%)', opacity: 0.2 },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            opacity: 1,
+            duration: 1.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 80%',
+            },
+          }
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
+  // Subtle 3D Mouse Parallax Tilt for Video Stage
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const xNorm = (e.clientX - rect.left) / rect.width - 0.5;
+    const yNorm = (e.clientY - rect.top) / rect.height - 0.5;
+    setMouseOffset({ x: xNorm * 6, y: yNorm * 6 });
+  };
+
+  const handleMouseLeave = () => {
+    setMouseOffset({ x: 0, y: 0 });
+  };
+
   return (
     <section
       ref={sectionRef}
       id="approach"
-      className="w-full bg-[#0A0A0A] text-white overflow-hidden relative z-20 border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-screen lg:min-h-[115vh] py-16 md:py-24 flex flex-col justify-between"
+      className="relative w-full h-[300vh] bg-[#0A0A0A] text-white selection:bg-[#FF4B00] selection:text-white z-20 border-b border-white/10"
     >
-      {/* TECHNICAL BACKGROUND GRID LINES & ARCHITECTURAL COORDINATES */}
-      <div className="absolute inset-0 pointer-events-none opacity-20 z-0">
-        <div className="w-full h-full border-b border-white/10 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:5rem_5rem]" />
-      </div>
-
-      <Container className="relative z-10 my-auto">
-        {/* TOP DIVIDER */}
-        <div ref={dividerRef} className="w-full h-px bg-white/10 mb-8 origin-left" />
-
-        {/* TOP META ROW */}
-        <div
-          ref={metaRef}
-          className="flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] mb-10 md:mb-14 text-white"
-        >
-          <div className="flex items-center gap-2.5">
-            <span className="text-[#FF4B00]">02</span>
-            <span className="text-white/30">/</span>
-            <span className="text-white">APPROACH</span>
-          </div>
-          <span className="text-white/50 tracking-[0.2em]">THE TMR METHOD // ARCHITECTURAL CHOREOGRAPHY</span>
+      {/* 100VH STICKY VIEWPORT CONTAINER */}
+      <div
+        ref={stickyRef}
+        className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-between py-8 md:py-12 bg-[#0A0A0A]"
+      >
+        {/* SUBTLE BACKGROUND ARCHITECTURAL GRID TEXTURE */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.04] z-0">
+          <div className="w-full h-full bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:6rem_6rem]" />
         </div>
 
-        {/* DARK ARCHITECTURAL HEADLINE & STATEMENT */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <Container className="h-full flex flex-col justify-between relative z-10 my-auto">
           
-          {/* LEFT: VERY LARGE DARK DISPLAY TYPOGRAPHY (COLUMNS 1–8) */}
-          <div className="lg:col-span-8 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-intertight font-bold uppercase tracking-widest text-white">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" />
-              <span>TECHNICAL PROCESS ARCHITECTURE</span>
+          {/* TOP METADATA HEADER STRIP */}
+          <div className="w-full border-t border-white/10 pt-5 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white/70">
+            <div className="flex items-center gap-2.5">
+              <span className="text-[#FF4B00]">02</span>
+              <span className="text-white/30">/</span>
+              <span className="text-white">APPROACH</span>
             </div>
-
-            <h2
-              ref={headlineRef}
-              className="font-intertight font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-[130px] uppercase text-white leading-[0.84] tracking-[-0.06em]"
-            >
-              <div className="overflow-hidden">
-                <span className="approach-dark-line block text-white">PRECISION</span>
-              </div>
-              <div className="overflow-hidden">
-                <span className="approach-dark-line block text-white">IS A</span>
-              </div>
-              <div className="overflow-hidden">
-                <span className="approach-dark-line block text-[#FF4B00]">PROCESS.</span>
-              </div>
-            </h2>
-
-            <p
-              ref={statementRef}
-              className="font-editorial text-2xl sm:text-3xl lg:text-4xl text-white/90 leading-tight italic max-w-2xl"
-            >
-              "We engineer every stage around the condition of the vehicle, the surface, and the finish."
-            </p>
+            <div className="flex items-center gap-6 text-white/40 text-[10px] hidden sm:flex">
+              <span>TMR METHOD</span>
+              <span>•</span>
+              <span>TIRUPPUR STUDIO</span>
+              <span>•</span>
+              <span>CONTROLLED PROCESS</span>
+            </div>
           </div>
 
-          {/* RIGHT: TECHNICAL SPECIFICATION PANEL (COLUMNS 9–12) */}
-          <div className="lg:col-span-4 flex flex-col justify-between space-y-6 pt-4 border-l border-white/10 pl-6 lg:pl-10">
-            <div className="font-intertight text-xs uppercase tracking-widest text-white/60 space-y-3">
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <span className="text-white/40">LOCATION</span>
-                <span className="font-bold text-white">TIRUPPUR STUDIO</span>
+          {/* MAIN DESKTOP EDITORIAL LAYOUT (35% TEXT LEFT | 65% VIDEO RIGHT) */}
+          <div
+            className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto relative"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
+            
+            {/* LEFT / QUIET EDITORIAL TYPOGRAPHY COLUMN (COLUMNS 1–5) */}
+            <div className="lg:col-span-5 relative z-10 space-y-6 max-w-[440px] pl-0 lg:pl-4">
+              
+              {/* STAGE NUMBER & EYEBROW */}
+              <div className="flex items-center gap-3 font-intertight text-xs font-bold uppercase tracking-[0.2em] text-[#FF4B00]">
+                <span>{currentState.eyebrow}</span>
+                <span className="text-white/20">•</span>
+                <span className="text-white/50">{currentState.number} / 05</span>
               </div>
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <span className="text-white/40">ENVIRONMENT</span>
-                <span className="font-bold text-white">CLIMATE-CONTROLLED</span>
-              </div>
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <span className="text-white/40">OBJECT PATH</span>
-                <span className="font-bold text-[#FF4B00]">CONTINUOUS CHOREOGRAPHY</span>
-              </div>
-            </div>
 
-            <div className="pt-4">
-              <Link
-                to="/services"
-                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              {/* RESTRAINED HEADLINE */}
+              <h2
+                ref={textContainerRef}
+                className="font-intertight font-extrabold text-3xl sm:text-4xl lg:text-[46px] uppercase text-white leading-[0.94] tracking-[-0.04em] transition-all duration-500 ease-out"
               >
-                <span className="inline-flex items-center gap-2">
-                  <span>DISCOVER OUR METHOD</span>
-                  <span className="text-[#FF4B00] group-hover:translate-x-1.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
-                </span>
-                <span className="h-[1.5px] w-12 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
-              </Link>
+                {currentState.headline}
+              </h2>
+
+              {/* EDITORIAL STATEMENT QUOTE */}
+              {currentState.quote && (
+                <p className="font-editorial text-xl sm:text-2xl text-white/90 leading-tight italic font-normal">
+                  {currentState.quote}
+                </p>
+              )}
+
+              {/* SUPPORTING DESCRIPTION */}
+              <p className="font-intertight text-xs sm:text-sm text-white/60 leading-relaxed font-normal">
+                {currentState.description}
+              </p>
+
+              {/* QUIET EDITORIAL CTA LINK */}
+              <div className="pt-2">
+                <Link
+                  to="/services"
+                  className="group inline-flex items-center gap-2 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+                >
+                  <span>DISCOVER THE TMR METHOD</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">↗</span>
+                </Link>
+              </div>
+
+              {/* STAGE PROGRESS DOT INDICATOR */}
+              <div className="flex items-center gap-2 pt-4">
+                {approachStates.map((st, idx) => (
+                  <div
+                    key={st.number}
+                    className={`h-1 rounded-full transition-all duration-500 ${
+                      activeStateIndex === idx ? 'w-8 bg-[#FF4B00]' : 'w-2 bg-white/20'
+                    }`}
+                  />
+                ))}
+              </div>
+
+            </div>
+
+            {/* RIGHT / DOMINANT CINEMATIC VIDEO STAGE (COLUMNS 6–12) */}
+            <div className="lg:col-span-7 relative w-full flex justify-end">
+              <div
+                ref={videoContainerRef}
+                className="w-full aspect-[16/10] max-h-[580px] relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.8)] transition-transform duration-300 ease-out"
+                style={{
+                  transform: `translate3d(${mouseOffset.x}px, ${mouseOffset.y}px, 0)`,
+                }}
+              >
+                <video
+                  ref={videoRef}
+                  src="/videos/approach/approach-cinematic.mp4"
+                  poster="/videos/approach/approach-poster.webp"
+                  muted
+                  playsInline
+                  loop
+                  autoPlay
+                  preload="metadata"
+                  className="w-full h-full object-cover filter brightness-[0.92] contrast-[1.05]"
+                />
+                
+                {/* SUBTLE VIGNETTE & GRADIENT OVERLAY */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+
+                {/* CORNER CINEMATIC WATERMARK */}
+                <div className="absolute bottom-5 right-6 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-intertight font-bold uppercase tracking-widest text-white/80">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" />
+                  <span>TMR CINEMATIC STUDIO // 4K</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* BOTTOM INFORMATION STRIP */}
+          <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
+            <div className="flex items-center gap-2">
+              <span>TMR CAR CARE</span>
+              <span>/</span>
+              <span>PRECISION AUTOMOTIVE CARE</span>
+              <span className="hidden sm:inline">/</span>
+              <span className="hidden sm:inline">TIRUPPUR, TAMIL NADU</span>
+            </div>
+            <div className="flex items-center gap-2 text-[#FF4B00]">
+              <span>SCROLL TO CONTINUE</span>
+              <span>↓</span>
             </div>
           </div>
 
-        </div>
-
-        {/* THREE TECHNICAL SPECIFICATION PILLARS */}
-        <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 md:mt-16">
-          
-          <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
-            <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
-              01 // DIAGNOSTICS
-            </span>
-            <h3 className="font-intertight font-bold text-lg text-white uppercase">
-              PAINT SURFACE MAPPING
-            </h3>
-            <p className="font-intertight text-xs text-white/55 leading-relaxed">
-              Ultrasonic depth gauges measure clearcoat thickness across all panels to establish safe correction boundaries.
-            </p>
-          </div>
-
-          <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
-            <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
-              02 // PREPARATION
-            </span>
-            <h3 className="font-intertight font-bold text-lg text-white uppercase">
-              DECONTAMINATION & MASKING
-            </h3>
-            <p className="font-intertight text-xs text-white/55 leading-relaxed">
-              Iron fallout extraction, clay bar treatment, and automotive trim masking prepare every contour for refinement.
-            </p>
-          </div>
-
-          <div className="dark-tech-card bg-[#111315] p-6 md:p-8 rounded-2xl border border-white/10 space-y-3 hover:border-[#FF4B00]/40 transition-colors">
-            <span className="text-xs font-intertight font-extrabold text-[#FF4B00] tracking-widest uppercase">
-              03 // REFINEMENT
-            </span>
-            <h3 className="font-intertight font-bold text-lg text-[#FFFFFF] uppercase">
-              DUAL-ACTION POLISHING
-            </h3>
-            <p className="font-intertight text-xs text-white/55 leading-relaxed">
-              Controlled multi-pass polishing eliminates swirls and scratches, unlocking true specular paint clarity.
-            </p>
-          </div>
-
-        </div>
-      </Container>
-
-      {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
-      <div className="w-full border-t border-white/10 pt-4 pb-2 px-6 md:px-12 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest relative z-10 mt-12">
-        <span>CONTINUOUS TOOL TRAJECTORY →</span>
-        <span>APPROACH → PROCESS THEATRE HANDOFF</span>
+        </Container>
       </div>
     </section>
   );
