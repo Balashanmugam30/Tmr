@@ -1,10 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '@/components/Container';
-
-gsap.registerPlugin(ScrollTrigger);
+import { GalleryRevealItem } from './GalleryRevealItem';
 
 interface TeaserGalleryItem {
   id: string;
@@ -58,115 +55,8 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
 ];
 
 export const GalleryShowcaseSection: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const textGroupRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isReducedMotion) return;
-
-    const ctx = gsap.context(() => {
-      // 1. MANIFESTO-STYLE MASTER TIMELINE (PAUSED INITIALLY, CONTROLLED BY VIEWPORT ENTRY)
-      const tl = gsap.timeline({
-        paused: true,
-        defaults: { ease: 'power4.out' },
-      });
-
-      // 1a. Header text reveal (0.00s)
-      if (textGroupRef.current) {
-        const textItems = textGroupRef.current.querySelectorAll('.gallery-anim-text');
-        tl.fromTo(
-          textItems,
-          { opacity: 0, y: 18 },
-          { opacity: 1, y: 0, duration: 0.7, stagger: 0.08 },
-          0
-        );
-      }
-
-      // 1b. UNIFIED MANIFESTO-STYLE LEFT -> RIGHT CURTAIN REVEAL FOR ALL 4 TEASER GALLERY IMAGES
-      if (gridRef.current) {
-        const cards = gridRef.current.querySelectorAll<HTMLDivElement>('.gallery-reveal-card');
-
-        cards.forEach((card, index) => {
-          const imgEl = card.querySelector('img');
-          const startTime = 0.20 + index * 0.12; // Sequential 120ms arrival stagger
-
-          // Outer curtain mask expands horizontally from Left to Right
-          tl.fromTo(
-            card,
-            { opacity: 0, clipPath: 'inset(0 100% 0 0)' },
-            {
-              opacity: 1,
-              clipPath: 'inset(0 0% 0 0)',
-              duration: 1.0,
-              ease: 'power4.out',
-            },
-            startTime
-          );
-
-          // Internal image shift inside expanding curtain (x: -24px -> 0px)
-          if (imgEl) {
-            tl.fromTo(
-              imgEl,
-              { x: -24, scale: 1.03 },
-              { x: 0, scale: 1.0, duration: 1.0, ease: 'power4.out' },
-              startTime
-            );
-          }
-        });
-      }
-
-      // 2. SCROLLTRIGGER LIFECYCLE MATCHING MANIFESTO (REPLAYS ON VIEWPORT RE-ENTRY)
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top 78%',
-        end: 'bottom 20%',
-        onEnter: () => tl.restart(),
-        onEnterBack: () => tl.restart(),
-        onLeave: () => tl.pause(0),
-        onLeaveBack: () => tl.pause(0),
-      });
-
-      // 3. IMAGE HOVER EFFECT (scale 1.0 -> 1.025)
-      if (gridRef.current) {
-        const cards = gridRef.current.querySelectorAll<HTMLDivElement>('.gallery-reveal-card');
-        cards.forEach((card) => {
-          const imgEl = card.querySelector('img');
-          if (imgEl) {
-            const handleMouseEnter = () => {
-              gsap.to(imgEl, {
-                scale: 1.025,
-                duration: 0.5,
-                ease: 'power2.out',
-                overwrite: 'auto',
-              });
-            };
-
-            const handleMouseLeave = () => {
-              gsap.to(imgEl, {
-                scale: 1.0,
-                duration: 0.5,
-                ease: 'power2.out',
-                overwrite: 'auto',
-              });
-            };
-
-            card.addEventListener('mouseenter', handleMouseEnter);
-            card.addEventListener('mouseleave', handleMouseLeave);
-          }
-        });
-      }
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
-      ref={sectionRef}
       id="gallery-showcase"
       className="w-full bg-[#070809] text-[#F5F4EF] border-t border-b border-white/10 py-16 md:py-24 relative overflow-hidden isolate font-intertight"
       style={{ backgroundColor: '#070809' }}
@@ -191,58 +81,37 @@ export const GalleryShowcaseSection: React.FC = () => {
       {/* MAIN CONTENT COMPOSITION */}
       <Container className="relative z-20 my-auto py-8 lg:py-12 space-y-12">
         {/* EDITORIAL HEADER GROUP */}
-        <div ref={textGroupRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
           <div className="lg:col-span-7 space-y-3">
-            <div className="gallery-anim-text font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+            <div className="font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
               06 // TMR STUDIO ARCHIVE
             </div>
-            <h2 className="gallery-anim-text font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.9] tracking-[-0.04em]">
+            <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.9] tracking-[-0.04em]">
               PROOF IN THE <br />
               <span className="text-[#FF4B00]">REFLECTION.</span>
             </h2>
           </div>
 
           <div className="lg:col-span-5 space-y-4">
-            <p className="gallery-anim-text font-editorial text-lg sm:text-2xl italic text-white/85 leading-tight">
+            <p className="font-editorial text-lg sm:text-2xl italic text-white/85 leading-tight">
               "Every vehicle that leaves our facility carries our signature gloss and protective matrix."
             </p>
           </div>
         </div>
 
-        {/* 4-IMAGE ASYMMETRICAL EDITORIAL TEASER GRID WITH MANIFESTO MASK REVEALS */}
-        <div ref={gridRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        {/* 4-IMAGE ASYMMETRICAL EDITORIAL TEASER GRID (EACH ITEM HAS INDEPENDENT OBSERVER REVEAL) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           {homepageGalleryItems.map((item) => (
-            <div
+            <GalleryRevealItem
               key={item.id}
-              data-home-gallery-image="true"
-              data-gallery-image="true"
-              className={`${item.gridSpan} ${item.overlapClass || ''} relative w-full`}
-            >
-              {/* STATIC LAYOUT CONTAINER (PREVENTS VERTICAL LAYOUT SHIFTS) */}
-              <div
-                className={`gallery-reveal-card w-full ${item.aspect} relative overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
-              >
-                <img
-                  src={item.image}
-                  alt={`${item.title} - ${item.service} by TMR Car Care`}
-                  className="w-full h-full object-cover transition-transform duration-700 ease-out"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-
-                {/* FLOATING GLASSMORPHIC EDITORIAL PROJECT BADGE */}
-                <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between font-intertight pointer-events-none z-10">
-                  <div className="flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-white border border-white/15 shadow-lg">
-                    <span className="text-[#FF4B00]">{item.number}</span>
-                    <span className="text-white/30">/</span>
-                    <span>{item.title}</span>
-                  </div>
-
-                  <span className="bg-[#FF4B00]/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest text-white hidden sm:inline-block shadow-md">
-                    {item.service}
-                  </span>
-                </div>
-              </div>
-            </div>
+              number={item.number}
+              title={item.title}
+              service={item.service}
+              image={item.image}
+              aspect={item.aspect}
+              gridSpan={item.gridSpan}
+              overlapClass={item.overlapClass}
+            />
           ))}
         </div>
 

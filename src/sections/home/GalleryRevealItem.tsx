@@ -1,0 +1,138 @@
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+
+interface GalleryRevealItemProps {
+  number: string;
+  title: string;
+  service: string;
+  image: string;
+  aspect: string;
+  gridSpan: string;
+  overlapClass?: string;
+}
+
+export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
+  number,
+  title,
+  service,
+  image,
+  aspect,
+  gridSpan,
+  overlapClass = '',
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const card = cardRef.current;
+    const img = imgRef.current;
+    if (!container || !card || !img) return;
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion) {
+      card.style.clipPath = 'inset(0 0% 0 0)';
+      card.style.opacity = '1';
+      return;
+    }
+
+    // INDIVIDUAL ITEM-LEVEL INTERSECTION OBSERVER WITH ENTER & LEAVE LIFECYCLE REPLAY
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // ITEM ENTERS VIEWPORT: REVEAL ANIMATION (NO IMAGE -> IMAGE ARRIVES -> SETTLES)
+            gsap.to(card, {
+              clipPath: 'inset(0 0% 0 0)',
+              opacity: 1,
+              duration: 0.95,
+              ease: 'power3.out',
+              overwrite: 'auto',
+            });
+            gsap.to(img, {
+              x: 0,
+              scale: 1.0,
+              duration: 0.95,
+              ease: 'power3.out',
+              overwrite: 'auto',
+            });
+          } else {
+            // ITEM LEAVES VIEWPORT: RESET TO MASKED HIDDEN STATE FOR FUTURE RE-ENTRY REVEAL
+            gsap.to(card, {
+              clipPath: 'inset(0 100% 0 0)',
+              opacity: 0,
+              duration: 0.35,
+              ease: 'power2.in',
+              overwrite: 'auto',
+            });
+            gsap.to(img, {
+              x: -24,
+              scale: 1.025,
+              duration: 0.35,
+              ease: 'power2.in',
+              overwrite: 'auto',
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.25,
+        rootMargin: '0px 0px -10% 0px',
+      }
+    );
+
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      data-gallery-reveal-item="true"
+      data-home-gallery-image="true"
+      data-gallery-image="true"
+      className={`${gridSpan} ${overlapClass} relative w-full`}
+    >
+      {/* STATIC LAYOUT CONTAINER (PREVENTS VERTICAL LAYOUT SHIFTS) */}
+      <div
+        ref={cardRef}
+        className={`w-full ${aspect} relative overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
+        style={{
+          clipPath: 'inset(0 100% 0 0)',
+          opacity: 0,
+        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <img
+          ref={imgRef}
+          src={image}
+          alt={`${title} - ${service} by TMR Car Care`}
+          className={`w-full h-full object-cover transition-transform duration-700 ease-out ${
+            isHovered ? 'scale-[1.025] -translate-y-0.5' : ''
+          }`}
+          style={{
+            transform: 'translateX(-24px) scale(1.025)',
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none opacity-60 group-hover:opacity-85 transition-opacity duration-500" />
+
+        {/* FLOATING GLASSMORPHIC EDITORIAL PROJECT BADGE */}
+        <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between font-intertight pointer-events-none z-10">
+          <div className="flex items-center gap-2 bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-white border border-white/15 shadow-lg">
+            <span className="text-[#FF4B00]">{number}</span>
+            <span className="text-white/30">/</span>
+            <span>{title}</span>
+          </div>
+
+          <span className="bg-[#FF4B00]/90 backdrop-blur-md px-3 py-1 rounded-full text-[9px] font-extrabold uppercase tracking-widest text-white hidden sm:inline-block shadow-md">
+            {service}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
