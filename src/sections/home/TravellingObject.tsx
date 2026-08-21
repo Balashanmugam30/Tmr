@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 interface TravellingObjectProps {
   progress: number; // Master progress from 0.00 (start of Approach) to 1.00 (end of Process Theatre)
@@ -9,7 +10,13 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
   progress,
   isReducedMotion = false,
 }) => {
-  if (isReducedMotion) {
+  const [mounted, setMounted] = useState<boolean>(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (isReducedMotion || !mounted) {
     return null;
   }
 
@@ -53,18 +60,19 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
     scale = 1.00 - ((progress - 0.85) / 0.15) * 0.10;
   }
 
-  // 5. Opacity (Ramps up on entry, remains 1.0 through Approach + Process, fades out at final exit)
+  // 5. Opacity (Visible on entry, remains 1.0 through Approach + Process, fades out at final exit)
   let opacity = 1.0;
   if (progress < 0.01) {
-    opacity = 0.3; // Visually present peek for initial DOM verification
+    opacity = 0.4; // Visually present peek for initial DOM verification
   } else if (progress > 0.96) {
     opacity = Math.max(0, 1 - (progress - 0.96) / 0.04);
   }
 
-  return (
+  const content = (
     <div
       data-travelling-object="true"
-      className="fixed top-[42vh] left-0 pointer-events-none z-30 transition-transform duration-75 ease-out"
+      aria-hidden="true"
+      className="fixed top-[42vh] left-0 pointer-events-none z-[120] transition-transform duration-75 ease-out"
       style={{
         transform: `translate3d(${xPct}vw, ${yOffset}px, 0) rotate(${rotation}deg) scale(${scale})`,
         opacity: opacity,
@@ -80,7 +88,7 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
           <source srcSet="/images/process/polisher-object.webp" type="image/webp" />
           <img
             src="/images/process/polisher-object.png"
-            alt="TMR Dual-Action Detailing Polisher Tool"
+            alt=""
             draggable={false}
             className="w-full h-auto object-contain filter drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)]"
           />
@@ -91,4 +99,6 @@ export const TravellingObject: React.FC<TravellingObjectProps> = ({
       </div>
     </div>
   );
+
+  return createPortal(content, document.body);
 };
