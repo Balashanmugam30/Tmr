@@ -1,228 +1,171 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '@/components/Container';
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ProtectionStage {
-  id: string;
-  number: string;
-  title: string;
-  subtitle: string;
-  statement: string;
-  details: string[];
-  image: string;
-  alt: string;
-}
-
-const protectionStages: ProtectionStage[] = [
-  {
-    id: 'prot-surface',
-    number: '01',
-    title: 'SURFACE',
-    subtitle: 'CLEARCOAT DIAGNOSTICS & BASE PREPARATION',
-    statement: 'Protection begins when the surface clearcoat becomes immaculate and defect-free.',
-    details: ['Clearcoat Thickness Mapping', 'Specular Reflection Analysis', '100% Decontaminated Base'],
-    image: '/images/protection/surface.webp',
-    alt: 'Extreme macro view of pristine dark graphite automotive clearcoat',
-  },
-  {
-    id: 'prot-bond',
-    number: '02',
-    title: 'BOND',
-    subtitle: 'NANO-CERAMIC MOLECULAR MATRIX',
-    statement: 'Precision hand application creates a permanent chemical bond at a molecular level.',
-    details: ['Nano-SiO2 Silica Matrix', 'Cross-Linking Curing Action', 'UV & Thermal Shielding'],
-    image: '/images/protection/bond.webp',
-    alt: 'Professional detailer applying liquid nano-ceramic coating onto dark car paint',
-  },
-  {
-    id: 'prot-repel',
-    number: '03',
-    title: 'REPEL',
-    subtitle: 'EXTREME HYDROPHOBIC SURFACE BEADING',
-    statement: 'Hydrophobic surface tension turns water into motion, repelling fallout and road grime.',
-    details: ['110° Water Contact Angle', 'Self-Cleaning Surface Tension', 'Chemical Resistance (pH 2-12)'],
-    image: '/images/protection/repel.webp',
-    alt: 'Extreme macro shot of hydrophobic water droplets beading on glossy ceramic paint',
-  },
-  {
-    id: 'prot-finish',
-    number: '04',
-    title: 'FINISH',
-    subtitle: '10H CERAMIC SPECULAR GLASS REVEAL',
-    statement: 'Finished with intent — unlocking a deep mirror specular glass reflection.',
-    details: ['+95% Specular Gloss Level', '5-Year Multi-Layer Protection', 'TIRUPPUR STUDIO WARRANTY'],
-    image: '/images/protection/finish.webp',
-    alt: 'Final specular mirror gloss reveal of dark luxury executive vehicle',
-  },
-];
-
 export const CeramicSection: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
-  const [activeStageIndex, setActiveStageIndex] = useState<number>(0);
-
-  const currentStage = protectionStages[activeStageIndex] || protectionStages[0];
+  const sectionRef = useRef<HTMLElement>(null);
+  const visualRef = useRef<HTMLDivElement>(null);
+  const textGroupRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !stickyRef.current) return;
+    if (!sectionRef.current) return;
 
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
-    let lastIndex = -1;
-
     const ctx = gsap.context(() => {
-      // SINGLE STABLE SCROLLTRIGGER CREATED ONCE ON MOUNT
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-
-          // Calculate active stage index (0 to 3)
-          const index = Math.min(
-            protectionStages.length - 1,
-            Math.floor(progress * protectionStages.length)
-          );
-
-          if (index !== lastIndex) {
-            lastIndex = index;
-            setActiveStageIndex(index);
-          }
-        },
+      // Clean, single entrance timeline for Protection chapter
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: 'power3.out' },
       });
-    }, containerRef);
+
+      if (visualRef.current) {
+        tl.fromTo(
+          visualRef.current,
+          { opacity: 0, scale: 1.04, y: 24 },
+          { opacity: 1, scale: 1.00, y: 0, duration: 0.9 },
+          0
+        );
+      }
+
+      if (textGroupRef.current) {
+        const textItems = textGroupRef.current.querySelectorAll('.prot-editorial-item');
+        tl.fromTo(
+          textItems,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.65, stagger: 0.08 },
+          0.15
+        );
+      }
+
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top 78%',
+        end: 'bottom 20%',
+        onEnter: () => tl.restart(),
+        onEnterBack: () => tl.restart(),
+        onLeave: () => tl.pause(0),
+        onLeaveBack: () => tl.pause(0),
+      });
+    }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div
-      ref={containerRef}
+    <section
+      ref={sectionRef}
       id="ceramic-coating-refined"
-      className="relative w-full h-[350vh] z-30 selection:bg-[#FF4B00] selection:text-white bg-[#070809]"
+      className="w-full bg-[#070809] text-[#F5F4EF] overflow-hidden relative z-30 border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white min-h-screen py-12 md:py-20 flex flex-col justify-between"
     >
-      {/* 100VH FULLSCREEN STICKY CINEMATIC PROTECTION VIEWPORT */}
-      <div
-        ref={stickyRef}
-        className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-between text-[#F5F4EF] bg-[#070809] border-t border-white/10"
-      >
-        {/* SUBTLE CINEMATIC NOISE & GRADIENT OVERLAY */}
-        <div className="absolute inset-0 pointer-events-none z-10 opacity-7 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
-        
-        {/* MAIN CINEMATIC MACRO IMAGE BACKGROUND LAYER */}
-        <div className="absolute inset-0 w-full h-full z-0 overflow-hidden">
-          {protectionStages.map((stage, idx) => {
-            const isActive = activeStageIndex === idx;
-            return (
-              <div
-                key={stage.id}
-                className={`absolute inset-0 w-full h-full transition-all duration-1000 ease-out ${
-                  isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-105 pointer-events-none'
-                }`}
-              >
-                <img
-                  src={stage.image}
-                  alt={stage.alt}
-                  className="w-full h-full object-cover"
-                />
-                {/* DARK CINEMATIC GRADIENT OVERLAY FOR READABILITY */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#070809] via-[#070809]/75 to-transparent pointer-events-none" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#070809] via-transparent to-[#070809]/50 pointer-events-none" />
-              </div>
-            );
-          })}
+      {/* SUBTLE NOISE OVERLAY */}
+      <div className="absolute inset-0 pointer-events-none z-10 opacity-6 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:18px_18px]" />
+
+      {/* TOP ARCHITECTURAL METADATA ROW */}
+      <Container className="relative z-20 pt-2">
+        <div className="w-full border-t border-white/10 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#FF4B00]">03</span>
+            <span className="text-white/30">/</span>
+            <span>PROTECTION</span>
+          </div>
+          <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">
+            NANO-CERAMIC MOLECULAR MATRIX // TIRUPPUR
+          </span>
         </div>
+      </Container>
 
-        {/* CONTENT LAYER */}
-        <Container className="h-full flex flex-col justify-between py-10 md:py-14 relative z-20">
-          {/* HEADER BAR */}
-          <div className="w-full border-t border-white/15 pt-6 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-white">
-            <div className="flex items-center gap-2.5">
-              <span className="text-[#FF4B00]">03</span>
-              <span className="text-white/30">/</span>
-              <span>PROTECTION</span>
-            </div>
-            <span className="text-white/40 tracking-[0.2em] hidden sm:inline-block">
-              LIQUID SURFACE // NANO-CERAMIC MATRIX
-            </span>
-          </div>
-
-          {/* MAIN 12-COLUMN CINEMATIC GRID */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto relative">
-            
-            {/* LEFT / EDITORIAL TEXT PANEL (COLUMNS 1–6) */}
-            <div className="lg:col-span-6 space-y-6 max-w-[540px]">
-              {/* EYEBROW & STAGE INDICATOR */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 border border-white/10 text-[11px] font-intertight font-extrabold uppercase tracking-widest text-[#FF4B00] backdrop-blur-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>03 // {currentStage.title} — {currentStage.subtitle}</span>
-              </div>
-
-              {/* RESTRAINED MAIN HEADLINE */}
-              <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.9] tracking-[-0.05em]">
-                PROTECT <br />
-                THE <span className="text-[#FF4B00]">FINISH.</span>
-              </h2>
-
-              {/* SHORT EDITORIAL STATEMENT */}
-              <p className="font-editorial text-xl sm:text-2xl lg:text-3xl italic text-white/90 leading-tight">
-                "{currentStage.statement}"
-              </p>
-
-              {/* STEPPER STAGE RAIL */}
-              <div className="pt-2 border-t border-white/10 flex items-center gap-6 font-intertight text-xs uppercase tracking-wider font-extrabold">
-                {protectionStages.map((stage, idx) => {
-                  const isActive = activeStageIndex === idx;
-                  return (
-                    <div
-                      key={stage.id}
-                      className={`flex items-center gap-2 cursor-pointer transition-all duration-300 ${
-                        isActive ? 'text-[#FF4B00] scale-105' : 'text-white/40 hover:text-white/70'
-                      }`}
-                      onClick={() => setActiveStageIndex(idx)}
-                    >
-                      <span>{stage.number}</span>
-                      <span className="hidden sm:inline-block">{stage.title}</span>
-                    </div>
-                  );
-                })}
-              </div>
+      {/* MAIN CINEMATIC COMPOSITION: LEFT EDITORIAL TEXT (5 COLS) / RIGHT HERO CAMPAIGN VISUAL (7 COLS) */}
+      <Container className="relative z-20 my-auto py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* LEFT / RESTRAINED EDITORIAL COPY GROUP (COLUMNS 1–5) */}
+          <div ref={textGroupRef} className="lg:col-span-5 space-y-6 max-w-[440px]">
+            {/* EYEBROW */}
+            <div className="prot-editorial-item font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+              03 // PROTECTION
             </div>
 
-            {/* RIGHT / TECHNICAL METADATA SPECIFICATIONS (COLUMNS 7–12) */}
-            <div className="lg:col-span-6 flex flex-col justify-end items-end space-y-4 text-right">
-              <div className="bg-black/70 backdrop-blur-md p-6 rounded-2xl border border-white/10 space-y-3 max-w-[380px] w-full text-left">
-                <div className="text-[11px] font-intertight font-extrabold text-[#FF4B00] uppercase tracking-widest border-b border-white/10 pb-2">
-                  STAGE 0{activeStageIndex + 1} SPECIFICATIONS
-                </div>
-                {currentStage.details.map((detail, dIdx) => (
-                  <div key={dIdx} className="flex items-center gap-2.5 font-intertight text-xs font-bold text-white/80 uppercase tracking-wide">
-                    <span className="w-1 h-1 rounded-full bg-[#FF4B00]" />
-                    <span>{detail}</span>
-                  </div>
-                ))}
+            {/* MAIN HEADLINE */}
+            <h2 className="prot-editorial-item font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-white leading-[0.92] tracking-[-0.04em]">
+              PROTECT <br />
+              THE <span className="text-[#FF4B00]">FINISH.</span>
+            </h2>
+
+            {/* SHORT EDITORIAL STATEMENT */}
+            <p className="prot-editorial-item font-editorial text-lg sm:text-2xl italic text-white/85 leading-tight">
+              "Protection begins when the surface clearcoat becomes the standard."
+            </p>
+
+            {/* RESTRAINED CTA */}
+            <div className="prot-editorial-item pt-2">
+              <Link
+                to="/services"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              >
+                <span className="inline-flex items-center gap-2">
+                  <span>EXPLORE CERAMIC PACKAGES</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1.5 group-hover:-translate-y-0.5 transition-transform duration-300">↗</span>
+                </span>
+                <span className="h-[1.5px] w-10 group-hover:w-full bg-[#FF4B00] transition-all duration-300" />
+              </Link>
+            </div>
+
+            {/* MICRO METRICS ROW */}
+            <div className="prot-editorial-item pt-6 border-t border-white/10 grid grid-cols-3 gap-4 font-intertight text-xs uppercase tracking-wider">
+              <div>
+                <span className="block text-[10px] text-white/40 font-bold">GLOSS LEVEL</span>
+                <span className="font-extrabold text-white text-sm">+95%</span>
+              </div>
+              <div>
+                <span className="block text-[10px] text-white/40 font-bold">HYDROPHOBIC</span>
+                <span className="font-extrabold text-[#FF4B00] text-sm">ACTIVE</span>
+              </div>
+              <div>
+                <span className="block text-[10px] text-white/40 font-bold">DURABILITY</span>
+                <span className="font-extrabold text-white text-sm">5 YEARS</span>
               </div>
             </div>
 
           </div>
 
-          {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
-          <div className="w-full border-t border-white/15 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/50 uppercase tracking-widest">
-            <div className="flex items-center gap-4">
-              <span className="text-[#FF4B00]">GLOSS LEVEL: +95%</span>
-              <span className="text-white/30">•</span>
-              <span>HYDROPHOBIC: ACTIVE</span>
+          {/* RIGHT / DOMINANT HERO CAMPAIGN VISUAL (COLUMNS 6–12) */}
+          <div className="lg:col-span-7 relative w-full flex justify-end">
+            <div
+              ref={visualRef}
+              className="relative w-full aspect-[16/10] max-h-[75vh] overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.7)] group bg-black"
+            >
+              <img
+                src="/images/protection/protection-hero.webp"
+                alt="TMR Ceramic Coating Hydrophobic Surface Protection"
+                className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
+
+              {/* REFINED GLASSMORPHIC BADGE */}
+              <div className="absolute bottom-6 left-6 flex items-center gap-3 pointer-events-none font-intertight">
+                <span className="bg-black/80 backdrop-blur-md px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-white border border-white/10">
+                  NANO-SiO2 MOLECULAR MATRIX // CERAMIC
+                </span>
+              </div>
             </div>
-            <div>TMR / TIRUPPUR FACILITY</div>
           </div>
-        </Container>
-      </div>
-    </div>
+
+        </div>
+      </Container>
+
+      {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
+      <Container className="relative z-20 pb-2">
+        <div className="w-full border-t border-white/10 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-white/40 uppercase tracking-widest">
+          <span>SURFACE PREPARATION → PROTECTIVE SHIELD</span>
+          <span>TMR / AUTOMOTIVE CARE</span>
+        </div>
+      </Container>
+    </section>
   );
 };
