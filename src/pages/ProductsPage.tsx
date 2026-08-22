@@ -806,41 +806,64 @@ export const ProductsPage: React.FC = () => {
       {/* PRODUCT FAQ */}
       <section className="w-full py-20 sm:py-32 bg-white border-t border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="flex flex-col md:flex-row gap-12 sm:gap-16">
+          <div className="flex flex-col md:flex-row gap-12 lg:gap-16">
+            {/* Left Zone: Heading & Context */}
             <div className="md:w-1/3 space-y-4">
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-[#111111]">
+              <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block">
+                INFORMATION &amp; ANSWERS
+              </span>
+              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-[#111111] leading-none">
                 PRODUCT<br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">questions.</span>
               </h2>
-              <p className="text-sm text-[#5f5e5e] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#5f5e5e] leading-relaxed max-w-sm">
                 Technical and service-focused answers regarding our curated product collection.
               </p>
             </div>
 
+            {/* Right Zone: Full-Width Editorial Horizontal FAQ List */}
             <div className="md:w-2/3 flex flex-col border-t border-[#D8D8D5]">
               {faqs.map((faq, idx) => {
                 const isOpen = openFaq === idx;
+                const numStr = idx < 9 ? `0${idx + 1}` : `${idx + 1}`;
+
                 return (
-                  <div key={idx} className="border-b border-[#D8D8D5]">
+                  <div key={idx} className="border-b border-[#D8D8D5] transition-colors">
                     <button
                       onClick={() => toggleFaq(idx)}
-                      className="w-full py-6 flex justify-between items-center text-left group"
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${idx}`}
+                      className="w-full py-6 flex items-center justify-between text-left group gap-4"
                     >
-                      <span className="font-manrope font-bold text-base sm:text-xl text-[#111111] group-hover:text-[#FF4B00] transition-colors">
-                        {faq.q}
-                      </span>
-                      <span className="text-2xl text-[#FF4B00] transition-transform duration-300">
+                      <div className="flex items-center gap-6 sm:gap-8 flex-1">
+                        <span className={`font-mono text-xs sm:text-sm font-bold tracking-widest transition-colors ${
+                          isOpen ? 'text-[#FF4B00]' : 'text-[#858585] group-hover:text-[#111111]'
+                        }`}>
+                          {numStr}
+                        </span>
+                        <h3 className={`font-manrope font-extrabold text-base sm:text-xl uppercase tracking-tight transition-colors ${
+                          isOpen ? 'text-[#FF4B00]' : 'text-[#111111] group-hover:text-[#FF4B00]'
+                        }`}>
+                          {faq.q}
+                        </h3>
+                      </div>
+                      <span className="text-xl sm:text-2xl font-bold text-[#FF4B00] transition-transform duration-300 ml-2">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
 
-                    {isOpen && (
-                      <div className="pb-6">
-                        <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed">
+                    <div
+                      id={`faq-answer-${idx}`}
+                      className={`grid transition-all duration-300 ease-out overflow-hidden ${
+                        isOpen ? 'grid-rows-[1fr] opacity-100 pb-6' : 'grid-rows-[0fr] opacity-0 pb-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden pl-12 sm:pl-16 pr-4">
+                        <p className="font-manrope text-xs sm:text-sm text-[#5f5e5e] leading-relaxed max-w-2xl">
                           {faq.a}
                         </p>
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}
@@ -849,29 +872,56 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* FINAL CINEMATIC CTA */}
-      <section className="relative w-full py-24 sm:py-32 bg-[#111111] text-white text-center">
-        <div className="relative z-10 max-w-3xl mx-auto px-5 space-y-8">
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-white leading-none">
-            LOOKING FOR<br />
-            <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">something specific?</span>
-          </h2>
+      {/* FINAL EDITORIAL CLOSING CTA */}
+      <section className="relative w-full py-16 sm:py-24 bg-gradient-to-br from-[#0E0E0E] via-[#0A0A0A] to-[#050505] text-white border-t border-white/10 overflow-hidden">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left 65%: Large Asymmetric Statement */}
+            <div className="col-span-12 md:col-span-7 space-y-4">
+              <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block">
+                DIRECT CONSULTATION
+              </span>
+              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter text-white leading-tight">
+                LOOKING FOR<br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">something specific?</span>
+              </h2>
+              <p className="text-xs sm:text-sm text-[#D8D8D5] max-w-lg leading-relaxed pt-1">
+                Tell us what you're looking for. We'll help you identify the right product for your treatment.
+              </p>
+            </div>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-            <a
-              href={`https://wa.me/${companyData.contact.whatsapp}?text=Product%20Vault%20Enquiry`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#FF4B00] text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors"
-            >
-              WHATSAPP TMR →
-            </a>
-            <a
-              href={`tel:${companyData.contact.phone}`}
-              className="border border-white/20 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors"
-            >
-              CALL TMR →
-            </a>
+            {/* Right 35%: Action Area */}
+            <div className="col-span-12 md:col-span-5 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 lg:pl-12 space-y-5">
+              <div>
+                <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
+                  PRODUCT ENQUIRY
+                </span>
+                <p className="text-xs text-[#858585]">
+                  Connect directly with our detailing technicians
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row md:flex-col gap-3">
+                <a
+                  href={`https://wa.me/${companyData.contact.whatsapp}?text=Product%20Vault%20Enquiry`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group w-full px-6 py-4 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-between hover:bg-white hover:text-[#111111] transition-all duration-300 rounded"
+                >
+                  <span>WHATSAPP TMR</span>
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+                <a
+                  href={`tel:${companyData.contact.phone}`}
+                  className="group w-full px-6 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-widest flex items-center justify-between hover:bg-white hover:text-[#111111] hover:border-white transition-all duration-300 rounded"
+                >
+                  <span>CALL TMR</span>
+                  <span className="group-hover:translate-x-1 transition-transform">→</span>
+                </a>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
