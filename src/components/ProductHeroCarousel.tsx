@@ -100,8 +100,8 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
             opacity,
             zIndex,
             transformPerspective: 1200,
-            duration: 0.85,
-            ease: 'power3.out',
+            duration: 0.95,
+            ease: 'power2.out',
             overwrite: 'auto',
           });
         }
@@ -120,12 +120,12 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [activeIndex, updateLayout]);
 
-  // Automatic smooth advance loop (3.2 seconds)
+  // Automatic smooth advance loop (4.2 seconds interval)
   const startAutoPlay = useCallback(() => {
     if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
     autoPlayTimerRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % total);
-    }, 3200);
+    }, 4200);
   }, [total]);
 
   const stopAutoPlay = useCallback(() => {

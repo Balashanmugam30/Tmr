@@ -618,9 +618,16 @@ export const ProductsPage: React.FC = () => {
 
         {/* Viewport Edge Bleed Container for Train Rail (Headers stay inside max-w-[1360px], Rail extends 100vw) */}
         <div className="w-full relative overflow-hidden">
+          <style>{`
+            @keyframes tmrContinuousTrain {
+              0% { transform: translate3d(0, 0, 0); }
+              100% { transform: translate3d(-50%, 0, 0); }
+            }
+          `}</style>
+
           <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative flex justify-between items-center mb-4">
             <span className="text-[10px] font-bold text-[#858585] uppercase tracking-widest">
-              Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Drag or Swipe →
+              Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Continuous Linear Runway →
             </span>
             <div className="hidden sm:flex items-center gap-2">
               <button
@@ -643,86 +650,88 @@ export const ProductsPage: React.FC = () => {
           {/* Viewport Bleed Train Track (Exact Left Screen Edge to Exact Right Screen Edge) */}
           <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] px-4 sm:px-8 overflow-hidden">
             {filteredProducts.length > 0 ? (
-              <div
-                ref={runwayScrollRef}
-                onMouseEnter={() => { isTrainHoveredRef.current = true; }}
-                onMouseLeave={() => { isTrainHoveredRef.current = false; }}
-                onTouchStart={() => { isTrainHoveredRef.current = true; }}
-                onTouchEnd={() => { isTrainHoveredRef.current = false; }}
-                className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-8 pt-2 scroll-smooth"
-              >
-                {[...filteredProducts, ...filteredProducts].map((product, idx) => {
-                  const uniqueKey = `${product.id}-loop-${idx}`;
-                  const isDetailRoute = product.detailRoute.startsWith('/products/');
-                  const isServiceRoute = product.detailRoute.startsWith('/services/');
+              <div className="relative w-full overflow-hidden pb-8 pt-2">
+                <div
+                  ref={runwayScrollRef}
+                  className="flex gap-6 w-max hover:[animation-play-state:paused]"
+                  style={{
+                    animation: 'tmrContinuousTrain 32s linear infinite',
+                    willChange: 'transform',
+                  }}
+                >
+                  {[...filteredProducts, ...filteredProducts].map((product, idx) => {
+                    const uniqueKey = `${product.id}-loop-${idx}`;
+                    const isDetailRoute = product.detailRoute.startsWith('/products/');
+                    const isServiceRoute = product.detailRoute.startsWith('/services/');
 
-                  return (
-                    <div
-                      key={uniqueKey}
-                      className="snap-start flex-none w-[82vw] sm:w-[320px] md:w-[360px] lg:w-[380px] bg-[#111418] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#FF4B00]/60 transition-all rounded-xl shadow-xl"
-                    >
-                      {/* Product Image Stage */}
-                      <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 rounded-lg overflow-hidden p-4">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-4/5 h-4/5 object-contain group-hover:scale-105 transition-transform duration-500"
-                          onError={(e) => {
-                            e.currentTarget.style.opacity = '0.7';
-                          }}
-                        />
-                        <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/60 backdrop-blur-sm text-[9px] font-bold uppercase tracking-widest text-[#FF4B00] rounded">
-                          {product.category}
-                        </div>
-                      </div>
-
-                      {/* Meta & Title */}
-                      <div className="flex-1 flex flex-col justify-between">
-                        <div>
-                          <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase mb-2">
-                            <span>0{(idx % filteredProducts.length) + 1}</span>
-                            <span className="text-white/40">{product.sku}</span>
+                    return (
+                      <div
+                        key={uniqueKey}
+                        className="flex-none w-[82vw] sm:w-[320px] md:w-[360px] lg:w-[380px] bg-[#111418] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#FF4B00]/60 transition-all rounded-xl shadow-xl"
+                      >
+                        {/* Product Image Stage */}
+                        <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 rounded-lg overflow-hidden p-4">
+                          <img
+                            src={product.image}
+                            alt={product.name}
+                            className="w-4/5 h-4/5 object-contain group-hover:scale-105 transition-transform duration-500"
+                            onError={(e) => {
+                              e.currentTarget.style.opacity = '0.7';
+                            }}
+                          />
+                          <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/60 backdrop-blur-sm text-[9px] font-bold uppercase tracking-widest text-[#FF4B00] rounded">
+                            {product.category}
                           </div>
-                          <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#FF4B00] transition-colors leading-snug">
-                            {product.name}
-                          </h3>
-                          <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed mb-6 font-normal">
-                            {product.shortDescription}
-                          </p>
                         </div>
 
-                        {/* Card Smart CTA Link */}
-                        {isDetailRoute ? (
-                          <Link
-                            to={product.detailRoute}
-                            className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
-                          >
-                            <span>VIEW PRODUCT DETAILS</span>
-                            <span>→</span>
-                          </Link>
-                        ) : isServiceRoute ? (
-                          <Link
-                            to={product.detailRoute}
-                            className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
-                          >
-                            <span>VIEW SERVICE</span>
-                            <span>→</span>
-                          </Link>
-                        ) : (
-                          <a
-                            href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20${encodeURIComponent(product.name)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
-                          >
-                            <span>ENQUIRE VIA WHATSAPP</span>
-                            <span>→</span>
-                          </a>
-                        )}
+                        {/* Meta & Title */}
+                        <div className="flex-1 flex flex-col justify-between">
+                          <div>
+                            <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase mb-2">
+                              <span>0{(idx % filteredProducts.length) + 1}</span>
+                              <span className="text-white/40">{product.sku}</span>
+                            </div>
+                            <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#FF4B00] transition-colors leading-snug">
+                              {product.name}
+                            </h3>
+                            <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed mb-6 font-normal">
+                              {product.shortDescription}
+                            </p>
+                          </div>
+
+                          {/* Card Smart CTA Link */}
+                          {isDetailRoute ? (
+                            <Link
+                              to={product.detailRoute}
+                              className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
+                            >
+                              <span>VIEW PRODUCT DETAILS</span>
+                              <span>→</span>
+                            </Link>
+                          ) : isServiceRoute ? (
+                            <Link
+                              to={product.detailRoute}
+                              className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
+                            >
+                              <span>VIEW SERVICE</span>
+                              <span>→</span>
+                            </Link>
+                          ) : (
+                            <a
+                              href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20${encodeURIComponent(product.name)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
+                            >
+                              <span>ENQUIRE VIA WHATSAPP</span>
+                              <span>→</span>
+                            </a>
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
             ) : (
               /* Empty Filter State */
