@@ -202,15 +202,20 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
               <div
                 key={prod.id}
                 ref={(el) => (itemsRef.current[idx] = el)}
-                onClick={() => {
-                  if (!isActive) {
+                onClick={(e) => {
+                  e.stopPropagation();
+                  // Bring clicked product directly to center if not heavy drag
+                  if (Math.abs(dragDistanceRef.current) < 15) {
                     setActiveIndex(idx);
                     if (onSelectProduct) onSelectProduct(prod);
+                    stopAutoPlay();
+                    startAutoPlay();
                   }
                 }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer transition-all duration-700"
+                className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer pointer-events-auto transition-all duration-700 ${
+                  !isActive ? 'hover:scale-[1.03] hover:brightness-110' : ''
+                }`}
                 style={{ transformStyle: 'preserve-3d' }}
-                aria-hidden={!isActive}
               >
                 {/* Reference Card Container with Rounded Corners & Dark Studio Backdrop */}
                 <div
