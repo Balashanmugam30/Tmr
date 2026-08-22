@@ -4,37 +4,46 @@ interface PathStage {
   number: string;
   title: string;
   desc: string;
+  image: string;
+  altText: string;
 }
 
 export const StudioProcessTimeline: React.FC = () => {
   const [activeStage, setActiveStage] = useState<number>(0);
-  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   const stages: PathStage[] = [
     {
       number: "01",
       title: "CHOOSE",
-      desc: "Find the service that matches your vehicle's condition and needs.",
+      desc: "Find the service that matches your vehicle's needs.",
+      image: "/images/services/journey/journey-choose.jpg",
+      altText: "Customer consultation for automotive detailing at TMR Car Care in Tiruppur",
     },
     {
       number: "02",
       title: "ENQUIRE",
       desc: "Reach TMR through WhatsApp or phone.",
+      image: "/images/services/journey/journey-enquire.jpg",
+      altText: "Professional automotive service consultation at TMR Car Care in Tiruppur",
     },
     {
       number: "03",
       title: "CONFIRM",
-      desc: "Discuss the vehicle, treatment and appointment with the team.",
+      desc: "Discuss the vehicle, treatment and appointment with our team.",
+      image: "/images/services/journey/journey-confirm.jpg",
+      altText: "Technician inspecting vehicle paint before detailing at TMR Car Care in Tiruppur",
     },
     {
       number: "04",
       title: "VISIT",
-      desc: "Bring the vehicle to the TMR studio in Tiruppur.",
+      desc: "Bring your vehicle to the TMR studio in Tiruppur.",
+      image: "/images/services/journey/journey-visit.jpg",
+      altText: "Premium vehicle inside the TMR Car Care detailing studio in Tiruppur",
     },
   ];
 
-  // Map section scroll position to continuous horizontal panning progress (0 -> 1)
+  // Synchronize active stage with scroll progress through the section
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
@@ -45,13 +54,9 @@ export const StudioProcessTimeline: React.FC = () => {
 
       if (totalScrollable <= 0) return;
 
-      // Calculate normalized progress (0.0 to 1.0) through the section
       const rawProgress = -rect.top / totalScrollable;
       const clampedProgress = Math.max(0, Math.min(1, rawProgress));
 
-      setScrollProgress(clampedProgress);
-
-      // Determine active stage based on progress regions
       if (clampedProgress < 0.25) {
         setActiveStage(0);
       } else if (clampedProgress < 0.50) {
@@ -64,34 +69,25 @@ export const StudioProcessTimeline: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Compute camera crop offset (-0% to -75% translation across 7740px image)
-  const imageTranslationX = scrollProgress * 75;
 
   return (
     <section
       id="service-path"
       ref={sectionRef}
-      className="w-full bg-[#050505] text-white py-20 sm:py-28 min-h-[140vh] relative overflow-hidden font-manrope selection:bg-[#FF4B00] selection:text-white"
+      className="w-full bg-[#050505] text-white py-20 sm:py-28 relative overflow-hidden font-manrope selection:bg-[#FF4B00] selection:text-white border-b border-white/10"
     >
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 sticky top-24">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
         
-        {/* Section Grid */}
+        {/* Section 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
-          {/* Left Column (45%): Service Path Editorial Statements & Architectural Rail */}
+          {/* Left Column (45%): Statement, 4 Stages List, & Action Link */}
           <div className="lg:col-span-5 space-y-8">
             
-            {/* Header Statement */}
+            {/* Header Copy */}
             <div className="space-y-3">
-              <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
-                THE SERVICE PATH
-              </span>
-
               <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight text-white leading-tight">
                 YOUR CAR.<br />
                 YOUR NEED.<br />
@@ -103,18 +99,16 @@ export const StudioProcessTimeline: React.FC = () => {
               </p>
             </div>
 
-            {/* Architectural Stage Rail (01 -> 04) */}
-            <div className="border-t border-white/10 pt-6 space-y-4">
+            {/* 4 Clean Stages List */}
+            <div className="border-t border-white/10 pt-6 space-y-4 font-manrope">
               {stages.map((stage, idx) => {
                 const isActive = activeStage === idx;
                 return (
                   <div
                     key={stage.number}
-                    onClick={() => {
-                      setActiveStage(idx);
-                      setScrollProgress(idx * 0.333);
-                    }}
-                    className={`cursor-pointer transition-all duration-300 border-l-2 pl-4 py-1 ${
+                    onMouseEnter={() => setActiveStage(idx)}
+                    onClick={() => setActiveStage(idx)}
+                    className={`cursor-pointer transition-all duration-300 border-l-2 pl-4 py-2 ${
                       isActive
                         ? "border-[#FF4B00] opacity-100 translate-x-1"
                         : "border-transparent opacity-40 hover:opacity-80"
@@ -122,14 +116,14 @@ export const StudioProcessTimeline: React.FC = () => {
                   >
                     <div className="flex items-baseline gap-3">
                       <span
-                        className={`font-editorial text-sm italic font-normal ${
+                        className={`font-editorial text-base sm:text-lg italic font-normal ${
                           isActive ? "text-[#FF4B00]" : "text-white/60"
                         }`}
                       >
                         {stage.number}
                       </span>
                       <h3
-                        className={`font-intertight font-extrabold text-base sm:text-lg uppercase tracking-wider ${
+                        className={`font-intertight font-extrabold text-lg sm:text-xl uppercase tracking-wider ${
                           isActive ? "text-white" : "text-white/70"
                         }`}
                       >
@@ -151,7 +145,7 @@ export const StudioProcessTimeline: React.FC = () => {
               })}
             </div>
 
-            {/* Bottom Consultation Link */}
+            {/* Closing Consultation Action Link */}
             <div className="pt-2 border-t border-white/10 flex items-center justify-between">
               <span className="text-[11px] font-semibold uppercase tracking-widest text-white/40">
                 NOT SURE WHERE TO START?
@@ -170,34 +164,31 @@ export const StudioProcessTimeline: React.FC = () => {
 
           </div>
 
-          {/* Right Column (55%): Single Continuous Studio Journey Camera Viewport */}
+          {/* Right Column (55%): Single Media Stage with Smooth Crossfade Between Dedicated Images */}
           <div className="lg:col-span-7">
-            <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111] relative shadow-2xl">
+            <div className="aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111] relative shadow-2xl">
               
-              {/* Single Continuous Ultra-Wide Studio Photograph (Horizontal Scroll Translation) */}
-              <div
-                className="absolute inset-0 h-full w-[400%] flex transition-transform duration-300 ease-out pointer-events-none motion-reduce:transform-none motion-reduce:w-full"
-                style={{
-                  transform: `translate3d(-${imageTranslationX}%, 0, 0)`,
-                }}
-              >
-                <img
-                  src="/images/services/journey/tmr-service-path-wide.jpg"
-                  alt="Continuous TMR automotive detailing studio journey"
-                  className="w-full h-full object-cover block"
-                />
-              </div>
-
-              {/* Viewport Overlay & Active Stage Label */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white pointer-events-none font-manrope">
-                <span className="text-[11px] font-bold uppercase tracking-widest text-[#FF4B00]">
-                  STUDIO STAGE // {stages[activeStage].number} {stages[activeStage].title}
-                </span>
-                <span className="text-[11px] text-white/60 uppercase tracking-widest">
-                  TIRUPPUR STUDIO
-                </span>
-              </div>
+              {/* 4 Dedicated Clean Stage Images (Zero text inside images, 450ms opacity crossfade) */}
+              {stages.map((stage, idx) => {
+                const isActive = activeStage === idx;
+                return (
+                  <div
+                    key={stage.number}
+                    className={`absolute inset-0 transition-all duration-500 ease-out ${
+                      isActive
+                        ? "opacity-100 scale-100 z-10"
+                        : "opacity-0 scale-[1.015] z-0 pointer-events-none"
+                    }`}
+                  >
+                    <img
+                      src={stage.image}
+                      alt={stage.altText}
+                      className="w-full h-full object-cover block"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+                  </div>
+                );
+              })}
 
             </div>
           </div>
