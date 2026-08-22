@@ -242,12 +242,8 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
                           : 'drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)] filter brightness-90'
                       }`}
                       onError={(e) => {
-                        if (prod.fallbackImage) {
-                          (e.target as HTMLImageElement).src = prod.fallbackImage;
-                        } else {
-                          (e.target as HTMLImageElement).src =
-                            'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200';
-                        }
+                        // Prevent loading fallback stock photos; hide image if fails
+                        (e.target as HTMLImageElement).style.display = 'none';
                       }}
                     />
                   </div>
