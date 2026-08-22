@@ -311,9 +311,12 @@ export const ProductsPage: React.FC = () => {
             <div className="col-span-12 md:col-span-7 relative">
               <div className="relative aspect-square md:aspect-[4/3] bg-white border border-[#D8D8D5] flex items-center justify-center overflow-hidden">
                 <img
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLsDhwCwP233gOHISQQuo-bWQdqRutkVjMKTmZLbam202XoGulRiGRYxqW1UliGqK5QjT_q-qIVJUjKk7Gbgi1vTX_eSRFzZKLMCHQpqyciS-NUfQwwY82Zl6BjWKodbNaRvEbMaQklDFr-j4rK9fPbkzVsFSYg8l2XYzDJdFHXX4rkI-x4tkwnEZlEBrWVtQUObEn5FuxhU5fMPJaE85e71wkPM2wzroBskXoDy7ysLCgVuAn-lZtmrlWY"
-                  alt="3M Perfect-It EX AC Rubbing Compound"
+                  src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
+                  alt="3M™ Perfect-It™ EX AC Rubbing Compound"
                   className="h-[85%] w-auto object-contain drop-shadow-2xl"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg";
+                  }}
                 />
                 <div className="absolute top-6 left-6 flex items-center gap-2">
                   <div className="w-2 h-2 rounded-full bg-[#FF4B00]" />
