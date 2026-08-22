@@ -110,7 +110,7 @@ export const ServiceIndexStage: React.FC = () => {
     });
   }, [activeIndex, prevIndex]);
 
-  // WebGL Directional Liquid Displacement Shader Engine
+  // WebGL Directional Liquid Displacement Shader Engine (Fixed Upright Orientation & Object-Fit Cover Math)
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -131,45 +131,61 @@ export const ServiceIndexStage: React.FC = () => {
       }
     `;
 
-    // FRAGMENT SHADER (DIRECTIONAL LIQUID DISPLACEMENT SHADER)
+    // FRAGMENT SHADER (Object-Fit Cover UV Transform + Directional Liquid Displacement)
     const fsSource = `
       precision mediump float;
       uniform sampler2D u_texPrev;
       uniform sampler2D u_texCurr;
       uniform float u_progress;
       uniform float u_direction;
-      uniform vec2 u_resolution;
+      uniform float u_containerAspect;
+      uniform float u_videoAspect;
       varying vec2 v_texCoord;
 
+      vec2 coverUV(vec2 uv, float containerAspect, float videoAspect) {
+        vec2 st = uv;
+        if (containerAspect > videoAspect) {
+          float scale = containerAspect / videoAspect;
+          st.y = (st.y - 0.5) / scale + 0.5;
+        } else {
+          float scale = videoAspect / containerAspect;
+          st.x = (st.x - 0.5) / scale + 0.5;
+        }
+        return st;
+      }
+
       void main() {
-        vec2 uv = v_texCoord;
+        // Compute exact object-fit cover UV coordinates (Preserves natural 16:9 source video aspect ratio)
+        vec2 st = coverUV(v_texCoord, u_containerAspect, u_videoAspect);
+
+        if (st.x < 0.0 || st.x > 1.0 || st.y < 0.0 || st.y > 1.0) {
+          discard;
+        }
 
         if (u_progress >= 0.999) {
-          gl_FragColor = texture2D(u_texCurr, uv);
+          gl_FragColor = texture2D(u_texCurr, st);
           return;
         }
 
-        // Sinusoidal wave phase envelope (peaks around mid-transition progress)
+        // Sinusoidal wave envelope
         float wavePhase = u_progress * 3.14159265;
-        float waveDistortion = sin(wavePhase) * 0.04;
+        float waveDistortion = sin(wavePhase) * 0.035;
 
-        // Directional fluid wave displacement along navigation vector
-        float fluidWave = sin(uv.y * 12.0 - u_progress * 7.0 * u_direction) * cos(uv.x * 8.0) * waveDistortion;
+        // Fluid wave displacement along navigation direction
+        float fluidWave = sin(st.y * 12.0 - u_progress * 7.0 * u_direction) * cos(st.x * 8.0) * waveDistortion;
 
-        // Displaced UV coordinates for outgoing and incoming textures
-        vec2 dirOffset = vec2(0.0, u_direction * waveDistortion * 0.6);
-        vec2 uvPrev = clamp(uv + dirOffset * (1.0 - u_progress) + vec2(0.0, fluidWave), 0.001, 0.999);
-        vec2 uvCurr = clamp(uv - dirOffset * u_progress + vec2(0.0, fluidWave * 0.6), 0.001, 0.999);
+        vec2 dirOffset = vec2(0.0, u_direction * waveDistortion * 0.5);
+        vec2 uvPrev = clamp(st + dirOffset * (1.0 - u_progress) + vec2(0.0, fluidWave), 0.001, 0.999);
+        vec2 uvCurr = clamp(st - dirOffset * u_progress + vec2(0.0, fluidWave * 0.5), 0.001, 0.999);
 
         vec4 colPrev = texture2D(u_texPrev, uvPrev);
         vec4 colCurr = texture2D(u_texCurr, uvCurr);
 
-        // Smooth fluid crossfade
         float blendFactor = smoothstep(0.2, 0.8, u_progress);
         vec4 finalColor = mix(colPrev, colCurr, blendFactor);
 
-        // Subtle specular liquid sheen highlight along wave crests
-        float sheen = max(0.0, fluidWave * 10.0) * sin(wavePhase);
+        // Specular liquid sheen on fluid wave crests
+        float sheen = max(0.0, fluidWave * 8.0) * sin(wavePhase);
         finalColor.rgb += vec3(1.0, 0.95, 0.88) * sheen;
 
         gl_FragColor = finalColor;
@@ -203,19 +219,44 @@ export const ServiceIndexStage: React.FC = () => {
 
     const positionLoc = gl.getAttribLocation(program, 'a_position');
     const texCoordLoc = gl.getAttribLocation(program, 'a_texCoord');
-    const resolutionLoc = gl.getUniformLocation(program, 'u_resolution');
     const progressLoc = gl.getUniformLocation(program, 'u_progress');
     const directionLoc = gl.getUniformLocation(program, 'u_direction');
+    const containerAspectLoc = gl.getUniformLocation(program, 'u_containerAspect');
+    const videoAspectLoc = gl.getUniformLocation(program, 'u_videoAspect');
     const texPrevLoc = gl.getUniformLocation(program, 'u_texPrev');
     const texCurrLoc = gl.getUniformLocation(program, 'u_texCurr');
 
+    // Standard Quad Positions (-1 to +1)
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([
+        -1.0, -1.0,
+         1.0, -1.0,
+        -1.0,  1.0,
+        -1.0,  1.0,
+         1.0, -1.0,
+         1.0,  1.0
+      ]),
+      gl.STATIC_DRAW
+    );
 
+    // Standard Texture Coordinates (Upright 0,0 Top-Left -> 1,1 Bottom-Right)
     const texCoordBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0]), gl.STATIC_DRAW);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array([
+        0.0, 1.0,
+        1.0, 1.0,
+        0.0, 0.0,
+        0.0, 0.0,
+        1.0, 1.0,
+        1.0, 0.0
+      ]),
+      gl.STATIC_DRAW
+    );
 
     const texPrev = gl.createTexture();
     const texCurr = gl.createTexture();
@@ -250,58 +291,66 @@ export const ServiceIndexStage: React.FC = () => {
       if (parent) {
         const width = parent.clientWidth;
         const height = parent.clientHeight;
-        if (canvas.width !== width || canvas.height !== height) {
-          canvas.width = width;
-          canvas.height = height;
-          gl.viewport(0, 0, width, height);
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const displayWidth = Math.floor(width * dpr);
+        const displayHeight = Math.floor(height * dpr);
+
+        if (canvas.width !== displayWidth || canvas.height !== displayHeight) {
+          canvas.width = displayWidth;
+          canvas.height = displayHeight;
+          gl.viewport(0, 0, displayWidth, displayHeight);
         }
-      }
 
-      const prevVid = videoRefs.current[prevIndex];
-      const currVid = videoRefs.current[activeIndex];
+        const containerAspect = width / (height || 1);
+        const videoAspect = 16.0 / 9.0; // Source video aspect ratio (1920x1080 / 1280x720)
 
-      if (!gl) return;
+        if (!gl) return;
 
-      gl.useProgram(program);
-      gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
-      gl.uniform1f(progressLoc, isReducedMotion ? 1.0 : progressRef.current);
-      gl.uniform1f(directionLoc, directionRef.current);
+        gl.useProgram(program);
+        gl.uniform1f(progressLoc, isReducedMotion ? 1.0 : progressRef.current);
+        gl.uniform1f(directionLoc, directionRef.current);
+        gl.uniform1f(containerAspectLoc, containerAspect);
+        gl.uniform1f(videoAspectLoc, videoAspect);
 
-      // Bind outgoing video texture
-      if (prevVid && prevVid.readyState >= 2) {
-        gl.activeTexture(gl.TEXTURE0);
-        gl.bindTexture(gl.TEXTURE_2D, texPrev);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        try {
-          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, prevVid);
-        } catch (e) {
-          // Fallback if texture read blocked
+        const prevVid = videoRefs.current[prevIndex];
+        const currVid = videoRefs.current[activeIndex];
+
+        // Bind outgoing video texture (UNPACK_FLIP_Y_WEBGL = true ensures upright video sampling)
+        if (prevVid && prevVid.readyState >= 2) {
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, texPrev);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+          try {
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, prevVid);
+          } catch (e) {
+            // Texture upload fallback
+          }
+          gl.uniform1i(texPrevLoc, 0);
         }
-        gl.uniform1i(texPrevLoc, 0);
-      }
 
-      // Bind incoming video texture
-      if (currVid && currVid.readyState >= 2) {
-        gl.activeTexture(gl.TEXTURE1);
-        gl.bindTexture(gl.TEXTURE_2D, texCurr);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        try {
-          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, currVid);
-        } catch (e) {
-          // Fallback if texture read blocked
+        // Bind incoming video texture
+        if (currVid && currVid.readyState >= 2) {
+          gl.activeTexture(gl.TEXTURE1);
+          gl.bindTexture(gl.TEXTURE_2D, texCurr);
+          gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+          try {
+            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, currVid);
+          } catch (e) {
+            // Texture upload fallback
+          }
+          gl.uniform1i(texCurrLoc, 1);
         }
-        gl.uniform1i(texCurrLoc, 1);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+        gl.enableVertexAttribArray(positionLoc);
+        gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+        gl.enableVertexAttribArray(texCoordLoc);
+        gl.vertexAttribPointer(texCoordLoc, 2, gl.FLOAT, false, 0, 0);
+
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
       }
-
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-      gl.enableVertexAttribArray(positionLoc);
-      gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
-
-      gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-      gl.enableVertexAttribArray(texCoordLoc);
-      gl.vertexAttribPointer(texCoordLoc, 2, gl.FLOAT, false, 0, 0);
-
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
 
       animFrameRef.current = requestAnimationFrame(render);
     };
@@ -418,7 +467,7 @@ export const ServiceIndexStage: React.FC = () => {
 
           {/* RIGHT SIDE: Full Edge-To-Edge 50% Video Panel (GPU-Accelerated Directional Liquid Displacement Shader Canvas) */}
           <div className="hidden lg:block lg:col-span-7 xl:col-span-7 relative h-full min-h-full">
-            <div className="sticky top-24 h-[calc(100vh-6rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5] relative">
+            <div className="sticky top-20 h-[calc(100vh-5rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5] relative">
               
               {/* Hidden Video Elements (Source for WebGL Textures) */}
               <div className="absolute inset-0 opacity-0 pointer-events-none overflow-hidden">
@@ -436,7 +485,7 @@ export const ServiceIndexStage: React.FC = () => {
                 ))}
               </div>
 
-              {/* WebGL Directional Liquid Displacement Canvas */}
+              {/* WebGL Directional Liquid Displacement Canvas (Upright, Unstretched, 100% Fitted) */}
               <canvas
                 ref={canvasRef}
                 className="w-full h-full object-cover block absolute inset-0 z-10 pointer-events-none"
