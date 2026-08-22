@@ -60,71 +60,59 @@ export const ProductsPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-[#F5F4EF] text-[#111111] font-manrope selection:bg-[#aa2f00] selection:text-white pt-20">
+    <div className="w-full bg-[#050505] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
       {/* 01 / HERO */}
-      <section className="relative w-full min-h-[90vh] flex items-center bg-[#111111] text-white overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBo4nD_D4UQ7Xd-TOUIkbZ1CSJAPYn1ASOLG1iPxt-7ghQKSMWutXHeN1q9eN5Q9K-uzL6tOV7BKrClIhmn96ptkAvMGtkdBlHyeYhMOwLvT0H5pUvNQi2HNNiIanQij7zR2BbTZT3feSugbGcSnpvdrFvlWj-Ek_g347hyQELe-dIzKCnE464CZ0x4mmJvEUH3MsgOOLiNvrLJQK8Mcnkkkc_qTu7p-nZ9-lxS3T0DzdiJdxxdPgfV"
-            alt="Professional detailing studio background"
-            className="w-full h-full object-cover opacity-30 mix-blend-luminosity scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#111111] via-[#111111]/80 to-transparent" />
+      <section className="relative w-full min-h-[85vh] sm:min-h-[90vh] flex items-center bg-[#050505] text-[#F5F4EF] overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 border-b border-white/10">
+        {/* Soft Tonal Lighting Studio Accent */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,_var(--tw-gradient-stops))] from-white/[0.04] via-[#050505] to-[#050505]" />
         </div>
 
-        <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full grid grid-cols-1 md:grid-cols-12 gap-8 py-24">
-          <div className="col-span-12 md:col-span-6 flex flex-col justify-center">
-            <div className="flex flex-wrap items-center gap-4 mb-8">
-              <span className="font-manrope font-bold text-xs uppercase text-[#FF4B00] tracking-widest">
-                01 / THE COLLECTION
-              </span>
-              <div className="flex gap-4 text-[10px] font-bold text-[#858585] uppercase tracking-widest">
-                <span>AUTOMOTIVE CARE</span>
-                <span>PRODUCT COLLECTION</span>
-                <span>TIRUPPUR</span>
-              </div>
-            </div>
-
-            <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] uppercase text-[#F5F4EF] leading-[0.88] mb-8 tracking-tighter">
-              THE<br />
-              PRODUCT<br />
+        <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
+          {/* Left Column ~55%: Headline, Paragraph, CTAs */}
+          <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
+            <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] uppercase text-[#F5F4EF] leading-[0.92] mb-8 tracking-tighter">
+              THE PRODUCT<br />
               <span className="font-editorial italic font-normal text-white lowercase">vault.</span>
             </h1>
 
             <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-md mb-10 leading-relaxed font-normal">
-              Professional automotive-care products, detailing materials and accessories curated for the TMR experience.
+              Professional automotive-care products selected for the TMR detailing process.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-4 items-center">
               <a
-                href="#product-runway"
-                className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 bg-[#FF4B00] text-white hover:bg-white hover:text-[#111111] transition-all uppercase tracking-widest inline-flex items-center gap-2"
+                href="#product-catalogue"
+                className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 bg-[#FF4B00] text-white hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
               >
                 <span>EXPLORE PRODUCTS</span>
                 <span className="text-base">↗</span>
               </a>
               <a
-                href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20Product%20Vault`}
+                href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20TMR%20Product%20Vault`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 border border-white/30 text-white hover:bg-white hover:text-[#111111] transition-all uppercase tracking-widest"
+                className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 border border-white/20 text-[#F5F4EF] hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
               >
-                WHATSAPP TMR →
+                <span>WHATSAPP TMR</span>
+                <span className="text-base">→</span>
               </a>
             </div>
           </div>
 
-          <div className="hidden md:flex col-span-6 relative items-center justify-center min-h-[500px]">
-            <div className="relative w-72 sm:w-80 aspect-[3/4] z-20 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+          {/* Right Column ~45%: Direct Studio Product Photography */}
+          <div className="col-span-12 md:col-span-5 flex items-center justify-center md:justify-end relative">
+            <div className="relative w-full max-w-md aspect-[3/4] flex items-center justify-center">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSqohbe1KTav3zvcdZdl2_RXKaMifHnr2QiMa2EvY9npra385zxrsa3Y2gY0UAiI5WxYLITuCFz-olXJ8DuTkX-w6tLxdeJUe8Fyh-um-NCnSD_gwXBkeEswIOFK1DN-bBIyUvN2_jpaHmQpAD0SLBi51QhON_6m7blh5deY8G39gIYzIBvuzND0j079SP-tjotE02xbPRROdwmr2sOULkDik9sJ5PR8AU6JShJMUp9t7KQGS0E1fM"
-                alt="Primary Verified Product Ceramic Pro"
-                className="w-full h-full object-cover border border-white/10"
+                alt="TMR Car Care authentic product bottle"
+                className="max-h-[480px] sm:max-h-[540px] w-auto object-contain transition-transform duration-700 hover:scale-[1.02]"
+                onError={(e) => {
+                  // Guaranteed fallback to primary verified detail compound image if network restricts public CDN
+                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200";
+                }}
               />
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#FF4B00] text-white px-4 py-2 text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">
-                Verified Authentic
-              </div>
             </div>
           </div>
         </div>
