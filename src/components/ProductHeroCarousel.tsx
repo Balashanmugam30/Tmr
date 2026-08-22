@@ -29,7 +29,6 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
   const dragDistanceRef = useRef<number>(0);
   const autoPlayTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Reduced motion detection
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
@@ -41,7 +40,6 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
 
   const total = products.length;
 
-  // Calculate circular offset
   const getRelativeOffset = useCallback(
     (index: number, active: number, count: number) => {
       let diff = index - active;
@@ -52,7 +50,6 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
     []
   );
 
-  // Update 3D Curved Cylindrical Arc layout matching reference image perspective
   const updateLayout = useCallback(
     (activeIdx: number, animate: boolean = true) => {
       if (!itemsRef.current || itemsRef.current.length === 0) return;
@@ -60,9 +57,8 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
       const isMobile = window.innerWidth < 640;
       const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024;
 
-      // Arc radius & spacing parameters for 3D perspective curve
-      const radius = isMobile ? 380 : isTablet ? 650 : 920;
-      const angleStep = isMobile ? 0.42 : isTablet ? 0.34 : 0.28; // radians per item
+      const radius = isMobile ? 360 : isTablet ? 620 : 880;
+      const angleStep = isMobile ? 0.44 : isTablet ? 0.35 : 0.28;
 
       products.forEach((_, i) => {
         const itemEl = itemsRef.current[i];
@@ -70,23 +66,19 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
 
         const offset = getRelativeOffset(i, activeIdx, total);
         const absOffset = Math.abs(offset);
-
-        // Angle along cylinder
         const angle = offset * angleStep;
 
-        // 3D cylindrical coordinates matching reference perspective curve
+        // 3D cylindrical perspective arc matching reference image
         const x = Math.sin(angle) * radius;
-        const z = (Math.cos(angle) - 1) * (radius * 0.45); // depth pushing back
-        const rotateY = -angle * (180 / Math.PI) * 0.55; // 3D Y-rotation inward facing center
+        const z = (Math.cos(angle) - 1) * (radius * 0.48);
+        const rotateY = -angle * (180 / Math.PI) * 0.55;
 
-        // Scale & Opacity hierarchy
-        let scale = Math.cos(angle * 0.7);
-        scale = Math.max(isMobile ? 0.5 : 0.62, scale);
+        let scale = Math.cos(angle * 0.75);
+        scale = Math.max(isMobile ? 0.5 : 0.65, scale);
 
         let opacity = Math.cos(angle * 0.85);
-        opacity = Math.max(isMobile ? 0.25 : 0.35, opacity);
+        opacity = Math.max(isMobile ? 0.2 : 0.3, opacity);
 
-        // Z-index depth sorting
         const zIndex = 100 - Math.round(absOffset * 15);
 
         if (prefersReducedMotion || !animate) {
@@ -122,19 +114,18 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
     updateLayout(activeIndex, true);
   }, [activeIndex, updateLayout]);
 
-  // Window resize handler
   useEffect(() => {
     const handleResize = () => updateLayout(activeIndex, false);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [activeIndex, updateLayout]);
 
-  // Auto-advance loop (every 3.8 seconds)
+  // Automatic smooth advance loop (3.2 seconds)
   const startAutoPlay = useCallback(() => {
     if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
     autoPlayTimerRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % total);
-    }, 3800);
+    }, 3200);
   }, [total]);
 
   const stopAutoPlay = useCallback(() => {
@@ -149,7 +140,6 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
     return () => stopAutoPlay();
   }, [startAutoPlay, stopAutoPlay]);
 
-  // Drag & Touch interaction
   const handleDragStart = (clientX: number) => {
     isDraggingRef.current = true;
     startXRef.current = clientX;
@@ -175,21 +165,23 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
     startAutoPlay();
   };
 
-  const activeProduct = products[activeIndex];
-
   return (
     <div
       ref={containerRef}
-      className="relative w-full flex flex-col items-center justify-between select-none outline-none focus:outline-none"
+      className="relative w-full flex flex-col items-center justify-between select-none outline-none focus:outline-none overflow-hidden"
       onMouseEnter={stopAutoPlay}
       onMouseLeave={startAutoPlay}
       role="region"
       aria-roledescription="carousel"
       aria-label="TMR Product Vault Curved Runway"
     >
+      {/* Both Corners Edge Fade Masks matching reference image */}
+      <div className="absolute top-0 bottom-0 left-0 w-24 sm:w-48 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent z-40 pointer-events-none" />
+      <div className="absolute top-0 bottom-0 right-0 w-24 sm:w-48 bg-gradient-to-l from-[#050505] via-[#050505]/80 to-transparent z-40 pointer-events-none" />
+
       {/* 3D Perspective Curved Arc Stage */}
       <div
-        className="relative w-full h-[320px] sm:h-[400px] md:h-[480px] lg:h-[520px] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden"
+        className="relative w-full h-[360px] sm:h-[440px] md:h-[500px] flex items-center justify-center cursor-grab active:cursor-grabbing"
         style={{ perspective: '1200px' }}
         onMouseDown={(e) => handleDragStart(e.clientX)}
         onMouseMove={(e) => handleDragMove(e.clientX)}
@@ -199,7 +191,7 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
         onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
         onTouchEnd={handleDragEnd}
       >
-        {/* Ambient Center Studio Glow */}
+        {/* Soft Ambient Studio Lighting Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] aspect-square rounded-full bg-[#FF4B00]/10 blur-[100px] pointer-events-none z-0" />
 
         {/* Curved Track Items */}
@@ -216,44 +208,58 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
                     if (onSelectProduct) onSelectProduct(prod);
                   }
                 }}
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer transition-shadow duration-700"
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center cursor-pointer transition-all duration-700"
                 style={{ transformStyle: 'preserve-3d' }}
                 aria-hidden={!isActive}
               >
-                {/* Real Product Studio Photography Object (No Card Border / Box) */}
-                <div className="relative w-48 sm:w-64 md:w-80 lg:w-96 h-60 sm:h-76 md:h-96 flex items-center justify-center p-2">
-                  <img
-                    src={prod.image}
-                    alt={prod.name}
-                    className={`max-h-full w-auto object-contain transition-all duration-700 ${
-                      isActive
-                        ? 'drop-shadow-[0_25px_40px_rgba(0,0,0,0.95)]'
-                        : 'drop-shadow-[0_12px_24px_rgba(0,0,0,0.7)] filter brightness-90 contrast-105'
-                    }`}
-                    onError={(e) => {
-                      if (prod.fallbackImage) {
-                        (e.target as HTMLImageElement).src = prod.fallbackImage;
-                      } else {
-                        (e.target as HTMLImageElement).src =
-                          'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200';
-                      }
-                    }}
-                  />
+                {/* Reference Card Container with Rounded Corners & Dark Studio Backdrop */}
+                <div
+                  className={`relative w-48 sm:w-60 md:w-72 lg:w-80 h-64 sm:h-80 md:h-96 rounded-2xl sm:rounded-3xl p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-700 ${
+                    isActive
+                      ? 'bg-[#141414] border-2 border-[#FF4B00]/60 shadow-[0_25px_50px_rgba(0,0,0,0.9)]'
+                      : 'bg-[#111111]/90 border border-white/10 shadow-[0_15px_30px_rgba(0,0,0,0.6)]'
+                  }`}
+                >
+                  {/* Top Badge Inside Card */}
+                  <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-[#858585] z-10">
+                    <span>{prod.category}</span>
+                    {isActive && <span className="text-[#FF4B00]">TMR VAULT</span>}
+                  </div>
+
+                  {/* Product Image Center */}
+                  <div className="relative w-full h-[65%] my-auto flex items-center justify-center">
+                    <img
+                      src={prod.image}
+                      alt={prod.name}
+                      className={`max-h-full w-auto object-contain transition-all duration-700 ${
+                        isActive
+                          ? 'scale-105 drop-shadow-[0_15px_25px_rgba(0,0,0,0.9)]'
+                          : 'drop-shadow-[0_8px_16px_rgba(0,0,0,0.6)] filter brightness-90'
+                      }`}
+                      onError={(e) => {
+                        if (prod.fallbackImage) {
+                          (e.target as HTMLImageElement).src = prod.fallbackImage;
+                        } else {
+                          (e.target as HTMLImageElement).src =
+                            'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200';
+                        }
+                      }}
+                    />
+                  </div>
+
+                  {/* Bottom Title Inside Card */}
+                  <div className="pt-3 border-t border-white/10 z-10">
+                    <h3 className={`font-manrope font-bold text-xs sm:text-sm uppercase line-clamp-1 ${
+                      isActive ? 'text-[#F5F4EF]' : 'text-white/60'
+                    }`}>
+                      {prod.name}
+                    </h3>
+                  </div>
                 </div>
               </div>
             );
           })}
         </div>
-      </div>
-
-      {/* Restrained Active Center Product Technical Title */}
-      <div className="mt-2 sm:mt-4 flex flex-col items-center text-center z-20 transition-all duration-500">
-        <span className="font-manrope font-extrabold text-sm sm:text-base md:text-xl uppercase tracking-wider text-[#F5F4EF]">
-          {activeProduct.name}
-        </span>
-        <span className="font-manrope text-xs text-[#858585] uppercase tracking-widest mt-1">
-          {activeProduct.category}
-        </span>
       </div>
     </div>
   );

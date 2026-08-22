@@ -124,39 +124,42 @@ export const ProductsPage: React.FC = () => {
       
       {/* 01 / HERO */}
       <section className="relative w-full min-h-[100svh] flex flex-col justify-between bg-[#050505] text-[#F5F4EF] overflow-hidden pt-28 pb-12 md:pt-36 md:pb-16 border-b border-white/10">
-        {/* Soft Central Radial Lighting Studio Accent */}
+        {/* Soft Central Radial Studio Glow */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] aspect-square rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-[#FF4B00]/10 via-transparent to-transparent blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] sm:w-[1000px] aspect-square rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-[#FF4B00]/10 via-transparent to-transparent blur-3xl" />
         </div>
 
+        {/* Top Centered Section matching reference image */}
         <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full flex flex-col items-center text-center">
-          {/* Top Editorial Headline */}
-          <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[84px] uppercase text-[#F5F4EF] leading-[0.9] tracking-tighter mb-4">
-            THE PRODUCT{' '}
-            <span className="font-editorial italic font-normal text-white lowercase text-3xl sm:text-5xl md:text-6xl lg:text-[72px]">
-              vault.
+          {/* Main Headline Stack */}
+          <h1 className="flex flex-col items-center leading-[0.95] tracking-tighter mb-5">
+            <span className="font-editorial italic font-normal text-white text-4xl sm:text-6xl md:text-7xl lg:text-[76px] mb-1">
+              Streamline Your Detailing,
+            </span>
+            <span className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] uppercase text-[#F5F4EF]">
+              Supercharge Your Finish
             </span>
           </h1>
 
-          {/* Supporting Copy */}
-          <p className="font-manrope text-sm sm:text-base md:text-lg text-[#D8D8D5] max-w-lg leading-relaxed font-normal mb-6">
-            Professional automotive-care products selected for the TMR detailing process.
+          {/* Sub-headline / Paragraph */}
+          <p className="font-manrope text-sm sm:text-base md:text-lg text-[#D8D8D5] max-w-xl leading-relaxed font-normal mb-8">
+            All-in-one professional automotive-care products to clean, correct, and protect — faster and smarter.
           </p>
 
-          {/* Centered Actions */}
-          <div className="flex flex-wrap justify-center gap-4 items-center mb-10">
+          {/* Capsule Button matching reference image button style */}
+          <div className="flex flex-wrap justify-center gap-4 items-center mb-8">
             <a
               href="#product-catalogue"
-              className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 bg-[#FF4B00] text-white hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
+              className="px-8 py-4 bg-[#FF4B00] text-white rounded-full font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors inline-flex items-center gap-2 shadow-xl"
             >
-              <span>EXPLORE PRODUCTS</span>
-              <span className="text-base">↗</span>
+              <span>EXPLORE PRODUCTS COLLECTION</span>
+              <span className="text-base">→</span>
             </a>
             <a
               href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20TMR%20Product%20Vault`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 border border-white/20 text-[#F5F4EF] hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
+              className="px-8 py-4 border border-white/20 text-[#F5F4EF] rounded-full font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors inline-flex items-center gap-2"
             >
               <span>WHATSAPP TMR</span>
               <span className="text-base">→</span>
@@ -164,9 +167,44 @@ export const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Lower Portion: Full-Width Curved Product Runway */}
-        <div className="relative z-10 w-full mt-auto">
+        {/* Middle Portion: Full-Width 3D Curved Product Runway with corner fading */}
+        <div className="relative z-10 w-full my-auto">
           <ProductHeroCarousel products={heroProducts} />
+        </div>
+
+        {/* Bottom Portion: 3 Text Containers below slider matching reference image */}
+        <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full pt-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-0 md:divide-x divide-white/10 pt-6 border-t border-white/10">
+            {/* Container 1 */}
+            <div className="flex flex-col items-center text-center px-4">
+              <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase text-[#F5F4EF] mb-2 tracking-tight">
+                Paint Correction &amp; Polishing
+              </h3>
+              <p className="font-manrope text-xs sm:text-sm text-[#858585] max-w-xs leading-relaxed">
+                Remove P1200+ sand scratches, micro-marring, and swirl marks with 3M &amp; Meguiar's compounds.
+              </p>
+            </div>
+
+            {/* Container 2 */}
+            <div className="flex flex-col items-center text-center px-4">
+              <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase text-[#F5F4EF] mb-2 tracking-tight">
+                Surface Protection &amp; Ceramic
+              </h3>
+              <p className="font-manrope text-xs sm:text-sm text-[#858585] max-w-xs leading-relaxed">
+                Long-lasting hydrophobic barriers, quartz coatings, and self-healing TPU protection films.
+              </p>
+            </div>
+
+            {/* Container 3 */}
+            <div className="flex flex-col items-center text-center px-4">
+              <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase text-[#F5F4EF] mb-2 tracking-tight">
+                Maintenance &amp; Wash Solutions
+              </h3>
+              <p className="font-manrope text-xs sm:text-sm text-[#858585] max-w-xs leading-relaxed">
+                pH-neutral snow foams, quick waxes, and microfiber maintenance tools for lasting studio shine.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
