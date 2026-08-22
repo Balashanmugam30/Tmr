@@ -95,115 +95,120 @@ export const ServiceIndexStage: React.FC = () => {
     <section
       id="services-index"
       ref={sectionRef}
-      className="w-full bg-[#fff8f6] text-[#111111] py-20 md:py-32 border-b border-[#D8D8D5] relative overflow-hidden"
+      className="w-full bg-[#fff8f6] text-[#111111] border-b border-[#D8D8D5] relative overflow-hidden"
     >
       {/* Subtle Grain Overlay (3% opacity for unified filmic feel) */}
       <div className="absolute inset-0 bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
 
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 relative z-10">
+      <div className="w-full max-w-[1920px] mx-auto relative z-10">
         
-        {/* Simple Restrained Section Heading */}
-        <div className="mb-12 font-manrope">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-[#111111] mb-3">
-            OUR SERVICES
-          </h2>
-          <div className="h-[2px] w-12 bg-[#FF4B00]" />
-        </div>
-
-        {/* 50/50 Asymmetric Showcase Grid (Left ~42%, Right ~58%) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        {/* Full-Bleed 50/50 Layout Grid (Left ~45%, Right ~55%) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-0">
           
-          {/* LEFT SIDE: Service List Rail (5 Cols) */}
-          <div className="lg:col-span-5 flex flex-col space-y-6 sm:space-y-8 font-manrope">
-            {servicesList.map((item, idx) => {
-              const isActive = activeIndex === idx;
-              return (
-                <div
-                  key={item.id}
-                  onMouseEnter={() => setActiveIndex(idx)}
-                  className={`group border-b border-[#D8D8D5] pb-6 sm:pb-8 cursor-pointer transition-all duration-300 ${
-                    isActive ? 'pl-2 sm:pl-4' : 'hover:pl-2'
-                  }`}
-                >
-                  {/* Row Header */}
-                  <div className="flex items-baseline gap-4">
-                    <span
-                      className={`font-editorial text-3xl sm:text-4xl italic font-normal transition-colors duration-300 ${
-                        isActive ? 'text-[#FF4B00]' : 'text-[#858585] group-hover:text-[#111111]'
-                      }`}
-                    >
-                      {item.indexNumber}
-                    </span>
+          {/* LEFT SIDE: Service List Rail (5 Cols Desktop, padded container, text alignment UNTOUCHED) */}
+          <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-center px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-20 lg:py-28 font-manrope">
+            
+            {/* Simple Restrained Heading */}
+            <div className="mb-10 font-manrope">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-[#111111] mb-3">
+                OUR SERVICES
+              </h2>
+              <div className="h-[2px] w-12 bg-[#FF4B00]" />
+            </div>
 
-                    <h3
-                      className={`font-intertight font-extrabold tracking-tight uppercase leading-none transition-all duration-300 ${
-                        isActive
-                          ? 'text-3xl sm:text-4xl md:text-5xl text-[#111111] translate-x-1'
-                          : 'text-xl sm:text-2xl text-[#858585] group-hover:text-[#111111]'
-                      }`}
-                    >
-                      {item.title}
-                    </h3>
-                  </div>
-
-                  {/* Active Service Content (Revealed ONLY when active) */}
-                  <div
-                    className={`overflow-hidden transition-all duration-500 ease-out ${
-                      isActive ? 'max-h-40 opacity-100 pt-4' : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                    <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-md">
-                      {item.shortDesc}
-                    </p>
-
-                    <div className="pt-4">
-                      <Link
-                        to={`/services/${item.slug}`}
-                        className="inline-flex items-center gap-2 font-manrope font-bold text-xs sm:text-sm uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors"
-                        aria-label={`Explore ${item.title} service page`}
-                      >
-                        <span>EXPLORE SERVICE</span>
-                        <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Mobile Inline Video Container (Accordion pattern on mobile) */}
-                  {isActive && (
-                    <div className="lg:hidden pt-4">
-                      <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#050505]">
-                        <video
-                          src={item.videoSrc}
-                          poster={item.posterSrc}
-                          muted
-                          loop
-                          playsInline
-                          autoPlay
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* RIGHT SIDE: Full 50% Cinematic Video Stage (7 Cols Desktop, Pure Visual, NO text boxes or dark captions) */}
-          <div className="hidden lg:block lg:col-span-7 sticky top-28">
-            <div className="relative aspect-[4/3] lg:aspect-[16/11] min-h-[520px] lg:min-h-[600px] w-full overflow-hidden border border-[#D8D8D5] bg-[#050505] shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+            {/* Service Rows */}
+            <div className="flex flex-col space-y-6 sm:space-y-8">
               {servicesList.map((item, idx) => {
                 const isActive = activeIndex === idx;
                 return (
                   <div
                     key={item.id}
-                    className={`absolute inset-0 transition-all duration-600 ease-out ${
+                    onMouseEnter={() => setActiveIndex(idx)}
+                    className={`group border-b border-[#D8D8D5] pb-6 sm:pb-8 cursor-pointer transition-all duration-300 ${
+                      isActive ? 'pl-2 sm:pl-4' : 'hover:pl-2'
+                    }`}
+                  >
+                    {/* Row Header */}
+                    <div className="flex items-baseline gap-4">
+                      <span
+                        className={`font-editorial text-3xl sm:text-4xl italic font-normal transition-colors duration-300 ${
+                          isActive ? 'text-[#FF4B00]' : 'text-[#858585] group-hover:text-[#111111]'
+                        }`}
+                      >
+                        {item.indexNumber}
+                      </span>
+
+                      <h3
+                        className={`font-intertight font-extrabold tracking-tight uppercase leading-none transition-all duration-300 ${
+                          isActive
+                            ? 'text-3xl sm:text-4xl md:text-5xl text-[#111111] translate-x-1'
+                            : 'text-xl sm:text-2xl text-[#858585] group-hover:text-[#111111]'
+                        }`}
+                      >
+                        {item.title}
+                      </h3>
+                    </div>
+
+                    {/* Active Service Content (Revealed ONLY when active) */}
+                    <div
+                      className={`overflow-hidden transition-all duration-500 ease-out ${
+                        isActive ? 'max-h-40 opacity-100 pt-4' : 'max-h-0 opacity-0'
+                      }`}
+                    >
+                      <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-md">
+                        {item.shortDesc}
+                      </p>
+
+                      <div className="pt-4">
+                        <Link
+                          to={`/services/${item.slug}`}
+                          className="inline-flex items-center gap-2 font-manrope font-bold text-xs sm:text-sm uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors"
+                          aria-label={`Explore ${item.title} service page`}
+                        >
+                          <span>EXPLORE SERVICE</span>
+                          <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Mobile Inline Video Container (Accordion pattern on mobile) */}
+                    {isActive && (
+                      <div className="lg:hidden pt-4">
+                        <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#050505]">
+                          <video
+                            src={item.videoSrc}
+                            poster={item.posterSrc}
+                            muted
+                            loop
+                            playsInline
+                            autoPlay
+                            className="w-full h-full object-cover block"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDE: Full Edge-To-Edge 50% Video Panel (7 Cols Desktop, NO aspect-ratio bounds, NO padding, NO black gaps) */}
+          <div className="hidden lg:block lg:col-span-7 xl:col-span-7 relative h-full min-h-full">
+            <div className="sticky top-24 h-[calc(100vh-6rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5]">
+              {servicesList.map((item, idx) => {
+                const isActive = activeIndex === idx;
+                return (
+                  <div
+                    key={item.id}
+                    className={`absolute inset-0 w-full h-full transition-all duration-600 ease-out ${
                       isActive
                         ? 'opacity-100 scale-100 z-10'
                         : 'opacity-0 scale-103 z-0 pointer-events-none'
                     }`}
                   >
-                    {/* Pure High-Resolution Seamless Loop Video (No text, no caption boxes) */}
+                    {/* Full-Bleed Video Element (Width 100%, Height 100%, object-fit: cover, display: block) */}
                     <video
                       ref={(el) => (videoRefs.current[idx] = el)}
                       src={item.videoSrc}
@@ -211,7 +216,7 @@ export const ServiceIndexStage: React.FC = () => {
                       muted
                       loop
                       playsInline
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center block"
                     />
                   </div>
                 );
