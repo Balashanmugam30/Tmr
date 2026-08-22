@@ -2,153 +2,453 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 export const PpfPage: React.FC = () => {
+  const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [activeZone, setActiveZone] = useState<number>(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Scroll to top on page load & SEO Title / Meta setup
+  // SEO Page Metadata & Title
   useEffect(() => {
-    window.scrollTo(0, 0);
-    document.title = "Paint Protection Film (PPF) in Tiruppur — Impact Protection | TMR Car Care";
-    
+    document.title = "PPF Paint Protection Film Tiruppur — TMR Car Care";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        'High-clarity Paint Protection Film (PPF) installation in Tiruppur. Protects car body panels against stone chips, scratches, and road debris.'
+        'Protect your vehicle with self-healing Paint Protection Film (PPF) at TMR Car Care Tiruppur. Shield factory paint against stone chips, scratches, and road debris.'
       );
     }
+    window.scrollTo(0, 0);
   }, []);
 
-  const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
-  const impactZones = [
+  const protectionZones = [
     {
-      title: "FRONT BUMPER & GRILLE",
-      desc: "The primary point of contact for high-velocity gravel, stone chips, and insect acid during highway driving."
+      name: "FRONT BUMPER",
+      desc: "Maximum impact shielding against high-velocity road gravel, flying stones, and bug splatter.",
+      image: "/images/ppf/ppf-surface.webp",
     },
     {
-      title: "FULL HOOD & BONNET",
-      desc: "Expansive horizontal surface vulnerable to road debris, bird droppings, and direct UV oxidation."
+      name: "HOOD & BONNET",
+      desc: "Full seamless film coverage safeguarding the largest painted panel from stone chips and environmental fallout.",
+      image: "/images/ppf/ppf-hero.webp",
     },
     {
-      title: "FRONT FENDERS & WINGS",
-      desc: "Side impact areas susceptible to tire fling, gravel spray, and tight parking brush marks."
+      name: "FRONT FENDERS",
+      desc: "Shields leading wheel-arch body curves against tire-thrown debris and tight parking abrasions.",
+      image: "/images/protection/protection-hero.webp",
     },
     {
-      title: "SIDE MIRROR CAPS",
-      desc: "Leading edge projections exposed to head-on debris, tight garage clearances, and side scrapes."
+      name: "SIDE MIRRORS",
+      desc: "Protects high-exposure mirror caps from highway debris impacts and tight-squeeze scratches.",
+      image: "/images/ppf/ppf-surface.webp",
     },
     {
-      title: "ROCKER PANELS & DOOR SILLS",
-      desc: "Lower body panels continuously blasted by road grit, kick-up gravel, and shoe scuffs during ingress."
-    }
+      name: "ROCKER PANELS",
+      desc: "Guards lower door sills and side skirts against aggressive stone kick-up from front tires.",
+      image: "/images/ppf/ppf-hero.webp",
+    },
   ];
 
-  const faqItems = [
+  const processSteps = [
     {
-      q: "What is Paint Protection Film (PPF)?",
-      a: "Paint Protection Film (PPF) is a high-clarity, thermoplastic polyurethane (TPU) film applied directly to vehicle paintwork to absorb physical impacts from gravel, stone chips, and scratches."
+      index: "01",
+      title: "PREPARE",
+      desc: "Decontamination, clay bar, and paint correction for a pristine optical foundation.",
     },
     {
-      q: "What does PPF protect against?",
-      a: "PPF provides physical shield defense against rock chips, flying road debris, minor scratches, bug acid, tree sap, and light abrasions encountered during everyday driving."
+      index: "02",
+      title: "FIT",
+      desc: "Precision digital pattern computer-cutting for exact vehicle panel fitment without blade contact.",
     },
     {
-      q: "Can PPF be installed on a new car?",
-      a: "Yes. Installing PPF on a brand new car preserves the untouched factory paint from day one, maximizing long-term vehicle resale value."
+      index: "03",
+      title: "INSTALL",
+      desc: "Slip-solution alignment, squeegee application, and hand-wrapped edge tucking.",
     },
     {
-      q: "Which parts of a car are normally protected?",
-      a: "Packages range from partial high-impact coverage (front bumper, hood, mirrors, fenders) to full-vehicle body wraps depending on driving conditions and protection goals."
+      index: "04",
+      title: "FINISH",
+      desc: "Thermal edge-setting, optical clarity audit, and final studio inspection.",
     },
-    {
-      q: "How is PPF maintained?",
-      a: "PPF can be washed normally using pH-neutral automotive shampoo. Avoid high-pressure washer nozzles closer than 12 inches to film edges."
-    },
-    {
-      q: "Can ceramic coating be applied over PPF?",
-      a: "Yes. Applying ceramic coating on top of PPF enhances hydrophobic water-beading, slickness, and ease of cleaning while maintaining physical impact resistance."
-    }
   ];
 
-  const jsonLdData = {
+  const faqs = [
+    {
+      question: "What is Paint Protection Film (PPF)?",
+      answer:
+        "PPF is an optically clear, self-healing thermoplastic polyurethane (TPU) film applied directly to painted vehicle surfaces to absorb physical impacts from stone chips, gravel, and scratches.",
+    },
+    {
+      question: "What does PPF protect against?",
+      answer:
+        "PPF protects against stone chips, road debris, parking scrapes, key scratches, bug splatter acids, bird droppings, and UV clearcoat yellowing.",
+    },
+    {
+      question: "Can PPF be installed on a new car?",
+      answer:
+        "Yes! Installing PPF on a new car preserves factory original paint in pristine condition, maximizing long-term vehicle resale value.",
+    },
+    {
+      question: "Which parts of a vehicle are normally protected?",
+      answer:
+        "Options range from Full Front Packages (Bumper, Hood, Fenders, Mirrors) to Full Body Wraps for complete 360-degree paint defense.",
+    },
+    {
+      question: "How is PPF maintained?",
+      answer:
+        "Wash normally using neutral pH shampoo and soft microfiber towels. Minor swirl marks self-heal naturally when exposed to heat or warm sunlight.",
+    },
+    {
+      question: "Can ceramic coating be applied over PPF?",
+      answer:
+        "Yes. Applying a ceramic coating over PPF adds hydrophobic slickness, simplifies cleaning, and prevents environmental staining on the film.",
+    },
+  ];
+
+  // Schema.org Structured Data
+  const jsonLd = {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Service",
-        "name": "Paint Protection Film (PPF)",
-        "serviceType": "Automotive Paint Protection Film",
-        "provider": {
-          "@type": "AutoRepair",
-          "name": "TMR Car Care",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Tiruppur",
-            "addressRegion": "Tamil Nadu",
-            "addressCountry": "IN"
-          }
-        },
-        "areaServed": "Tiruppur",
-        "description": "High-clarity Paint Protection Film (PPF) installation protecting against stone chips and scratches in Tiruppur."
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": faqItems.map(item => ({
-          "@type": "Question",
-          "name": item.q,
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": item.a
-          }
-        }))
+    "@type": "Service",
+    "name": "PPF Paint Protection Film Tiruppur",
+    "provider": {
+      "@type": "AutoRepair",
+      "name": "TMR Car Care Studio",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Tiruppur",
+        "addressRegion": "Tamil Nadu",
+        "addressCountry": "IN"
       }
-    ]
+    },
+    "serviceType": "Car Paint Protection Film Installation",
+    "areaServed": "Tiruppur, Tamil Nadu",
+    "description": "Self-healing PPF paint protection film installation services in Tiruppur."
   };
 
   return (
-    <div className="w-full bg-[#050505] text-[#F5F4EF] selection:bg-[#FF4B00] selection:text-white font-manrope overflow-x-hidden">
-      {/* JSON-LD Schema */}
+    <div className="w-full bg-[#fff8f6] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white overflow-x-hidden">
+      {/* Structured Data */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* 01. HERO SECTION */}
-      <section className="relative w-full min-h-[85vh] flex items-center pt-24 pb-16 border-b border-white/10 bg-[#070809]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Text Column */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-2">
-              <Link to="/services" className="text-xs font-bold uppercase tracking-widest text-[#FF4B00] hover:underline">
-                SERVICES
-              </Link>
-              <span className="text-xs text-white/40">/</span>
-              <span className="text-xs font-bold uppercase tracking-widest text-white/60">
-                PHYSICAL PROTECTION
+      {/* SECTION 01 — HERO */}
+      <section className="w-full border-b border-[#D8D8D5] py-16 sm:py-24 lg:py-32">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Copy Column */}
+            <div className="lg:col-span-6 space-y-6">
+              <span className="font-manrope font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+                IMPACT DEFENSE DISCIPLINE
               </span>
+              
+              <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl lg:text-[84px] uppercase tracking-tight leading-none text-[#111111]">
+                PAINT PROTECTION
+                <span className="font-editorial italic text-3xl sm:text-4xl text-[#FF4B00] block mt-2 font-normal lowercase tracking-normal">
+                  Film
+                </span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-[#858585] max-w-lg font-normal leading-relaxed">
+                Ultra-clear thermoplastic polyurethane film engineered to absorb stone chips, prevent scratches, and preserve factory paint in Tiruppur.
+              </p>
+
+              <div className="pt-4 flex flex-wrap items-center gap-4">
+                <a
+                  href="https://wa.me/919944335520"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 bg-[#111111] hover:bg-[#FF4B00] text-white font-manrope font-bold text-xs uppercase tracking-widest px-8 py-4 transition-colors duration-300"
+                >
+                  <span>BOOK A CONSULTATION</span>
+                  <span>↗</span>
+                </a>
+
+                <a
+                  href="https://wa.me/919944335520"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 border border-[#D8D8D5] hover:border-[#111111] text-[#111111] font-manrope font-bold text-xs uppercase tracking-widest px-6 py-4 transition-colors duration-300"
+                >
+                  <span>WHATSAPP TMR</span>
+                  <span>↗</span>
+                </a>
+              </div>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white leading-none">
-              Paint Protection Film <br />
-              <span className="text-white/60 font-editorial italic font-normal text-3xl sm:text-5xl block pt-2">
-                (PPF) in Tiruppur
-              </span>
-            </h1>
+            {/* Right Media Stage */}
+            <div className="lg:col-span-6">
+              <div className="aspect-[4/3] w-full overflow-hidden border border-[#D8D8D5] bg-[#050505] relative shadow-lg">
+                <video
+                  src="/videos/services/ppf.mp4"
+                  poster="/videos/services/ppf-poster.jpg"
+                  muted
+                  loop
+                  playsInline
+                  autoPlay
+                  className="w-full h-full object-cover block"
+                />
+              </div>
+            </div>
 
-            <p className="text-base sm:text-lg text-white/80 max-w-xl font-normal leading-relaxed">
-              High-clarity thermoplastic film applied to high-impact body panels, absorbing road debris, stone chips, and everyday scratches to preserve factory paint.
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 02 — WHAT PPF DOES */}
+      <section className="w-full border-b border-[#D8D8D5] py-20 sm:py-28 bg-[#fff8f6]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <div className="lg:col-span-6 space-y-6">
+              <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+                ARMOR FOR FACTORY PAINT
+              </span>
+              <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-[#111111]">
+                PROTECTION WHERE IT MATTERS.
+              </h2>
+              <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed">
+                Paint Protection Film (PPF) is an invisible high-grade elastomeric polymer layer that acts as a shock-absorbing shield over your vehicle's factory paint. Designed with heat-activated self-healing technology, minor scratches and swirl marks disappear under warm sunlight while gravel and stone impacts bounce off without damaging the underlying clearcoat.
+              </p>
+              <div className="pt-2">
+                <Link
+                  to="/services/ceramic-coating"
+                  className="inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors"
+                >
+                  <span>SEE HOW CERAMIC COATING WORKS</span>
+                  <span>↗</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-6">
+              <div className="aspect-[16/11] w-full overflow-hidden border border-[#D8D8D5]">
+                <img
+                  src="/images/ppf/ppf-hero.webp"
+                  alt="Clear PPF paint protection film installation at TMR Car Care Tiruppur"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 03 — HIGH-IMPACT PROTECTION ZONES */}
+      <section className="w-full border-b border-[#D8D8D5] py-20 sm:py-28">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="mb-12">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
+              TARGETED SHIELDING
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-[#111111]">
+              HIGH-IMPACT VEHICLE ZONES
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start border-t border-[#D8D8D5] pt-8">
+            {/* Zone Selector Buttons */}
+            <div className="lg:col-span-5 flex flex-col space-y-4">
+              {protectionZones.map((z, idx) => {
+                const isActive = activeZone === idx;
+                return (
+                  <button
+                    key={z.name}
+                    onClick={() => setActiveZone(idx)}
+                    onMouseEnter={() => setActiveZone(idx)}
+                    className={`w-full text-left py-4 px-6 border border-[#D8D8D5] transition-all duration-300 font-manrope ${
+                      isActive
+                        ? "bg-[#111111] text-white border-[#111111] pl-8"
+                        : "hover:border-[#111111] text-[#111111]"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-extrabold text-sm sm:text-base uppercase tracking-wider">
+                        {z.name}
+                      </span>
+                      <span className={`text-base ${isActive ? "text-[#FF4B00]" : "text-[#858585]"}`}>
+                        →
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Zone Details & Visual */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="aspect-[16/10] w-full overflow-hidden border border-[#D8D8D5] bg-[#111111] relative">
+                <img
+                  src={protectionZones[activeZone].image}
+                  alt={`TMR PPF coverage for ${protectionZones[activeZone].name}`}
+                  className="w-full h-full object-cover transition-opacity duration-500"
+                />
+              </div>
+
+              <div className="p-6 border border-[#D8D8D5] bg-[#fff8f6] font-manrope">
+                <span className="font-bold text-xs uppercase tracking-widest text-[#FF4B00] block mb-2">
+                  COVERAGE DETAILS // {protectionZones[activeZone].name}
+                </span>
+                <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed">
+                  {protectionZones[activeZone].desc}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 04 — INSTALLATION PROCESS */}
+      <section className="w-full border-b border-[#D8D8D5] py-20 sm:py-28 bg-[#fff8f6]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="mb-16">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
+              PRECISION CRAFTSMANSHIP
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-[#111111]">
+              4-STAGE INSTALLATION PROCESS
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((p) => (
+              <div key={p.index} className="border-t border-[#D8D8D5] pt-6 space-y-3 font-manrope">
+                <span className="font-editorial text-3xl italic text-[#FF4B00] block">
+                  {p.index}
+                </span>
+                <h3 className="font-intertight font-extrabold text-xl uppercase tracking-tight text-[#111111]">
+                  {p.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-[#858585] font-normal leading-relaxed">
+                  {p.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 05 — PPF VS CERAMIC (DECISION SECTION) */}
+      <section className="w-full border-b border-[#D8D8D5] py-20 sm:py-28">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="mb-12">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
+              TECHNICAL COMPARISON
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-[#111111]">
+              PPF OR CERAMIC?
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-manrope">
+            {/* PPF Box */}
+            <div className="p-8 border border-[#111111] bg-[#111111] text-white space-y-4">
+              <span className="font-bold text-xs uppercase tracking-[0.2em] text-[#FF4B00] block">
+                PHYSICAL IMPACT DEFENSE
+              </span>
+              <h3 className="font-intertight font-extrabold text-2xl uppercase">
+                PAINT PROTECTION FILM (PPF)
+              </h3>
+              <p className="text-sm text-white/70 font-normal leading-relaxed">
+                Absorbs physical impacts from stone chips, gravel, key scratches, and road debris. Features self-healing clearcoat technology for severe environment driving.
+              </p>
+            </div>
+
+            {/* Ceramic Box */}
+            <div className="p-8 border border-[#D8D8D5] bg-[#fff8f6] space-y-4">
+              <span className="font-bold text-xs uppercase tracking-[0.2em] text-[#FF4B00] block">
+                CHEMICAL & GLOSS DEFENSE
+              </span>
+              <h3 className="font-intertight font-extrabold text-2xl uppercase text-[#111111]">
+                CERAMIC COATING
+              </h3>
+              <p className="text-sm text-[#858585] font-normal leading-relaxed">
+                Provides chemical resistance, UV protection, high hydrophobic water beading, and deep gloss enhancement. Simplifies routine vehicle maintenance.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 p-6 border border-[#D8D8D5] bg-[#fff8f6] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-manrope">
+            <p className="text-sm font-bold uppercase tracking-wider text-[#111111]">
+              THE TWO CAN ALSO WORK TOGETHER — PPF ON FRONT ZONES + CERAMIC OVER ENTIRE VEHICLE.
+            </p>
+            <Link
+              to="/services/ceramic-coating"
+              className="inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors whitespace-nowrap"
+            >
+              <span>EXPLORE CERAMIC COATING</span>
+              <span>↗</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 06 — FAQ ACCORDION */}
+      <section className="w-full border-b border-[#D8D8D5] py-20 sm:py-28 bg-[#fff8f6]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="mb-12">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
+              CLIENT INQUIRIES
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-[#111111]">
+              FREQUENTLY ASKED QUESTIONS
+            </h2>
+          </div>
+
+          <div className="border-t border-[#D8D8D5] font-manrope">
+            {faqs.map((faq, idx) => {
+              const isOpen = activeFaq === idx;
+              return (
+                <div key={idx} className="border-b border-[#D8D8D5]">
+                  <button
+                    onClick={() => setActiveFaq(isOpen ? null : idx)}
+                    className="w-full py-6 flex items-center justify-between text-left group"
+                    aria-expanded={isOpen}
+                  >
+                    <h3 className="font-intertight font-extrabold text-lg sm:text-xl uppercase tracking-tight text-[#111111] group-hover:text-[#FF4B00] transition-colors">
+                      {faq.question}
+                    </h3>
+                    <span className="text-2xl text-[#FF4B00] transition-transform duration-300">
+                      {isOpen ? "−" : "+"}
+                    </span>
+                  </button>
+
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ease-out ${
+                      isOpen ? "max-h-48 pb-6 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-3xl">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 07 — FINAL CTA */}
+      <section className="w-full py-20 sm:py-28 bg-[#111111] text-white">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 text-center">
+          <div className="max-w-2xl mx-auto space-y-6">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+              PRESERVE FACTORY ORIGINAL PAINT
+            </span>
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tight">
+              PROTECT THE FINISH.
+            </h2>
+            <p className="text-sm sm:text-base text-white/70 max-w-lg mx-auto font-normal leading-relaxed">
+              Schedule a consultation with our certified PPF installers in Tiruppur to discuss custom coverage packages for your car.
             </p>
 
-            <div className="pt-4 flex flex-wrap gap-4 items-center">
+            <div className="pt-4 flex flex-wrap justify-center items-center gap-4">
               <a
                 href="https://wa.me/919944335520"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#FF4B00] hover:bg-[#e04200] text-white font-bold text-xs uppercase tracking-widest px-8 py-4 transition-colors shadow-lg"
-                aria-label="Book PPF consultation on WhatsApp"
+                className="inline-flex items-center gap-3 bg-[#FF4B00] hover:bg-white hover:text-[#111111] text-white font-manrope font-bold text-xs uppercase tracking-widest px-8 py-4 transition-colors duration-300"
               >
                 <span>BOOK A CONSULTATION</span>
                 <span>↗</span>
@@ -158,269 +458,12 @@ export const PpfPage: React.FC = () => {
                 href="https://wa.me/919944335520"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 border border-white/20 hover:border-white text-white font-bold text-xs uppercase tracking-widest px-8 py-4 transition-colors"
-                aria-label="Contact TMR on WhatsApp"
+                className="inline-flex items-center gap-2 border border-white/20 hover:border-white text-white font-manrope font-bold text-xs uppercase tracking-widest px-6 py-4 transition-colors duration-300"
               >
                 <span>WHATSAPP TMR</span>
+                <span>↗</span>
               </a>
             </div>
-          </div>
-
-          {/* Right Media Column */}
-          <div className="lg:col-span-6">
-            <div className="relative aspect-[16/11] w-full overflow-hidden border border-white/10 shadow-2xl bg-[#111]">
-              <video
-                src="/videos/services/ppf.mp4"
-                poster="/images/ppf/ppf-hero.webp"
-                muted
-                loop
-                playsInline
-                autoPlay
-                className="w-full h-full object-cover block"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 text-xs uppercase tracking-widest text-white/70">
-                High-Clarity TPU Film // Impact Shield
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 02. WHAT THE SERVICE DOES */}
-      <section className="w-full py-20 md:py-28 border-b border-white/10 bg-[#050505]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          <div className="lg:col-span-6 space-y-6">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF4B00] block">
-              PHYSICAL SHIELD DEFENSE
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-white leading-tight">
-              PROTECTION WHERE IT MATTERS.
-            </h2>
-            <p className="text-base text-white/80 font-normal leading-relaxed">
-              Paint Protection Film (PPF) is an optical-grade thermoplastic polyurethane layer designed specifically to absorb kinetic impact from flying gravel, stone chips, and harsh environmental scuffs before they touch your clearcoat.
-            </p>
-            <p className="text-base text-white/70 font-normal leading-relaxed">
-              Engineered for seamless optical clarity, our precision-cut film conforms tight to body contours without altering original paint color or metallic flake depth.
-            </p>
-
-            <div className="pt-2 flex items-center gap-6">
-              <Link to="/services/ceramic-coating" className="text-xs font-bold uppercase tracking-widest text-[#FF4B00] hover:underline inline-flex items-center gap-1">
-                <span>EXPLORE CERAMIC COATING</span>
-                <span>↗</span>
-              </Link>
-              <Link to="/services/detailing-paint-care" className="text-xs font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors">
-                PAINT CORRECTION DETAILS
-              </Link>
-            </div>
-          </div>
-
-          <div className="lg:col-span-6">
-            <div className="aspect-[4/3] w-full overflow-hidden border border-white/10">
-              <img
-                src="/images/ppf/ppf-surface.webp"
-                alt="Paint Protection Film PPF installation on car panel at TMR Car Care Tiruppur"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 03. HIGH IMPACT ZONES */}
-      <section className="w-full py-20 md:py-28 border-b border-white/10 bg-[#070809]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
-          <div className="mb-12">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-              TARGETED COVERAGE
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
-              HIGH IMPACT PROTECTION ZONES
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Zone List */}
-            <div className="lg:col-span-6 flex flex-col space-y-4">
-              {impactZones.map((zone, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setActiveZone(idx)}
-                  onMouseEnter={() => setActiveZone(idx)}
-                  className={`p-6 border cursor-pointer transition-all duration-300 ${
-                    activeZone === idx
-                      ? 'border-[#FF4B00] bg-white/5'
-                      : 'border-white/10 hover:border-white/30'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-lg uppercase text-white">
-                      {zone.title}
-                    </h3>
-                    <span className="text-xs font-bold uppercase text-[#FF4B00]">
-                      ZONE 0{idx + 1}
-                    </span>
-                  </div>
-                  {activeZone === idx && (
-                    <p className="text-sm text-white/70 pt-3 leading-relaxed">
-                      {zone.desc}
-                    </p>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Visual Container */}
-            <div className="lg:col-span-6">
-              <div className="aspect-[4/3] w-full overflow-hidden border border-white/10 bg-[#111] p-8 flex flex-col justify-center items-center text-center space-y-4">
-                <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF4B00]">
-                  COVERAGE MAP // ZONE 0{activeZone + 1}
-                </span>
-                <h4 className="text-2xl sm:text-3xl font-extrabold uppercase text-white">
-                  {impactZones[activeZone].title}
-                </h4>
-                <p className="text-sm text-white/70 max-w-md leading-relaxed">
-                  {impactZones[activeZone].desc}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 04. INSTALLATION PROCESS */}
-      <section className="w-full py-20 md:py-28 border-b border-white/10 bg-[#050505]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
-          <div className="mb-12">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-              PRECISION FITMENT
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
-              PPF INSTALLATION STEPS
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-[#0b0d0e] p-8 border border-white/10 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#FF4B00]">STAGE 01</span>
-              <h3 className="text-xl font-bold uppercase text-white">PREPARE</h3>
-              <p className="text-sm text-white/70 leading-relaxed">
-                Decontamination wash and light paint correction to establish a completely smooth substrate prior to film installation.
-              </p>
-            </div>
-
-            <div className="bg-[#0b0d0e] p-8 border border-white/10 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#FF4B00]">STAGE 02</span>
-              <h3 className="text-xl font-bold uppercase text-white">FIT</h3>
-              <p className="text-sm text-white/70 leading-relaxed">
-                Precision pattern alignment mapped to body panel dimensions for accurate edge wrapped fitment.
-              </p>
-            </div>
-
-            <div className="bg-[#0b0d0e] p-8 border border-white/10 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#FF4B00]">STAGE 03</span>
-              <h3 className="text-xl font-bold uppercase text-white">INSTALL</h3>
-              <p className="text-sm text-white/70 leading-relaxed">
-                Controlled slip-solution squeegee pass removing air bubbles and locking down optical clarity.
-              </p>
-            </div>
-
-            <div className="bg-[#0b0d0e] p-8 border border-white/10 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#FF4B00]">STAGE 04</span>
-              <h3 className="text-xl font-bold uppercase text-white">FINISH</h3>
-              <p className="text-sm text-white/70 leading-relaxed">
-                Edge trimming, heat setting, and surface audit under inspection lights to verify complete edge adhesion.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 05. PPF VS CERAMIC COATING */}
-      <section className="w-full py-20 md:py-28 border-b border-white/10 bg-[#070809]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
-          <div className="max-w-3xl mx-auto text-center space-y-6">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF4B00] block">
-              DECISION GUIDE
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
-              PPF OR CERAMIC COATING?
-            </h2>
-            <p className="text-base text-white/80 font-normal leading-relaxed">
-              <strong>PPF</strong> provides a physical polyurethane barrier against rock chips and scratches. <strong>Ceramic Coating</strong> provides chemical hydrophobic water-beading, gloss enhancement, and easy cleaning.
-            </p>
-            <p className="text-sm text-white/60">
-              For ultimate protection, many owners apply PPF to high-impact front panels and top the entire vehicle with Ceramic Coating.
-            </p>
-            <div className="pt-2">
-              <Link
-                to="/services/ceramic-coating"
-                className="inline-flex items-center gap-2 font-bold text-xs uppercase tracking-widest text-[#FF4B00] hover:underline"
-              >
-                <span>EXPLORE CERAMIC COATING</span>
-                <span>↗</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 06. FAQ SECTION */}
-      <section className="w-full py-20 md:py-28 border-b border-white/10 bg-[#050505]">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
-          <div className="mb-12">
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-              FREQUENTLY ASKED QUESTIONS
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-white">
-              PPF FAQS
-            </h2>
-          </div>
-
-          <div className="max-w-3xl space-y-4 font-manrope">
-            {faqItems.map((item, idx) => (
-              <div key={idx} className="border-b border-white/10 pb-4">
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full text-left flex justify-between items-center py-3 text-base sm:text-lg font-bold text-white hover:text-[#FF4B00] transition-colors"
-                  aria-expanded={openFaq === idx}
-                >
-                  <span>{item.q}</span>
-                  <span className="text-xl text-[#FF4B00] ml-4">{openFaq === idx ? '−' : '+'}</span>
-                </button>
-                {openFaq === idx && (
-                  <p className="text-sm text-white/70 leading-relaxed pt-2 pb-2">
-                    {item.a}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 07. SMALL FINAL CTA */}
-      <section className="w-full py-20 bg-[#070809] border-b border-white/10 text-center">
-        <div className="max-w-2xl mx-auto px-4 space-y-6">
-          <h2 className="text-3xl sm:text-4xl font-extrabold uppercase text-white tracking-tight">
-            PROTECT THE FINISH.
-          </h2>
-          <p className="text-sm text-white/70 font-normal max-w-md mx-auto">
-            Book a PPF consultation and panel assessment with our specialists in Tiruppur.
-          </p>
-          <div className="pt-2 flex justify-center gap-4">
-            <a
-              href="https://wa.me/919944335520"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#FF4B00] hover:bg-[#e04200] text-white font-bold text-xs uppercase tracking-widest px-8 py-4 transition-colors"
-            >
-              <span>BOOK A CONSULTATION</span>
-              <span>↗</span>
-            </a>
           </div>
         </div>
       </section>
