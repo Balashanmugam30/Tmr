@@ -13,6 +13,7 @@ interface ServiceVideoItem {
 
 export const ServiceIndexStage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [prevIndex, setPrevIndex] = useState<number>(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
@@ -73,6 +74,13 @@ export const ServiceIndexStage: React.FC = () => {
     },
   ];
 
+  // Handle active service change & directional transition tracking
+  const handleServiceHover = (index: number) => {
+    if (index === activeIndex) return;
+    setPrevIndex(activeIndex);
+    setActiveIndex(index);
+  };
+
   // Play active video & pause all inactive videos whenever activeIndex changes
   useEffect(() => {
     videoRefs.current.forEach((video, idx) => {
@@ -91,6 +99,9 @@ export const ServiceIndexStage: React.FC = () => {
     });
   }, [activeIndex]);
 
+  // Determine directional offset for subtle 8px motion during transition
+  const isMovingDown = activeIndex > prevIndex;
+
   return (
     <section
       id="services-index"
@@ -105,7 +116,7 @@ export const ServiceIndexStage: React.FC = () => {
         {/* Full-Bleed 50/50 Layout Grid (Left ~45%, Right ~55%) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch gap-0">
           
-          {/* LEFT SIDE: Service List Rail (5 Cols Desktop, padded container, text alignment UNTOUCHED) */}
+          {/* LEFT SIDE: Service List Rail (5 Cols Desktop, text alignment & typography UNTOUCHED) */}
           <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-center px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-20 lg:py-28 font-manrope">
             
             {/* Simple Restrained Heading */}
@@ -123,7 +134,7 @@ export const ServiceIndexStage: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    onMouseEnter={() => setActiveIndex(idx)}
+                    onMouseEnter={() => handleServiceHover(idx)}
                     className={`group border-b border-[#D8D8D5] pb-6 sm:pb-8 cursor-pointer transition-all duration-300 ${
                       isActive ? 'pl-2 sm:pl-4' : 'hover:pl-2'
                     }`}
@@ -171,10 +182,10 @@ export const ServiceIndexStage: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Mobile Inline Video Container (Accordion pattern on mobile) */}
+                    {/* Mobile Inline Video Container (16:9 Landscape) */}
                     {isActive && (
                       <div className="lg:hidden pt-4">
-                        <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#050505]">
+                        <div className="aspect-[16/9] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#050505]">
                           <video
                             src={item.videoSrc}
                             poster={item.posterSrc}
@@ -194,21 +205,36 @@ export const ServiceIndexStage: React.FC = () => {
 
           </div>
 
-          {/* RIGHT SIDE: Full Edge-To-Edge 50% Video Panel (7 Cols Desktop, NO aspect-ratio bounds, NO padding, NO black gaps) */}
+          {/* RIGHT SIDE: Full Edge-To-Edge 50% Video Panel (16:9 Landscape source, Smooth Directional Transition) */}
           <div className="hidden lg:block lg:col-span-7 xl:col-span-7 relative h-full min-h-full">
             <div className="sticky top-24 h-[calc(100vh-6rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5]">
               {servicesList.map((item, idx) => {
                 const isActive = activeIndex === idx;
+                const isPrev = prevIndex === idx;
+
+                // Subtle directional slide calculation (8px shift)
+                let transformStyle = 'translate3d(0, 0, 0) scale(1.025)';
+                if (isActive) {
+                  transformStyle = 'translate3d(0, 0, 0) scale(1)';
+                } else if (isPrev) {
+                  transformStyle = isMovingDown
+                    ? 'translate3d(0, -8px, 0) scale(0.985)'
+                    : 'translate3d(0, 8px, 0) scale(0.985)';
+                }
+
                 return (
                   <div
                     key={item.id}
-                    className={`absolute inset-0 w-full h-full transition-all duration-600 ease-out ${
+                    className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
                       isActive
-                        ? 'opacity-100 scale-100 z-10'
-                        : 'opacity-0 scale-103 z-0 pointer-events-none'
+                        ? 'opacity-100 z-10'
+                        : isPrev
+                        ? 'opacity-0 z-5 pointer-events-none'
+                        : 'opacity-0 z-0 pointer-events-none'
                     }`}
+                    style={{ transform: transformStyle }}
                   >
-                    {/* Full-Bleed Video Element (Width 100%, Height 100%, object-fit: cover, display: block) */}
+                    {/* Full-Bleed 16:9 Landscape Video Element (object-fit: cover, display: block) */}
                     <video
                       ref={(el) => (videoRefs.current[idx] = el)}
                       src={item.videoSrc}
