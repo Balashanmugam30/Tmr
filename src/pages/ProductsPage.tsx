@@ -634,7 +634,7 @@ export const ProductsPage: React.FC = () => {
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-[#111111] leading-none mb-2">
                 THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">products.</span>
               </h2>
-              <p className="font-manrope text-xs sm:text-sm text-[#858585] uppercase tracking-widest">
+              <p className="font-manrope text-xs sm:text-sm text-[#333333] font-semibold uppercase tracking-widest">
                 Curated automotive-care products &amp; professional detailing supplies
               </p>
             </div>
@@ -648,12 +648,12 @@ export const ProductsPage: React.FC = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="FIND A PRODUCT (BY NAME, PN, OR CATEGORY)..."
                   aria-label="Find a product"
-                  className="w-full bg-white/5 border-b border-[#111111]/30 md:border-white/20 py-2.5 px-3 text-xs font-bold uppercase tracking-widest text-[#111111] md:text-white placeholder-[#858585] focus:outline-none focus:border-[#FF4B00] transition-colors rounded-t"
+                  className="w-full bg-black/5 border-b border-[#111111]/30 py-2.5 px-3 text-xs font-bold uppercase tracking-widest text-[#222222] placeholder-[#444444] focus:outline-none focus:border-[#FF4B00] transition-colors rounded-t"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3 top-2.5 text-xs text-[#858585] hover:text-[#FF4B00]"
+                    className="absolute right-3 top-2.5 text-xs text-[#222222] hover:text-[#FF4B00]"
                   >
                     ✕
                   </button>
@@ -670,7 +670,7 @@ export const ProductsPage: React.FC = () => {
                     className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full transition-all ${
                       selectedCategoryFilter === filter
                         ? "bg-[#FF4B00] text-white shadow-md"
-                        : "bg-black/10 md:bg-white/5 text-[#5f5e5e] md:text-[#858585] hover:text-[#111111] md:hover:text-white hover:bg-black/20 md:hover:bg-white/10"
+                        : "bg-black/10 text-[#3A3A3A] hover:text-[#111111] hover:bg-black/20"
                     }`}
                   >
                     {filter}
@@ -691,21 +691,21 @@ export const ProductsPage: React.FC = () => {
           `}</style>
 
           <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative flex justify-between items-center mb-4">
-            <span className="text-[10px] font-bold text-[#858585] uppercase tracking-widest">
+            <span className="text-[10px] font-bold text-[#333333] uppercase tracking-widest">
               Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Continuous Linear Runway →
             </span>
             <div className="hidden sm:flex items-center gap-2">
               <button
                 onClick={() => scrollRunway('left')}
                 aria-label="Scroll products left"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors"
+                className="w-10 h-10 rounded-full border border-[#222222]/40 flex items-center justify-center text-[#222222] hover:bg-[#FF4B00] hover:border-[#FF4B00] hover:text-white transition-colors"
               >
                 ←
               </button>
               <button
                 onClick={() => scrollRunway('right')}
                 aria-label="Scroll products right"
-                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors"
+                className="w-10 h-10 rounded-full border border-[#222222]/40 flex items-center justify-center text-[#222222] hover:bg-[#FF4B00] hover:border-[#FF4B00] hover:text-white transition-colors"
               >
                 →
               </button>
