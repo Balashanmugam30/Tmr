@@ -8,6 +8,7 @@ interface DiagnosticItem {
   serviceTitle: string;
   slug: string;
   previewImage: string;
+  altText: string;
 }
 
 export const DiagnosticsSection: React.FC = () => {
@@ -20,7 +21,8 @@ export const DiagnosticsSection: React.FC = () => {
       question: "NEED A CLEANER FINISH?",
       serviceTitle: "CAR WASH & CLEANING",
       slug: "car-wash-cleaning",
-      previewImage: "/images/manifesto/manifesto-editorial.webp",
+      previewImage: "/images/services/diagnostic/diagnostic-clean-finish.jpg",
+      altText: "Professional car cleaning and paint care at TMR Car Care",
     },
     {
       id: "detailing",
@@ -28,7 +30,8 @@ export const DiagnosticsSection: React.FC = () => {
       question: "PAINT LOST ITS SHINE?",
       serviceTitle: "DETAILING & PAINT CARE",
       slug: "detailing-paint-care",
-      previewImage: "/images/transformation/after.webp",
+      previewImage: "/images/services/diagnostic/diagnostic-paint-correction.jpg",
+      altText: "Paint correction polishing on a premium vehicle at TMR Car Care",
     },
     {
       id: "ppf",
@@ -36,7 +39,8 @@ export const DiagnosticsSection: React.FC = () => {
       question: "WORRIED ABOUT SCRATCHES?",
       serviceTitle: "PPF & PAINT PROTECTION",
       slug: "ppf-paint-protection",
-      previewImage: "/images/ppf/ppf-surface.webp",
+      previewImage: "/images/services/diagnostic/diagnostic-ppf.jpg",
+      altText: "Paint Protection Film installation at TMR Car Care",
     },
     {
       id: "accessories",
@@ -44,7 +48,8 @@ export const DiagnosticsSection: React.FC = () => {
       question: "INTERIOR FEELS DUSTY?",
       serviceTitle: "CAR ACCESSORIES",
       slug: "car-accessories",
-      previewImage: "/images/gallery/gallery-06.webp",
+      previewImage: "/images/services/diagnostic/diagnostic-interior.jpg",
+      altText: "Premium automotive interior detailing at TMR Car Care",
     },
   ];
 
@@ -134,10 +139,10 @@ export const DiagnosticsSection: React.FC = () => {
                     {/* Mobile Inline Preview Frame */}
                     {isActive && (
                       <div className="lg:hidden pt-4">
-                        <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5]">
+                        <div className="aspect-[4/3] w-full overflow-hidden relative border border-[#D8D8D5]">
                           <img
                             src={item.previewImage}
-                            alt={`Preview for ${item.question}`}
+                            alt={item.altText}
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -149,9 +154,9 @@ export const DiagnosticsSection: React.FC = () => {
             })}
           </div>
 
-          {/* Right Column: Restrained Floating Media Preview Stage (4 Cols Desktop) */}
+          {/* Right Column: Dedicated Diagnostic Preview Stage (4 Cols Desktop) */}
           <div className="hidden lg:block lg:col-span-4 sticky top-36">
-            <div className="relative aspect-[16/11] w-full overflow-hidden border border-[#D8D8D5] bg-[#111111] shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
+            <div className="relative aspect-[4/3] w-full overflow-hidden border border-[#D8D8D5] bg-[#111111] shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
               {diagnosticItems.map((item, idx) => {
                 const isActive = activeIndex === idx;
                 return (
@@ -165,7 +170,7 @@ export const DiagnosticsSection: React.FC = () => {
                   >
                     <img
                       src={item.previewImage}
-                      alt={`Visual preview for ${item.question}`}
+                      alt={item.altText}
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
