@@ -8,12 +8,14 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [webglSupported, setWebglSupported] = useState<boolean>(true);
 
-  // Mouse & interaction state refs (60fps performance without React state re-renders)
+  // Shader state refs for 60fps performance without React re-renders
+  const mouseRef = useRef<{ x: number; y: number }>({ x: 0.5, y: 0.5 });
   const targetMouseRef = useRef<{ x: number; y: number }>({ x: 0.5, y: 0.5 });
-  const currentMouseRef = useRef<{ x: number; y: number }>({ x: 0.5, y: 0.5 });
-  const isHoveredRef = useRef<boolean>(false);
+  const dirRef = useRef<{ x: number; y: number }>({ x: 1.0, y: 0.0 });
+  const targetDirRef = useRef<{ x: number; y: number }>({ x: 1.0, y: 0.0 });
   const velocityRef = useRef<number>(0);
-  const lastMouseRef = useRef<{ x: number; y: number; time: number }>({ x: 0.5, y: 0.5, time: Date.now() });
+  const isHoveredRef = useRef<boolean>(false);
+  const lastPosRef = useRef<{ x: number; y: number; time: number }>({ x: 0.5, y: 0.5, time: Date.now() });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -24,21 +26,25 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
       const rawX = (e.clientX - rect.left) / rect.width;
       const rawY = (e.clientY - rect.top) / rect.height;
 
-      // Only track if mouse is within or near hero container
       if (rawX >= 0 && rawX <= 1 && rawY >= 0 && rawY <= 1) {
         isHoveredRef.current = true;
         targetMouseRef.current = { x: rawX, y: rawY };
 
-        // Calculate cursor velocity
         const now = Date.now();
-        const dt = Math.max(1, now - lastMouseRef.current.time);
-        const dx = rawX - lastMouseRef.current.x;
-        const dy = rawY - lastMouseRef.current.y;
+        const dt = Math.max(1, now - lastPosRef.current.time);
+        const dx = rawX - lastPosRef.current.x;
+        const dy = rawY - lastPosRef.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const speed = Math.min(1.0, (dist / dt) * 80.0);
 
-        velocityRef.current = velocityRef.current * 0.85 + speed * 0.15;
-        lastMouseRef.current = { x: rawX, y: rawY, time: now };
+        if (dist > 0.001) {
+          // Direction vector of motion
+          targetDirRef.current = { x: dx / dist, y: dy / dist };
+          // Velocity impulse
+          const speed = Math.min(1.5, (dist / dt) * 120.0);
+          velocityRef.current = velocityRef.current * 0.7 + speed * 0.3;
+        }
+
+        lastPosRef.current = { x: rawX, y: rawY, time: now };
       } else {
         isHoveredRef.current = false;
       }
@@ -61,7 +67,6 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Check WebGL support & reduced motion preference
     const gl = (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
     if (!gl) {
       setWebglSupported(false);
@@ -85,12 +90,13 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
       }
     `;
 
-    // FRAGMENT SHADER (LIQUID WATER SURFACE REFRACTION)
+    // FRAGMENT SHADER (LARGE-SCALE DIRECTIONAL LIQUID WAVE SHADER)
     const fsSource = `
       precision mediump float;
       uniform sampler2D u_image;
       uniform vec2 u_resolution;
       uniform vec2 u_mouse;
+      uniform vec2 u_direction;
       uniform float u_velocity;
       uniform float u_time;
       uniform float u_hover;
@@ -98,8 +104,8 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
 
       void main() {
         vec2 uv = v_texCoord;
-        
-        // Correct aspect ratio for circular wave physics
+
+        // Aspect ratio correction for fluid physics
         vec2 aspectUV = uv;
         aspectUV.x *= (u_resolution.x / u_resolution.y);
         vec2 aspectMouse = u_mouse;
@@ -108,27 +114,34 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
         // Distance from cursor
         float dist = distance(aspectUV, aspectMouse);
 
-        // Ambient continuous micro-wave (slow subtle background liquid motion)
-        float ambientWave = sin(uv.x * 12.0 + u_time * 0.8) * cos(uv.y * 12.0 + u_time * 0.6) * 0.0012;
+        // Directional momentum dot product (wave pushes in motion direction)
+        vec2 toCursor = aspectUV - aspectMouse;
+        float dirDot = dot(normalize(toCursor + vec2(0.0001)), u_direction);
 
-        // Interactive cursor liquid displacement wave
-        float waveFrequency = 28.0;
-        float waveDecay = 4.8;
-        float waveStrength = (0.006 + u_velocity * 0.018) * u_hover;
-        
-        float cursorWave = sin(dist * waveFrequency - u_time * 4.0) * exp(-dist * waveDecay) * waveStrength;
+        // Ambient fluid micro-drift (slow, subtle background surface motion)
+        float ambientWave = sin(uv.x * 8.0 + u_time * 0.6) * cos(uv.y * 8.0 + u_time * 0.5) * 0.0015;
 
-        // Combine distortions
-        vec2 dir = normalize(aspectUV - aspectMouse + vec2(0.0001));
-        vec2 distortedUV = uv + dir * cursorWave + vec2(ambientWave);
-        distortedUV = clamp(distortedUV, 0.001, 0.999);
+        // Large directional liquid wave propagation
+        // Large influence field: wave extends 20% to 50% across viewport width
+        float waveRadius = 2.4; 
+        float waveFreq = 16.0;
+        float waveAmp = (0.015 + u_velocity * 0.045) * u_hover;
 
-        // Texture sample
+        // Wave displacement modulated by directional vector and exponential decay
+        float wavePattern = sin(dist * waveFreq - u_time * 4.5) * exp(-dist * waveRadius);
+        float directionalMultiplier = 0.6 + 0.4 * dirDot; // Stronger in motion direction
+        float waveDisplacement = wavePattern * waveAmp * directionalMultiplier;
+
+        // Vector displacement offset
+        vec2 offset = (u_direction * waveDisplacement) + (toCursor * waveDisplacement * 0.5) + vec2(ambientWave);
+        vec2 distortedUV = clamp(uv + offset, 0.001, 0.999);
+
+        // Texture sampling
         vec4 color = texture2D(u_image, distortedUV);
 
-        // Soft specular liquid highlight around cursor wave crests
-        float specular = exp(-dist * 8.0) * (0.04 + u_velocity * 0.15) * u_hover;
-        color.rgb += vec3(1.0, 0.96, 0.90) * specular;
+        // Soft liquid specular sheen highlight on wave crests
+        float sheen = max(0.0, waveDisplacement * 18.0) * exp(-dist * 3.5);
+        color.rgb += vec3(1.0, 0.95, 0.88) * sheen * u_hover;
 
         gl_FragColor = color;
       }
@@ -169,11 +182,11 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
     const texCoordLoc = gl.getAttribLocation(program, 'a_texCoord');
     const resolutionLoc = gl.getUniformLocation(program, 'u_resolution');
     const mouseLoc = gl.getUniformLocation(program, 'u_mouse');
+    const directionLoc = gl.getUniformLocation(program, 'u_direction');
     const velocityLoc = gl.getUniformLocation(program, 'u_velocity');
     const timeLoc = gl.getUniformLocation(program, 'u_time');
     const hoverLoc = gl.getUniformLocation(program, 'u_hover');
 
-    // Quad geometry
     const positionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(
@@ -190,7 +203,6 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
       gl.STATIC_DRAW
     );
 
-    // Texture setup
     const texture = gl.createTexture();
     const image = new Image();
     image.crossOrigin = 'anonymous';
@@ -222,21 +234,26 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
         }
       }
 
-      // Smooth mouse position interpolation (lags naturally behind cursor)
-      currentMouseRef.current.x += (targetMouseRef.current.x - currentMouseRef.current.x) * 0.07;
-      currentMouseRef.current.y += (targetMouseRef.current.y - currentMouseRef.current.y) * 0.07;
+      // Smooth mouse position interpolation (lags behind cursor for fluid feel)
+      mouseRef.current.x += (targetMouseRef.current.x - mouseRef.current.x) * 0.08;
+      mouseRef.current.y += (targetMouseRef.current.y - mouseRef.current.y) * 0.08;
 
-      // Smooth hover interpolation
+      // Smooth motion direction interpolation
+      dirRef.current.x += (targetDirRef.current.x - dirRef.current.x) * 0.1;
+      dirRef.current.y += (targetDirRef.current.y - dirRef.current.y) * 0.1;
+
+      // Velocity decay with momentum
+      velocityRef.current *= 0.94;
+
+      // Hover interpolation
       const targetHover = isHoveredRef.current ? 1.0 : 0.0;
-      hoverValue += (targetHover - hoverValue) * 0.04;
-
-      // Smooth velocity decay
-      velocityRef.current *= 0.95;
+      hoverValue += (targetHover - hoverValue) * 0.05;
 
       if (imageLoaded) {
         gl.useProgram(program);
         gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
-        gl.uniform2f(mouseLoc, currentMouseRef.current.x, currentMouseRef.current.y);
+        gl.uniform2f(mouseLoc, mouseRef.current.x, mouseRef.current.y);
+        gl.uniform2f(directionLoc, dirRef.current.x, dirRef.current.y);
         gl.uniform1f(velocityLoc, velocityRef.current);
         gl.uniform1f(timeLoc, time * 0.001);
         gl.uniform1f(hoverLoc, hoverValue);
@@ -265,7 +282,7 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
   if (!webglSupported) {
     return (
       <div
-        className="absolute inset-0 w-full h-full bg-cover bg-center opacity-70"
+        className="absolute inset-0 w-full h-full bg-cover bg-center opacity-85"
         style={{ backgroundImage: `url(${imageSrc})` }}
       />
     );
