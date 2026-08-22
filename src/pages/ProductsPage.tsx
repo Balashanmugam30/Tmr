@@ -6,7 +6,6 @@ import { ProductHeroCarousel, ProductItem } from '@/components/ProductHeroCarous
 
 export const ProductsPage: React.FC = () => {
   const [activeCategoryWorld, setActiveCategoryWorld] = useState<number>(0);
-  const [activePurpose, setActivePurpose] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('ALL');
@@ -162,15 +161,6 @@ export const ProductsPage: React.FC = () => {
       image: "/images/products/3m/3m-cat-accessories-v2.jpg",
       alt: "Premium 3M microfiber detailing accessories",
     },
-  ];
-
-  const purposeRows = [
-    { id: 0, code: "01", title: "CLEAN THE VEHICLE", cat: "Category: CLEANING" },
-    { id: 1, code: "02", title: "REFINE THE PAINT", cat: "Category: POLISHING" },
-    { id: 2, code: "03", title: "PROTECT THE SURFACE", cat: "Category: PROTECTION" },
-    { id: 3, code: "04", title: "WORK WITH FILM", cat: "Category: FILMS" },
-    { id: 4, code: "05", title: "GET THE RIGHT TOOLS", cat: "Category: TOOLS" },
-    { id: 5, code: "06", title: "ENHANCE THE VEHICLE", cat: "Category: ACCESSORIES" },
   ];
 
   const faqs = [
@@ -807,64 +797,6 @@ export const ProductsPage: React.FC = () => {
                 <p className="text-xs text-[#858585] leading-relaxed">
                   Selected product imagery and detailing assets are maintained as part of the TMR product catalogue.
                 </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* DISCOVER / FIND BY PURPOSE */}
-      <section className="w-full py-20 sm:py-32 bg-[#111111] text-white border-t border-white/10">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <div className="col-span-12 md:col-span-7">
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-white mb-4">
-                WHAT ARE YOU /<br />TRYING TO DO?
-              </h2>
-              <p className="text-sm text-[#D8D8D5] max-w-md mb-12">
-                Start with the result you're looking for. We'll guide you toward the relevant product category.
-              </p>
-
-              <div className="flex flex-col border-t border-white/10">
-                {purposeRows.map((row, idx) => {
-                  const isActive = activePurpose === idx;
-                  return (
-                    <div
-                      key={row.id}
-                      onClick={() => setActivePurpose(idx)}
-                      onMouseEnter={() => setActivePurpose(idx)}
-                      className={`group py-6 border-b border-white/10 flex flex-col gap-2 cursor-pointer transition-colors ${
-                        isActive ? "bg-white/5" : "hover:bg-white/5"
-                      }`}
-                    >
-                      <div className="flex justify-between items-center">
-                        <div className="flex items-center gap-6">
-                          <span className="font-bold text-xs text-[#FF4B00]">{row.code}</span>
-                          <h3
-                            className={`font-manrope font-extrabold text-xl sm:text-3xl uppercase tracking-tight ${
-                              isActive ? "text-[#FF4B00]" : "text-white/40 group-hover:text-white"
-                            }`}
-                          >
-                            {row.title}
-                          </h3>
-                        </div>
-                        <span className="text-xl text-white/40 group-hover:text-[#FF4B00]">↗</span>
-                      </div>
-                      {isActive && (
-                        <div className="pl-12 pt-2 flex justify-between items-center">
-                          <span className="text-xs text-[#858585] uppercase tracking-widest">{row.cat}</span>
-                          <Link
-                            to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-                            className="text-xs font-bold text-[#FF4B00] uppercase tracking-widest flex items-center gap-1"
-                          >
-                            <span>EXPLORE PRODUCTS</span>
-                            <span>↗</span>
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
               </div>
             </div>
           </div>
