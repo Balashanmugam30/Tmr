@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { companyData } from '@/data/company';
+import { ProductHeroCarousel, ProductItem } from '@/components/ProductHeroCarousel';
 
 export const ProductsPage: React.FC = () => {
   const [activeCategoryWorld, setActiveCategoryWorld] = useState<number>(0);
@@ -13,6 +14,49 @@ export const ProductsPage: React.FC = () => {
     document.title = "TMR Car Care — The Product Vault";
     window.scrollTo(0, 0);
   }, []);
+
+  const heroProducts: ProductItem[] = [
+    {
+      id: '3m-rubbing-compound',
+      name: '3M™ Perfect-It™ EX AC Rubbing Compound',
+      category: 'Compounds & Polishes',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDSqohbe1KTav3zvcdZdl2_RXKaMifHnr2QiMa2EvY9npra385zxrsa3Y2gY0UAiI5WxYLITuCFz-olXJ8DuTkX-w6tLxdeJUe8Fyh-um-NCnSD_gwXBkeEswIOFK1DN-bBIyUvN2_jpaHmQpAD0SLBi51QhON_6m7blh5deY8G39gIYzIBvuzND0j079SP-tjotE02xbPRROdwmr2sOULkDik9sJ5PR8AU6JShJMUp9t7KQGS0E1fM',
+      fallbackImage: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200',
+      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+    },
+    {
+      id: '3m-trizact',
+      name: '3M™ Trizact™ Performance Abrasives',
+      category: 'Abrasives & Leveling',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDHwnKcjB68PTdQRy7E-2UPEuOc9_fkmnGsyj8J__tMaBaDJI8gPu_EkYTpyEfVNG7SYLVlDblsJbocMUPWFGnn82sjC595P8cG-ydOO9TR2olB0Rfwkkl_ZPZxArQL3Y0rag6dZzCapRBUcdMnvQU4nLHhqqCTpMgpoZ3X-jKqKcqrA3FPmtgbjgdcA5IID9oF9_BLO6KTFjUXLV9FS3QvpdKq1VK4kIVVJlS36XnJh4xhBg14N0TK',
+      fallbackImage: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=1200',
+      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+    },
+    {
+      id: '3m-quick-wax',
+      name: '3M™ Quick Wax Spray Sealant',
+      category: 'Protection & Shine',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4M619X4myj2a9bkv2N3cvVOsiiDAZYvSoDDO4NieTYC8Ss5l_X6RYJhqEZw-4HGeHg7l-jfkrquWHo2gREyyIOgNYlX6N5_JCPvCk7b3frttOgk41L0X0zLR8Ew82XiTwnSvYIyQ-jxFvWzkkGt7ByPB9B3jKNqmp0OF1IJykDXBuiZSDDFdg3fETn4CSKFqH06qaQGhYZuWEyMEzgdEkMCO3FLmpOw7Q8gvRerHby8PzXvtOvuRn',
+      fallbackImage: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&q=80&w=1200',
+      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+    },
+    {
+      id: '3m-machine-polish',
+      name: '3M™ Perfect-It™ Machine Polish',
+      category: 'Finish Polishes',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC37ICfsUlWN4F9_a93BqZ7qsxXTBQRRUkBdYggRHeVVFKzpLhh7SGLtAhmUZYu5p1cgDKIrGPJqjxtaSkwZ7RBkiQSjBzQkYK84G8GNMYdPQGotWqehLwYIxA1oVueUoKEgDyNmlNeu8auE3hfjfTgx03QMJTd7F5KW94N6ybAqkECJXqix2Xmm4KIuVE4aSRUvXVKyyJhUZ40ni9kUChYj49OnT9H00B5vnV_c_VeVLsHmF0J4tQn',
+      fallbackImage: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=1200',
+      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+    },
+    {
+      id: '3m-ppf-pro',
+      name: '3M™ Scotchgard™ PPF Pro Series',
+      category: 'Surface Films',
+      image: 'https://lh3.googleusercontent.com/aida/AP1WRLu8fvzCmL1Ys9GLkUzSU5HhD4aQ6ZLLWAHXTqenLi5WiwmIX18xcp0jlNLKmqH_e7lw5xAFHik0G5B23Vy35bkB7Q-bbDcqwUWx6q6ZM_iWwzuHS9ABBIcYXr9mMvobZk4x50XgI0oEJ3WbFhOlnuWu_W--df5DnVVCjsbbWAzd_Qeosio4qVwTQDlSt_kRCHPUhV4p6faA7WLIanV8DX3UTNd0st4LOSN8LvB-pz0llMz2N0wzl-0K6W4',
+      fallbackImage: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80&w=1200',
+      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+    },
+  ];
 
   const categoryWorlds = [
     { id: 0, title: "Cleaning", desc: "Professional vehicle-cleaning products for wash and maintenance applications." },
@@ -63,58 +107,50 @@ export const ProductsPage: React.FC = () => {
     <div className="w-full bg-[#050505] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
       {/* 01 / HERO */}
-      <section className="relative w-full min-h-[85vh] sm:min-h-[90vh] flex items-center bg-[#050505] text-[#F5F4EF] overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 border-b border-white/10">
-        {/* Soft Tonal Lighting Studio Accent */}
+      <section className="relative w-full min-h-[100svh] flex flex-col justify-between bg-[#050505] text-[#F5F4EF] overflow-hidden pt-28 pb-12 md:pt-36 md:pb-16 border-b border-white/10">
+        {/* Soft Central Radial Lighting Studio Accent */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_50%,_var(--tw-gradient-stops))] from-white/[0.04] via-[#050505] to-[#050505]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[900px] aspect-square rounded-full bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-[#FF4B00]/10 via-transparent to-transparent blur-3xl" />
         </div>
 
-        <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* Left Column ~55%: Headline, Paragraph, CTAs */}
-          <div className="col-span-12 md:col-span-7 flex flex-col justify-center">
-            <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] uppercase text-[#F5F4EF] leading-[0.92] mb-8 tracking-tighter">
-              THE PRODUCT<br />
-              <span className="font-editorial italic font-normal text-white lowercase">vault.</span>
-            </h1>
+        <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full flex flex-col items-center text-center">
+          {/* Top Editorial Headline */}
+          <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[84px] uppercase text-[#F5F4EF] leading-[0.9] tracking-tighter mb-4">
+            THE PRODUCT{' '}
+            <span className="font-editorial italic font-normal text-white lowercase text-3xl sm:text-5xl md:text-6xl lg:text-[72px]">
+              vault.
+            </span>
+          </h1>
 
-            <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-md mb-10 leading-relaxed font-normal">
-              Professional automotive-care products selected for the TMR detailing process.
-            </p>
+          {/* Supporting Copy */}
+          <p className="font-manrope text-sm sm:text-base md:text-lg text-[#D8D8D5] max-w-lg leading-relaxed font-normal mb-6">
+            Professional automotive-care products selected for the TMR detailing process.
+          </p>
 
-            <div className="flex flex-wrap gap-4 items-center">
-              <a
-                href="#product-catalogue"
-                className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 bg-[#FF4B00] text-white hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
-              >
-                <span>EXPLORE PRODUCTS</span>
-                <span className="text-base">↗</span>
-              </a>
-              <a
-                href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20TMR%20Product%20Vault`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 border border-white/20 text-[#F5F4EF] hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
-              >
-                <span>WHATSAPP TMR</span>
-                <span className="text-base">→</span>
-              </a>
-            </div>
+          {/* Centered Actions */}
+          <div className="flex flex-wrap justify-center gap-4 items-center mb-10">
+            <a
+              href="#product-catalogue"
+              className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 bg-[#FF4B00] text-white hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
+            >
+              <span>EXPLORE PRODUCTS</span>
+              <span className="text-base">↗</span>
+            </a>
+            <a
+              href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20TMR%20Product%20Vault`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-manrope font-bold text-xs sm:text-sm px-8 py-4 border border-white/20 text-[#F5F4EF] hover:bg-white hover:text-[#050505] transition-colors uppercase tracking-widest inline-flex items-center gap-2"
+            >
+              <span>WHATSAPP TMR</span>
+              <span className="text-base">→</span>
+            </a>
           </div>
+        </div>
 
-          {/* Right Column ~45%: Direct Studio Product Photography */}
-          <div className="col-span-12 md:col-span-5 flex items-center justify-center md:justify-end relative">
-            <div className="relative w-full max-w-md aspect-[3/4] flex items-center justify-center">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSqohbe1KTav3zvcdZdl2_RXKaMifHnr2QiMa2EvY9npra385zxrsa3Y2gY0UAiI5WxYLITuCFz-olXJ8DuTkX-w6tLxdeJUe8Fyh-um-NCnSD_gwXBkeEswIOFK1DN-bBIyUvN2_jpaHmQpAD0SLBi51QhON_6m7blh5deY8G39gIYzIBvuzND0j079SP-tjotE02xbPRROdwmr2sOULkDik9sJ5PR8AU6JShJMUp9t7KQGS0E1fM"
-                alt="TMR Car Care authentic product bottle"
-                className="max-h-[480px] sm:max-h-[540px] w-auto object-contain transition-transform duration-700 hover:scale-[1.02]"
-                onError={(e) => {
-                  // Guaranteed fallback to primary verified detail compound image if network restricts public CDN
-                  (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200";
-                }}
-              />
-            </div>
-          </div>
+        {/* Lower Portion: Full-Width Curved Product Runway */}
+        <div className="relative z-10 w-full mt-auto">
+          <ProductHeroCarousel products={heroProducts} />
         </div>
       </section>
 
