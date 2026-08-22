@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 interface DiagnosticItem {
   id: string;
@@ -85,11 +84,7 @@ export const DiagnosticsSection: React.FC = () => {
                     isActive ? 'opacity-100 pl-2 sm:pl-4' : 'opacity-60 hover:opacity-100 hover:pl-2'
                   }`}
                 >
-                  <Link
-                    to={`/services/${item.slug}`}
-                    className="block w-full"
-                    aria-label={`Explore ${item.serviceTitle} for ${item.question}`}
-                  >
+                  <div className="block w-full">
                     <div className="flex items-center justify-between gap-4">
                       
                       {/* Number & Question */}
@@ -123,17 +118,6 @@ export const DiagnosticsSection: React.FC = () => {
                           </div>
                         </div>
                       </div>
-
-                      {/* Arrow Link */}
-                      <span
-                        className={`text-2xl sm:text-3xl text-[#FF4B00] transition-all duration-300 ${
-                          isActive
-                            ? 'opacity-100 translate-x-1'
-                            : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
-                        }`}
-                      >
-                        ↗
-                      </span>
                     </div>
 
                     {/* Mobile Inline Preview Frame */}
@@ -148,7 +132,7 @@ export const DiagnosticsSection: React.FC = () => {
                         </div>
                       </div>
                     )}
-                  </Link>
+                  </div>
                 </div>
               );
             })}

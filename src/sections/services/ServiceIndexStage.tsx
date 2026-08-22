@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 interface ServiceVideoItem {
   id: string;
@@ -432,17 +431,6 @@ export const ServiceIndexStage: React.FC = () => {
                       <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-md">
                         {item.shortDesc}
                       </p>
-
-                      <div className="pt-4">
-                        <Link
-                          to={`/services/${item.slug}`}
-                          className="inline-flex items-center gap-2 font-manrope font-bold text-xs sm:text-sm uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors"
-                          aria-label={`Explore ${item.title} service page`}
-                        >
-                          <span>EXPLORE SERVICE</span>
-                          <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
-                        </Link>
-                      </div>
                     </div>
 
                     {/* Mobile Inline Video Container (16:9 Landscape) */}
@@ -470,7 +458,7 @@ export const ServiceIndexStage: React.FC = () => {
 
           {/* RIGHT SIDE: Full Edge-To-Edge 50% Video Panel (GPU-Accelerated Directional Liquid Displacement Shader Canvas) */}
           <div className="hidden lg:block lg:col-span-7 xl:col-span-7 relative h-full min-h-full">
-            <div className="sticky top-20 h-[calc(100vh-5rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5] relative">
+            <div className="sticky top-48 h-[calc(100vh-5rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5] relative">
               
               {/* Hidden Video Elements (Source for WebGL Textures) */}
               <div className="absolute inset-0 opacity-0 pointer-events-none overflow-hidden">
