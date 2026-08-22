@@ -1,30 +1,30 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-interface CustomServiceItem {
+interface ServiceVideoItem {
   id: string;
   slug: string;
   indexNumber: string;
   title: string;
   shortDesc: string;
-  image: string;
+  videoSrc: string;
+  posterSrc: string;
 }
 
 export const ServiceIndexStage: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const sectionRef = useRef<HTMLDivElement>(null);
-  
-  // Subtle mouse parallax state (5-8px max movement)
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
-  const servicesList: CustomServiceItem[] = [
+  const servicesList: ServiceVideoItem[] = [
     {
       id: "car-wash-cleaning",
       slug: "car-wash-cleaning",
       indexNumber: "01",
       title: "CAR WASH & CLEANING",
       shortDesc: "Exterior and interior cleaning designed to maintain a clean, well-presented vehicle.",
-      image: "/images/manifesto/manifesto-editorial.webp",
+      videoSrc: "/videos/services/car-wash.mp4",
+      posterSrc: "/videos/services/car-wash-poster.jpg",
     },
     {
       id: "detailing-paint-care",
@@ -32,7 +32,8 @@ export const ServiceIndexStage: React.FC = () => {
       indexNumber: "02",
       title: "DETAILING & PAINT CARE",
       shortDesc: "Paint correction and detailing designed to restore gloss and surface clarity.",
-      image: "/images/transformation/after.webp",
+      videoSrc: "/videos/services/detailing.mp4",
+      posterSrc: "/videos/services/detailing-poster.jpg",
     },
     {
       id: "ceramic-coating",
@@ -40,7 +41,8 @@ export const ServiceIndexStage: React.FC = () => {
       indexNumber: "03",
       title: "CERAMIC COATING",
       shortDesc: "Hydrophobic surface protection that enhances gloss and simplifies maintenance.",
-      image: "/images/protection/protection-hero.webp",
+      videoSrc: "/videos/services/ceramic-coating.mp4",
+      posterSrc: "/videos/services/ceramic-coating-poster.jpg",
     },
     {
       id: "ppf-paint-protection",
@@ -48,7 +50,8 @@ export const ServiceIndexStage: React.FC = () => {
       indexNumber: "04",
       title: "PPF & PAINT PROTECTION",
       shortDesc: "Physical paint protection against stone chips, scratches and road debris.",
-      image: "/images/ppf/ppf-surface.webp",
+      videoSrc: "/videos/services/ppf.mp4",
+      posterSrc: "/videos/services/ppf-poster.jpg",
     },
     {
       id: "sun-control-films",
@@ -56,7 +59,8 @@ export const ServiceIndexStage: React.FC = () => {
       indexNumber: "05",
       title: "SUN-CONTROL FILMS",
       shortDesc: "Window films designed to reduce solar heat, glare and UV exposure.",
-      image: "/images/gallery/gallery-01.webp",
+      videoSrc: "/videos/services/sun-control.mp4",
+      posterSrc: "/videos/services/sun-control-poster.jpg",
     },
     {
       id: "car-accessories",
@@ -64,37 +68,29 @@ export const ServiceIndexStage: React.FC = () => {
       indexNumber: "06",
       title: "CAR ACCESSORIES",
       shortDesc: "Practical interior and exterior upgrades selected for everyday use.",
-      image: "/images/gallery/gallery-06.webp",
+      videoSrc: "/videos/services/accessories.mp4",
+      posterSrc: "/videos/services/accessories-poster.jpg",
     },
   ];
 
-  // Handle subtle mouse parallax on desktop
+  // Play active video & pause all inactive videos whenever activeIndex changes
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const isOver = (
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom
-      );
+    videoRefs.current.forEach((video, idx) => {
+      if (!video) return;
 
-      if (isOver) {
-        const relativeX = (e.clientX - rect.left) / rect.width - 0.5;
-        const relativeY = (e.clientY - rect.top) / rect.height - 0.5;
-        setParallax({
-          x: Math.round(relativeX * 12),
-          y: Math.round(relativeY * 12),
-        });
+      if (idx === activeIndex) {
+        // Play active video with exception handling for autoplay restrictions
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Autoplay safety fallback
+          });
+        }
       } else {
-        setParallax({ x: 0, y: 0 });
+        video.pause();
       }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    });
+  }, [activeIndex]);
 
   return (
     <section
@@ -178,13 +174,17 @@ export const ServiceIndexStage: React.FC = () => {
                       </p>
                     </div>
 
-                    {/* Mobile Inline Image Frame (Accordion pattern on mobile) */}
+                    {/* Mobile Inline Video Container (Accordion pattern on mobile) */}
                     {isActive && (
                       <div className="md:hidden pt-4">
-                        <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5]">
-                          <img
-                            src={item.image}
-                            alt={`TMR ${item.title} in Tiruppur`}
+                        <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#111111]">
+                          <video
+                            src={item.videoSrc}
+                            poster={item.posterSrc}
+                            muted
+                            loop
+                            playsInline
+                            autoPlay
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -196,44 +196,30 @@ export const ServiceIndexStage: React.FC = () => {
             })}
           </div>
 
-          {/* RIGHT: Clean Sticky Image Stage (7 Cols Desktop, NO heavy dark footer box) */}
+          {/* RIGHT: Clean Sticky Video Stage (7 Cols Desktop, ONLY Video, NO text overlays or dark boxes) */}
           <div className="hidden md:block md:col-span-7 sticky top-28">
-            <div
-              className="relative aspect-[4/3] lg:aspect-[16/11] w-full overflow-hidden border border-[#D8D8D5] bg-[#111111] shadow-[0_15px_40px_rgba(0,0,0,0.08)] transition-transform duration-500 ease-out"
-              style={{
-                transform: `translate3d(${parallax.x}px, ${parallax.y}px, 0)`,
-              }}
-            >
+            <div className="relative aspect-[4/3] lg:aspect-[16/11] w-full overflow-hidden border border-[#D8D8D5] bg-[#111111] shadow-[0_15px_40px_rgba(0,0,0,0.08)]">
               {servicesList.map((item, idx) => {
                 const isActive = activeIndex === idx;
                 return (
                   <div
                     key={item.id}
-                    className={`absolute inset-0 transition-all duration-700 ease-out ${
+                    className={`absolute inset-0 transition-all duration-600 ease-out ${
                       isActive
                         ? 'opacity-100 scale-100 z-10'
-                        : 'opacity-0 scale-105 z-0 pointer-events-none'
+                        : 'opacity-0 scale-103 z-0 pointer-events-none'
                     }`}
                   >
-                    {/* Visual Asset */}
-                    <img
-                      src={item.image}
-                      alt={`TMR ${item.title} in Tiruppur`}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-102"
+                    {/* Seamless Loop Video */}
+                    <video
+                      ref={(el) => (videoRefs.current[idx] = el)}
+                      src={item.videoSrc}
+                      poster={item.posterSrc}
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
                     />
-
-                    {/* Restrained Gradient Overlay for Text Visibility */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                    {/* Minimal Text Overlay in Bottom-Left (Clean & Uncluttered, NO heavy dark box) */}
-                    <div className="absolute bottom-6 left-6 right-6 font-manrope z-10 text-white">
-                      <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#FF4B00] block mb-1">
-                        {item.indexNumber} // {item.title}
-                      </span>
-                      <p className="text-xs sm:text-sm text-white/80 max-w-md font-normal leading-relaxed">
-                        {item.shortDesc}
-                      </p>
-                    </div>
                   </div>
                 );
               })}

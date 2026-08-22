@@ -1,23 +1,31 @@
 import React from 'react';
 import { ServicesHero } from '@/sections/services/ServicesHero';
-import { ContinuousServiceShowcase } from '@/sections/services/ContinuousServiceShowcase';
-import { ProtectionHighlight } from '@/sections/services/ProtectionHighlight';
-import { ServicesFinalCta } from '@/sections/services/ServicesFinalCta';
+import { ServiceIndexStage } from '@/sections/services/ServiceIndexStage';
+import { DiagnosticsSection } from '@/sections/services/DiagnosticsSection';
+import { ProtectionSpotlightSection } from '@/sections/services/ProtectionSpotlightSection';
+import { StudioProcessTimeline } from '@/sections/services/StudioProcessTimeline';
+import { ConsultationCtaSection } from '@/sections/services/ConsultationCtaSection';
 
 export const ServicesIndexPage: React.FC = () => {
   return (
-    <div className="w-full bg-[#050505] text-[#F5F4EF] min-h-screen selection:bg-[#FF4B00] selection:text-white font-sans overflow-x-hidden">
-      {/* SECTION 01 — HERO (Approved & Locked 100svh Liquid WebGL Hero) */}
+    <div className="w-full bg-[#fff8f6] text-[#111111] min-h-screen selection:bg-[#FF4B00] selection:text-white font-sans overflow-x-hidden">
+      {/* SECTION 01 — HERO */}
       <ServicesHero />
 
-      {/* SECTION 02 — CONTINUOUS CINEMATIC 50/50 SERVICE SHOWCASE (6 Services) */}
-      <ContinuousServiceShowcase />
+      {/* SECTION 02 — MASTER SERVICE INDEX (12-COL ASYMMETRIC STAGE) */}
+      <ServiceIndexStage />
 
-      {/* SECTION 03 — PROTECTION HIGHLIGHT (Ceramic Coating & PPF Dual Block) */}
-      <ProtectionHighlight />
+      {/* SECTION 03 — DIAGNOSTICS / CHOOSE BY NEED */}
+      <DiagnosticsSection />
 
-      {/* SECTION 04 — FINAL CONVERSION CTA (Minimal Consultation Block) */}
-      <ServicesFinalCta />
+      {/* SECTION 04 — FLAGSHIP PROTECTION SPOTLIGHT (CERAMIC & PPF DUAL ZONES) */}
+      <ProtectionSpotlightSection />
+
+      {/* SECTION 05 — STUDIO PROCESS TIMELINE */}
+      <StudioProcessTimeline />
+
+      {/* SECTION 06 — FINAL CONSULTATION CTA */}
+      <ConsultationCtaSection />
     </div>
   );
 };
