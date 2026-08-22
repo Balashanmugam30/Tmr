@@ -16,6 +16,13 @@ export const ServiceIndexStage: React.FC = () => {
   const [prevIndex, setPrevIndex] = useState<number>(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Transition animation state refs
+  const progressRef = useRef<number>(1.0);
+  const animFrameRef = useRef<number | null>(null);
+  const directionRef = useRef<number>(1.0); // +1.0 for forward (down), -1.0 for backward (up)
+  const isTransitioningRef = useRef<boolean>(false);
 
   const servicesList: ServiceVideoItem[] = [
     {
@@ -74,11 +81,15 @@ export const ServiceIndexStage: React.FC = () => {
     },
   ];
 
-  // Handle active service change & directional transition tracking
+  // Handle active service change & directional liquid trigger
   const handleServiceHover = (index: number) => {
     if (index === activeIndex) return;
+
+    directionRef.current = index > activeIndex ? 1.0 : -1.0;
     setPrevIndex(activeIndex);
     setActiveIndex(index);
+    progressRef.current = 0.0;
+    isTransitioningRef.current = true;
   };
 
   // Play active video & pause all inactive videos whenever activeIndex changes
@@ -93,14 +104,214 @@ export const ServiceIndexStage: React.FC = () => {
             // Autoplay safety fallback
           });
         }
-      } else {
+      } else if (idx !== prevIndex) {
         video.pause();
       }
     });
-  }, [activeIndex]);
+  }, [activeIndex, prevIndex]);
 
-  // Determine directional offset for subtle 8px motion during transition
-  const isMovingDown = activeIndex > prevIndex;
+  // WebGL Directional Liquid Displacement Shader Engine
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const gl = (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
+    if (!gl) return;
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // VERTEX SHADER
+    const vsSource = `
+      attribute vec2 a_position;
+      attribute vec2 a_texCoord;
+      varying vec2 v_texCoord;
+      void main() {
+        gl_Position = vec4(a_position, 0.0, 1.0);
+        v_texCoord = a_texCoord;
+      }
+    `;
+
+    // FRAGMENT SHADER (DIRECTIONAL LIQUID DISPLACEMENT SHADER)
+    const fsSource = `
+      precision mediump float;
+      uniform sampler2D u_texPrev;
+      uniform sampler2D u_texCurr;
+      uniform float u_progress;
+      uniform float u_direction;
+      uniform vec2 u_resolution;
+      varying vec2 v_texCoord;
+
+      void main() {
+        vec2 uv = v_texCoord;
+
+        if (u_progress >= 0.999) {
+          gl_FragColor = texture2D(u_texCurr, uv);
+          return;
+        }
+
+        // Sinusoidal wave phase envelope (peaks around mid-transition progress)
+        float wavePhase = u_progress * 3.14159265;
+        float waveDistortion = sin(wavePhase) * 0.04;
+
+        // Directional fluid wave displacement along navigation vector
+        float fluidWave = sin(uv.y * 12.0 - u_progress * 7.0 * u_direction) * cos(uv.x * 8.0) * waveDistortion;
+
+        // Displaced UV coordinates for outgoing and incoming textures
+        vec2 dirOffset = vec2(0.0, u_direction * waveDistortion * 0.6);
+        vec2 uvPrev = clamp(uv + dirOffset * (1.0 - u_progress) + vec2(0.0, fluidWave), 0.001, 0.999);
+        vec2 uvCurr = clamp(uv - dirOffset * u_progress + vec2(0.0, fluidWave * 0.6), 0.001, 0.999);
+
+        vec4 colPrev = texture2D(u_texPrev, uvPrev);
+        vec4 colCurr = texture2D(u_texCurr, uvCurr);
+
+        // Smooth fluid crossfade
+        float blendFactor = smoothstep(0.2, 0.8, u_progress);
+        vec4 finalColor = mix(colPrev, colCurr, blendFactor);
+
+        // Subtle specular liquid sheen highlight along wave crests
+        float sheen = max(0.0, fluidWave * 10.0) * sin(wavePhase);
+        finalColor.rgb += vec3(1.0, 0.95, 0.88) * sheen;
+
+        gl_FragColor = finalColor;
+      }
+    `;
+
+    function createShader(glCtx: WebGLRenderingContext, type: number, source: string) {
+      const shader = glCtx.createShader(type);
+      if (!shader) return null;
+      glCtx.shaderSource(shader, source);
+      glCtx.compileShader(shader);
+      if (!glCtx.getShaderParameter(shader, glCtx.COMPILE_STATUS)) {
+        glCtx.deleteShader(shader);
+        return null;
+      }
+      return shader;
+    }
+
+    const vertShader = createShader(gl, gl.VERTEX_SHADER, vsSource);
+    const fragShader = createShader(gl, gl.FRAGMENT_SHADER, fsSource);
+    if (!vertShader || !fragShader) return;
+
+    const program = gl.createProgram();
+    if (!program) return;
+    gl.attachShader(program, vertShader);
+    gl.attachShader(program, fragShader);
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) return;
+
+    gl.useProgram(program);
+
+    const positionLoc = gl.getAttribLocation(program, 'a_position');
+    const texCoordLoc = gl.getAttribLocation(program, 'a_texCoord');
+    const resolutionLoc = gl.getUniformLocation(program, 'u_resolution');
+    const progressLoc = gl.getUniformLocation(program, 'u_progress');
+    const directionLoc = gl.getUniformLocation(program, 'u_direction');
+    const texPrevLoc = gl.getUniformLocation(program, 'u_texPrev');
+    const texCurrLoc = gl.getUniformLocation(program, 'u_texCurr');
+
+    const positionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+
+    const texCoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0]), gl.STATIC_DRAW);
+
+    const texPrev = gl.createTexture();
+    const texCurr = gl.createTexture();
+
+    function setupTexture(glCtx: WebGLRenderingContext, texture: WebGLTexture | null) {
+      glCtx.bindTexture(glCtx.TEXTURE_2D, texture);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_WRAP_S, glCtx.CLAMP_TO_EDGE);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_WRAP_T, glCtx.CLAMP_TO_EDGE);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_MIN_FILTER, glCtx.LINEAR);
+      glCtx.texParameteri(glCtx.TEXTURE_2D, glCtx.TEXTURE_MAG_FILTER, glCtx.LINEAR);
+    }
+
+    setupTexture(gl, texPrev);
+    setupTexture(gl, texCurr);
+
+    let lastTime = performance.now();
+
+    const render = (time: number) => {
+      const dt = (time - lastTime) / 1000.0;
+      lastTime = time;
+
+      if (isTransitioningRef.current && !isReducedMotion) {
+        progressRef.current = Math.min(1.0, progressRef.current + dt * 1.25); // ~800ms duration
+        if (progressRef.current >= 1.0) {
+          isTransitioningRef.current = false;
+        }
+      } else {
+        progressRef.current = 1.0;
+      }
+
+      const parent = canvas.parentElement;
+      if (parent) {
+        const width = parent.clientWidth;
+        const height = parent.clientHeight;
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width;
+          canvas.height = height;
+          gl.viewport(0, 0, width, height);
+        }
+      }
+
+      const prevVid = videoRefs.current[prevIndex];
+      const currVid = videoRefs.current[activeIndex];
+
+      if (!gl) return;
+
+      gl.useProgram(program);
+      gl.uniform2f(resolutionLoc, canvas.width, canvas.height);
+      gl.uniform1f(progressLoc, isReducedMotion ? 1.0 : progressRef.current);
+      gl.uniform1f(directionLoc, directionRef.current);
+
+      // Bind outgoing video texture
+      if (prevVid && prevVid.readyState >= 2) {
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texPrev);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        try {
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, prevVid);
+        } catch (e) {
+          // Fallback if texture read blocked
+        }
+        gl.uniform1i(texPrevLoc, 0);
+      }
+
+      // Bind incoming video texture
+      if (currVid && currVid.readyState >= 2) {
+        gl.activeTexture(gl.TEXTURE1);
+        gl.bindTexture(gl.TEXTURE_2D, texCurr);
+        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+        try {
+          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, currVid);
+        } catch (e) {
+          // Fallback if texture read blocked
+        }
+        gl.uniform1i(texCurrLoc, 1);
+      }
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.enableVertexAttribArray(positionLoc);
+      gl.vertexAttribPointer(positionLoc, 2, gl.FLOAT, false, 0, 0);
+
+      gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+      gl.enableVertexAttribArray(texCoordLoc);
+      gl.vertexAttribPointer(texCoordLoc, 2, gl.FLOAT, false, 0, 0);
+
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+      animFrameRef.current = requestAnimationFrame(render);
+    };
+
+    animFrameRef.current = requestAnimationFrame(render);
+
+    return () => {
+      if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+    };
+  }, [activeIndex, prevIndex]);
 
   return (
     <section
@@ -205,48 +416,32 @@ export const ServiceIndexStage: React.FC = () => {
 
           </div>
 
-          {/* RIGHT SIDE: Full Edge-To-Edge 50% Video Panel (16:9 Landscape source, Smooth Directional Transition) */}
+          {/* RIGHT SIDE: Full Edge-To-Edge 50% Video Panel (GPU-Accelerated Directional Liquid Displacement Shader Canvas) */}
           <div className="hidden lg:block lg:col-span-7 xl:col-span-7 relative h-full min-h-full">
-            <div className="sticky top-24 h-[calc(100vh-6rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5]">
-              {servicesList.map((item, idx) => {
-                const isActive = activeIndex === idx;
-                const isPrev = prevIndex === idx;
-
-                // Subtle directional slide calculation (8px shift)
-                let transformStyle = 'translate3d(0, 0, 0) scale(1.025)';
-                if (isActive) {
-                  transformStyle = 'translate3d(0, 0, 0) scale(1)';
-                } else if (isPrev) {
-                  transformStyle = isMovingDown
-                    ? 'translate3d(0, -8px, 0) scale(0.985)'
-                    : 'translate3d(0, 8px, 0) scale(0.985)';
-                }
-
-                return (
-                  <div
+            <div className="sticky top-24 h-[calc(100vh-6rem)] w-full overflow-hidden bg-[#050505] border-l border-[#D8D8D5] relative">
+              
+              {/* Hidden Video Elements (Source for WebGL Textures) */}
+              <div className="absolute inset-0 opacity-0 pointer-events-none overflow-hidden">
+                {servicesList.map((item, idx) => (
+                  <video
                     key={item.id}
-                    className={`absolute inset-0 w-full h-full transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${
-                      isActive
-                        ? 'opacity-100 z-10'
-                        : isPrev
-                        ? 'opacity-0 z-5 pointer-events-none'
-                        : 'opacity-0 z-0 pointer-events-none'
-                    }`}
-                    style={{ transform: transformStyle }}
-                  >
-                    {/* Full-Bleed 16:9 Landscape Video Element (object-fit: cover, display: block) */}
-                    <video
-                      ref={(el) => (videoRefs.current[idx] = el)}
-                      src={item.videoSrc}
-                      poster={item.posterSrc}
-                      muted
-                      loop
-                      playsInline
-                      className="w-full h-full object-cover object-center block"
-                    />
-                  </div>
-                );
-              })}
+                    ref={(el) => (videoRefs.current[idx] = el)}
+                    src={item.videoSrc}
+                    poster={item.posterSrc}
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover block"
+                  />
+                ))}
+              </div>
+
+              {/* WebGL Directional Liquid Displacement Canvas */}
+              <canvas
+                ref={canvasRef}
+                className="w-full h-full object-cover block absolute inset-0 z-10 pointer-events-none"
+              />
+
             </div>
           </div>
 
