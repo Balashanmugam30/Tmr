@@ -757,34 +757,55 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* VERIFIED SOURCES */}
-      <section className="w-full py-20 sm:py-32 bg-[#111111] text-white border-t border-white/10">
+      {/* VERIFIED SOURCES & PROVENANCE TRUST STRIP */}
+      <section className="w-full py-12 sm:py-16 bg-[#0B0B0B] text-white border-t border-b border-white/10">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            <div className="col-span-12 md:col-span-6">
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-white">
-                REAL PRODUCTS.<br />VERIFIED SOURCES.
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+            {/* Left: Section Header & Concise Summary */}
+            <div className="col-span-12 md:col-span-5 lg:col-span-4">
+              <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-2">
+                AUTHENTICITY &amp; PROVENANCE
+              </span>
+              <h2 className="font-manrope font-extrabold text-2xl sm:text-4xl uppercase tracking-tighter text-white leading-tight">
+                REAL PRODUCTS.<br />
+                <span className="text-[#FF4B00]">VERIFIED SOURCES.</span>
               </h2>
-              <p className="text-sm text-[#D8D8D5] max-w-sm mt-4 leading-relaxed">
-                Product identity and imagery are based on verified manufacturer sources and client-approved product assets.
+              <p className="text-xs text-[#858585] mt-3 leading-relaxed max-w-sm">
+                Product identity, product identifiers and selected product imagery are based on verified manufacturer information and approved TMR assets.
               </p>
             </div>
 
-            <div className="col-span-12 md:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-8">
-              <div className="border-t border-white/10 pt-6">
-                <span className="font-bold text-[10px] text-[#FF4B00] uppercase tracking-widest block mb-2">
-                  OFFICIAL PRODUCT SOURCE
+            {/* Right: Two Provenance Columns */}
+            <div className="col-span-12 md:col-span-7 lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 md:pl-4">
+              {/* Column 01 */}
+              <div className="group border-t border-white/10 hover:border-[#FF4B00] pt-5 transition-colors">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-manrope font-extrabold text-sm sm:text-base text-white uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors">
+                    3M™ Automotive Aftermarket
+                  </span>
+                  <span className="text-xs text-[#858585] group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">↗</span>
+                </div>
+                <span className="font-bold text-[9px] text-[#FF4B00] uppercase tracking-widest block mb-2">
+                  Official Manufacturer Source
                 </span>
                 <p className="text-xs text-[#858585] leading-relaxed">
-                  3M™ Automotive Aftermarket Division (AAD). All technical specifications and product identifiers are sourced from official 3M documentation.
+                  Product identity and technical product information are verified against manufacturer documentation.
                 </p>
               </div>
-              <div className="border-t border-white/10 pt-6">
-                <span className="font-bold text-[10px] text-[#FF4B00] uppercase tracking-widest block mb-2">
-                  CLIENT-APPROVED ASSET
+
+              {/* Column 02 */}
+              <div className="group border-t border-white/10 hover:border-[#FF4B00] pt-5 transition-colors">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-manrope font-extrabold text-sm sm:text-base text-white uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors">
+                    TMR Car Care
+                  </span>
+                  <span className="text-xs text-[#858585] group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">↗</span>
+                </div>
+                <span className="font-bold text-[9px] text-[#FF4B00] uppercase tracking-widest block mb-2">
+                  Client-Approved Assets
                 </span>
                 <p className="text-xs text-[#858585] leading-relaxed">
-                  Tamilmani &amp; Co. (TMR Car Care) proprietary detailing materials and verified service equipment assets.
+                  Selected product imagery and detailing assets are maintained as part of the TMR product catalogue.
                 </p>
               </div>
             </div>
