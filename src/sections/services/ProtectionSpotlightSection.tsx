@@ -3,74 +3,157 @@ import { Link } from 'react-router-dom';
 
 export const ProtectionSpotlightSection: React.FC = () => {
   return (
-    <section id="protection-spotlight" className="w-full py-20 md:py-32 bg-[#050505] text-white">
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section id="protection-spotlight" className="w-full bg-[#fff8f6] text-[#111111] border-b border-[#D8D8D5] relative overflow-hidden">
+      <div className="max-w-[1920px] mx-auto">
         
         {/* ============================================================ */}
-        {/* ZONE A: CERAMIC COATING */}
+        {/* FEATURE 01 — CERAMIC COATING (TEXT LEFT ↔ IMAGE RIGHT) */}
         {/* ============================================================ */}
-        <div className="flex flex-col gap-8 order-2 md:order-1 pr-0 md:pr-12 font-manrope">
-          <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl text-white leading-none uppercase tracking-tight">
-            CERAMIC<br />
-            <span className="text-[#FF4B00] font-editorial italic normal-case font-normal">Coating</span>
-          </h2>
-          
-          <p className="text-base sm:text-lg text-white/70 max-w-md leading-relaxed font-normal">
-            Molecular level protection that enhances gloss, repels water, and shields against environmental contaminants. The ultimate liquid armor.
-          </p>
+        <div className="w-full border-b border-[#D8D8D5] py-20 sm:py-24 lg:py-28">
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column: Ceramic Copy & 3 Concise Benefits */}
+              <div className="lg:col-span-6 space-y-6 font-manrope">
+                <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+                  SURFACE PROTECTION // 01
+                </span>
 
-          <Link
-            to="/services/ceramic-coating"
-            className="border border-white/20 text-white font-bold text-xs uppercase tracking-widest px-8 py-4 w-max flex items-center gap-4 hover:bg-white hover:text-black transition-colors duration-300 rounded-none"
-            aria-label="Explore Ceramic Coating details"
-          >
-            <span>EXPLORE CERAMIC</span>
-            <span className="text-base">↗</span>
-          </Link>
+                <h2 className="font-manrope font-extrabold text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-[#111111] leading-none">
+                  CERAMIC COATING
+                </h2>
+
+                <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-lg">
+                  Semi-permanent nanostructured surface protection engineered to deepen paint optics, create hydrophobic water beading, and simplify routine vehicle maintenance in Tiruppur.
+                </p>
+
+                {/* 3 Concise Benefits List */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-[#D8D8D5]">
+                  <div className="space-y-1">
+                    <span className="font-editorial text-xl italic text-[#FF4B00] block">01</span>
+                    <h3 className="font-intertight font-extrabold text-xs uppercase tracking-wider text-[#111111]">
+                      HYDROPHOBIC
+                    </h3>
+                    <p className="text-[12px] text-[#858585] font-normal leading-normal">
+                      Extreme water & mud repellency
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="font-editorial text-xl italic text-[#FF4B00] block">02</span>
+                    <h3 className="font-intertight font-extrabold text-xs uppercase tracking-wider text-[#111111]">
+                      GLOSS
+                    </h3>
+                    <p className="text-[12px] text-[#858585] font-normal leading-normal">
+                      Deep reflective optical clarity
+                    </p>
+                  </div>
+
+                  <div className="space-y-1">
+                    <span className="font-editorial text-xl italic text-[#FF4B00] block">03</span>
+                    <h3 className="font-intertight font-extrabold text-xs uppercase tracking-wider text-[#111111]">
+                      MAINTENANCE
+                    </h3>
+                    <p className="text-[12px] text-[#858585] font-normal leading-normal">
+                      Effortless routine wash care
+                    </p>
+                  </div>
+                </div>
+
+                {/* Primary CTA Link */}
+                <div className="pt-4">
+                  <Link
+                    to="/services/ceramic-coating"
+                    className="inline-flex items-center gap-3 bg-[#111111] hover:bg-[#FF4B00] text-white font-manrope font-bold text-xs uppercase tracking-widest px-8 py-4 transition-colors duration-300 group"
+                    aria-label="Explore Ceramic Coating details"
+                  >
+                    <span>EXPLORE CERAMIC</span>
+                    <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right Column: Dedicated Ceramic Visual */}
+              <div className="lg:col-span-6">
+                <div className="aspect-[4/3] w-full overflow-hidden border border-[#D8D8D5] bg-[#050505] relative group shadow-md">
+                  <img
+                    src="/images/protection/prot-repel.webp"
+                    alt="Hydrophobic ceramic coating water beading surface at TMR Car Care Studio"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
 
-        <div className="order-1 md:order-2 h-[360px] sm:h-[480px] lg:h-[500px] w-full mb-4 md:mb-0 ml-0 md:ml-6 overflow-hidden group relative bg-[#111111] border border-white/10">
-          <img
-            src="/images/protection/protection-hero.webp"
-            alt="Macro shot of hydrophobic ceramic coating water beading at TMR Car Care"
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-        </div>
-
-        {/* Divider */}
-        <div className="col-span-1 md:col-span-2 h-px bg-white/10 my-8 md:my-16" />
-
         {/* ============================================================ */}
-        {/* ZONE B: PAINT PROTECTION FILM (PPF) */}
+        {/* FEATURE 02 — PAINT PROTECTION FILM (IMAGE LEFT ↔ TEXT RIGHT) */}
         {/* ============================================================ */}
-        <div className="order-3 h-[360px] sm:h-[480px] lg:h-[500px] w-full mb-4 md:mb-0 mr-0 md:mr-6 overflow-hidden group relative bg-[#111111] border border-white/10">
-          <img
-            src="/images/ppf/ppf-surface.webp"
-            alt="Clear Paint Protection Film TPU installation at TMR Car Care Studio"
-            className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-        </div>
+        <div className="w-full py-20 sm:py-24 lg:py-28">
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column (Desktop): Dedicated PPF Visual */}
+              <div className="lg:col-span-6 order-2 lg:order-1">
+                <div className="aspect-[4/3] w-full overflow-hidden border border-[#D8D8D5] bg-[#050505] relative group shadow-md">
+                  <img
+                    src="/images/ppf/ppf-hero.webp"
+                    alt="Self-healing clear Paint Protection Film TPU installation at TMR Car Care"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                </div>
+              </div>
 
-        <div className="flex flex-col gap-8 order-4 pl-0 md:pl-12 font-manrope">
-          <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl text-white leading-none uppercase tracking-tight">
-            PAINT PROTECTION<br />
-            <span className="text-[#FF4B00] font-editorial italic normal-case font-normal">Film</span>
-          </h2>
+              {/* Right Column (Desktop): PPF Copy & 4 High-Impact Areas */}
+              <div className="lg:col-span-6 order-1 lg:order-2 space-y-6 font-manrope">
+                <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+                  IMPACT PROTECTION // 02
+                </span>
 
-          <p className="text-base sm:text-lg text-white/70 max-w-md leading-relaxed font-normal">
-            A physical, self-healing barrier against rock chips, scratches, and road debris. Invisible armor for your high-impact areas.
-          </p>
+                <h2 className="font-manrope font-extrabold text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight text-[#111111] leading-none">
+                  PAINT PROTECTION FILM
+                </h2>
 
-          <Link
-            to="/services/ppf-paint-protection"
-            className="border border-white/20 text-white font-bold text-xs uppercase tracking-widest px-8 py-4 w-max flex items-center gap-4 hover:bg-white hover:text-black transition-colors duration-300 rounded-none"
-            aria-label="Explore Paint Protection Film details"
-          >
-            <span>EXPLORE PPF</span>
-            <span className="text-base">↗</span>
-          </Link>
+                <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-lg">
+                  Ultra-clear self-healing elastomeric armor engineered to absorb stone chips, prevent scratches, and shield high-impact vehicle body panels in Tiruppur.
+                </p>
+
+                {/* 4 High-Impact Areas Tag Spectrum */}
+                <div className="pt-2 border-t border-[#D8D8D5] space-y-2">
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-[#858585] block mb-2">
+                    HIGH-IMPACT COVERAGE ZONES:
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {["FRONT BUMPER", "HOOD & BONNET", "FRONT FENDERS", "SIDE MIRRORS"].map((area) => (
+                      <span
+                        key={area}
+                        className="px-3 py-1.5 border border-[#D8D8D5] bg-[#fff8f6] font-manrope font-bold text-[11px] uppercase tracking-wider text-[#111111]"
+                      >
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Primary CTA Link */}
+                <div className="pt-4">
+                  <Link
+                    to="/services/ppf-paint-protection"
+                    className="inline-flex items-center gap-3 bg-[#111111] hover:bg-[#FF4B00] text-white font-manrope font-bold text-xs uppercase tracking-widest px-8 py-4 transition-colors duration-300 group"
+                    aria-label="Explore Paint Protection Film details"
+                  >
+                    <span>EXPLORE PPF</span>
+                    <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
 
       </div>
