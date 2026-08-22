@@ -725,6 +725,7 @@ export const ProductsPage: React.FC = () => {
                   }}
                 >
                   {[...filteredProducts, ...filteredProducts].map((product, idx) => {
+                    const isClone = idx >= filteredProducts.length;
                     const uniqueKey = `${product.id}-loop-${idx}`;
                     const isDetailRoute = product.detailRoute.startsWith('/products/');
                     const isServiceRoute = product.detailRoute.startsWith('/services/');
@@ -732,6 +733,7 @@ export const ProductsPage: React.FC = () => {
                     return (
                       <div
                         key={uniqueKey}
+                        aria-hidden={isClone ? "true" : undefined}
                         className="flex-none w-[82vw] sm:w-[320px] md:w-[360px] lg:w-[380px] bg-[#111418] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#FF4B00]/60 transition-all rounded-xl shadow-xl"
                       >
                         {/* Product Image Stage */}
@@ -768,6 +770,8 @@ export const ProductsPage: React.FC = () => {
                           {isDetailRoute ? (
                             <Link
                               to={product.detailRoute}
+                              tabIndex={isClone ? -1 : undefined}
+                              aria-hidden={isClone ? "true" : undefined}
                               className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
                             >
                               <span>VIEW PRODUCT DETAILS</span>
@@ -776,6 +780,8 @@ export const ProductsPage: React.FC = () => {
                           ) : isServiceRoute ? (
                             <Link
                               to={product.detailRoute}
+                              tabIndex={isClone ? -1 : undefined}
+                              aria-hidden={isClone ? "true" : undefined}
                               className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
                             >
                               <span>VIEW SERVICE</span>
@@ -786,6 +792,8 @@ export const ProductsPage: React.FC = () => {
                               href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20${encodeURIComponent(product.name)}`}
                               target="_blank"
                               rel="noopener noreferrer"
+                              tabIndex={isClone ? -1 : undefined}
+                              aria-hidden={isClone ? "true" : undefined}
                               className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
                             >
                               <span>ENQUIRE VIA WHATSAPP</span>

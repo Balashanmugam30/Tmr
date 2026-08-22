@@ -66,7 +66,7 @@ export const productsData: Product[] = [
       "Wipe surface clean to inspect uniform satin finish."
     ],
     image: "/images/products/3m/3m-trizact-abrasives.jpg",
-    detailRoute: "#product-catalogue",
+    detailRoute: "/products/3m-trizact-performance-abrasives",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,
   },
@@ -93,7 +93,7 @@ export const productsData: Product[] = [
       "Buff off immediately with dry microfiber side."
     ],
     image: "/images/products/3m/3m-quick-wax-spray.jpg",
-    detailRoute: "#product-catalogue",
+    detailRoute: "/products/3m-quick-wax-spray",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,
   },
@@ -120,7 +120,7 @@ export const productsData: Product[] = [
       "Wipe clean with plush microfiber towel."
     ],
     image: "/images/products/3m/meguiars-m210-finishing-polish.jpg",
-    detailRoute: "#product-catalogue",
+    detailRoute: "/products/meguiars-m210-ultra-finishing-polish",
     sourceUrl: "https://www.meguiars.com/",
     isVerified: true,
   },
