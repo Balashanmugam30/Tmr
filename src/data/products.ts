@@ -66,7 +66,7 @@ export const productsData: Product[] = [
       "Wipe surface clean to inspect uniform satin finish."
     ],
     image: "/images/products/3m/3m-trizact-abrasives.jpg",
-    detailRoute: "/products/3m-perfect-it-ex-ac-rubbing-compound",
+    detailRoute: "#product-catalogue",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,
   },
@@ -93,7 +93,7 @@ export const productsData: Product[] = [
       "Buff off immediately with dry microfiber side."
     ],
     image: "/images/products/3m/3m-quick-wax-spray.jpg",
-    detailRoute: "/products/3m-perfect-it-ex-ac-rubbing-compound",
+    detailRoute: "#product-catalogue",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,
   },
@@ -120,7 +120,7 @@ export const productsData: Product[] = [
       "Wipe clean with plush microfiber towel."
     ],
     image: "/images/products/3m/meguiars-m210-finishing-polish.jpg",
-    detailRoute: "/products/3m-perfect-it-ex-ac-rubbing-compound",
+    detailRoute: "#product-catalogue",
     sourceUrl: "https://www.meguiars.com/",
     isVerified: true,
   },
@@ -145,7 +145,7 @@ export const productsData: Product[] = [
       "Apply ceramic coating evenly using cross-hatch applicator.",
       "Buff off excess residue after flash off time."
     ],
-    image: "/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg",
+    image: "/images/products/3m/3m-ceramic-coating-kit.jpg",
     detailRoute: "/services/ceramic-coating",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,
@@ -171,7 +171,7 @@ export const productsData: Product[] = [
       "Spray slip solution on paint and film.",
       "Squeegee slip solution out from center."
     ],
-    image: "/images/ppf/ppf-hero.webp",
+    image: "/images/products/3m/3m-scotchgard-ppf-pro.jpg",
     detailRoute: "/services/ppf-paint-protection",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,

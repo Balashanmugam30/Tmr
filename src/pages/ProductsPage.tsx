@@ -88,7 +88,7 @@ export const ProductsPage: React.FC = () => {
       id: '3m-machine-polish',
       name: '3M™ Perfect-It™ Machine Polish',
       category: 'Finish Polishes',
-      image: '/images/products/3m/meguiars-m210-finishing-polish.jpg',
+      image: '/images/products/3m/3m-machine-polish.jpg',
       slug: '3m-perfect-it-ex-ac-rubbing-compound',
     },
   ];
@@ -98,8 +98,8 @@ export const ProductsPage: React.FC = () => {
       id: 0,
       title: "Cleaning",
       desc: "Professional vehicle-cleaning products for wash and maintenance applications.",
-      image: "/images/services/car-wash/car-wash-stitch-01.jpg",
-      alt: "3M professional vehicle cleaning shampoo and wash",
+      image: "/images/products/3m/3m-quick-wax-spray.jpg",
+      alt: "3M professional vehicle cleaning shampoo and quick wax spray",
     },
     {
       id: 1,
@@ -112,29 +112,29 @@ export const ProductsPage: React.FC = () => {
       id: 2,
       title: "Protection",
       desc: "Nanoceramic, wax, and sealant protection treatments.",
-      image: "/images/products/3m/3m-quick-wax-spray.jpg",
-      alt: "3M Quick Wax spray sealant bottle",
+      image: "/images/products/3m/3m-ceramic-coating-kit.jpg",
+      alt: "3M Ceramic Coating paint protection kit",
     },
     {
       id: 3,
       title: "Films",
       desc: "Self-healing paint protection films and sun-control solar films.",
-      image: "/images/ppf/ppf-hero.webp",
-      alt: "3M Scotchgard Paint Protection Film application",
+      image: "/images/products/3m/3m-scotchgard-ppf-pro.jpg",
+      alt: "3M Scotchgard Paint Protection Film Pro box and roll",
     },
     {
       id: 4,
       title: "Tools",
       desc: "Dual-action polishers, inspection lights, and precision detailing equipment.",
-      image: "/images/process/polisher-object.webp",
-      alt: "Dual-action orbital polisher detailing tool",
+      image: "/images/products/3m/3m-polishing-pad.jpg",
+      alt: "3M compounding and polishing foam pad tools",
     },
     {
       id: 5,
       title: "Accessories",
       desc: "Microfiber towels, applicators, and premium vehicle cabin accessories.",
-      image: "/images/services/accessories/accessories-stitch-01.jpg",
-      alt: "Premium microfiber detailing accessories",
+      image: "/images/products/3m/3m-microfiber-towel.jpg",
+      alt: "Premium 3M microfiber detailing accessories",
     },
   ];
 
@@ -634,7 +634,7 @@ export const ProductsPage: React.FC = () => {
                         alt={product.name}
                         className="w-4/5 h-4/5 object-contain group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg';
+                          e.currentTarget.style.opacity = '0.7';
                         }}
                       />
                       <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/60 backdrop-blur-sm text-[9px] font-bold uppercase tracking-widest text-[#FF4B00] rounded">
