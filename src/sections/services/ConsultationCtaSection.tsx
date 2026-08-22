@@ -70,22 +70,6 @@ export const ConsultationCtaSection: React.FC = () => {
 
         </div>
 
-        {/* Small Understated Service Reminder Line at Bottom */}
-        <div className="pt-16 sm:pt-20 border-t border-white/10 mt-16 sm:mt-20 flex flex-wrap items-center justify-between gap-4 text-[11px] font-bold uppercase tracking-widest text-white/30">
-          <span>TMR CAR CARE // TIRUPPUR STUDIO</span>
-          <div className="flex flex-wrap items-center gap-3">
-            <span>DETAILING</span>
-            <span className="text-[#FF4B00]/40">•</span>
-            <span>CERAMIC</span>
-            <span className="text-[#FF4B00]/40">•</span>
-            <span>PPF</span>
-            <span className="text-[#FF4B00]/40">•</span>
-            <span>FILMS</span>
-            <span className="text-[#FF4B00]/40">•</span>
-            <span>ACCESSORIES</span>
-          </div>
-        </div>
-
       </div>
     </section>
   );

@@ -15,14 +15,15 @@ export const ServicesHero: React.FC = () => {
       <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 w-full relative z-10 text-white font-sans flex flex-col items-center justify-center">
         <div className="max-w-xl mx-auto flex flex-col items-center space-y-6">
           
-          {/* Primary Centered H1 Headline */}
+          {/* Primary Centered H1 Headline (Visually identical, semantically enhanced for local SEO) */}
           <h1 className="font-manrope font-extrabold text-6xl sm:text-8xl md:text-[96px] lg:text-[104px] leading-none uppercase tracking-[-0.03em] text-white">
             SERVICES
+            <span className="sr-only"> — Car Detailing & Protection Services in Tiruppur</span>
           </h1>
 
           {/* Minimal 1-Sentence Supporting Statement */}
           <p className="font-manrope text-base sm:text-lg md:text-xl text-white/85 max-w-lg mx-auto leading-relaxed font-normal">
-            Premium detailing, protection and finishing for your vehicle.
+            Premium detailing, protection and finishing for your vehicle in Tiruppur.
           </p>
 
           {/* Refined Editorial Text Action CTA (No box, no pill, thin orange expanding underline) */}
