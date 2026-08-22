@@ -33,11 +33,27 @@ export const ProductsPage: React.FC = () => {
       slug: '3m-perfect-it-ex-ac-rubbing-compound',
     },
     {
+      id: 'meguiars-m210',
+      name: "Meguiar's Mirror Glaze M210 Ultra Finishing Polish",
+      category: 'Finishing Compounds',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC37ICfsUlWN4F9_a93BqZ7qsxXTBQRRUkBdYggRHeVVFKzpLhh7SGLtAhmUZYu5p1cgDKIrGPJqjxtaSkwZ7RBkiQSjBzQkYK84G8GNMYdPQGotWqehLwYIxA1oVueUoKEgDyNmlNeu8auE3hfjfTgx03QMJTd7F5KW94N6ybAqkECJXqix2Xmm4KIuVE4aSRUvXVKyyJhUZ40ni9kUChYj49OnT9H00B5vnV_c_VeVLsHmF0J4tQn',
+      fallbackImage: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=1200',
+      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+    },
+    {
       id: '3m-quick-wax',
       name: '3M™ Quick Wax Spray Sealant',
       category: 'Protection & Shine',
       image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC4M619X4myj2a9bkv2N3cvVOsiiDAZYvSoDDO4NieTYC8Ss5l_X6RYJhqEZw-4HGeHg7l-jfkrquWHo2gREyyIOgNYlX6N5_JCPvCk7b3frttOgk41L0X0zLR8Ew82XiTwnSvYIyQ-jxFvWzkkGt7ByPB9B3jKNqmp0OF1IJykDXBuiZSDDFdg3fETn4CSKFqH06qaQGhYZuWEyMEzgdEkMCO3FLmpOw7Q8gvRerHby8PzXvtOvuRn',
       fallbackImage: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&q=80&w=1200',
+      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+    },
+    {
+      id: 'koch-chemie-gsf',
+      name: 'Koch Chemie Gentle Snow Foam (Gsf)',
+      category: 'Shampoo & Wash',
+      image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDSqohbe1KTav3zvcdZdl2_RXKaMifHnr2QiMa2EvY9npra385zxrsa3Y2gY0UAiI5WxYLITuCFz-olXJ8DuTkX-w6tLxdeJUe8Fyh-um-NCnSD_gwXBkeEswIOFK1DN-bBIyUvN2_jpaHmQpAD0SLBi51QhON_6m7blh5deY8G39gIYzIBvuzND0j079SP-tjotE02xbPRROdwmr2sOULkDik9sJ5PR8AU6JShJMUp9t7KQGS0E1fM',
+      fallbackImage: 'https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80&w=1200',
       slug: '3m-perfect-it-ex-ac-rubbing-compound',
     },
     {
