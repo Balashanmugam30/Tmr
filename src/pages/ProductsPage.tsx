@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { companyData } from '@/data/company';
+import { productsData } from '@/data/products';
 import { ProductHeroCarousel, ProductItem } from '@/components/ProductHeroCarousel';
 
 export const ProductsPage: React.FC = () => {
@@ -13,6 +14,29 @@ export const ProductsPage: React.FC = () => {
     x: 50,
     y: 50,
     active: false,
+  });
+
+  const runwayScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollRunway = (direction: 'left' | 'right') => {
+    if (runwayScrollRef.current) {
+      const scrollAmount = direction === 'left' ? -380 : 380;
+      runwayScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  const filteredProducts = productsData.filter((product) => {
+    const matchesCategory =
+      selectedCategoryFilter === 'ALL' ||
+      product.category.toUpperCase() === selectedCategoryFilter;
+    const matchesSearch =
+      searchQuery.trim() === '' ||
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.sku.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
   });
 
   const handleMouseMoveInspect = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -511,36 +535,51 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* THE COLLECTION CATALOGUE */}
-      <section className="w-full py-20 sm:py-32 bg-white border-b border-[#D8D8D5]" id="product-catalogue">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 pb-12">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-8">
+      {/* THE COLLECTION CATALOGUE (DYNAMIC EDITORIAL PRODUCT RUNWAY SLIDER) */}
+      <section className="relative w-full bg-gradient-to-b from-[#F5F4EF] via-[#141414] to-[#050505] text-white py-20 sm:py-32 overflow-hidden" id="product-catalogue">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 pb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-10">
             <div>
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-[#111111] leading-none">
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-[#111111] leading-none mb-2">
                 THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">products.</span>
               </h2>
+              <p className="font-manrope text-xs sm:text-sm text-[#858585] uppercase tracking-widest">
+                Curated automotive-care products &amp; professional detailing supplies
+              </p>
             </div>
 
-            <div className="w-full md:w-auto flex flex-col gap-4 items-end">
+            <div className="w-full md:w-auto flex flex-col gap-6 items-start md:items-end">
+              {/* FIND A PRODUCT Search Input */}
               <div className="relative w-full md:w-80">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="FIND A PRODUCT"
-                  className="w-full bg-transparent border-b border-[#111111]/20 py-2 text-xs font-bold uppercase tracking-widest focus:outline-none focus:border-[#FF4B00]"
+                  placeholder="FIND A PRODUCT (BY NAME, PN, OR CATEGORY)..."
+                  aria-label="Find a product"
+                  className="w-full bg-white/5 border-b border-[#111111]/30 md:border-white/20 py-2.5 px-3 text-xs font-bold uppercase tracking-widest text-[#111111] md:text-white placeholder-[#858585] focus:outline-none focus:border-[#FF4B00] transition-colors rounded-t"
                 />
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3 top-2.5 text-xs text-[#858585] hover:text-[#FF4B00]"
+                  >
+                    ✕
+                  </button>
+                )}
               </div>
 
-              <div className="flex flex-wrap gap-3">
+              {/* Category Filter Navigation */}
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 {["ALL", "ABRASIVES", "CLEANING", "POLISHING", "PROTECTION", "FILMS", "TOOLS", "ACCESSORIES"].map((filter) => (
                   <button
                     key={filter}
                     onClick={() => setSelectedCategoryFilter(filter)}
-                    className={`text-[10px] font-bold uppercase tracking-widest ${
+                    aria-pressed={selectedCategoryFilter === filter}
+                    className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full transition-all ${
                       selectedCategoryFilter === filter
-                        ? "text-[#FF4B00] border-b border-[#FF4B00]"
-                        : "text-[#858585] hover:text-[#111111]"
+                        ? "bg-[#FF4B00] text-white shadow-md"
+                        : "bg-black/10 md:bg-white/5 text-[#5f5e5e] md:text-[#858585] hover:text-[#111111] md:hover:text-white hover:bg-black/20 md:hover:bg-white/10"
                     }`}
                   >
                     {filter}
@@ -551,98 +590,105 @@ export const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Product Cards Rail */}
-        <div className="w-full bg-[#111418] py-16 px-5 md:px-16">
-          <div className="max-w-[1360px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 01 */}
-            <Link
-              to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-              className="bg-white/5 border border-white/10 p-6 flex flex-col justify-between group hover:border-[#FF4B00]/50 transition-all"
-            >
-              <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 overflow-hidden">
-                <img
-                  src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
-                  alt="3M Rubbing Compound"
-                  className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform"
-                />
+        {/* Horizontal Editorial Runway Stage */}
+        <div className="w-full relative px-5 md:px-16 pt-4">
+          <div className="max-w-[1360px] mx-auto relative">
+            {/* Scroll Navigation Controls */}
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-[10px] font-bold text-[#858585] uppercase tracking-widest">
+                Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Drag or Swipe →
+              </span>
+              <div className="hidden sm:flex items-center gap-2">
+                <button
+                  onClick={() => scrollRunway('left')}
+                  aria-label="Scroll products left"
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={() => scrollRunway('right')}
+                  aria-label="Scroll products right"
+                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors"
+                >
+                  →
+                </button>
               </div>
-              <div>
-                <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase mb-2">
-                  <span>01</span>
-                  <span className="text-white/40">PN: 36060</span>
-                </div>
-                <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#FF4B00] transition-colors">
-                  3M™ Perfect-It™ EX AC Rubbing Compound
-                </h3>
-                <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed">
-                  High-performance paint correction for removing P1200 or finer sand scratches.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/10 mt-6 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest">
-                <span>VIEW PRODUCT</span>
-                <span>→</span>
-              </div>
-            </Link>
+            </div>
 
-            {/* Card 02 */}
-            <Link
-              to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-              className="bg-white/5 border border-white/10 p-6 flex flex-col justify-between group hover:border-[#315BFF]/50 transition-all"
-            >
-              <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 overflow-hidden">
-                <img
-                  src="/images/products/3m/3m-trizact-abrasives.jpg"
-                  alt="3M Trizact"
-                  className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform"
-                />
-              </div>
-              <div>
-                <div className="flex justify-between items-center text-xs font-bold text-[#315BFF] uppercase mb-2">
-                  <span>02</span>
-                  <span className="text-white/40">PN: 02085</span>
-                </div>
-                <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#315BFF] transition-colors">
-                  3M™ Trizact™ Performance Abrasives
-                </h3>
-                <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed">
-                  Structured abrasive technology for uniform finish and faster polishing.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/10 mt-6 flex justify-between items-center text-xs font-bold text-[#315BFF] uppercase tracking-widest">
-                <span>VIEW PRODUCT</span>
-                <span>→</span>
-              </div>
-            </Link>
+            {/* Runway Items Container */}
+            {filteredProducts.length > 0 ? (
+              <div
+                ref={runwayScrollRef}
+                className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-8 pt-2 scroll-smooth"
+              >
+                {filteredProducts.map((product, idx) => (
+                  <div
+                    key={product.id}
+                    className="snap-start flex-none w-[82vw] sm:w-[320px] md:w-[360px] lg:w-[380px] bg-[#111418] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#FF4B00]/60 transition-all rounded-xl shadow-xl"
+                  >
+                    {/* Product Image Stage */}
+                    <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 rounded-lg overflow-hidden p-4">
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-4/5 h-4/5 object-contain group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg';
+                        }}
+                      />
+                      <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/60 backdrop-blur-sm text-[9px] font-bold uppercase tracking-widest text-[#FF4B00] rounded">
+                        {product.category}
+                      </div>
+                    </div>
 
-            {/* Card 03 */}
-            <Link
-              to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-              className="bg-white/5 border border-white/10 p-6 flex flex-col justify-between group hover:border-[#31D6B1]/50 transition-all"
-            >
-              <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 overflow-hidden">
-                <img
-                  src="/images/products/3m/3m-quick-wax-spray.jpg"
-                  alt="3M Quick Wax"
-                  className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform"
-                />
+                    {/* Meta & Title */}
+                    <div className="flex-1 flex flex-col justify-between">
+                      <div>
+                        <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase mb-2">
+                          <span>0{idx + 1}</span>
+                          <span className="text-white/40">{product.sku}</span>
+                        </div>
+                        <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#FF4B00] transition-colors leading-snug">
+                          {product.name}
+                        </h3>
+                        <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed mb-6 font-normal">
+                          {product.shortDescription}
+                        </p>
+                      </div>
+
+                      {/* Card CTA Link */}
+                      <Link
+                        to={product.detailRoute}
+                        className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
+                      >
+                        <span>VIEW PRODUCT</span>
+                        <span>→</span>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div>
-                <div className="flex justify-between items-center text-xs font-bold text-[#31D6B1] uppercase mb-2">
-                  <span>03</span>
-                  <span className="text-white/40">PN: 39034</span>
-                </div>
-                <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#31D6B1] transition-colors">
-                  3M™ Quick Wax Spray
-                </h3>
-                <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed">
-                  Carnauba wax formula for a deep, high-gloss shine in minutes.
+            ) : (
+              /* Empty Filter State */
+              <div className="w-full py-16 px-8 bg-[#111418] border border-white/10 rounded-xl text-center space-y-4">
+                <p className="font-manrope text-base text-[#D8D8D5] uppercase font-bold tracking-wider">
+                  No products match your search query or filter selection.
                 </p>
+                <p className="text-xs text-[#858585]">
+                  Try clearing your search keyword or switching category filters to view available items.
+                </p>
+                <button
+                  onClick={() => {
+                    setSelectedCategoryFilter('ALL');
+                    setSearchQuery('');
+                  }}
+                  className="px-6 py-3 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors"
+                >
+                  RESET ALL FILTERS →
+                </button>
               </div>
-              <div className="pt-4 border-t border-white/10 mt-6 flex justify-between items-center text-xs font-bold text-[#31D6B1] uppercase tracking-widest">
-                <span>VIEW PRODUCT</span>
-                <span>→</span>
-              </div>
-            </Link>
+            )}
           </div>
         </div>
       </section>
