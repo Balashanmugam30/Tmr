@@ -588,40 +588,17 @@ export const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Infinite One-Way Continuous Conveyor Product Train Stage */}
-        <div className="w-full relative px-5 md:px-16 pt-4">
-          <div className="max-w-[1360px] mx-auto relative">
-            <div className="flex justify-between items-center mb-4">
-              <span className="text-[10px] font-bold text-[#A0A0A0] uppercase tracking-widest">
-                Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Continuous One-Way Conveyor Train →
-              </span>
-              <div className="hidden sm:flex items-center gap-2">
-                <button
-                  onClick={() => scrollManual('left')}
-                  aria-label="Scroll products left"
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors"
-                >
-                  ←
-                </button>
-                <button
-                  onClick={() => scrollManual('right')}
-                  aria-label="Scroll products right"
-                  className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors"
-                >
-                  →
-                </button>
-              </div>
-            </div>
-
-            {displayProducts.length > 0 ? (
-              <div
-                ref={trainContainerRef}
-                onMouseEnter={() => { isTrainHoveredRef.current = true; }}
-                onMouseLeave={() => { isTrainHoveredRef.current = false; }}
-                onTouchStart={() => { isTrainHoveredRef.current = true; }}
-                onTouchEnd={() => { isTrainHoveredRef.current = false; }}
-                className="flex gap-6 overflow-x-auto scrollbar-none pb-8 pt-2 select-none"
-              >
+        {/* Infinite One-Way Continuous Conveyor Product Train Stage (Full Viewport Edge Bleed) */}
+        <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden pt-2">
+          {displayProducts.length > 0 ? (
+            <div
+              ref={trainContainerRef}
+              onMouseEnter={() => { isTrainHoveredRef.current = true; }}
+              onMouseLeave={() => { isTrainHoveredRef.current = false; }}
+              onTouchStart={() => { isTrainHoveredRef.current = true; }}
+              onTouchEnd={() => { isTrainHoveredRef.current = false; }}
+              className="flex gap-6 overflow-x-auto scrollbar-none pb-8 pt-2 select-none px-4 sm:px-8 md:px-12"
+            >
                 {displayProducts.map((product, idx) => (
                   <div
                     key={`${product.id}-${idx}`}
@@ -707,7 +684,6 @@ export const ProductsPage: React.FC = () => {
                 </button>
               </div>
             )}
-          </div>
         </div>
       </section>
 
