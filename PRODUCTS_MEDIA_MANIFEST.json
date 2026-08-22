@@ -1,0 +1,470 @@
+{
+  "title": "TMR Car Care - Products Page Media Manifest",
+  "version": "1.0.0",
+  "generatedAt": "2026-08-23T00:23:00Z",
+  "scope": "/products",
+  "totalUniqueAssets": 40,
+  "zeroCrossPageContamination": true,
+  "assets": [
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-car-wash-soap.jpg",
+      "filename": "3m-car-wash-soap.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-car-wash-soap.jpg",
+      "hash": "51fcc8cf453cf09f950268d74e278b4dd84f0bed437dc398bbd6ba9600e1b193",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-ceramic-coating-kit.jpg",
+      "filename": "3m-ceramic-coating-kit.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-ceramic-coating-kit.jpg",
+      "hash": "16a783ee9c076996bc06520f2ec7baafa1543cfe5e0252fb502a1ed07cfd33f9",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-clay-lube-kit.jpg",
+      "filename": "3m-clay-lube-kit.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-clay-lube-kit.jpg",
+      "hash": "39382fe4fa75e213389b67b2b3fdc4c3e231b24efb091c879b061b1c30eba446",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-compounding-pad.jpg",
+      "filename": "3m-compounding-pad.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-compounding-pad.jpg",
+      "hash": "c27580646455ad9d8c79197bee06cb168bd0862d57a75eb8d3eba273b6ac9565",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-foam-finishing-pad.jpg",
+      "filename": "3m-foam-finishing-pad.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-foam-finishing-pad.jpg",
+      "hash": "b5b0bdf53c9292fb28b98dd07d8cc82a6bf7f48607e93a72d0c4597bb9558715",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-machine-polish.jpg",
+      "filename": "3m-machine-polish.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-machine-polish.jpg",
+      "hash": "0e6140ec926ced877af0d102105f2c444784109414c2a660c2b7c20fc6823bb9",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-masking-tape.jpg",
+      "filename": "3m-masking-tape.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-masking-tape.jpg",
+      "hash": "c9bcba6b41736f7e9d1dafbbe95556f91717867d1fda1ab9df673c1d5537fe9e",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-microfiber-cloth.jpg",
+      "filename": "3m-microfiber-cloth.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-microfiber-cloth.jpg",
+      "hash": "048736b44d5ad8cbe0a8c30ba55bbda36cca6bd3e879c2625a228a12c787dd1a",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-microfiber-towel.jpg",
+      "filename": "3m-microfiber-towel.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-microfiber-towel.jpg",
+      "hash": "2b4def536e6c2353f94112dce8e9053d753e2adfe44f88ca7c030cfc13461e38",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-perfect-it-ex-machine-polish.jpg",
+      "filename": "3m-perfect-it-ex-machine-polish.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-perfect-it-ex-machine-polish.jpg",
+      "hash": "8cce48d172f088e3564c7e1a76210d37b627c8d3a7ce5e2e865c2110aa577fd4",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-perfect-it-ex-rubbing-compound.jpg",
+      "filename": "3m-perfect-it-ex-rubbing-compound.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg",
+      "hash": "d5972d8c57d48213cdfd14937d5836646fbdeb6b47458c47cb3960616d82b73d",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-perfect-it-ex-ultrafine-polish.jpg",
+      "filename": "3m-perfect-it-ex-ultrafine-polish.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-perfect-it-ex-ultrafine-polish.jpg",
+      "hash": "d9d534d2993a61fcb6bcbd20e339ac59c77cb563c3f09e62505aeda09ce877b9",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-perfect-it-ex.jpg",
+      "filename": "3m-perfect-it-ex.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-perfect-it-ex.jpg",
+      "hash": "40b7e8d303bd013b132e21f38feab15b34f33534f74bd891bbb9d040dd6d599d",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-polishing-pad.jpg",
+      "filename": "3m-polishing-pad.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-polishing-pad.jpg",
+      "hash": "07ca2be73492f38e2b051aae66f53b0305fea6e1e22be174c999f8b36dfeb43c",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-quick-wax-spray.jpg",
+      "filename": "3m-quick-wax-spray.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-quick-wax-spray.jpg",
+      "hash": "bd493dc351786eae511e4f75a265a07b2e91daa775c70362b89019a0d9a2a2d0",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-scotchgard-ppf-pro.jpg",
+      "filename": "3m-scotchgard-ppf-pro.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-scotchgard-ppf-pro.jpg",
+      "hash": "1fdde2efe461068390b14d9c09d78449dac3e2bd44eda7562b644cbbc3e69735",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-trizact-3000.jpg",
+      "filename": "3m-trizact-3000.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-trizact-3000.jpg",
+      "hash": "060d7210ba37ad927565178048c22e18347fa70dafedb510c200b3d433c72612",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-trizact-5000.jpg",
+      "filename": "3m-trizact-5000.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-trizact-5000.jpg",
+      "hash": "29cd22bb637ff7d87fd762aedb40ecec666dacc97979e9d34af406784db9ba78",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for 3m-trizact-abrasives.jpg",
+      "filename": "3m-trizact-abrasives.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/3m-trizact-abrasives.jpg",
+      "hash": "8f69b3514841a32b3952e195df6914f0d3f912a9457d2e5e9425a51e1feef755",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for carpro-reset.jpg",
+      "filename": "carpro-reset.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/carpro-reset.jpg",
+      "hash": "4b2b90ca4b472a33e7430ea43ada53397cfe4a7f3ade90fed603b5f06981c3bc",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for cat-accessories.jpg",
+      "filename": "cat-accessories.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/cat-accessories.jpg",
+      "hash": "20e7eabf98e0747fc4d8360e842dd20c8aa6f192b65ac87764ea95827aaa169d",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for cat-cleaning.jpg",
+      "filename": "cat-cleaning.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/cat-cleaning.jpg",
+      "hash": "05f23b5869e5c5ab53fd75e312ef10acf34aaa7f35fbf26d75eabe5397ffba28",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for cat-films.jpg",
+      "filename": "cat-films.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/cat-films.jpg",
+      "hash": "d3b2edaf45fd30fc4945b093cf6662aa3162bcb2f71ff55eb10e8cb3aaca0af2",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for cat-polishing.jpg",
+      "filename": "cat-polishing.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/cat-polishing.jpg",
+      "hash": "d0d046e583a108a605f8d169fcde433e9d09279a463fa3d246255b9c2b7bfce4",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for cat-protection.jpg",
+      "filename": "cat-protection.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/cat-protection.jpg",
+      "hash": "c11d8c71b2b30ecaabd65a8fb77870f8525ac6ea8d716752dc7766c7b8edcdf2",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for cat-tools.jpg",
+      "filename": "cat-tools.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/cat-tools.jpg",
+      "hash": "2f3d5fe336b22c95cbffb548c99c9e0412de62a9aff49a39bc7a3f9d128cf43e",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for disc-clean.jpg",
+      "filename": "disc-clean.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/disc-clean.jpg",
+      "hash": "bd8d96fac5c8095e759ce0e95b4262951af5b5c9dbecd91b9141bf2e71453be6",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for disc-enhance.jpg",
+      "filename": "disc-enhance.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/disc-enhance.jpg",
+      "hash": "183d1f086b11e9ed51dfbe0b9bc55c1b7e320fa827ce8e0d9cdebe584409c5f7",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for disc-film.jpg",
+      "filename": "disc-film.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/disc-film.jpg",
+      "hash": "819898d3d7541f3f9b2883045721adb93837c18e7d7045db6af4d3dde7c351c9",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for disc-protect.jpg",
+      "filename": "disc-protect.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/disc-protect.jpg",
+      "hash": "796fe342fdc1c94e78272c78b9b9829d0ee2ff3b74f042185616964465f142db",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for disc-refine.jpg",
+      "filename": "disc-refine.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/disc-refine.jpg",
+      "hash": "c7198e45dd1098a4333083c09caa1b6dc9d0a8f3abc68450d48d1eadafb3e36b",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for disc-tools.jpg",
+      "filename": "disc-tools.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/disc-tools.jpg",
+      "hash": "505a9b627d6378f20c6b3d7e1b081b9a80fcef940c5d6097a5eaca3253cef8a3",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for featured-rubbing-compound.jpg",
+      "filename": "featured-rubbing-compound.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/featured-rubbing-compound.jpg",
+      "hash": "9329c272549928b5a00cda546f7ed6f6b45070b0b821e8c126e191f830d9ac8b",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for gyeon-wetcoat.jpg",
+      "filename": "gyeon-wetcoat.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/gyeon-wetcoat.jpg",
+      "hash": "b225067679af04b17dd1bfadc104772fb8f5b0e7f14a9ca45a8a5a76f14acc15",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for hero-m210.jpg",
+      "filename": "hero-m210.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/hero-m210.jpg",
+      "hash": "d39bf0ecfb89a0ffbdb691798b52a6a1899d05cb9a0157533a45231b0369285b",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for hero-machine-polish.jpg",
+      "filename": "hero-machine-polish.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/hero-machine-polish.jpg",
+      "hash": "77a6da318fbec37644959b132513bd2d176cca29a96165aa30e3a1ca1f2a16ef",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for hero-quick-wax.jpg",
+      "filename": "hero-quick-wax.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/hero-quick-wax.jpg",
+      "hash": "e38162334d01e8cc07e551294b6ec98a98376efb0eaa2bd20710149104b1caf0",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for hero-rubbing-compound.jpg",
+      "filename": "hero-rubbing-compound.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/hero-rubbing-compound.jpg",
+      "hash": "0c7a29d811b67854ef4a6972bc365355501e50e578255c3f814ab533aeb95d66",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for hero-trizact.jpg",
+      "filename": "hero-trizact.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/hero-trizact.jpg",
+      "hash": "883b9651025e3827071f02ab07dfad49cf1eada9a5a711ba6e15ba67f10b89a6",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for koch-chemie-gsf.jpg",
+      "filename": "koch-chemie-gsf.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/koch-chemie-gsf.jpg",
+      "hash": "2607db1744acc76561f715fac23012b5c88a5b59e152c340c2ef4455480699ae",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for meguiars-m110.jpg",
+      "filename": "meguiars-m110.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/meguiars-m110.jpg",
+      "hash": "afcf792000c77eee6c0f99d512c57565dc9df3faa3deec98efb51d8d80185d47",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for meguiars-m210-finishing-polish.jpg",
+      "filename": "meguiars-m210-finishing-polish.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/meguiars-m210-finishing-polish.jpg",
+      "hash": "d1d9301ef752f8c6aae85f0a5d441ecd3548415c52f80be6efe0342ab47fdf6f",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for meguiars-m210.jpg",
+      "filename": "meguiars-m210.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/meguiars-m210.jpg",
+      "hash": "a70e0acfb55017ef4c9f5fb33202c1f9d13347a88820b0aa0e9d1d1c556b609e",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for rupes-lhr21.jpg",
+      "filename": "rupes-lhr21.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/rupes-lhr21.jpg",
+      "hash": "dc48baf79cf004c6f0518b26003db5fef3ccafcfc4385497fcf415fa6288105c",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "Products Page Section",
+      "purpose": "Dedicated product asset for specimen-rubbing-compound.jpg",
+      "filename": "specimen-rubbing-compound.jpg",
+      "type": "image/jpeg",
+      "localPath": "/images/products/3m/specimen-rubbing-compound.jpg",
+      "hash": "bea02f170857598a9008db777f7b7a7e5d6a923b67e309a9b447df06700ef380",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    },
+    {
+      "section": "04 / PRODUCT IN PRACTICE",
+      "purpose": "Dedicated 1080p 60fps H.264 paint correction video",
+      "filename": "products-paint-correction-practice.mp4",
+      "type": "video/mp4",
+      "localPath": "/videos/products/products-paint-correction-practice.mp4",
+      "hash": "657416e88bb5366bbf62c5888c046a924b5cb42f96f50a774a05a3406211517b",
+      "verified": true,
+      "uniqueOnProductsPage": true
+    }
+  ]
+}
