@@ -131,7 +131,7 @@ export const productsData: Product[] = [
     name: "3M™ Ceramic Coating Paint Protection Kit",
     brand: "3M™ Automotive",
     category: "PROTECTION",
-    shortDescription: "Professional-grade 9H quartz ceramic coating formula creating a durable hydrophobic clear barrier.",
+    shortDescription: "Professional-grade ceramic coating formula creating a durable hydrophobic clear barrier.",
     fullDescription: "3M Ceramic Coating bonds chemically to exterior vehicle paint surfaces to create a superhydrophobic barrier enhancing slickness and chemical resistance.",
     specs: [
       { label: "Durability", value: "Up to 5 Years" },

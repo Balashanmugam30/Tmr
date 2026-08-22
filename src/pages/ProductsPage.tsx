@@ -76,7 +76,82 @@ export const ProductsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    document.title = "TMR Car Care — The Product Vault";
+    document.title = "3M Car Care & Detailing Products in Tiruppur | TMR Car Care";
+
+    // Meta Description
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute(
+      'content',
+      'Explore 3M car care and professional detailing products in Tiruppur at TMR Car Care. High-performance compounds, abrasives, polishes, and surface protection.'
+    );
+
+    // Canonical Link
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', 'https://tmrcarcare.com/products');
+
+    // OpenGraph Title & Description
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (!ogTitle) {
+      ogTitle = document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      document.head.appendChild(ogTitle);
+    }
+    ogTitle.setAttribute('content', '3M Car Care & Detailing Products in Tiruppur | TMR Car Care');
+
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (!ogDesc) {
+      ogDesc = document.createElement('meta');
+      ogDesc.setAttribute('property', 'og:description');
+      document.head.appendChild(ogDesc);
+    }
+    ogDesc.setAttribute(
+      'content',
+      'Explore 3M car care and professional detailing products in Tiruppur at TMR Car Care. High-performance compounds, abrasives, polishes, and surface protection.'
+    );
+
+    // ItemList JSON-LD Schema
+    let schemaScript = document.getElementById('products-jsonld');
+    if (!schemaScript) {
+      schemaScript = document.createElement('script');
+      schemaScript.id = 'products-jsonld';
+      schemaScript.setAttribute('type', 'application/ld+json');
+      document.head.appendChild(schemaScript);
+    }
+    const jsonLdData = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "3M Car Care & Professional Detailing Products in Tiruppur",
+      "description": "Curated professional 3M automotive detailing compounds, abrasives, polishes, and surface protection products at TMR Car Care Tiruppur.",
+      "url": "https://tmrcarcare.com/products",
+      "itemListElement": productsData.map((prod, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "Product",
+          "name": prod.name,
+          "sku": prod.sku,
+          "brand": {
+            "@type": "Brand",
+            "name": prod.brand
+          },
+          "description": prod.shortDescription,
+          "image": `https://tmrcarcare.com${prod.image}`,
+          "url": `https://tmrcarcare.com${prod.detailRoute}`
+        }
+      }))
+    };
+    schemaScript.textContent = JSON.stringify(jsonLdData);
+
     window.scrollTo(0, 0);
   }, []);
 
@@ -202,19 +277,19 @@ export const ProductsPage: React.FC = () => {
 
         {/* Top Centered Section matching reference image */}
         <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full flex flex-col items-center text-center">
-          {/* Main Headline Stack */}
+          {/* Main Headline Stack (SEO H1 Target) */}
           <h1 className="flex flex-col items-center leading-[0.95] tracking-tighter mb-5">
-            <span className="font-editorial italic font-normal text-white text-4xl sm:text-6xl md:text-7xl lg:text-[76px] mb-1">
-              Streamline Your Detailing,
+            <span className="font-editorial italic font-normal text-white text-3xl sm:text-5xl md:text-6xl lg:text-[68px] mb-2">
+              3M Car Care &amp; Professional Detailing
             </span>
-            <span className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] uppercase text-[#F5F4EF]">
-              Supercharge Your Finish
+            <span className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-[72px] uppercase text-[#F5F4EF]">
+              Products in Tiruppur
             </span>
           </h1>
 
-          {/* Sub-headline / Paragraph */}
+          {/* Sub-headline / Supporting Line */}
           <p className="font-manrope text-sm sm:text-base md:text-lg text-[#D8D8D5] max-w-xl leading-relaxed font-normal mb-8">
-            All-in-one professional automotive-care products to clean, correct, and protect — faster and smarter.
+            Curated professional 3M automotive-care formulations to clean, correct, and protect — engineered for superior paint correction and long-term surface protection.
           </p>
 
           {/* Capsule Button matching reference image button style */}
@@ -663,7 +738,7 @@ export const ProductsPage: React.FC = () => {
                         <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 rounded-lg overflow-hidden p-4">
                           <img
                             src={product.image}
-                            alt={product.name}
+                            alt={`${product.name} for professional automotive detailing in Tiruppur`}
                             className="w-4/5 h-4/5 object-contain group-hover:scale-105 transition-transform duration-500"
                             onError={(e) => {
                               e.currentTarget.style.opacity = '0.7';
