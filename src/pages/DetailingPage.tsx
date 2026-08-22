@@ -1,45 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { companyData } from '@/data/company';
 
 export const DetailingPage: React.FC = () => {
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-
   useEffect(() => {
-    document.title = "Car Detailing & Paint Care in Tiruppur | TMR Car Care";
+    document.title = "Car Detailing & Paint Correction in Tiruppur | TMR Car Care";
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', "Professional multi-stage paint correction, LED defect inspection, clearcoat polishing, and interior leather restoration at TMR Car Care studio in Tiruppur.");
     window.scrollTo(0, 0);
   }, []);
 
-  const scopes = [
-    { name: "EXTERIOR PAINT", desc: "Multi-stage machine compounding and finishing polish to permanently eliminate swirl marks, haze, and light scratches." },
-    { name: "INTERIOR LEATHER / ALCANTARA", desc: "Deep steam extraction, organic leather conditioning, and fabric protection against oils and fading." },
-    { name: "GLASS CLARITY", desc: "Hard-water mineral spot removal and hydrophobic windshield ceramic coating for night driving visibility." },
-    { name: "TRIM & PLASTICS", desc: "UV restoration and ceramic trim sealing to prevent fading and discoloration." },
-    { name: "WHEEL ARCHES & ALLOYS", desc: "Iron contaminant removal, wheel well dressing, and high-temp alloy sealant." },
-  ];
-
-  const faqs = [
-    { q: "What is the difference between a car wash and paint detailing?", a: "A wash cleans surface dirt. Detailing restores the clearcoat by removing swirls, scratches, oxidation, and deeply conditioning interior materials." },
-    { q: "Can deep scratches be removed during paint correction?", a: "Scratches that have not penetrated through the clearcoat layer into the primer can be completely leveled and removed." },
-    { q: "How long does a full multi-stage detail take?", a: "Depending on vehicle size and paint defect severity, a comprehensive detail takes between 1 to 2 full studio days." },
-    { q: "How often should a vehicle undergo full paint correction?", a: "When properly maintained with safe washing methods, full paint correction is typically only required once every 2 to 3 years." },
-  ];
-
   return (
-    <div className="w-full bg-[#fff8f6] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
+    <div className="w-full bg-[#fff8f6] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20 overflow-x-hidden">
       
-      {/* SECTION 01 — HERO */}
+      {/* 01 HERO SECTION */}
       <section className="w-full bg-[#050505] text-white py-24 sm:py-32 relative overflow-hidden border-b border-white/10">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
             <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
-              SERVICE 02 // PAINT CORRECTION & DETAILING
+              02 DETAILING & PAINT CARE
             </span>
             <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white leading-none">
-              REVEAL THE<br />
-              <span className="text-[#FF4B00]">FINISH.</span>
+              REVEAL THE FINISH.
             </h1>
             <p className="text-base sm:text-lg text-white/70 font-normal leading-relaxed max-w-xl">
-              Professional car detailing and multi-stage paint correction in Tiruppur. We eliminate swirls, scratches, and oxidation to restore original showroom gloss.
+              Multi-stage machine compounding and optical finishing polish to permanently eliminate swirl marks, haze, and clearcoat oxidation in Tiruppur.
             </p>
             <div className="pt-4">
               <a
@@ -48,17 +37,17 @@ export const DetailingPage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest px-8 py-5 hover:bg-white hover:text-[#111111] transition-all duration-300"
               >
-                <span>ENQUIRE ABOUT DETAILING</span>
+                <span>CONSULT VIA WHATSAPP</span>
                 <span className="text-base">↗</span>
               </a>
             </div>
           </div>
 
           <div className="lg:col-span-5">
-            <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111]">
+            <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111] shadow-2xl">
               <img
-                src="/images/services/diagnostic/diagnostic-paint-correction.jpg"
-                alt="Paint correction machine polishing at TMR Car Care in Tiruppur"
+                src="/images/services/detailing/detailing-stitch-01.jpg"
+                alt="REVEAL THE FINISH. at TMR Car Care Studio Tiruppur"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -66,99 +55,189 @@ export const DetailingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 02 — STATEMENT */}
+      {/* 02 PHILOSOPHY / CONCEPT SECTION */}
       <section className="w-full py-20 sm:py-28 border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
-          <div className="max-w-3xl space-y-4">
+          <div className="max-w-3xl space-y-4 font-manrope">
             <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
-              INSPECTION PROTOCOL
+              STUDIO PHILOSOPHY
             </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#111111]">
               INSPECTION: SEE WHAT OTHERS MISS.
             </h2>
             <p className="text-sm sm:text-base text-[#858585] leading-relaxed">
-              Before a single polisher touches your vehicle, our detailers inspect the clearcoat under high-intensity LED illumination to measure paint depth and identify scratch patterns.
+              High-intensity LED lights reveal microscopic paint swirls, water spots, and holograms invisible under shade. We measure clearcoat thickness before polishing.
             </p>
           </div>
         </div>
       </section>
 
-      {/* SECTION 03 — SCOPE */}
+      {/* 03 TECHNICAL STEPS / PROCESS SECTION */}
       <section className="w-full py-20 sm:py-28 bg-[#050505] text-white border-b border-white/10">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
           <div className="mb-14">
             <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-              DETAILING SCOPE
+              TECHNICAL PROTOCOLS
             </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
-              WHAT WE LOOK AFTER.
+              SERVICE STEPS &amp; DISCIPLINE.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {scopes.map((scope, idx) => (
-              <div key={idx} className="border-t border-white/10 pt-6 space-y-3">
-                <span className="font-editorial text-xl italic text-[#FF4B00] block">0{idx + 1}</span>
-                <h3 className="font-intertight font-extrabold text-lg uppercase tracking-wider text-white">
-                  {scope.name}
-                </h3>
-                <p className="text-xs text-white/70 leading-relaxed">{scope.desc}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="border-t border-white/10 pt-6 space-y-4 font-manrope">
+              <span className="font-editorial text-2xl italic text-[#FF4B00] block">01</span>
+              <div className="aspect-[16/10] w-full overflow-hidden border border-white/10 bg-[#111111] mb-4">
+                <img src="/images/services/detailing/detailing-stitch-02.jpg" alt="PAINT CORRECTION at TMR Car Care Studio Tiruppur" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
-            ))}
+              <h3 className="font-intertight font-extrabold text-xl uppercase tracking-wider text-white">
+                PAINT CORRECTION
+              </h3>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                Rotary & dual-action compounding to level clearcoat defects.
+              </p>
+            </div>
+            <div className="border-t border-white/10 pt-6 space-y-4 font-manrope">
+              <span className="font-editorial text-2xl italic text-[#FF4B00] block">02</span>
+              <div className="aspect-[16/10] w-full overflow-hidden border border-white/10 bg-[#111111] mb-4">
+                <img src="/images/services/detailing/detailing-stitch-03.jpg" alt="INTERIOR RESTORATION at TMR Car Care Studio Tiruppur" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+              <h3 className="font-intertight font-extrabold text-xl uppercase tracking-wider text-white">
+                INTERIOR RESTORATION
+              </h3>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                Steam extraction and organic leather nourishment.
+              </p>
+            </div>
+            <div className="border-t border-white/10 pt-6 space-y-4 font-manrope">
+              <span className="font-editorial text-2xl italic text-[#FF4B00] block">03</span>
+              <div className="aspect-[16/10] w-full overflow-hidden border border-white/10 bg-[#111111] mb-4">
+                <img src="/images/services/detailing/detailing-stitch-04.jpg" alt="GLASS CLARITY at TMR Car Care Studio Tiruppur" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+              <h3 className="font-intertight font-extrabold text-xl uppercase tracking-wider text-white">
+                GLASS CLARITY
+              </h3>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                Mineral spot removal and hydrophobic glass sealers.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 04 — FAQ */}
+      {/* 04 SCOPE / INCLUSIONS SECTION */}
+      <section className="w-full py-20 sm:py-28 border-b border-[#D8D8D5]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="mb-14">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
+              COVERAGE SPECTRUM
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#111111]">
+              STANDARD INCLUSIONS &amp; SCOPE.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="border-t border-[#D8D8D5] pt-6 space-y-4 font-manrope">
+              <h3 className="font-manrope font-extrabold text-sm uppercase tracking-widest text-[#111111]">
+                EXTERIOR PAINT
+              </h3>
+              <ul className="space-y-2 text-xs sm:text-sm text-[#858585]">
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Multi-Stage Polishing</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Swirl Removal</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Hologram Elimination</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Optical Gloss Sealer</span></li>
+              </ul>
+            </div>
+            <div className="border-t border-[#D8D8D5] pt-6 space-y-4 font-manrope">
+              <h3 className="font-manrope font-extrabold text-sm uppercase tracking-widest text-[#111111]">
+                LEATHER & CABIN
+              </h3>
+              <ul className="space-y-2 text-xs sm:text-sm text-[#858585]">
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Steam Extraction</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Leather Conditioning</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Alcantara Cleaning</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Mat Deep Wash</span></li>
+              </ul>
+            </div>
+            <div className="border-t border-[#D8D8D5] pt-6 space-y-4 font-manrope">
+              <h3 className="font-manrope font-extrabold text-sm uppercase tracking-widest text-[#111111]">
+                TRIM & GLASS
+              </h3>
+              <ul className="space-y-2 text-xs sm:text-sm text-[#858585]">
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>UV Plastic Restore</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Mineral Spot Removal</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Hydrophobic Coating</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Trim Protection</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 05 INSPECTION & CHECKLIST SECTION */}
+      <section className="w-full py-20 sm:py-28 bg-[#050505] text-white border-b border-white/10">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="max-w-3xl space-y-4 font-manrope">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+              OPTICAL QUALITY AUDIT
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+              THE FINISH SHOULD SPEAK FOR ITSELF.
+            </h2>
+            <p className="text-sm sm:text-base text-white/70 leading-relaxed">
+              Flawless mirror reflections achieved through precision machine polishers and optical compounds.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* 06 FAQ SECTION */}
       <section className="w-full py-20 sm:py-28 border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
             <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-              EXPERT GUIDANCE
+              CLIENT GUIDANCE
             </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-[#111111]">
-              DETAILING QUESTIONS.
+              FREQUENTLY ASKED QUESTIONS.
             </h2>
           </div>
 
-          <div className="lg:col-span-8 space-y-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = activeFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="border-b border-[#D8D8D5] pb-4 cursor-pointer"
-                >
-                  <div className="flex justify-between items-center py-2">
-                    <h3 className="font-manrope font-bold text-base text-[#111111]">
-                      {faq.q}
-                    </h3>
-                    <span className="text-xl text-[#FF4B00]">{isOpen ? "−" : "+"}</span>
-                  </div>
-                  {isOpen && (
-                    <p className="text-xs sm:text-sm text-[#858585] pt-2 leading-relaxed">
-                      {faq.a}
-                    </p>
-                  )}
-                </div>
-              );
-            })}
+          <div className="lg:col-span-8 space-y-6">
+            <div className="border-b border-[#D8D8D5] pb-6 font-manrope">
+              <h3 className="font-manrope font-bold text-base sm:text-lg text-[#111111] mb-2">
+                What is the difference between washing and paint correction?
+              </h3>
+              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
+                Washing removes surface dirt. Paint correction levels clearcoat imperfections to restore deep gloss.
+              </p>
+            </div>
+            <div className="border-b border-[#D8D8D5] pb-6 font-manrope">
+              <h3 className="font-manrope font-bold text-base sm:text-lg text-[#111111] mb-2">
+                Can deep scratches be removed?
+              </h3>
+              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
+                Scratches that haven't penetrated through the clearcoat layer into the primer can be completely leveled and polished away.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 05 — CTA */}
+      {/* 07 CTA SECTION */}
       <section className="w-full bg-[#050505] text-white py-20 sm:py-28 text-center">
-        <div className="max-w-2xl mx-auto px-4 space-y-6">
+        <div className="max-w-2xl mx-auto px-4 space-y-6 font-manrope">
           <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
-            READY TO RESTORE YOUR PAINT?
+            ELEVATE YOUR DRIVE
           </span>
           <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
-            ENQUIRE ABOUT DETAILING.
+            BOOK STUDIO CONSULTATION.
           </h2>
           <p className="text-xs sm:text-sm text-white/70">
-            Talk with our technicians in Tiruppur to discuss your vehicle's paint condition and schedule an inspection.
+            Connect directly with our detailing specialists in Tiruppur via WhatsApp for personalized package recommendations.
           </p>
           <div className="pt-4 flex justify-center">
             <a
@@ -177,3 +256,5 @@ export const DetailingPage: React.FC = () => {
     </div>
   );
 };
+
+export default DetailingPage;

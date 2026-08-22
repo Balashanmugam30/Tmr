@@ -1,43 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { companyData } from '@/data/company';
 
 export const SunControlFilmsPage: React.FC = () => {
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
-
   useEffect(() => {
     document.title = "Sun-Control Solar Films in Tiruppur | TMR Car Care";
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', "Advanced nano-ceramic solar window control films for IR heat rejection, 99% UV block, glare reduction, and thermal cabin comfort at TMR Car Care Tiruppur.");
     window.scrollTo(0, 0);
   }, []);
 
-  const features = [
-    { title: "INFRARED HEAT REJECTION", desc: "Nano-ceramic technology engineered to block harsh solar heat without darkening window glass." },
-    { title: "99% UV SHIELD", desc: "Prevents harmful ultraviolet rays from aging interior leather, dashboard plastics, and cabin materials." },
-    { title: "GLARE REDUCTION", desc: "Enhances daytime visibility and reduces headlight glare during night driving." },
-    { title: "SIGNAL FRIENDLY", desc: "100% non-metallic construction ensuring zero interference with GPS, cellular, or RFID signals." },
-  ];
-
-  const faqs = [
-    { q: "Do sun control films affect GPS or mobile reception?", a: "No. TMR installs 100% non-metallic nano-ceramic films that do not interfere with cell signals, radio, or satellite navigation." },
-    { q: "Will solar film make the car interior dark at night?", a: "We offer optical-grade high VLT (Visible Light Transmission) ceramic films designed to maximize heat rejection while maintaining legal clarity." },
-    { q: "How long does installation take?", a: "Complete glass tinting for all windows takes approximately 3 to 4 hours in our dust-controlled studio." },
-  ];
-
   return (
-    <div className="w-full bg-[#fff8f6] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
+    <div className="w-full bg-[#fff8f6] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20 overflow-x-hidden">
       
-      {/* SECTION 01 — HERO */}
+      {/* 01 HERO SECTION */}
       <section className="w-full bg-[#050505] text-white py-24 sm:py-32 relative overflow-hidden border-b border-white/10">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
             <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
-              SERVICE 05 // SOLAR PROTECTION
+              05 SUN-CONTROL FILMS
             </span>
             <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-white leading-none">
-              LIGHT &amp;<br />
-              <span className="text-[#FF4B00]">GLASS STUDY.</span>
+              CONTROL THE LIGHT.
             </h1>
             <p className="text-base sm:text-lg text-white/70 font-normal leading-relaxed max-w-xl">
-              Advanced nano-ceramic solar control films installed in Tiruppur for thermal heat rejection, UV protection, and cabin comfort.
+              Optical nano-ceramic window solar films engineered for maximum thermal infrared heat rejection, glare reduction, and cabin privacy.
             </p>
             <div className="pt-4">
               <a
@@ -46,100 +37,185 @@ export const SunControlFilmsPage: React.FC = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-3 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest px-8 py-5 hover:bg-white hover:text-[#111111] transition-all duration-300"
               >
-                <span>ENQUIRE ON SUN-CONTROL</span>
+                <span>CONSULT VIA WHATSAPP</span>
                 <span className="text-base">↗</span>
               </a>
             </div>
           </div>
 
           <div className="lg:col-span-5">
-            <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111]">
+            <div className="aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111] shadow-2xl">
               <img
-                src="/images/services/feature/ceramic-feature.jpg"
-                alt="Sun control solar film glass installation at TMR Car Care Tiruppur"
-                className="w-full h-full object-cover opacity-80"
+                src="/images/services/sun-control/sun-control-stitch-01.jpg"
+                alt="CONTROL THE LIGHT. at TMR Car Care Studio Tiruppur"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 02 — PERFORMANCE */}
+      {/* 02 PHILOSOPHY / CONCEPT SECTION */}
       <section className="w-full py-20 sm:py-28 border-b border-[#D8D8D5]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="max-w-3xl space-y-4 font-manrope">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+              STUDIO PHILOSOPHY
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#111111]">
+              BUILT AROUND THE DRIVE.
+            </h2>
+            <p className="text-sm sm:text-base text-[#858585] leading-relaxed">
+              Blocks up to 99% of damaging ultraviolet radiation while reducing solar heat gain inside your vehicle without interfering with mobile or GPS signals.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 03 TECHNICAL STEPS / PROCESS SECTION */}
+      <section className="w-full py-20 sm:py-28 bg-[#050505] text-white border-b border-white/10">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
           <div className="mb-14">
             <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-              THERMAL BARRIER
+              TECHNICAL PROTOCOLS
             </span>
-            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#111111]">
-              CABIN COMFORT REDEFINED.
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+              SERVICE STEPS &amp; DISCIPLINE.
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feat, idx) => (
-              <div key={idx} className="border-t border-[#D8D8D5] pt-6 space-y-3">
-                <span className="font-editorial text-xl italic text-[#FF4B00] block">0{idx + 1}</span>
-                <h3 className="font-intertight font-extrabold text-lg uppercase tracking-wider text-[#111111]">
-                  {feat.title}
-                </h3>
-                <p className="text-xs text-[#858585] leading-relaxed">{feat.desc}</p>
+            <div className="border-t border-white/10 pt-6 space-y-4 font-manrope">
+              <span className="font-editorial text-2xl italic text-[#FF4B00] block">01</span>
+              <div className="aspect-[16/10] w-full overflow-hidden border border-white/10 bg-[#111111] mb-4">
+                <img src="/images/services/sun-control/sun-control-stitch-01.jpg" alt="LIGHT CONTROL at TMR Car Care Studio Tiruppur" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
               </div>
-            ))}
+              <h3 className="font-intertight font-extrabold text-xl uppercase tracking-wider text-white">
+                LIGHT CONTROL
+              </h3>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                High optical VLT transparency maintaining legal driving visibility.
+              </p>
+            </div>
+            <div className="border-t border-white/10 pt-6 space-y-4 font-manrope">
+              <span className="font-editorial text-2xl italic text-[#FF4B00] block">02</span>
+              <div className="aspect-[16/10] w-full overflow-hidden border border-white/10 bg-[#111111] mb-4">
+                <img src="/images/services/sun-control/sun-control-stitch-01.jpg" alt="THERMAL COMFORT at TMR Car Care Studio Tiruppur" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+              <h3 className="font-intertight font-extrabold text-xl uppercase tracking-wider text-white">
+                THERMAL COMFORT
+              </h3>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                Nano-ceramic barrier blocking high-wavelength infrared heat rays.
+              </p>
+            </div>
+            <div className="border-t border-white/10 pt-6 space-y-4 font-manrope">
+              <span className="font-editorial text-2xl italic text-[#FF4B00] block">03</span>
+              <div className="aspect-[16/10] w-full overflow-hidden border border-white/10 bg-[#111111] mb-4">
+                <img src="/images/services/sun-control/sun-control-stitch-01.jpg" alt="ENHANCED PRIVACY at TMR Car Care Studio Tiruppur" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+              </div>
+              <h3 className="font-intertight font-extrabold text-xl uppercase tracking-wider text-white">
+                ENHANCED PRIVACY
+              </h3>
+              <p className="text-xs sm:text-sm text-white/70 leading-relaxed font-normal">
+                Subtle optical tinting shielding cabin contents from outside view.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 03 — FAQ */}
+      {/* 04 SCOPE / INCLUSIONS SECTION */}
+      <section className="w-full py-20 sm:py-28 border-b border-[#D8D8D5]">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="mb-14">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
+              COVERAGE SPECTRUM
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#111111]">
+              STANDARD INCLUSIONS &amp; SCOPE.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="border-t border-[#D8D8D5] pt-6 space-y-4 font-manrope">
+              <h3 className="font-manrope font-extrabold text-sm uppercase tracking-widest text-[#111111]">
+                SOLAR PROTECTION
+              </h3>
+              <ul className="space-y-2 text-xs sm:text-sm text-[#858585]">
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>99% UV Block</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>IR Heat Barrier</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>Glare Reduction</span></li>
+                <li className="flex items-center gap-2"><span className="text-[#FF4B00]">•</span><span>100% Non-Metallic Signal Safe</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 05 INSPECTION & CHECKLIST SECTION */}
+      <section className="w-full py-20 sm:py-28 bg-[#050505] text-white border-b border-white/10">
+        <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+          <div className="max-w-3xl space-y-4 font-manrope">
+            <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
+              OPTICAL QUALITY AUDIT
+            </span>
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+              VLT & IR PROTECTION MATRIX.
+            </h2>
+            <p className="text-sm sm:text-base text-white/70 leading-relaxed">
+              Compliant optical transmission specs tailored for windshield, side windows, and rear glass fitment.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* 06 FAQ SECTION */}
       <section className="w-full py-20 sm:py-28 border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
             <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-              SOLAR FILM GUIDANCE
+              CLIENT GUIDANCE
             </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl uppercase tracking-tight text-[#111111]">
-              REGULATIONS &amp; CARE.
+              FREQUENTLY ASKED QUESTIONS.
             </h2>
           </div>
 
-          <div className="lg:col-span-8 space-y-4">
-            {faqs.map((faq, idx) => {
-              const isOpen = activeFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  onClick={() => setActiveFaq(isOpen ? null : idx)}
-                  className="border-b border-[#D8D8D5] pb-4 cursor-pointer"
-                >
-                  <div className="flex justify-between items-center py-2">
-                    <h3 className="font-manrope font-bold text-base text-[#111111]">
-                      {faq.q}
-                    </h3>
-                    <span className="text-xl text-[#FF4B00]">{isOpen ? "−" : "+"}</span>
-                  </div>
-                  {isOpen && (
-                    <p className="text-xs sm:text-sm text-[#858585] pt-2 leading-relaxed">
-                      {faq.a}
-                    </p>
-                  )}
-                </div>
-              );
-            })}
+          <div className="lg:col-span-8 space-y-6">
+            <div className="border-b border-[#D8D8D5] pb-6 font-manrope">
+              <h3 className="font-manrope font-bold text-base sm:text-lg text-[#111111] mb-2">
+                Do sun control films affect mobile reception?
+              </h3>
+              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
+                No. TMR uses 100% non-metallic nano-ceramic films that cause zero signal loss.
+              </p>
+            </div>
+            <div className="border-b border-[#D8D8D5] pb-6 font-manrope">
+              <h3 className="font-manrope font-bold text-base sm:text-lg text-[#111111] mb-2">
+                Will solar film make the interior dark at night?
+              </h3>
+              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
+                We install high-VLT ceramic films engineered for maximum heat rejection with high optical clarity.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 04 — CTA */}
+      {/* 07 CTA SECTION */}
       <section className="w-full bg-[#050505] text-white py-20 sm:py-28 text-center">
-        <div className="max-w-2xl mx-auto px-4 space-y-6">
+        <div className="max-w-2xl mx-auto px-4 space-y-6 font-manrope">
           <span className="font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block">
-            READY TO SHIELD YOUR CABIN?
+            ELEVATE YOUR DRIVE
           </span>
           <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
-            ENQUIRE ON SUN-CONTROL.
+            BOOK STUDIO CONSULTATION.
           </h2>
           <p className="text-xs sm:text-sm text-white/70">
-            Contact TMR Car Care Tiruppur on WhatsApp for shade recommendations and fitment pricing.
+            Connect directly with our detailing specialists in Tiruppur via WhatsApp for personalized package recommendations.
           </p>
           <div className="pt-4 flex justify-center">
             <a
@@ -158,3 +234,5 @@ export const SunControlFilmsPage: React.FC = () => {
     </div>
   );
 };
+
+export default SunControlFilmsPage;
