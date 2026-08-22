@@ -75,12 +75,48 @@ export const ProductsPage: React.FC = () => {
   ];
 
   const categoryWorlds = [
-    { id: 0, title: "Cleaning", desc: "Professional vehicle-cleaning products for wash and maintenance applications." },
-    { id: 1, title: "Polishing", desc: "High-performance compounds, polishes, and pads for paint correction." },
-    { id: 2, title: "Protection", desc: "Nanoceramic, wax, and sealant protection treatments." },
-    { id: 3, title: "Films", desc: "Self-healing paint protection films and sun-control solar films." },
-    { id: 4, title: "Tools", desc: "Dual-action polishers, inspection lights, and precision detailing equipment." },
-    { id: 5, title: "Accessories", desc: "Microfiber towels, applicators, and premium vehicle cabin accessories." },
+    {
+      id: 0,
+      title: "Cleaning",
+      desc: "Professional vehicle-cleaning products for wash and maintenance applications.",
+      image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200",
+      alt: "Automotive car wash shampoo cleaning product",
+    },
+    {
+      id: 1,
+      title: "Polishing",
+      desc: "High-performance compounds, polishes, and pads for paint correction.",
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSqohbe1KTav3zvcdZdl2_RXKaMifHnr2QiMa2EvY9npra385zxrsa3Y2gY0UAiI5WxYLITuCFz-olXJ8DuTkX-w6tLxdeJUe8Fyh-um-NCnSD_gwXBkeEswIOFK1DN-bBIyUvN2_jpaHmQpAD0SLBi51QhON_6m7blh5deY8G39gIYzIBvuzND0j079SP-tjotE02xbPRROdwmr2sOULkDik9sJ5PR8AU6JShJMUp9t7KQGS0E1fM",
+      alt: "3M Perfect-It EX AC Rubbing Compound for polishing",
+    },
+    {
+      id: 2,
+      title: "Protection",
+      desc: "Nanoceramic, wax, and sealant protection treatments.",
+      image: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=1200",
+      alt: "Nanoceramic surface protection coating",
+    },
+    {
+      id: 3,
+      title: "Films",
+      desc: "Self-healing paint protection films and sun-control solar films.",
+      image: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?auto=format&fit=crop&q=80&w=1200",
+      alt: "Automotive self-healing paint protection film",
+    },
+    {
+      id: 4,
+      title: "Tools",
+      desc: "Dual-action polishers, inspection lights, and precision detailing equipment.",
+      image: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=1200",
+      alt: "Dual action polisher detailing tool",
+    },
+    {
+      id: 5,
+      title: "Accessories",
+      desc: "Microfiber towels, applicators, and premium vehicle cabin accessories.",
+      image: "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&q=80&w=1200",
+      alt: "Premium microfiber detailing accessories",
+    },
   ];
 
   const purposeRows = [
@@ -256,9 +292,12 @@ export const ProductsPage: React.FC = () => {
             <div className="hidden md:flex col-span-5 flex-col justify-between pt-16">
               <div className="relative w-full aspect-[4/5] bg-white/5 border border-white/10 flex items-center justify-center group overflow-hidden">
                 <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSqohbe1KTav3zvcdZdl2_RXKaMifHnr2QiMa2EvY9npra385zxrsa3Y2gY0UAiI5WxYLITuCFz-olXJ8DuTkX-w6tLxdeJUe8Fyh-um-NCnSD_gwXBkeEswIOFK1DN-bBIyUvN2_jpaHmQpAD0SLBi51QhON_6m7blh5deY8G39gIYzIBvuzND0j079SP-tjotE02xbPRROdwmr2sOULkDik9sJ5PR8AU6JShJMUp9t7KQGS0E1fM"
-                  alt="Active Category World Visual"
-                  className="w-full h-full object-cover opacity-80"
+                  src={categoryWorlds[activeCategoryWorld].image}
+                  alt={categoryWorlds[activeCategoryWorld].alt}
+                  className="w-full h-full object-cover opacity-90 transition-all duration-500"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1200";
+                  }}
                 />
                 <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/90 to-transparent">
                   <div className="flex justify-between items-end">
