@@ -828,9 +828,15 @@ export const ProductsPage: React.FC = () => {
                 const numStr = idx < 9 ? `0${idx + 1}` : `${idx + 1}`;
 
                 return (
-                  <div key={idx} className="border-b border-[#D8D8D5] transition-colors">
+                  <div
+                    key={idx}
+                    onMouseEnter={() => setOpenFaq(idx)}
+                    onMouseLeave={() => setOpenFaq(null)}
+                    className="border-b border-[#D8D8D5] transition-colors cursor-pointer"
+                  >
                     <button
                       onClick={() => toggleFaq(idx)}
+                      onFocus={() => setOpenFaq(idx)}
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${idx}`}
                       className="w-full py-6 flex items-center justify-between text-left group gap-4"
