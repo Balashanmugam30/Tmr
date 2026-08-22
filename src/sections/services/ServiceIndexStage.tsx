@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 interface ServiceVideoItem {
   id: string;
@@ -431,6 +432,17 @@ export const ServiceIndexStage: React.FC = () => {
                       <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-md">
                         {item.shortDesc}
                       </p>
+
+                      <div className="pt-4">
+                        <Link
+                          to={`/services/${item.slug}`}
+                          className="inline-flex items-center gap-2 font-manrope font-bold text-xs sm:text-sm uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors"
+                          aria-label={`Explore ${item.title} service page`}
+                        >
+                          <span>EXPLORE SERVICE</span>
+                          <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
+                        </Link>
+                      </div>
                     </div>
 
                     {/* Mobile Inline Video Container (16:9 Landscape) */}

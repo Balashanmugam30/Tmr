@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const ProtectionSpotlightSection: React.FC = () => {
   return (
@@ -10,7 +11,7 @@ export const ProtectionSpotlightSection: React.FC = () => {
         {/* ============================================================ */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
-          {/* Left Column: Ceramic Copy & Clean Benefits */}
+          {/* Left Column: Ceramic Copy, Clean Benefits, & CTA */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="font-manrope font-extrabold text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white leading-none">
               CERAMIC<br />
@@ -30,6 +31,18 @@ export const ProtectionSpotlightSection: React.FC = () => {
               <span>GLOSS</span>
               <span className="text-[#FF4B00]">•</span>
               <span>EASIER MAINTENANCE</span>
+            </div>
+
+            {/* Primary CTA Link */}
+            <div className="pt-4">
+              <Link
+                to="/services/ceramic-coating"
+                className="inline-flex items-center gap-3 border border-white/20 hover:border-white hover:bg-white hover:text-[#111111] text-white font-manrope font-bold text-xs uppercase tracking-widest px-8 py-4 transition-all duration-300 group"
+                aria-label="Explore Ceramic Coating details"
+              >
+                <span>EXPLORE CERAMIC</span>
+                <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
+              </Link>
             </div>
           </div>
 
@@ -67,7 +80,7 @@ export const ProtectionSpotlightSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column (Desktop): PPF Copy & Clean Micro-List */}
+          {/* Right Column (Desktop): PPF Copy, Clean Micro-List, & CTA */}
           <div className="lg:col-span-6 order-1 lg:order-2 space-y-6">
             <h2 className="font-manrope font-extrabold text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white leading-none">
               PAINT PROTECTION<br />
@@ -90,6 +103,18 @@ export const ProtectionSpotlightSection: React.FC = () => {
               <span>FENDERS</span>
               <span className="text-[#FF4B00]">•</span>
               <span>MIRRORS</span>
+            </div>
+
+            {/* Primary CTA Link */}
+            <div className="pt-4">
+              <Link
+                to="/services/ppf-paint-protection"
+                className="inline-flex items-center gap-3 border border-white/20 hover:border-white hover:bg-white hover:text-[#111111] text-white font-manrope font-bold text-xs uppercase tracking-widest px-8 py-4 transition-all duration-300 group"
+                aria-label="Explore Paint Protection Film details"
+              >
+                <span>EXPLORE PPF</span>
+                <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
+              </Link>
             </div>
           </div>
 
