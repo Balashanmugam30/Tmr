@@ -310,221 +310,202 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / FEATURED PRODUCT STAGE */}
-      <section className="relative w-full py-20 sm:py-32 bg-[#F5F4EF] flex items-center overflow-hidden border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            {/* Left Product Visual */}
-            <div className="col-span-12 md:col-span-7 relative">
-              <div className="relative aspect-square md:aspect-[4/3] bg-white border border-[#D8D8D5] flex items-center justify-center overflow-hidden">
-                <img
-                  src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
-                  alt="3M™ Perfect-It™ EX AC Rubbing Compound"
-                  className="h-[85%] w-auto object-contain drop-shadow-2xl"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg";
-                  }}
-                />
-                <div className="absolute top-6 left-6 flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-                  <span className="font-bold text-[10px] uppercase tracking-widest text-[#111111]">
-                    Verified Performance
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Content */}
-            <div className="col-span-12 md:col-span-5 flex flex-col justify-center">
-              <span className="font-manrope font-bold text-xs uppercase tracking-widest text-[#FF4B00] mb-2">
-                03 / FEATURED
+      {/* SECTION 03 — FEATURED PRODUCT (TRUE 50/50 FULL-BLEED SPLIT) */}
+      <section className="relative w-full bg-[#F5F4EF] border-b border-[#D8D8D5] overflow-hidden" id="featured-product">
+        <div className="w-full grid grid-cols-1 md:grid-cols-12 min-h-[550px] md:min-h-[650px] items-stretch">
+          {/* Left 50%: TRUE FULL-BLEED MEDIA - NO GAP, NO MARGIN, NO BORDER, NO CONTAINED CARD */}
+          <div className="col-span-12 md:col-span-6 relative bg-[#141414] overflow-hidden min-h-[350px] md:min-h-full flex items-center justify-center">
+            <img
+              src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
+              alt="3M™ Perfect-It™ EX AC Rubbing Compound"
+              className="w-full h-full object-cover md:object-contain p-6 md:p-12 drop-shadow-2xl transition-transform duration-700 hover:scale-[1.03]"
+            />
+            <div className="absolute top-6 left-6 z-10 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+              <div className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+              <span className="font-manrope font-bold text-[10px] uppercase tracking-widest text-white">
+                Verified Product Specimen
               </span>
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-none mb-6">
-                ONE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">object.</span><br />
-                ONE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">purpose.</span>
-              </h2>
-
-              <div className="space-y-4 mb-8">
-                <span className="font-bold text-xs uppercase tracking-widest text-[#858585] block">
-                  Compounds &amp; Polishes — 3M™
-                </span>
-                <h3 className="font-manrope font-bold text-2xl uppercase text-[#111111]">
-                  3M™ Perfect-It™ EX AC Rubbing Compound
-                </h3>
-                <p className="text-sm sm:text-base text-[#5f5e5e] leading-relaxed">
-                  A high-performance rubbing compound designed for removing P1200 or finer sand scratches. Delivering a smooth, flawless finish essential for premium paint correction before final polishing.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-4">
-                <Link
-                  to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-                  className="w-full py-4 bg-[#111111] text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-[#FF4B00] transition-colors"
-                >
-                  ENQUIRE ABOUT THIS PRODUCT →
-                </Link>
-                <a
-                  href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%203M%20Rubbing%20Compound`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-4 border border-[#111111] text-[#111111] font-bold text-xs uppercase tracking-widest text-center hover:bg-[#111111] hover:text-white transition-colors"
-                >
-                  WHATSAPP TMR →
-                </a>
-              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* 04 / THE PRODUCT RUNWAY (PRODUCT IN PRACTICE Showcase) */}
-      <section className="relative w-full py-20 sm:py-32 bg-[#111111] text-white overflow-hidden" id="product-runway">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 w-full relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-            {/* Left Column (~60%): Large Full-Height Local Cinematic Video */}
-            <div className="col-span-12 md:col-span-7 relative">
-              <div className="relative aspect-video md:aspect-[16/10] w-full rounded-xl overflow-hidden border border-white/10 bg-[#0a0a0a] shadow-2xl group">
-                <video
-                  src="/videos/products/product-runway-paint-correction.mp4"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                />
-                {/* Subtle dark gradient overlay for premium transition */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-                <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                  <span className="font-manrope font-bold text-[10px] uppercase tracking-widest text-white/80">
-                    Product In Practice — Paint Refinement
-                  </span>
-                </div>
-              </div>
-            </div>
+          {/* Right 50%: EDITORIAL CONTENT */}
+          <div className="col-span-12 md:col-span-6 flex flex-col justify-center p-8 sm:p-12 md:p-16 lg:p-24 bg-[#F5F4EF]">
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-none mb-6">
+              ONE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">object.</span><br />
+              ONE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">purpose.</span>
+            </h2>
 
-            {/* Right Column (~40%): Product Title, Factual Description, CTAs */}
-            <div className="col-span-12 md:col-span-5 flex flex-col justify-center">
-              <h3 className="font-manrope font-extrabold text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tighter mb-4 text-white leading-tight">
+            <div className="space-y-4 mb-8">
+              <h3 className="font-manrope font-bold text-2xl sm:text-3xl uppercase text-[#111111] leading-tight">
                 3M™ Perfect-It™ EX AC Rubbing Compound
               </h3>
-
-              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] mb-8 leading-relaxed font-normal">
-                A high-performance rubbing compound engineered to remove P1200 or finer sand scratches during automotive paint correction while leaving a high-gloss finish on clear coats.
+              <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed">
+                A high-performance rubbing compound designed for removing P1200 or finer sand scratches. Delivering a smooth, flawless finish essential for premium paint correction before final polishing.
               </p>
+            </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-                  className="px-8 py-4 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-white hover:text-[#111111] transition-colors"
-                >
-                  ENQUIRE ABOUT THIS PRODUCT →
-                </Link>
-                <a
-                  href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%203M%20Rubbing%20Compound`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-white hover:text-[#111111] transition-colors"
-                >
-                  WHATSAPP TMR →
-                </a>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link
+                to="/products/3m-perfect-it-ex-ac-rubbing-compound"
+                className="w-full sm:w-auto px-8 py-4 bg-[#111111] text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-[#FF4B00] transition-colors"
+              >
+                ENQUIRE ABOUT THIS PRODUCT →
+              </Link>
+              <a
+                href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%203M%20Rubbing%20Compound`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto px-8 py-4 border border-[#111111] text-[#111111] font-bold text-xs uppercase tracking-widest text-center hover:bg-[#111111] hover:text-white transition-colors"
+              >
+                WHATSAPP TMR →
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 05 / DOCUMENTATION (Technical Specimen Dossier & Magnification Inspection) */}
+      {/* SECTION 04 — PRODUCT IN PRACTICE (FULL-WIDTH CINEMATIC VIDEO - EDGE TO EDGE) */}
+      <section className="relative w-full min-h-[75vh] bg-black text-white overflow-hidden flex items-center justify-center" id="product-runway">
+        {/* Full-bleed edge-to-edge local MP4 video */}
+        <video
+          src="/videos/products/products-paint-correction-practice.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover scale-[1.01]"
+        />
+
+        {/* Subtle dark gradient overlay for cinematic contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/60 pointer-events-none" />
+
+        {/* Centered Restrained Text Overlay */}
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white space-y-6 py-20">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 mb-2">
+            <div className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+            <span className="font-manrope font-bold text-[10px] uppercase tracking-widest text-white/90">
+              Product In Practice — Automotive Paint Correction
+            </span>
+          </div>
+
+          <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter text-white leading-tight">
+            3M™ PERFECT-IT™ EX AC<br />
+            <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">rubbing compound.</span>
+          </h2>
+
+          <p className="font-manrope text-sm sm:text-base md:text-lg text-[#D8D8D5] max-w-2xl mx-auto leading-relaxed font-normal">
+            A high-performance rubbing compound engineered to remove P1200 or finer sand scratches during automotive paint correction while leaving a high-gloss finish on clear coats.
+          </p>
+
+          <div className="pt-4">
+            <Link
+              to="/products/3m-perfect-it-ex-ac-rubbing-compound"
+              className="inline-block px-10 py-4 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors shadow-2xl"
+            >
+              VIEW PRODUCT DETAILS →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 05 — TECHNICAL PRODUCT SPECIMEN / DOSSIER */}
       <section className="relative w-full py-20 sm:py-32 bg-[#F5F4EF] border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 w-full">
-          {/* Headline Lockup */}
-          <div className="mb-12 text-center md:text-left">
+          {/* Section Headline */}
+          <div className="mb-12 text-center">
             <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-none">
               THE OBJECT,<br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">closer.</span>
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            {/* Specimen Inspection Area with Cursor Magnification */}
-            <div className="col-span-12 md:col-span-7">
-              <div
-                onMouseMove={handleMouseMoveInspect}
-                onMouseLeave={handleMouseLeaveInspect}
-                className="relative aspect-square md:aspect-[4/3] bg-white border border-[#D8D8D5] flex items-center justify-center p-8 overflow-hidden cursor-crosshair group shadow-sm"
-              >
-                <img
-                  src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
-                  alt="3M™ Perfect-It™ EX AC Rubbing Compound technical specimen view"
-                  className="w-4/5 h-4/5 object-contain transition-transform duration-300 ease-out"
+          {/* Central Specimen Stage with Callouts & Cursor Magnification */}
+          <div className="relative max-w-4xl mx-auto mb-16">
+            <div
+              onMouseMove={handleMouseMoveInspect}
+              onMouseLeave={handleMouseLeaveInspect}
+              className="relative aspect-square md:aspect-[16/10] bg-white border border-[#D8D8D5] flex items-center justify-center p-8 overflow-hidden cursor-crosshair group shadow-sm rounded-lg"
+            >
+              <img
+                src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
+                alt="3M™ Perfect-It™ EX AC Rubbing Compound technical specimen view"
+                className="w-3/5 h-3/5 object-contain transition-transform duration-300 ease-out"
+                style={{
+                  transform: inspectPos.active ? 'scale(1.18)' : 'scale(1)',
+                  transformOrigin: `${inspectPos.x}% ${inspectPos.y}%`,
+                }}
+              />
+
+              {/* Technical Callout Markers around Specimen */}
+              <div className="absolute top-6 left-6 border-l-2 border-[#FF4B00] pl-3 py-1 bg-white/80 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#111111] shadow-sm">
+                PART NUMBER: 36060
+              </div>
+              <div className="absolute top-6 right-6 border-r-2 border-[#FF4B00] pr-3 py-1 bg-white/80 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#111111] shadow-sm text-right">
+                REFINEMENT: P1200+
+              </div>
+              <div className="absolute bottom-6 left-6 border-l-2 border-[#111111] pl-3 py-1 bg-white/80 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#111111] shadow-sm">
+                CATEGORY: COMPOUNDS
+              </div>
+              <div className="absolute bottom-6 right-6 border-r-2 border-[#111111] pr-3 py-1 bg-white/80 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-[#111111] shadow-sm text-right">
+                FINISH: HIGH-GLOSS
+              </div>
+
+              {/* Floating Technical Inspection Badge following cursor */}
+              {inspectPos.active && (
+                <div
+                  className="absolute pointer-events-none z-20 px-3 py-1.5 bg-[#111111] text-white rounded-md text-[10px] font-bold uppercase tracking-widest shadow-xl flex items-center gap-2 transition-opacity duration-200"
                   style={{
-                    transform: inspectPos.active ? 'scale(1.18)' : 'scale(1)',
-                    transformOrigin: `${inspectPos.x}% ${inspectPos.y}%`,
+                    left: `calc(${inspectPos.x}% - 40px)`,
+                    top: `calc(${inspectPos.y}% - 45px)`,
                   }}
-                />
-
-                {/* Floating Technical Inspection Badge following cursor */}
-                {inspectPos.active && (
-                  <div
-                    className="absolute pointer-events-none z-20 px-3 py-1.5 bg-[#111111] text-white rounded-md text-[10px] font-bold uppercase tracking-widest shadow-xl flex items-center gap-2 transition-opacity duration-200"
-                    style={{
-                      left: `calc(${inspectPos.x}% - 40px)`,
-                      top: `calc(${inspectPos.y}% - 45px)`,
-                    }}
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-ping" />
-                    <span>PN: 36060 | P1200+ REFINEMENT</span>
-                  </div>
-                )}
-
-                {/* Corner Technical Dossier Specimen Label */}
-                <div className="absolute bottom-4 left-4 border border-[#111111]/10 bg-white/90 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-[#858585]">
-                  SPECIMEN NO. 36060 / AAD-DOSSIER
+                >
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-ping" />
+                  <span>PN: 36060 | P1200+ REFINEMENT</span>
                 </div>
+              )}
+            </div>
+          </div>
+
+          {/* Structured Datasheet Grid */}
+          <div className="max-w-4xl mx-auto bg-white border border-[#D8D8D5] p-8 sm:p-12 shadow-sm rounded-lg">
+            <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-[#111111] mb-6 pb-4 border-b border-[#D8D8D5]">
+              Technical Datasheet
+            </h3>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-6 pb-8 border-b border-[#D8D8D5] mb-8">
+              <div>
+                <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Product Name</span>
+                <span className="font-bold text-xs sm:text-sm text-[#111111] leading-tight block">3M™ Perfect-It™ EX AC</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Part Number</span>
+                <span className="font-bold text-xs sm:text-sm text-[#111111] block">PN 36060</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Category</span>
+                <span className="font-bold text-xs sm:text-sm text-[#111111] block">Compounds &amp; Polishes</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Application</span>
+                <span className="font-bold text-xs sm:text-sm text-[#111111] block">Paint Correction</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Scratch Grade</span>
+                <span className="font-bold text-xs sm:text-sm text-[#111111] block">P1200 or Finer</span>
+              </div>
+              <div>
+                <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Surface Finish</span>
+                <span className="font-bold text-xs sm:text-sm text-[#111111] block">High-Gloss Refinement</span>
               </div>
             </div>
 
-            {/* Technical Datasheet / Specification Grid */}
-            <div className="col-span-12 md:col-span-5 flex flex-col justify-center">
-              <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-[#111111] mb-6 pb-4 border-b border-[#D8D8D5]">
-                Technical Specification
-              </h3>
-
-              <div className="grid grid-cols-2 gap-x-6 gap-y-6 pb-8 border-b border-[#D8D8D5] mb-8">
-                <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Product</span>
-                  <span className="font-bold text-xs sm:text-sm text-[#111111] leading-tight block">3M™ Perfect-It™ EX AC</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Part Number</span>
-                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">PN 36060</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Category</span>
-                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">Compounds &amp; Polishes</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Application</span>
-                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">Paint Correction</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Refinement</span>
-                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">P1200 or Finer</span>
-                </div>
-                <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Finish</span>
-                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">High-Gloss Polish</span>
-                </div>
-              </div>
-
-              <div>
-                <Link
-                  to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-                  className="w-full py-4 bg-[#111111] text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-[#FF4B00] transition-colors block"
-                >
-                  VIEW PRODUCT DETAILS →
-                </Link>
-              </div>
+            <div className="flex justify-center">
+              <Link
+                to="/products/3m-perfect-it-ex-ac-rubbing-compound"
+                className="w-full sm:w-auto px-10 py-4 bg-[#111111] text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-[#FF4B00] transition-colors block"
+              >
+                VIEW PRODUCT DETAILS →
+              </Link>
             </div>
           </div>
         </div>
