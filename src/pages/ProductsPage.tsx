@@ -17,6 +17,8 @@ export const ProductsPage: React.FC = () => {
   });
 
   const runwayScrollRef = useRef<HTMLDivElement>(null);
+  const isRunwayHoveredRef = useRef<boolean>(false);
+  const collectionAutoPlayRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollRunway = (direction: 'left' | 'right') => {
     if (runwayScrollRef.current) {
@@ -24,6 +26,23 @@ export const ProductsPage: React.FC = () => {
       runwayScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
   };
+
+  useEffect(() => {
+    collectionAutoPlayRef.current = setInterval(() => {
+      if (!isRunwayHoveredRef.current && runwayScrollRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = runwayScrollRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 25) {
+          runwayScrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          runwayScrollRef.current.scrollBy({ left: 380, behavior: 'smooth' });
+        }
+      }
+    }, 4200);
+
+    return () => {
+      if (collectionAutoPlayRef.current) clearInterval(collectionAutoPlayRef.current);
+    };
+  }, []);
 
   const filteredProducts = productsData.filter((product) => {
     const matchesCategory =
@@ -543,7 +562,7 @@ export const ProductsPage: React.FC = () => {
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-[#111111] leading-none mb-2">
                 THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">products.</span>
               </h2>
-              <p className="font-manrope text-xs sm:text-sm text-[#858585] uppercase tracking-widest">
+              <p className="font-manrope text-xs sm:text-sm text-[#444444] font-bold uppercase tracking-widest">
                 Curated automotive-care products &amp; professional detailing supplies
               </p>
             </div>
@@ -557,12 +576,12 @@ export const ProductsPage: React.FC = () => {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="FIND A PRODUCT (BY NAME, PN, OR CATEGORY)..."
                   aria-label="Find a product"
-                  className="w-full bg-white/5 border-b border-[#111111]/30 md:border-white/20 py-2.5 px-3 text-xs font-bold uppercase tracking-widest text-[#111111] md:text-white placeholder-[#858585] focus:outline-none focus:border-[#FF4B00] transition-colors rounded-t"
+                  className="w-full bg-white/20 border-b border-[#111111]/40 py-2.5 px-3 text-xs font-bold uppercase tracking-widest text-[#111111] placeholder-[#555555] focus:outline-none focus:border-[#FF4B00] transition-colors rounded-t"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-3 top-2.5 text-xs text-[#858585] hover:text-[#FF4B00]"
+                    className="absolute right-3 top-2.5 text-xs text-[#555555] hover:text-[#FF4B00]"
                   >
                     ✕
                   </button>
@@ -576,10 +595,10 @@ export const ProductsPage: React.FC = () => {
                     key={filter}
                     onClick={() => setSelectedCategoryFilter(filter)}
                     aria-pressed={selectedCategoryFilter === filter}
-                    className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full transition-all ${
+                    className={`text-[10px] font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full transition-all ${
                       selectedCategoryFilter === filter
                         ? "bg-[#FF4B00] text-white shadow-md"
-                        : "bg-black/10 md:bg-white/5 text-[#5f5e5e] md:text-[#858585] hover:text-[#111111] md:hover:text-white hover:bg-black/20 md:hover:bg-white/10"
+                        : "bg-black/10 text-[#333333] hover:text-[#111111] hover:bg-black/20 border border-black/10"
                     }`}
                   >
                     {filter}
@@ -595,7 +614,7 @@ export const ProductsPage: React.FC = () => {
           <div className="max-w-[1360px] mx-auto relative">
             {/* Scroll Navigation Controls */}
             <div className="flex justify-between items-center mb-4">
-              <span className="text-[10px] font-bold text-[#858585] uppercase tracking-widest">
+              <span className="text-[10px] font-bold text-[#A0A0A0] uppercase tracking-widest">
                 Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Drag or Swipe →
               </span>
               <div className="hidden sm:flex items-center gap-2">
@@ -620,6 +639,10 @@ export const ProductsPage: React.FC = () => {
             {filteredProducts.length > 0 ? (
               <div
                 ref={runwayScrollRef}
+                onMouseEnter={() => { isRunwayHoveredRef.current = true; }}
+                onMouseLeave={() => { isRunwayHoveredRef.current = false; }}
+                onTouchStart={() => { isRunwayHoveredRef.current = true; }}
+                onTouchEnd={() => { isRunwayHoveredRef.current = false; }}
                 className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-8 pt-2 scroll-smooth"
               >
                 {filteredProducts.map((product, idx) => (
@@ -647,24 +670,46 @@ export const ProductsPage: React.FC = () => {
                       <div>
                         <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase mb-2">
                           <span>0{idx + 1}</span>
-                          <span className="text-white/40">{product.sku}</span>
+                          <span className="text-white/60 font-mono">{product.sku}</span>
                         </div>
                         <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#FF4B00] transition-colors leading-snug">
                           {product.name}
                         </h3>
-                        <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed mb-6 font-normal">
+                        <p className="text-xs text-[#D0D0D0] line-clamp-2 leading-relaxed mb-6 font-normal">
                           {product.shortDescription}
                         </p>
                       </div>
 
-                      {/* Card CTA Link */}
-                      <Link
-                        to={product.detailRoute}
-                        className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
-                      >
-                        <span>VIEW PRODUCT</span>
-                        <span>→</span>
-                      </Link>
+                      {/* Dynamic Action Link based on detailRoute */}
+                      <div className="pt-4 border-t border-white/10 mt-auto">
+                        {product.detailRoute.startsWith('/products/') ? (
+                          <Link
+                            to={product.detailRoute}
+                            className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
+                          >
+                            <span>VIEW PRODUCT DETAILS</span>
+                            <span>→</span>
+                          </Link>
+                        ) : product.detailRoute.startsWith('/services/') ? (
+                          <Link
+                            to={product.detailRoute}
+                            className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
+                          >
+                            <span>EXPLORE SERVICE</span>
+                            <span>→</span>
+                          </Link>
+                        ) : (
+                          <a
+                            href={`https://wa.me/919876543210?text=Enquiry%20regarding%20${encodeURIComponent(product.name)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
+                          >
+                            <span>ENQUIRE VIA WHATSAPP</span>
+                            <span>→</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -675,7 +720,7 @@ export const ProductsPage: React.FC = () => {
                 <p className="font-manrope text-base text-[#D8D8D5] uppercase font-bold tracking-wider">
                   No products match your search query or filter selection.
                 </p>
-                <p className="text-xs text-[#858585]">
+                <p className="text-xs text-[#A0A0A0]">
                   Try clearing your search keyword or switching category filters to view available items.
                 </p>
                 <button

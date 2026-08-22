@@ -120,12 +120,12 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, [activeIndex, updateLayout]);
 
-  // Automatic smooth advance loop (3.2 seconds)
+  // Automatic smooth advance loop (3.5 seconds)
   const startAutoPlay = useCallback(() => {
     if (autoPlayTimerRef.current) clearInterval(autoPlayTimerRef.current);
     autoPlayTimerRef.current = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % total);
-    }, 3200);
+    }, 3500);
   }, [total]);
 
   const stopAutoPlay = useCallback(() => {
@@ -136,8 +136,14 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
   }, []);
 
   useEffect(() => {
-    startAutoPlay();
-    return () => stopAutoPlay();
+    const initialTimer = setTimeout(() => {
+      startAutoPlay();
+    }, 150);
+
+    return () => {
+      clearTimeout(initialTimer);
+      stopAutoPlay();
+    };
   }, [startAutoPlay, stopAutoPlay]);
 
   const handleDragStart = (clientX: number) => {
