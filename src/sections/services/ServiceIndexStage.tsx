@@ -79,7 +79,6 @@ export const ServiceIndexStage: React.FC = () => {
       if (!video) return;
 
       if (idx === activeIndex) {
-        // Play active video with exception handling for autoplay restrictions
         const playPromise = video.play();
         if (playPromise !== undefined) {
           playPromise.catch(() => {
@@ -98,107 +97,101 @@ export const ServiceIndexStage: React.FC = () => {
       ref={sectionRef}
       className="w-full bg-[#fff8f6] text-[#111111] py-20 md:py-32 border-b border-[#D8D8D5] relative overflow-hidden"
     >
-      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16">
+      {/* Subtle Grain Overlay (3% opacity for unified filmic feel) */}
+      <div className="absolute inset-0 bg-[radial-gradient(#111111_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.03] pointer-events-none z-0" />
+
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-8 md:px-16 relative z-10">
         
-        {/* Simple Restrained Heading */}
-        <div className="border-b border-[#D8D8D5] pb-6 mb-12 font-manrope">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-[#111111]">
+        {/* Simple Restrained Section Heading */}
+        <div className="mb-12 font-manrope">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold uppercase tracking-tight text-[#111111] mb-3">
             OUR SERVICES
           </h2>
+          <div className="h-[2px] w-12 bg-[#FF4B00]" />
         </div>
 
-        {/* 12-Column Asymmetric Layout (Left ~42%, Right ~58%) */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-start">
+        {/* 50/50 Asymmetric Showcase Grid (Left ~42%, Right ~58%) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           
-          {/* LEFT: Service Rail / List (5 Cols) */}
-          <div className="md:col-span-5 flex flex-col font-manrope">
+          {/* LEFT SIDE: Service List Rail (5 Cols) */}
+          <div className="lg:col-span-5 flex flex-col space-y-6 sm:space-y-8 font-manrope">
             {servicesList.map((item, idx) => {
               const isActive = activeIndex === idx;
               return (
                 <div
                   key={item.id}
                   onMouseEnter={() => setActiveIndex(idx)}
-                  className={`group border-b border-[#D8D8D5] py-6 sm:py-7 cursor-pointer transition-all duration-300 ${
+                  className={`group border-b border-[#D8D8D5] pb-6 sm:pb-8 cursor-pointer transition-all duration-300 ${
                     isActive ? 'pl-2 sm:pl-4' : 'hover:pl-2'
                   }`}
                 >
-                  <Link
-                    to={`/services/${item.slug}`}
-                    className="block w-full"
-                    aria-label={`Explore ${item.title} service page`}
-                  >
-                    {/* Row Main Header */}
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="flex items-baseline gap-4">
-                        {/* Number */}
-                        <span
-                          className={`font-editorial text-2xl sm:text-3xl italic font-normal transition-colors duration-300 ${
-                            isActive ? 'text-[#FF4B00]' : 'text-[#858585] group-hover:text-[#111111]'
-                          }`}
-                        >
-                          {item.indexNumber}
-                        </span>
-
-                        {/* Title */}
-                        <h3
-                          className={`font-intertight font-extrabold text-xl sm:text-2xl md:text-[28px] uppercase tracking-tight transition-all duration-300 ${
-                            isActive
-                              ? 'text-[#FF4B00] translate-x-1.5'
-                              : 'text-[#111111] group-hover:text-[#FF4B00]'
-                          }`}
-                        >
-                          {item.title}
-                        </h3>
-                      </div>
-
-                      {/* Revealed Arrow */}
-                      <span
-                        className={`text-xl sm:text-2xl text-[#FF4B00] transition-all duration-300 ${
-                          isActive
-                            ? 'opacity-100 translate-x-1'
-                            : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
-                        }`}
-                      >
-                        ↗
-                      </span>
-                    </div>
-
-                    {/* Active Description (Revealed ONLY when active) */}
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ease-out ${
-                        isActive ? 'max-h-24 opacity-100 pt-3' : 'max-h-0 opacity-0'
+                  {/* Row Header */}
+                  <div className="flex items-baseline gap-4">
+                    <span
+                      className={`font-editorial text-3xl sm:text-4xl italic font-normal transition-colors duration-300 ${
+                        isActive ? 'text-[#FF4B00]' : 'text-[#858585] group-hover:text-[#111111]'
                       }`}
                     >
-                      <p className="text-xs sm:text-sm text-[#858585] font-normal leading-relaxed max-w-md">
-                        {item.shortDesc}
-                      </p>
-                    </div>
+                      {item.indexNumber}
+                    </span>
 
-                    {/* Mobile Inline Video Container (Accordion pattern on mobile) */}
-                    {isActive && (
-                      <div className="md:hidden pt-4">
-                        <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#111111]">
-                          <video
-                            src={item.videoSrc}
-                            poster={item.posterSrc}
-                            muted
-                            loop
-                            playsInline
-                            autoPlay
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
+                    <h3
+                      className={`font-intertight font-extrabold tracking-tight uppercase leading-none transition-all duration-300 ${
+                        isActive
+                          ? 'text-3xl sm:text-4xl md:text-5xl text-[#111111] translate-x-1'
+                          : 'text-xl sm:text-2xl text-[#858585] group-hover:text-[#111111]'
+                      }`}
+                    >
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  {/* Active Service Content (Revealed ONLY when active) */}
+                  <div
+                    className={`overflow-hidden transition-all duration-500 ease-out ${
+                      isActive ? 'max-h-40 opacity-100 pt-4' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <p className="text-sm sm:text-base text-[#858585] font-normal leading-relaxed max-w-md">
+                      {item.shortDesc}
+                    </p>
+
+                    <div className="pt-4">
+                      <Link
+                        to={`/services/${item.slug}`}
+                        className="inline-flex items-center gap-2 font-manrope font-bold text-xs sm:text-sm uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors"
+                        aria-label={`Explore ${item.title} service page`}
+                      >
+                        <span>EXPLORE SERVICE</span>
+                        <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Mobile Inline Video Container (Accordion pattern on mobile) */}
+                  {isActive && (
+                    <div className="lg:hidden pt-4">
+                      <div className="aspect-[16/10] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#050505]">
+                        <video
+                          src={item.videoSrc}
+                          poster={item.posterSrc}
+                          muted
+                          loop
+                          playsInline
+                          autoPlay
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                    )}
-                  </Link>
+                    </div>
+                  )}
                 </div>
               );
             })}
           </div>
 
-          {/* RIGHT: Clean Sticky Video Stage (7 Cols Desktop, ONLY Video, NO text overlays or dark boxes) */}
-          <div className="hidden md:block md:col-span-7 sticky top-28">
-            <div className="relative aspect-[4/3] lg:aspect-[16/11] w-full overflow-hidden border border-[#D8D8D5] bg-[#111111] shadow-[0_15px_40px_rgba(0,0,0,0.08)]">
+          {/* RIGHT SIDE: Full 50% Cinematic Video Stage (7 Cols Desktop, Pure Visual, NO text boxes or dark captions) */}
+          <div className="hidden lg:block lg:col-span-7 sticky top-28">
+            <div className="relative aspect-[4/3] lg:aspect-[16/11] min-h-[520px] lg:min-h-[600px] w-full overflow-hidden border border-[#D8D8D5] bg-[#050505] shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
               {servicesList.map((item, idx) => {
                 const isActive = activeIndex === idx;
                 return (
@@ -210,7 +203,7 @@ export const ServiceIndexStage: React.FC = () => {
                         : 'opacity-0 scale-103 z-0 pointer-events-none'
                     }`}
                   >
-                    {/* Seamless Loop Video */}
+                    {/* Pure High-Resolution Seamless Loop Video (No text, no caption boxes) */}
                     <video
                       ref={(el) => (videoRefs.current[idx] = el)}
                       src={item.videoSrc}
