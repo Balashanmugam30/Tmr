@@ -110,7 +110,7 @@ export const ServiceIndexStage: React.FC = () => {
     });
   }, [activeIndex, prevIndex]);
 
-  // WebGL Directional Liquid Displacement Shader Engine (Fixed Upright Orientation & Object-Fit Cover Math)
+  // WebGL Directional Liquid Displacement Shader Engine
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -242,18 +242,18 @@ export const ServiceIndexStage: React.FC = () => {
       gl.STATIC_DRAW
     );
 
-    // Standard Texture Coordinates (Upright 0,0 Top-Left -> 1,1 Bottom-Right)
+    // Upright Quad Texture Coordinates (Top-Left 0,0 -> Bottom-Right 1,1)
     const texCoordBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([
+        0.0, 0.0,
+        1.0, 0.0,
         0.0, 1.0,
-        1.0, 1.0,
-        0.0, 0.0,
-        0.0, 0.0,
-        1.0, 1.0,
-        1.0, 0.0
+        0.0, 1.0,
+        1.0, 0.0,
+        1.0, 1.0
       ]),
       gl.STATIC_DRAW
     );
@@ -302,7 +302,13 @@ export const ServiceIndexStage: React.FC = () => {
         }
 
         const containerAspect = width / (height || 1);
-        const videoAspect = 16.0 / 9.0; // Source video aspect ratio (1920x1080 / 1280x720)
+        
+        // Active video dimensions & dynamic aspect ratio calculation
+        const currVid = videoRefs.current[activeIndex];
+        const prevVid = videoRefs.current[prevIndex];
+        const videoAspect = (currVid && currVid.videoWidth && currVid.videoHeight)
+          ? currVid.videoWidth / currVid.videoHeight
+          : (16.0 / 9.0);
 
         if (!gl) return;
 
@@ -312,10 +318,7 @@ export const ServiceIndexStage: React.FC = () => {
         gl.uniform1f(containerAspectLoc, containerAspect);
         gl.uniform1f(videoAspectLoc, videoAspect);
 
-        const prevVid = videoRefs.current[prevIndex];
-        const currVid = videoRefs.current[activeIndex];
-
-        // Bind outgoing video texture (UNPACK_FLIP_Y_WEBGL = true ensures upright video sampling)
+        // Bind outgoing video texture with UNPACK_FLIP_Y_WEBGL = true
         if (prevVid && prevVid.readyState >= 2) {
           gl.activeTexture(gl.TEXTURE0);
           gl.bindTexture(gl.TEXTURE_2D, texPrev);
@@ -328,7 +331,7 @@ export const ServiceIndexStage: React.FC = () => {
           gl.uniform1i(texPrevLoc, 0);
         }
 
-        // Bind incoming video texture
+        // Bind incoming video texture with UNPACK_FLIP_Y_WEBGL = true
         if (currVid && currVid.readyState >= 2) {
           gl.activeTexture(gl.TEXTURE1);
           gl.bindTexture(gl.TEXTURE_2D, texCurr);
