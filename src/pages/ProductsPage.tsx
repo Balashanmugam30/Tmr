@@ -9,6 +9,22 @@ export const ProductsPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('ALL');
+  const [inspectPos, setInspectPos] = useState<{ x: number; y: number; active: boolean }>({
+    x: 50,
+    y: 50,
+    active: false,
+  });
+
+  const handleMouseMoveInspect = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setInspectPos({ x, y, active: true });
+  };
+
+  const handleMouseLeaveInspect = () => {
+    setInspectPos((prev) => ({ ...prev, active: false }));
+  };
 
   useEffect(() => {
     document.title = "TMR Car Care — The Product Vault";
@@ -228,16 +244,7 @@ export const ProductsPage: React.FC = () => {
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-7 flex flex-col">
-              <div className="flex items-center gap-4 mb-12">
-                <span className="font-manrope font-bold text-xs text-[#FF4B00] tracking-widest uppercase">
-                  02 / CATEGORY WORLDS
-                </span>
-                <div className="flex gap-4 text-[10px] font-bold text-[#858585] uppercase tracking-widest">
-                  <span>3M AUTO CARE</span>
-                  <span>/</span>
-                  <span>PRODUCT COLLECTION</span>
-                </div>
-              </div>
+              <div className="mb-8" />
 
               <div className="flex flex-col">
                 {categoryWorlds.map((world, idx) => {
@@ -427,52 +434,93 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 05 / DOCUMENTATION */}
+      {/* 05 / DOCUMENTATION (Technical Specimen Dossier & Magnification Inspection) */}
       <section className="relative w-full py-20 sm:py-32 bg-[#F5F4EF] border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+          {/* Headline Lockup */}
+          <div className="mb-12 text-center md:text-left">
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-none">
+              THE OBJECT,<br />
+              <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">closer.</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+            {/* Specimen Inspection Area with Cursor Magnification */}
             <div className="col-span-12 md:col-span-7">
-              <div className="aspect-[4/3] bg-white border border-[#D8D8D5] flex items-center justify-center p-8 relative overflow-hidden">
+              <div
+                onMouseMove={handleMouseMoveInspect}
+                onMouseLeave={handleMouseLeaveInspect}
+                className="relative aspect-square md:aspect-[4/3] bg-white border border-[#D8D8D5] flex items-center justify-center p-8 overflow-hidden cursor-crosshair group shadow-sm"
+              >
                 <img
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLu8fvzCmL1Ys9GLkUzSU5HhD4aQ6ZLLWAHXTqenLi5WiwmIX18xcp0jlNLKmqH_e7lw5xAFHik0G5B23Vy35bkB7Q-bbDcqwUWx6q6ZM_iWwzuHS9ABBIcYXr9mMvobZk4x50XgI0oEJ3WbFhOlnuWu_W--df5DnVVCjsbbWAzd_Qeosio4qVwTQDlSt_kRCHPUhV4p6faA7WLIanV8DX3UTNd0st4LOSN8LvB-pz0llMz2N0wzl-0K6W4"
-                  alt="3M Professional compound technical documentation view"
-                  className="w-4/5 h-4/5 object-contain"
+                  src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
+                  alt="3M™ Perfect-It™ EX AC Rubbing Compound technical specimen view"
+                  className="w-4/5 h-4/5 object-contain transition-transform duration-300 ease-out"
+                  style={{
+                    transform: inspectPos.active ? 'scale(1.18)' : 'scale(1)',
+                    transformOrigin: `${inspectPos.x}% ${inspectPos.y}%`,
+                  }}
                 />
+
+                {/* Floating Technical Inspection Badge following cursor */}
+                {inspectPos.active && (
+                  <div
+                    className="absolute pointer-events-none z-20 px-3 py-1.5 bg-[#111111] text-white rounded-md text-[10px] font-bold uppercase tracking-widest shadow-xl flex items-center gap-2 transition-opacity duration-200"
+                    style={{
+                      left: `calc(${inspectPos.x}% - 40px)`,
+                      top: `calc(${inspectPos.y}% - 45px)`,
+                    }}
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-ping" />
+                    <span>PN: 36060 | P1200+ REFINEMENT</span>
+                  </div>
+                )}
+
+                {/* Corner Technical Dossier Specimen Label */}
+                <div className="absolute bottom-4 left-4 border border-[#111111]/10 bg-white/90 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-[#858585]">
+                  SPECIMEN NO. 36060 / AAD-DOSSIER
+                </div>
               </div>
             </div>
 
+            {/* Technical Datasheet / Specification Grid */}
             <div className="col-span-12 md:col-span-5 flex flex-col justify-center">
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest mb-2">
-                05 / DOCUMENTATION
-              </span>
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-none mb-6">
-                THE OBJECT,<br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">closer.</span>
-              </h2>
+              <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-[#111111] mb-6 pb-4 border-b border-[#D8D8D5]">
+                Technical Specification
+              </h3>
 
-              <div className="grid grid-cols-2 gap-6 py-6 border-y border-[#D8D8D5] mb-6">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-6 pb-8 border-b border-[#D8D8D5] mb-8">
                 <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Brand</span>
-                  <span className="font-bold text-sm text-[#111111]">3M™ Professional</span>
+                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Product</span>
+                  <span className="font-bold text-xs sm:text-sm text-[#111111] leading-tight block">3M™ Perfect-It™ EX AC</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Part Number</span>
+                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">PN 36060</span>
                 </div>
                 <div>
                   <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Category</span>
-                  <span className="font-bold text-sm text-[#111111]">Compounds</span>
+                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">Compounds &amp; Polishes</span>
                 </div>
                 <div>
-                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Grade</span>
-                  <span className="font-bold text-sm text-[#111111]">P1200+ Refinement</span>
+                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Application</span>
+                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">Paint Correction</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Refinement</span>
+                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">P1200 or Finer</span>
                 </div>
                 <div>
                   <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">Finish</span>
-                  <span className="font-bold text-sm text-[#111111]">High-Gloss</span>
+                  <span className="font-bold text-xs sm:text-sm text-[#111111] block">High-Gloss Polish</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
+              <div>
                 <Link
                   to="/products/3m-perfect-it-ex-ac-rubbing-compound"
-                  className="w-full py-4 bg-[#111111] text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-[#FF4B00] transition-colors"
+                  className="w-full py-4 bg-[#111111] text-white font-bold text-xs uppercase tracking-widest text-center hover:bg-[#FF4B00] transition-colors block"
                 >
                   VIEW PRODUCT DETAILS →
                 </Link>
@@ -482,14 +530,11 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 07 / THE COLLECTION CATALOGUE */}
+      {/* THE COLLECTION CATALOGUE */}
       <section className="w-full py-20 sm:py-32 bg-white border-b border-[#D8D8D5]" id="product-catalogue">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 pb-12">
           <div className="flex flex-col md:flex-row justify-between items-end gap-8">
             <div>
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-                07 / THE COLLECTION
-              </span>
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-[#111111] leading-none">
                 THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">products.</span>
               </h2>
@@ -535,7 +580,7 @@ export const ProductsPage: React.FC = () => {
             >
               <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 overflow-hidden">
                 <img
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLvJ508kwagTZ4cJpG-maozx3-ILTksKUUwh4SSqoA0kl0SKpeXWtiKENVLXE1qjYqSsd_EFhRMUKIxFDcV31DwwiHcJNX_8xh2ZjdvAEpQ6b6SGja14HHOpAygu0MYKZT5zqmcagpSmWY7rEBEzbKglhYGHOVJYKb2xYp4wPmj-J67jPJjAAZJ95dhCOEiPIEAk49bDIHNK42fafOasDXaJ5vXeJHSBSInagLdqw4EFCD6Cmbc_2aQGTw"
+                  src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
                   alt="3M Rubbing Compound"
                   className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform"
                 />
@@ -565,7 +610,7 @@ export const ProductsPage: React.FC = () => {
             >
               <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 overflow-hidden">
                 <img
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLu8fvzCmL1Ys9GLkUzSU5HhD4aQ6ZLLWAHXTqenLi5WiwmIX18xcp0jlNLKmqH_e7lw5xAFHik0G5B23Vy35bkB7Q-bbDcqwUWx6q6ZM_iWwzuHS9ABBIcYXr9mMvobZk4x50XgI0oEJ3WbFhOlnuWu_W--df5DnVVCjsbbWAzd_Qeosio4qVwTQDlSt_kRCHPUhV4p6faA7WLIanV8DX3UTNd0st4LOSN8LvB-pz0llMz2N0wzl-0K6W4"
+                  src="/images/products/3m/3m-trizact-abrasives.jpg"
                   alt="3M Trizact"
                   className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform"
                 />
@@ -595,7 +640,7 @@ export const ProductsPage: React.FC = () => {
             >
               <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 overflow-hidden">
                 <img
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLu8fvzCmL1Ys9GLkUzSU5HhD4aQ6ZLLWAHXTqenLi5WiwmIX18xcp0jlNLKmqH_e7lw5xAFHik0G5B23Vy35bkB7Q-bbDcqwUWx6q6ZM_iWwzuHS9ABBIcYXr9mMvobZk4x50XgI0oEJ3WbFhOlnuWu_W--df5DnVVCjsbbWAzd_Qeosio4qVwTQDlSt_kRCHPUhV4p6faA7WLIanV8DX3UTNd0st4LOSN8LvB-pz0llMz2N0wzl-0K6W4"
+                  src="/images/products/3m/3m-quick-wax-spray.jpg"
                   alt="3M Quick Wax"
                   className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform"
                 />
@@ -621,14 +666,11 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 08 / VERIFIED SOURCES */}
+      {/* VERIFIED SOURCES */}
       <section className="w-full py-20 sm:py-32 bg-[#111111] text-white border-t border-white/10">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
             <div className="col-span-12 md:col-span-6">
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-                08 / SOURCES
-              </span>
               <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-white">
                 REAL PRODUCTS.<br />VERIFIED SOURCES.
               </h2>
@@ -659,14 +701,11 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 06 / DISCOVER / FIND BY PURPOSE */}
+      {/* DISCOVER / FIND BY PURPOSE */}
       <section className="w-full py-20 sm:py-32 bg-[#111111] text-white border-t border-white/10">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-7">
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-                06 / DISCOVER
-              </span>
               <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-white mb-4">
                 WHAT ARE YOU /<br />TRYING TO DO?
               </h2>
@@ -720,14 +759,11 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 10 / PRODUCT FAQ */}
+      {/* PRODUCT FAQ */}
       <section className="w-full py-20 sm:py-32 bg-white border-t border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="flex flex-col md:flex-row gap-12 sm:gap-16">
             <div className="md:w-1/3 space-y-4">
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block">
-                10 / QUESTIONS
-              </span>
               <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-[#111111]">
                 PRODUCT<br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">questions.</span>
@@ -769,12 +805,9 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 11 / FINAL CINEMATIC CTA */}
+      {/* FINAL CINEMATIC CTA */}
       <section className="relative w-full py-24 sm:py-32 bg-[#111111] text-white text-center">
         <div className="relative z-10 max-w-3xl mx-auto px-5 space-y-8">
-          <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block">
-            11 / NEXT
-          </span>
           <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-white leading-none">
             LOOKING FOR<br />
             <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">something specific?</span>
