@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { companyData } from '@/data/company';
+import { LiquidHeroCanvas } from '@/components/about/LiquidHeroCanvas';
 
 export const AboutPage: React.FC = () => {
   const [activeApproachStep, setActiveApproachStep] = useState<number>(0);
@@ -64,27 +65,16 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / HERO SECTION — CINEMATIC FULL-BLEED EDITORIAL 3-IMAGE COLLAGE POSTER */}
+      {/* 01 / HERO SECTION — INTERACTIVE EXPERIMENTAL LIQUID WEBGEL HERO WITH EDITORIAL IMAGE STRIPS */}
       <section
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
         className="relative w-full min-h-[95vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white"
       >
-        {/* Layer 1: Oversized Parallax Cinematic Background Canvas (Real Web Photograph) */}
-        <div
-          className="absolute -top-10 -bottom-10 -left-10 -right-10 z-0 pointer-events-none transition-transform duration-700 ease-out"
-          style={{
-            transform: `translate3d(${heroParallax.x}px, ${heroParallax.y}px, 0)`,
-          }}
-        >
-          <img
-            src="/images/about/about-hero-background-web.jpg"
-            alt="Flagship automotive studio background at night with dark metallic vehicle"
-            className="w-full h-full object-cover object-center scale-105"
-          />
-        </div>
+        {/* Layer 1: GPU WebGL Mouse-Reactive Liquid Distortion Canvas */}
+        <LiquidHeroCanvas imageSrc="/images/about/about-hero-fluid-bg.jpg" />
 
-        {/* Layer 2: Dual-Tone Dark Overlay & Atmospheric Gradient (Ensures 100% text legibility) */}
+        {/* Layer 2: Dual-Tone Dark Overlay & Atmospheric Gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/80 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50 z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-40 z-10 pointer-events-none" />
@@ -97,13 +87,13 @@ export const AboutPage: React.FC = () => {
           }}
         />
 
-        {/* Layer 4: Stable Art-Directed Content Overlay (Headline on Left, 2-Layer Visual Collage on Right) */}
+        {/* Layer 4: Stable Art-Directed Content Overlay & Editorial Image Strips */}
         <div className="relative z-30 max-w-[1360px] w-full mx-auto flex flex-col justify-end flex-grow my-auto">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end my-auto pt-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center my-auto pt-8 relative">
             
             {/* Left Oversized Headline & Editorial Group */}
-            <div className="lg:col-span-7 flex flex-col space-y-6">
+            <div className="lg:col-span-7 flex flex-col space-y-6 z-20">
               
               {/* Expressive Display Headline */}
               <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] lg:text-[108px] text-white uppercase tracking-tighter leading-[0.88] select-none">
@@ -130,29 +120,37 @@ export const AboutPage: React.FC = () => {
 
             </div>
 
-            {/* Right Layer 02 & Layer 03 Asymmetric Photography Collage */}
-            <div className="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] w-full flex items-center justify-end">
+            {/* Right Side: Editorial Image Strips Art-Directed Visual Arrangement */}
+            <div className="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] w-full flex flex-col justify-center gap-4 z-10">
               
-              {/* Layer 02: Primary Foreground Rectangular Image Panel */}
-              <div className="relative w-full max-w-[460px] aspect-[4/3] sm:aspect-[14/10] rounded-xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-white/15 bg-black z-20 group">
+              {/* Strip 01: Polished paint reflection */}
+              <div className="w-full max-w-[420px] ml-auto h-24 sm:h-28 rounded-lg overflow-hidden shadow-2xl border border-white/15 bg-black group relative transform hover:-translate-y-1 transition-transform duration-500">
                 <img
-                  src="/images/about/about-hero-foreground-web.jpg"
-                  alt="Vehicle inside TMR Car Care professional detailing studio in Tiruppur"
-                  className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+                  src="/images/about/about-hero-strip-01.jpg"
+                  alt="Polished vehicle paint reflection close up"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 right-4 text-[10px] font-mono text-white/80 uppercase tracking-widest">
-                  FLAGSHIP STUDIO // TIRUPPUR BAY
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
               </div>
 
-              {/* Layer 03: Small Floating Circular Image (Overlapping Foreground Panel) */}
-              <div className="absolute -bottom-4 -left-2 sm:left-4 w-[120px] sm:w-[140px] aspect-square rounded-full overflow-hidden border-4 border-[#050505] shadow-2xl z-30 hidden sm:block">
+              {/* Strip 02: Machine polishing detailer */}
+              <div className="w-full max-w-[460px] ml-auto h-28 sm:h-32 rounded-lg overflow-hidden shadow-2xl border border-white/15 bg-black group relative transform lg:-translate-x-6 hover:-translate-y-1 transition-transform duration-500">
                 <img
-                  src="/images/about/about-hero-detail-web.jpg"
-                  alt="Close up of automotive machine polishing and paint refinement inspection"
-                  className="w-full h-full object-cover"
+                  src="/images/about/about-hero-strip-02.jpg"
+                  alt="Detailer machine polishing vehicle clear coat surface"
+                  className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700"
                 />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
+              </div>
+
+              {/* Strip 03: Studio inspection bay */}
+              <div className="w-full max-w-[400px] ml-auto h-24 sm:h-28 rounded-lg overflow-hidden shadow-2xl border border-white/15 bg-black group relative transform hover:-translate-y-1 transition-transform duration-500">
+                <img
+                  src="/images/about/about-hero-strip-03.jpg"
+                  alt="Premium detailing studio inspection environment"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
               </div>
 
             </div>
