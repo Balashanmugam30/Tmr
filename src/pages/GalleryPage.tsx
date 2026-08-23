@@ -130,12 +130,13 @@ export const GalleryPage: React.FC = () => {
     return () => clearInterval(motionTimer);
   }, [isReducedMotion, isMotionHovered, motionPairs.length]);
 
-  // Hero Micro-Parallax Mouse Shift (Subtle 4–8px offset)
+  // Hero Micro-Parallax Mouse Shift (Constrained X: ±6px, Y: ±4px offset)
   const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isReducedMotion) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12; // -6px to +6px
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 12; // -6px to +6px
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 8;  // -4px to +4px
     setHeroParallax({ x, y });
   };
 
@@ -161,15 +162,15 @@ export const GalleryPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* SECTION 01 — GALLERY HERO (FULL-BLEED VIEWPORT HERO) */}
+      {/* SECTION 01 — GALLERY HERO (FULL-BLEED VIEWPORT HERO WITH SAFE OVERSCAN PARALLAX) */}
       <section
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
         className="relative w-full min-h-[90vh] lg:min-h-[100vh] flex flex-col justify-end pt-36 sm:pt-44 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10"
       >
-        {/* Dynamic Multi-Image Cinematic Canvas Background (Full Bleed to Viewport Top) */}
+        {/* Layer 1: Oversized Parallax Image Canvas (Moves subtly, overscanned by 40px on all edges) */}
         <div
-          className="absolute inset-0 z-0 pointer-events-none transition-transform duration-700 ease-out"
+          className="absolute -top-10 -bottom-10 -left-10 -right-10 z-0 pointer-events-none transition-transform duration-700 ease-out"
           style={{
             transform: `translate3d(${heroParallax.x}px, ${heroParallax.y}px, 0)`,
           }}
@@ -187,27 +188,27 @@ export const GalleryPage: React.FC = () => {
                   src={visual.src}
                   alt={visual.alt}
                   className={`w-full h-full object-cover object-center transition-transform duration-[6000ms] ease-out ${
-                    isActive ? 'scale-105' : 'scale-100'
+                    isActive ? 'scale-110' : 'scale-105'
                   }`}
                 />
               </div>
             );
           })}
-
-          {/* Sophisticated Dual-Tone Dark Overlay & Subtle Atmospheric Warmth */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/65 to-[#050505]/40 z-20" />
-          <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/10 via-transparent to-transparent opacity-40 z-20 pointer-events-none" />
-
-          {/* Film Grain Texture Overlay */}
-          <div
-            className="absolute inset-0 z-20 opacity-[0.03] pointer-events-none mix-blend-overlay"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-            }}
-          />
         </div>
 
-        {/* Stable Content Overlay Layer */}
+        {/* Layer 2: Static Dual-Tone Dark Overlay & Atmospheric Warmth (Never moves, locked to viewport) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/65 to-[#050505]/40 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/10 via-transparent to-transparent opacity-40 z-10 pointer-events-none" />
+
+        {/* Layer 3: Static Film Grain Texture Overlay (Never moves, locked to viewport) */}
+        <div
+          className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Layer 4: Stable Content Overlay Layer */}
         <div className="relative z-30 max-w-[1360px] w-full mx-auto flex flex-col lg:flex-row items-end justify-between gap-12 mt-auto">
           <div className="w-full lg:w-8/12 flex flex-col space-y-6">
             <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[88px] text-white leading-[0.9] tracking-tighter uppercase">
