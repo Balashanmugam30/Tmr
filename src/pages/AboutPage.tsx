@@ -72,7 +72,7 @@ export const AboutPage: React.FC = () => {
         className="relative w-full min-h-[95vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white"
       >
         {/* Layer 1: GPU WebGL Mouse-Reactive Liquid Distortion Canvas */}
-        <LiquidHeroCanvas imageSrc="/images/about/about-hero-fluid-bg.jpg" />
+        <LiquidHeroCanvas imageSrc="/images/about/about-hero-v2-bg.jpg" />
 
         {/* Layer 2: Dual-Tone Dark Overlay & Atmospheric Gradient */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/80 to-transparent z-10 pointer-events-none" />
@@ -120,37 +120,43 @@ export const AboutPage: React.FC = () => {
 
             </div>
 
-            {/* Right Side: Editorial Image Strips Art-Directed Visual Arrangement */}
+            {/* Right Side: Editorial Image Strips (01 Craft, 02 Detail, 03 Finish) */}
             <div className="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] w-full flex flex-col justify-center gap-4 z-10">
               
-              {/* Strip 01: Polished paint reflection */}
+              {/* Strip 01: 01 — THE CRAFT (Machine Polishing) */}
               <div className="w-full max-w-[420px] ml-auto h-24 sm:h-28 rounded-lg overflow-hidden shadow-2xl border border-white/15 bg-black group relative transform hover:-translate-y-1 transition-transform duration-500">
                 <img
-                  src="/images/about/about-hero-strip-01.jpg"
-                  alt="Polished vehicle paint reflection close up"
+                  src="/images/about/about-hero-v2-strip01.jpg"
+                  alt="01 THE CRAFT — Professional machine polishing and paint refinement"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent pointer-events-none flex items-end p-3">
+                  <span className="text-[10px] font-mono text-white/90 uppercase tracking-widest bg-black/50 px-2 py-0.5 rounded border border-white/10">01 // THE CRAFT</span>
+                </div>
               </div>
 
-              {/* Strip 02: Machine polishing detailer */}
+              {/* Strip 02: 02 — THE DETAIL (Paint Inspection & Clear-Coat Reflection) */}
               <div className="w-full max-w-[460px] ml-auto h-28 sm:h-32 rounded-lg overflow-hidden shadow-2xl border border-white/15 bg-black group relative transform lg:-translate-x-6 hover:-translate-y-1 transition-transform duration-500">
                 <img
-                  src="/images/about/about-hero-strip-02.jpg"
-                  alt="Detailer machine polishing vehicle clear coat surface"
+                  src="/images/about/about-hero-v2-strip02.jpg"
+                  alt="02 THE DETAIL — LED paint inspection and clear coat reflection depth"
                   className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent pointer-events-none flex items-end p-3">
+                  <span className="text-[10px] font-mono text-[#FF4B00] uppercase tracking-widest bg-black/60 px-2 py-0.5 rounded border border-[#FF4B00]/30">02 // THE DETAIL</span>
+                </div>
               </div>
 
-              {/* Strip 03: Studio inspection bay */}
+              {/* Strip 03: 03 — THE FINISH (Completed Vehicle Surface) */}
               <div className="w-full max-w-[400px] ml-auto h-24 sm:h-28 rounded-lg overflow-hidden shadow-2xl border border-white/15 bg-black group relative transform hover:-translate-y-1 transition-transform duration-500">
                 <img
-                  src="/images/about/about-hero-strip-03.jpg"
-                  alt="Premium detailing studio inspection environment"
+                  src="/images/about/about-hero-v2-strip03.jpg"
+                  alt="03 THE FINISH — High-gloss mirror paint finish inside TMR studio"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent pointer-events-none flex items-end p-3">
+                  <span className="text-[10px] font-mono text-white/90 uppercase tracking-widest bg-black/50 px-2 py-0.5 rounded border border-white/10">03 // THE FINISH</span>
+                </div>
               </div>
 
             </div>
