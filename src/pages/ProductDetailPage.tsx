@@ -112,7 +112,8 @@ export const ProductDetailPage: React.FC = () => {
     window.scrollTo(0, 0);
   }, [slug, product, titleText, descText]);
 
-  const faqs = [
+  // Product-specific FAQs from productsData or fallback
+  const faqs = product.faqs || [
     {
       q: `What type of pads or tools are recommended for ${product.name}?`,
       a: `For optimal performance with ${product.name}, we recommend using professional-grade foam or microfiber pads tailored to ${product.category.toLowerCase()} applications.`,
@@ -126,10 +127,6 @@ export const ProductDetailPage: React.FC = () => {
       a: `Yes. We integrate ${product.name} directly into our professional detailing and surface prep workflows in Tiruppur.`,
     },
   ];
-
-  const toggleFaq = (idx: number) => {
-    setOpenFaq(openFaq === idx ? null : idx);
-  };
 
   // Determine service link mapping based on category
   const getServiceLink = () => {
@@ -150,7 +147,15 @@ export const ProductDetailPage: React.FC = () => {
   };
 
   const serviceTarget = getServiceLink();
-  const relatedProducts = productsData.filter((p) => p.id !== product.id).slice(0, 3);
+
+  // Logical related products mapping based on relatedProductIds
+  const relatedProducts = (() => {
+    if (product.relatedProductIds && product.relatedProductIds.length > 0) {
+      const matched = productsData.filter((p) => product.relatedProductIds?.includes(p.id));
+      if (matched.length > 0) return matched.slice(0, 3);
+    }
+    return productsData.filter((p) => p.id !== product.id).slice(0, 3);
+  })();
 
   return (
     <div className="w-full bg-[#F5F4EF] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
@@ -366,7 +371,7 @@ export const ProductDetailPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 06 / PRODUCT FAQ */}
+      {/* 06 / PRODUCT FAQ (REFINED HOVER + FOCUS + TOUCH INTERACTION) */}
       <section className="py-20 sm:py-32 bg-white border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -383,26 +388,38 @@ export const ProductDetailPage: React.FC = () => {
               {faqs.map((faq, idx) => {
                 const isOpen = openFaq === idx;
                 return (
-                  <div key={idx} className="border-b border-[#D8D8D5]">
+                  <div
+                    key={idx}
+                    onMouseEnter={() => setOpenFaq(idx)}
+                    onMouseLeave={() => setOpenFaq(null)}
+                    className="border-b border-[#D8D8D5] transition-colors group"
+                  >
                     <button
-                      onClick={() => toggleFaq(idx)}
-                      className="w-full py-6 flex justify-between items-center text-left group"
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      onFocus={() => setOpenFaq(idx)}
+                      aria-expanded={isOpen}
+                      className="w-full py-6 flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00]"
                     >
                       <span className="font-manrope font-bold text-base sm:text-lg text-[#111111] group-hover:text-[#FF4B00] transition-colors">
                         {faq.q}
                       </span>
-                      <span className="text-2xl text-[#FF4B00] transition-transform duration-300">
+                      <span className="text-2xl text-[#FF4B00] transition-transform duration-300 ml-4 shrink-0">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
 
-                    {isOpen && (
-                      <div className="pb-6">
+                    <div
+                      className={`grid transition-all duration-300 ease-out overflow-hidden ${
+                        isOpen ? 'grid-rows-[1fr] opacity-100 pb-6' : 'grid-rows-[0fr] opacity-0 pb-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
                         <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed">
                           {faq.a}
                         </p>
                       </div>
-                    )}
+                    </div>
                   </div>
                 );
               })}
