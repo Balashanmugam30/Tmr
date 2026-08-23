@@ -173,7 +173,7 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 02 / THE BELIEF — DARK CINEMATIC EDITORIAL STATEMENT & PRINCIPLES */}
+      {/* 02 / THE BELIEF — DARK CINEMATIC EDITORIAL BRAND MANIFESTO */}
       <section className="bg-[#111111] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10" id="belief">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-16">
           
@@ -190,59 +190,62 @@ export const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <div className="lg:col-span-7 space-y-8 z-20">
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[0.95] tracking-tighter uppercase text-white">
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[0.92] tracking-tighter uppercase text-white">
                 WE BELIEVE THE <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">details</span> MATTER.
+                <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform">details</span> MATTER.
               </h2>
 
-              <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-xl leading-relaxed font-normal border-l pl-4 border-white/20">
-                A vehicle is more than a machine. It is a surface, a material, and a reflection of the person behind it. At TMR, care begins with attention — understanding the surface, respecting the material, and taking the time required to finish it properly.
+              <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-xl leading-relaxed font-normal border-l-2 border-[#FF4B00] pl-5">
+                A vehicle is more than a machine. It is a surface, a material, a reflection of the person behind it. At TMR, care begins with attention — understanding the surface, respecting the material and taking the time to finish it properly.
               </p>
             </div>
 
-            <div className="lg:col-span-5 relative border border-white/10 rounded-xl overflow-hidden shadow-2xl bg-black">
+            <div className="lg:col-span-5 relative border border-white/15 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black group">
               <img
-                src="/images/about/about-belief-macro.jpg"
-                alt="Macro detail of clear coat paint surface reflection"
-                className="w-full h-[360px] sm:h-[480px] object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                src="/images/about/about-belief-surface-detail.jpg"
+                alt="Close up of precision paint inspection and clear coat surface reflection on a dark metallic vehicle inside TMR Car Care detailing studio in Tiruppur"
+                className="w-full h-[360px] sm:h-[480px] object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-6 left-6 right-6 text-xs text-[#D8D8D5] font-mono uppercase tracking-widest">
-                SURFACE REFLECTION // 10H CERAMIC PROTECTION
-              </div>
             </div>
 
           </div>
 
-          {/* Three Editorial Markers (Replacing generic card UI) */}
-          <div className="pt-8 grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/15">
+          {/* Three Editorial Principles Horizontal Sequence (Unboxed Manifesto Layout) */}
+          <div className="pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/15">
             
-            <div className="flex flex-col space-y-3 p-4">
-              <span className="font-manrope font-extrabold text-3xl text-[#FF4B00]">01</span>
-              <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-white">
-                ATTENTION
-              </h3>
-              <p className="text-sm text-[#858585] leading-relaxed">
+            <div className="flex flex-col space-y-3 p-2">
+              <div className="flex items-center gap-3">
+                <span className="font-manrope font-extrabold text-3xl text-[#FF4B00]">01</span>
+                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wider text-white">
+                  ATTENTION
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
                 Thorough surface inspection and paint depth diagnostics before any pad or compound touches the panel.
               </p>
             </div>
 
-            <div className="flex flex-col space-y-3 p-4 border-t md:border-t-0 md:border-l border-white/15">
-              <span className="font-manrope font-extrabold text-3xl text-[#FF4B00]">02</span>
-              <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-white">
-                PRECISION
-              </h3>
-              <p className="text-sm text-[#858585] leading-relaxed">
+            <div className="flex flex-col space-y-3 p-2 border-t md:border-t-0 md:border-l border-white/15 md:pl-8">
+              <div className="flex items-center gap-3">
+                <span className="font-manrope font-extrabold text-3xl text-[#FF4B00]">02</span>
+                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wider text-white">
+                  PRECISION
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
                 Multi-stage machine polishing tailored to specific paint hardness, eliminating defects without compromising clear coat integrity.
               </p>
             </div>
 
-            <div className="flex flex-col space-y-3 p-4 border-t md:border-t-0 md:border-l border-white/15">
-              <span className="font-manrope font-extrabold text-3xl text-[#FF4B00]">03</span>
-              <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-[#FF4B00]">
-                FINISH
-              </h3>
-              <p className="text-sm text-[#858585] leading-relaxed">
+            <div className="flex flex-col space-y-3 p-2 border-t md:border-t-0 md:border-l border-white/15 md:pl-8">
+              <div className="flex items-center gap-3">
+                <span className="font-manrope font-extrabold text-3xl text-[#FF4B00]">03</span>
+                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wider text-[#FF4B00]">
+                  FINISH
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
                 Application of self-healing PPF or 9H ceramic armor delivering deep gloss, hydrophobic repelling, and long-term durability.
               </p>
             </div>
