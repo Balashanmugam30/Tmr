@@ -34,8 +34,8 @@ const HomeStyleGalleryStage: React.FC<HomeStyleGalleryStageProps> = ({
     const img = imgRef.current;
     if (!card || !img) return;
 
-    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isReducedMotion) {
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (isReducedMotion.matches) {
       card.style.clipPath = 'inset(0 0% 0 0)';
       card.style.opacity = '1';
       return;
@@ -241,7 +241,162 @@ export const GalleryPage: React.FC = () => {
   ];
 
   useEffect(() => {
-    document.title = "TMR CAR CARE — GALLERY | Tiruppur Detailing Studio";
+    document.title = "Car Detailing Tiruppur | Gallery & Before After Results | TMR Car Care";
+
+    // Meta Description Injection
+    let metaDescription = document.querySelector('meta[name="description"]');
+    if (!metaDescription) {
+      metaDescription = document.createElement('meta');
+      metaDescription.setAttribute('name', 'description');
+      document.head.appendChild(metaDescription);
+    }
+    metaDescription.setAttribute(
+      'content',
+      "Explore TMR Car Care's detailing gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, self-healing PPF, and before & after results."
+    );
+
+    // Canonical Link Injection
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.setAttribute('href', 'https://tmrcarcare.com/gallery');
+
+    // OpenGraph Title Injection
+    let ogTitle = document.querySelector('meta[property="og:title"]');
+    if (!ogTitle) {
+      ogTitle = document.createElement('meta');
+      ogTitle.setAttribute('property', 'og:title');
+      document.head.appendChild(ogTitle);
+    }
+    ogTitle.setAttribute('content', 'Car Detailing Tiruppur | Gallery & Before After Results | TMR Car Care');
+
+    // OpenGraph Description Injection
+    let ogDesc = document.querySelector('meta[property="og:description"]');
+    if (!ogDesc) {
+      ogDesc = document.createElement('meta');
+      ogDesc.setAttribute('property', 'og:description');
+      document.head.appendChild(ogDesc);
+    }
+    ogDesc.setAttribute(
+      'content',
+      "Explore TMR Car Care's detailing gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, self-healing PPF, and before & after results."
+    );
+
+    // OpenGraph URL Injection
+    let ogUrl = document.querySelector('meta[property="og:url"]');
+    if (!ogUrl) {
+      ogUrl = document.createElement('meta');
+      ogUrl.setAttribute('property', 'og:url');
+      document.head.appendChild(ogUrl);
+    }
+    ogUrl.setAttribute('content', 'https://tmrcarcare.com/gallery');
+
+    // OpenGraph Image Injection
+    let ogImage = document.querySelector('meta[property="og:image"]');
+    if (!ogImage) {
+      ogImage = document.createElement('meta');
+      ogImage.setAttribute('property', 'og:image');
+      document.head.appendChild(ogImage);
+    }
+    ogImage.setAttribute('content', 'https://tmrcarcare.com/images/gallery/gallery-hero-01.jpg');
+
+    // JSON-LD Schema Injection (ImageGallery + BreadcrumbList)
+    let schemaScript = document.getElementById('gallery-jsonld');
+    if (!schemaScript) {
+      schemaScript = document.createElement('script');
+      schemaScript.id = 'gallery-jsonld';
+      schemaScript.setAttribute('type', 'application/ld+json');
+      document.head.appendChild(schemaScript);
+    }
+
+    const jsonLdData = {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://tmrcarcare.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Gallery",
+              "item": "https://tmrcarcare.com/gallery"
+            }
+          ]
+        },
+        {
+          "@type": "ImageGallery",
+          "name": "TMR Car Care Detailing & Paint Correction Gallery",
+          "description": "Visual archive of professional automotive paint correction, 9H ceramic coating, self-healing PPF, and before & after results in Tiruppur.",
+          "url": "https://tmrcarcare.com/gallery",
+          "provider": {
+            "@type": "AutoRepair",
+            "name": "TMR Car Care",
+            "url": "https://tmrcarcare.com/"
+          },
+          "image": [
+            {
+              "@type": "ImageObject",
+              "name": "TMR Car Care Detailing Studio Bay Tiruppur",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-01.jpg",
+              "caption": "Sleek dark supercar inside TMR Car Care detailing studio in Tiruppur"
+            },
+            {
+              "@type": "ImageObject",
+              "name": "Clear Coat Paint Inspection Audit",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-02.jpg",
+              "caption": "Professional automotive technician inspecting paint clear coat with LED detailing light"
+            },
+            {
+              "@type": "ImageObject",
+              "name": "Multi-Stage Paint Correction",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-03.jpg",
+              "caption": "Dual-action machine polisher refining clear coat on a dark metallic body panel"
+            },
+            {
+              "@type": "ImageObject",
+              "name": "High-Gloss Mirror Reflection",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-04.jpg",
+              "caption": "Macro photograph of mirror paint reflection post detailing"
+            },
+            {
+              "@type": "ImageObject",
+              "name": "Mahindra XUV700 Paint Refinement",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-sig-xuv700.webp",
+              "caption": "Professional paint correction on a Mahindra XUV700 SUV at TMR Car Care Tiruppur"
+            },
+            {
+              "@type": "ImageObject",
+              "name": "Tata Safari High Gloss Finish",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-sig-safari.webp",
+              "caption": "High-gloss paint finish on Tata Safari after professional automotive detailing"
+            },
+            {
+              "@type": "ImageObject",
+              "name": "Before Paint Correction Defects",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-transformation-before-final.jpg",
+              "caption": "Before paint correction showing surface defects and swirl marks on vehicle bonnet"
+            },
+            {
+              "@type": "ImageObject",
+              "name": "After Paint Correction Mirror Finish",
+              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-transformation-after-final.jpg",
+              "caption": "After paint correction showing flawless gloss finish on vehicle bonnet"
+            }
+          ]
+        }
+      ]
+    };
+    schemaScript.textContent = JSON.stringify(jsonLdData);
+
     window.scrollTo(0, 0);
 
     // Check prefers-reduced-motion accessibility preference
