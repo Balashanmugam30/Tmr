@@ -247,7 +247,7 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 02 — THE WORK IN MOTION (EDITORIAL ANIMATED 2-COLUMN GALLERY REDESIGN) */}
+      {/* SECTION 02 — THE WORK IN MOTION (AUTOMATIC HORIZONTAL REVEAL SLIDER) */}
       <section
         className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
         id="motion"
@@ -255,7 +255,7 @@ export const GalleryPage: React.FC = () => {
         onMouseLeave={() => setIsMotionHovered(false)}
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="flex flex-col space-y-4">
               <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
                 <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
@@ -269,15 +269,16 @@ export const GalleryPage: React.FC = () => {
               </p>
             </div>
 
-            {/* Pagination Controls */}
+            {/* Auto-Updating Pagination Indicators */}
             <div className="flex items-center gap-3">
               {motionPairs.map((_, pIdx) => (
                 <button
                   key={pIdx}
                   onClick={() => setMotionIndex(pIdx)}
-                  className={`text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded border transition-all ${
+                  aria-label={`Go to motion slide ${pIdx + 1}`}
+                  className={`text-xs font-bold tracking-widest uppercase px-4 py-2 rounded border transition-all ${
                     pIdx === motionIndex
-                      ? 'bg-[#FF4B00] border-[#FF4B00] text-white'
+                      ? 'bg-[#FF4B00] border-[#FF4B00] text-white shadow-[0_0_15px_rgba(255,75,0,0.4)]'
                       : 'border-white/20 text-white/50 hover:text-white hover:border-white/40'
                   }`}
                 >
@@ -287,91 +288,51 @@ export const GalleryPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Editorial 2-Column Animated Contact Sheet Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative min-h-[440px] sm:min-h-[520px]">
-            {/* LEFT COLUMN ITEM */}
-            {(() => {
-              const currentItem = motionPairs[motionIndex].left;
-              return (
-                <Link
-                  key={`left-${motionIndex}`}
-                  to={currentItem.link}
-                  className="group block relative overflow-hidden border border-white/10 bg-[#0B0B0B] rounded-lg transition-all duration-1000 ease-out hover:border-[#FF4B00]/60 shadow-2xl"
+          {/* Editorial Horizontal Reveal Stage (Right to Left Transition, Zero Zoom) */}
+          <div className="relative overflow-hidden w-full rounded-lg">
+            <div
+              className={`flex w-full ${
+                isReducedMotion
+                  ? 'transition-none'
+                  : 'transition-transform duration-[1100ms] ease-[cubic-bezier(0.65,0,0.35,1)]'
+              }`}
+              style={{
+                transform: `translate3d(-${motionIndex * 100}%, 0, 0)`,
+              }}
+            >
+              {motionPairs.map((pair, pIdx) => (
+                <div
+                  key={pIdx}
+                  className="w-full flex-shrink-0 grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 p-0.5"
                 >
-                  <div className="aspect-[16/10] w-full overflow-hidden relative">
+                  {/* Left Editorial Visual */}
+                  <Link
+                    to={pair.left.link}
+                    className="block relative overflow-hidden rounded-lg bg-[#0B0B0B] aspect-[16/10] border border-white/10 hover:border-[#FF4B00]/40 transition-colors shadow-2xl"
+                  >
                     <img
-                      src={currentItem.img}
-                      alt={currentItem.alt}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      src={pair.left.img}
+                      alt={pair.left.alt}
+                      className="w-full h-full object-cover scale-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent opacity-80" />
-                    
-                    {/* Orange Index Detail Marker */}
-                    <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 border border-white/10 rounded">
-                      <span className="font-extrabold text-[10px] text-[#FF4B00] tracking-widest uppercase">
-                        {currentItem.id} // STUDIO ARCHIVE
-                      </span>
-                    </div>
-                  </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/50 via-transparent to-transparent opacity-40 pointer-events-none" />
+                  </Link>
 
-                  <div className="p-6 bg-[#0B0B0B] flex justify-between items-end border-t border-white/10">
-                    <div>
-                      <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block mb-1">
-                        {currentItem.title}
-                      </span>
-                      <p className="text-xs text-[#F5F4EF]/70 max-w-sm leading-relaxed">
-                        {currentItem.description}
-                      </p>
-                    </div>
-                    <span className="text-base text-white group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">
-                      ↗
-                    </span>
-                  </div>
-                </Link>
-              );
-            })()}
-
-            {/* RIGHT COLUMN ITEM */}
-            {(() => {
-              const currentItem = motionPairs[motionIndex].right;
-              return (
-                <Link
-                  key={`right-${motionIndex}`}
-                  to={currentItem.link}
-                  className="group block relative overflow-hidden border border-white/10 bg-[#0B0B0B] rounded-lg transition-all duration-1000 ease-out hover:border-[#FF4B00]/60 shadow-2xl"
-                >
-                  <div className="aspect-[16/10] w-full overflow-hidden relative">
+                  {/* Right Editorial Visual */}
+                  <Link
+                    to={pair.right.link}
+                    className="block relative overflow-hidden rounded-lg bg-[#0B0B0B] aspect-[16/10] border border-white/10 hover:border-[#FF4B00]/40 transition-colors shadow-2xl"
+                  >
                     <img
-                      src={currentItem.img}
-                      alt={currentItem.alt}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      src={pair.right.img}
+                      alt={pair.right.alt}
+                      className="w-full h-full object-cover scale-100"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent opacity-80" />
-                    
-                    {/* Orange Index Detail Marker */}
-                    <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 border border-white/10 rounded">
-                      <span className="font-extrabold text-[10px] text-[#FF4B00] tracking-widest uppercase">
-                        {currentItem.id} // STUDIO ARCHIVE
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="p-6 bg-[#0B0B0B] flex justify-between items-end border-t border-white/10">
-                    <div>
-                      <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block mb-1">
-                        {currentItem.title}
-                      </span>
-                      <p className="text-xs text-[#F5F4EF]/70 max-w-sm leading-relaxed">
-                        {currentItem.description}
-                      </p>
-                    </div>
-                    <span className="text-base text-white group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">
-                      ↗
-                    </span>
-                  </div>
-                </Link>
-              );
-            })()}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/50 via-transparent to-transparent opacity-40 pointer-events-none" />
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
