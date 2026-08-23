@@ -1,6 +1,92 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import { companyData } from '@/data/company';
+
+// --- REUSABLE HOME-PAGE GSAP REVEAL STAGE COMPONENT ---
+// Reuses the EXACT GSAP reveal transition from GalleryRevealItem.tsx on the Home Page
+interface HomeStyleGalleryStageProps {
+  images: { src: string; alt: string }[];
+  activeIndex: number;
+  onHoverChange?: (isHovered: boolean) => void;
+  aspectRatio?: string;
+}
+
+const HomeStyleGalleryStage: React.FC<HomeStyleGalleryStageProps> = ({
+  images,
+  activeIndex,
+  onHoverChange,
+  aspectRatio = 'aspect-[16/9]',
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const prevIndexRef = useRef<number>(activeIndex);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    const img = imgRef.current;
+    if (!card || !img) return;
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion) {
+      card.style.clipPath = 'inset(0 0% 0 0)';
+      card.style.opacity = '1';
+      return;
+    }
+
+    if (prevIndexRef.current !== activeIndex) {
+      // EXACT HOME PAGE GSAP REVEAL ANIMATION FROM GalleryRevealItem.tsx
+      gsap.fromTo(
+        card,
+        { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+        {
+          clipPath: 'inset(0 0% 0 0)',
+          opacity: 1,
+          duration: 0.95,
+          ease: 'power3.out',
+          overwrite: 'auto',
+        }
+      );
+      gsap.fromTo(
+        img,
+        { x: -24, scale: 1.025 },
+        {
+          x: 0,
+          scale: 1.0,
+          duration: 0.95,
+          ease: 'power3.out',
+          overwrite: 'auto',
+        }
+      );
+      prevIndexRef.current = activeIndex;
+    }
+  }, [activeIndex]);
+
+  return (
+    <div
+      className={`relative w-full ${aspectRatio} overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
+      onMouseEnter={() => onHoverChange?.(true)}
+      onMouseLeave={() => onHoverChange?.(false)}
+    >
+      <div
+        ref={cardRef}
+        className="w-full h-full relative overflow-hidden"
+        style={{
+          clipPath: 'inset(0 0% 0 0)',
+          opacity: 1,
+        }}
+      >
+        <img
+          ref={imgRef}
+          src={images[activeIndex].src}
+          alt={images[activeIndex].alt}
+          className="w-full h-full object-cover transition-transform duration-700 ease-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none opacity-40 group-hover:opacity-65 transition-opacity duration-500" />
+      </div>
+    </div>
+  );
+};
 
 export const GalleryPage: React.FC = () => {
   // Existing state for Section 05 slider
@@ -15,11 +101,13 @@ export const GalleryPage: React.FC = () => {
   const [motionIndex, setMotionIndex] = useState<number>(0);
   const [isMotionHovered, setIsMotionHovered] = useState<boolean>(false);
 
-  // --- SECTION 03: SIGNATURE WORK BEFORE/AFTER COMPARISON SLIDER STATE ---
-  const [sigSliderPos, setSigSliderPos] = useState<number>(50);
+  // --- SECTION 03: SIGNATURE WORK AUTOPLAY STATE ---
+  const [sigIndex, setSigIndex] = useState<number>(0);
+  const [isSigHovered, setIsSigHovered] = useState<boolean>(false);
 
-  // --- SECTION 04: DETAIL BEFORE/AFTER COMPARISON SLIDER STATE ---
-  const [detailSliderPos, setDetailSliderPos] = useState<number>(50);
+  // --- SECTION 04: DETAIL TRANSFORMATION AUTOPLAY STATE ---
+  const [detailIndex, setDetailIndex] = useState<number>(0);
+  const [isDetailHovered, setIsDetailHovered] = useState<boolean>(false);
 
   // Hero dedicated local assets (No remote URLs, no duplicates across Section 01 & 02)
   const heroVisuals = [
@@ -103,6 +191,46 @@ export const GalleryPage: React.FC = () => {
     },
   ];
 
+  // Section 03 Signature Work datasets (Indian-market focus)
+  const sigVisuals = [
+    {
+      src: '/images/gallery/gallery-sig-xuv700.webp',
+      alt: 'Professional paint correction on a Mahindra XUV700 SUV at TMR Car Care Tiruppur',
+    },
+    {
+      src: '/images/gallery/gallery-sig-polishing.webp',
+      alt: 'Machine polishing automotive clear coat at TMR Car Care detailing studio',
+    },
+    {
+      src: '/images/gallery/gallery-sig-ceramic.webp',
+      alt: 'Ceramic coating application on an Indian-market vehicle in Tiruppur',
+    },
+    {
+      src: '/images/gallery/gallery-sig-safari.webp',
+      alt: 'High-gloss paint finish on Tata Safari after professional automotive detailing',
+    },
+  ];
+
+  // Section 04 Technical Detail Stages dataset
+  const detailVisuals = [
+    {
+      src: '/images/gallery/gallery-detail-inspection.webp',
+      alt: 'Paint defect inspection under professional detailing lights at TMR Car Care Tiruppur',
+    },
+    {
+      src: '/images/gallery/gallery-detail-polishing.webp',
+      alt: 'Machine polishing clear coat refinement in Tiruppur studio bay',
+    },
+    {
+      src: '/images/gallery/gallery-detail-macro.webp',
+      alt: 'Macro photograph of refined clear coat mirror gloss finish',
+    },
+    {
+      src: '/images/gallery/gallery-detail-coating.webp',
+      alt: 'Hydrophobic ceramic coating water bead reflection after paint correction',
+    },
+  ];
+
   useEffect(() => {
     document.title = "TMR CAR CARE — GALLERY | Tiruppur Detailing Studio";
     window.scrollTo(0, 0);
@@ -136,6 +264,24 @@ export const GalleryPage: React.FC = () => {
     return () => clearInterval(motionTimer);
   }, [isReducedMotion, isMotionHovered, motionPairs.length]);
 
+  // Section 03 Signature Work Autoplay Timer (3.5s sequence)
+  useEffect(() => {
+    if (isReducedMotion || isSigHovered) return;
+    const sigTimer = setInterval(() => {
+      setSigIndex((prev) => (prev + 1) % sigVisuals.length);
+    }, 3500);
+    return () => clearInterval(sigTimer);
+  }, [isReducedMotion, isSigHovered, sigVisuals.length]);
+
+  // Section 04 Detail Transformation Autoplay Timer (3.5s sequence)
+  useEffect(() => {
+    if (isReducedMotion || isDetailHovered) return;
+    const detailTimer = setInterval(() => {
+      setDetailIndex((prev) => (prev + 1) % detailVisuals.length);
+    }, 3500);
+    return () => clearInterval(detailTimer);
+  }, [isReducedMotion, isDetailHovered, detailVisuals.length]);
+
   // Hero Micro-Parallax Mouse Shift (Constrained X: ±6px, Y: ±4px offset)
   const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isReducedMotion) return;
@@ -150,39 +296,6 @@ export const GalleryPage: React.FC = () => {
     setHeroParallax({ x: 0, y: 0 });
   };
 
-  // Section 03 Signature Work Before/After Drag Handler
-  const handleSigMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSigSliderPos(percentage);
-  };
-
-  const handleSigTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const touch = e.touches[0];
-    const x = touch.clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSigSliderPos(percentage);
-  };
-
-  // Section 04 Detail Before/After Drag Handler
-  const handleDetailMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setDetailSliderPos(percentage);
-  };
-
-  const handleDetailTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const touch = e.touches[0];
-    const x = touch.clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setDetailSliderPos(percentage);
-  };
-
-  // Section 05 Interactive Slider Handlers
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -376,151 +489,115 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 03 — SIGNATURE WORK (FULL-WIDTH INTERACTIVE BEFORE/AFTER SLIDER) */}
-      <section
-        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
-        id="signature"
-      >
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="flex flex-col space-y-4 mb-12">
-            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              03 / SIGNATURE WORK
+      {/* SECTION 03 — SIGNATURE WORK (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
+      <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 font-intertight">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-8">
+          
+          {/* EDITORIAL HEADER GROUP (OUTSIDE THE IMAGE STAGE) */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="flex flex-col space-y-4">
+              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
+                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+                03 / SIGNATURE WORK
+              </div>
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl text-white uppercase tracking-tight leading-[0.95]">
+                SIGNATURE <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">automotive</span> WORK.
+              </h2>
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-xl border-l pl-4 border-white/20 leading-relaxed font-normal">
+                A curated view of paint correction, ceramic coating and paint protection work completed at TMR Car Care in Tiruppur.
+              </p>
             </div>
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-7xl text-white uppercase tracking-tighter">
-              SIGNATURE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">automotive</span> WORK.
-            </h2>
-            <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-2xl border-l pl-4 border-white/20 leading-relaxed font-normal">
-              A curated view of paint correction, ceramic coating and paint protection work completed at TMR Car Care in Tiruppur.
-            </p>
+
+            {/* AUTO-UPDATING SEQUENCE INDICATORS */}
+            <div className="flex items-center gap-2 shrink-0">
+              {sigVisuals.map((_, sIdx) => (
+                <button
+                  key={sIdx}
+                  onClick={() => setSigIndex(sIdx)}
+                  aria-label={`Go to signature slide ${sIdx + 1}`}
+                  className={`text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded border transition-all ${
+                    sIdx === sigIndex
+                      ? 'bg-[#FF4B00] border-[#FF4B00] text-white shadow-[0_0_15px_rgba(255,75,0,0.4)]'
+                      : 'border-white/20 text-white/50 hover:text-white hover:border-white/40'
+                  }`}
+                >
+                  0{sIdx + 1}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Full-Width Draggable Before/After Comparison Stage (Zero Text Overlap) */}
-          <div
-            className="relative w-full h-[400px] sm:h-[600px] md:h-[650px] overflow-hidden select-none cursor-ew-resize border border-white/15 rounded-lg shadow-2xl bg-[#0B0B0B]"
-            onMouseMove={handleSigMouseMove}
-            onTouchMove={handleSigTouchMove}
-          >
-            {/* After Image (Full background) */}
-            <img
-              src="/images/gallery/gallery-signature-after.webp"
-              alt="After professional paint correction showing deep gloss on an Indian-market SUV"
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          {/* LARGE CINEMATIC IMAGE STAGE USING EXACT HOME PAGE GSAP REVEAL ANIMATION */}
+          <div className="w-full">
+            <HomeStyleGalleryStage
+              images={sigVisuals}
+              activeIndex={sigIndex}
+              onHoverChange={setIsSigHovered}
+              aspectRatio="aspect-[16/9] md:aspect-[21/9]"
             />
-
-            {/* Before Image (Clipped overlay) */}
-            <div
-              className="absolute inset-0 overflow-hidden pointer-events-none"
-              style={{ width: `${sigSliderPos}%` }}
-            >
-              <img
-                src="/images/gallery/gallery-signature-before.webp"
-                alt="Before paint correction on a dark Indian-market SUV at TMR Car Care Tiruppur"
-                className="absolute inset-0 w-full h-full object-cover max-w-none"
-                style={{ width: '100%', height: '100%' }}
-              />
-            </div>
-
-            {/* Subdued Badges */}
-            <div className="absolute top-4 left-4 z-20 bg-black/70 backdrop-blur-md px-3.5 py-1.5 border border-white/10 rounded text-[10px] text-white/80 font-bold uppercase tracking-widest pointer-events-none">
-              BEFORE // SWIRLS & OXIDATION
-            </div>
-            <div className="absolute top-4 right-4 z-20 bg-[#FF4B00]/90 backdrop-blur-md px-3.5 py-1.5 border border-[#FF4B00] rounded text-[10px] text-white font-bold uppercase tracking-widest pointer-events-none">
-              AFTER // REFINED MIRROR GLOSS
-            </div>
-
-            {/* Vertical Divider Line & Drag Handle */}
-            <div
-              className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30 pointer-events-none"
-              style={{ left: `${sigSliderPos}%` }}
-            >
-              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,75,0,0.6)] font-bold text-xs">
-                ↔
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 04 — DETAIL / MACRO PAINT CORRECTION BEFORE/AFTER */}
-      <section
-        className="relative bg-[#F5F4EF] py-20 sm:py-32 overflow-hidden text-[#111111] border-b border-[#D8D8D5]"
-        id="detail"
-      >
+      {/* SECTION 04 — DETAIL (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
+      <section className="relative bg-[#070809] py-20 sm:py-32 overflow-hidden text-[#F5F4EF] border-b border-white/10 font-intertight">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Column: Heading & SEO Copy */}
-            <div className="lg:col-span-5 flex flex-col space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* LEFT SIDE TECHNICAL EDITORIAL GROUP */}
+            <div className="lg:col-span-5 space-y-6">
               <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
                 <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
                 04 / DETAIL
               </div>
-              
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-[0.95]">
+
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-[0.95]">
                 PAINT CORRECTION <br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">changes everything.</span>
               </h2>
 
-              <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] border-l pl-4 border-[#111111]/20 leading-relaxed">
-                Close-up paint inspection and refinement showing the difference between a compromised clear coat and a professionally corrected finish at TMR Car Care in Tiruppur.
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] leading-relaxed border-l pl-4 border-white/20">
+                Close-up detailing work showing inspection, refinement and final surface quality achieved through professional automotive paint correction at TMR Car Care in Tiruppur.
               </p>
 
-              <div className="pt-2">
+              <div className="pt-4">
                 <Link
                   to="/services/detailing-paint-care"
-                  className="inline-flex items-center gap-3 text-[#111111] font-bold text-xs uppercase tracking-widest border-b border-[#111111] pb-2 hover:text-[#FF4B00] hover:border-[#FF4B00] transition-colors"
+                  className="group inline-flex items-center gap-3 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
                 >
-                  <span>EXPLORE PAINT CORRECTION SERVICES</span>
-                  <span className="text-base">↗</span>
+                  <span>SEE PAINT CORRECTION SERVICES</span>
+                  <span className="text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">↗</span>
                 </Link>
+              </div>
+
+              {/* TECHNICAL PROGRESS STAGE BUTTONS */}
+              <div className="flex items-center gap-2 pt-2">
+                {detailVisuals.map((_, dIdx) => (
+                  <button
+                    key={dIdx}
+                    onClick={() => setDetailIndex(dIdx)}
+                    aria-label={`Go to detail slide ${dIdx + 1}`}
+                    className={`text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded border transition-all ${
+                      dIdx === detailIndex
+                        ? 'bg-[#FF4B00] border-[#FF4B00] text-white'
+                        : 'border-white/20 text-white/50 hover:text-white hover:border-white/40'
+                    }`}
+                  >
+                    0{dIdx + 1}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Right Column: Macro Interactive Before/After Comparison Stage */}
+            {/* RIGHT SIDE LARGE ANIMATED STAGE USING EXACT HOME PAGE GSAP REVEAL ANIMATION */}
             <div className="lg:col-span-7">
-              <div
-                className="relative w-full h-[360px] sm:h-[500px] overflow-hidden select-none cursor-ew-resize border border-[#D8D8D5] rounded-lg shadow-2xl bg-white"
-                onMouseMove={handleDetailMouseMove}
-                onTouchMove={handleDetailTouchMove}
-              >
-                {/* After Image (Full background) */}
-                <img
-                  src="/images/gallery/gallery-detail-after.webp"
-                  alt="After paint correction showing corrected high-gloss automotive clear coat"
-                  className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                />
-
-                {/* Before Image (Clipped overlay) */}
-                <div
-                  className="absolute inset-0 overflow-hidden pointer-events-none"
-                  style={{ width: `${detailSliderPos}%` }}
-                >
-                  <img
-                    src="/images/gallery/gallery-detail-before.webp"
-                    alt="Before clear-coat swirl marks under detailing inspection lighting"
-                    className="absolute inset-0 w-full h-full object-cover max-w-none"
-                    style={{ width: '100%', height: '100%' }}
-                  />
-                </div>
-
-                {/* Subdued Badges */}
-                <div className="absolute top-4 left-4 z-20 bg-black/70 backdrop-blur-md px-3.5 py-1.5 border border-white/10 rounded text-[10px] text-white/80 font-bold uppercase tracking-widest pointer-events-none">
-                  BEFORE // MICRO-MARRING
-                </div>
-                <div className="absolute top-4 right-4 z-20 bg-[#FF4B00]/90 backdrop-blur-md px-3.5 py-1.5 border border-[#FF4B00] rounded text-[10px] text-white font-bold uppercase tracking-widest pointer-events-none">
-                  AFTER // GLASS CLEAR
-                </div>
-
-                {/* Vertical Divider Line & Drag Handle */}
-                <div
-                  className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30 pointer-events-none"
-                  style={{ left: `${detailSliderPos}%` }}
-                >
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,75,0,0.6)] font-bold text-xs">
-                    ↔
-                  </div>
-                </div>
-              </div>
+              <HomeStyleGalleryStage
+                images={detailVisuals}
+                activeIndex={detailIndex}
+                onHoverChange={setIsDetailHovered}
+                aspectRatio="aspect-[4/3] sm:aspect-[16/10]"
+              />
             </div>
           </div>
         </div>
@@ -638,7 +715,7 @@ export const GalleryPage: React.FC = () => {
               href={`https://wa.me/${companyData.contact.whatsapp}?text=Booking%20Gallery%20Service`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#FF4B00] text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
+              className="bg-[#FF4B00] text-[#FFFFFF] px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
             >
               WHATSAPP TMR
             </a>
