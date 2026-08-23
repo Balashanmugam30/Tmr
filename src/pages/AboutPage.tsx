@@ -4,11 +4,35 @@ import { companyData } from '@/data/company';
 
 export const AboutPage: React.FC = () => {
   const [activeApproachStep, setActiveApproachStep] = useState<number>(0);
+  const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isReducedMotion, setIsReducedMotion] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = "About TMR Car Care | Premium Detailing Studio Tiruppur";
     window.scrollTo(0, 0);
+
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsReducedMotion(motionQuery.matches);
+
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      setIsReducedMotion(e.matches);
+    };
+    motionQuery.addEventListener('change', handleMotionChange);
+    return () => motionQuery.removeEventListener('change', handleMotionChange);
   }, []);
+
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isReducedMotion) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 14; // -7px to +7px
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;  // -5px to +5px
+    setHeroParallax({ x, y });
+  };
+
+  const handleHeroMouseLeave = () => {
+    setHeroParallax({ x: 0, y: 0 });
+  };
 
   const approachSteps = [
     {
@@ -38,76 +62,103 @@ export const AboutPage: React.FC = () => {
   ];
 
   return (
-    <div className="w-full bg-[#F5F4EF] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
+    <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / HERO SECTION — EDITORIAL LAYOUT WITH OVERSIZED TYPOGRAPHY & LAYERED ASYMMETRIC IMAGERY */}
-      <section className="relative w-full min-h-[90vh] lg:min-h-[100vh] flex flex-col justify-between overflow-hidden pt-20 sm:pt-28 pb-16 border-b border-[#D8D8D5] bg-[#F5F4EF]">
-        <div className="relative w-full max-w-[1360px] mx-auto px-5 md:px-16 flex flex-col justify-between flex-grow z-10">
-          
-          {/* Metadata & Tagline */}
-          <div className="flex items-center gap-4 mt-6 md:mt-10 z-30 mb-6">
-            <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
-              01 / ABOUT
-            </span>
-            <div className="w-16 h-px bg-[#D8D8D5]" />
-            <span className="font-manrope font-bold text-xs uppercase tracking-widest text-[#858585] hidden md:inline-block">
-              TMR CAR CARE / TIRUPPUR, TAMIL NADU
-            </span>
-          </div>
+      {/* 01 / HERO SECTION — CINEMATIC FULL-BLEED EDITORIAL POSTER WITH EXPRESSIVE DISPLAY TYPOGRAPHY */}
+      <section
+        onMouseMove={handleHeroMouseMove}
+        onMouseLeave={handleHeroMouseLeave}
+        className="relative w-full min-h-[95vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white"
+      >
+        {/* Layer 1: Oversized Parallax Cinematic Background Canvas */}
+        <div
+          className="absolute -top-10 -bottom-10 -left-10 -right-10 z-0 pointer-events-none transition-transform duration-700 ease-out"
+          style={{
+            transform: `translate3d(${heroParallax.x}px, ${heroParallax.y}px, 0)`,
+          }}
+        >
+          <img
+            src="/images/about/about-hero-main.jpg"
+            alt="Flagship Indian-market vehicle inside TMR Car Care detailing studio in Tiruppur"
+            className="w-full h-full object-cover object-center scale-105"
+          />
+        </div>
 
-          {/* Main Hero Composition Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end my-auto relative z-20">
+        {/* Layer 2: Dual-Tone Dark Overlay & Atmospheric Gradient (Ensures 100% text readability over photo) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/85 to-[#050505]/40 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/60 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-50 z-10 pointer-events-none" />
+
+        {/* Layer 3: Film Grain Texture Overlay */}
+        <div
+          className="absolute inset-0 z-10 opacity-[0.035] pointer-events-none mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        {/* Layer 4: Stable Art-Directed Content Overlay */}
+        <div className="relative z-30 max-w-[1360px] w-full mx-auto flex flex-col justify-end flex-grow my-auto">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end my-auto pt-8">
             
-            {/* Left Oversized Headline & Statement Group */}
-            <div className="lg:col-span-7 flex flex-col space-y-8">
-              <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[100px] lg:text-[112px] text-[#111111] uppercase tracking-tighter leading-[0.88]">
+            {/* Left Oversized Headline & Editorial Group */}
+            <div className="lg:col-span-7 flex flex-col space-y-6">
+              
+              {/* Metadata */}
+              <div className="flex items-center gap-3">
+                <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                  01 / ABOUT
+                </span>
+                <div className="w-12 h-px bg-white/20" />
+                <span className="font-manrope font-bold text-xs uppercase tracking-widest text-[#858585] hidden sm:inline-block">
+                  TMR CAR CARE / TIRUPPUR, TAMIL NADU
+                </span>
+              </div>
+
+              {/* Expressive Display Headline */}
+              <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] lg:text-[108px] text-white uppercase tracking-tighter leading-[0.88] select-none">
                 BUILT <br />
                 AROUND <br />
-                THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">craft.</span>
+                THE <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform">craft.</span>
               </h1>
 
-              <div className="max-w-xl space-y-6 pt-4 border-l-2 border-[#FF4B00] pl-6">
-                <p className="font-editorial text-2xl sm:text-3xl text-[#111111] leading-snug">
-                  Care isn't only about the finish. It's about the attention that gets you there.
-                </p>
-                <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed">
-                  TMR Car Care was built around a singular commitment: delivering uncompromised automotive paint correction, ceramic coating, and surface protection in Tiruppur.
-                </p>
-                <div>
-                  <a
-                    href="#belief"
-                    className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase text-[#111111] hover:text-[#FF4B00] transition-colors tracking-widest group"
-                  >
-                    <span>DISCOVER THE TMR APPROACH</span>
-                    <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">↗</span>
-                  </a>
-                </div>
+              {/* Concise Supporting Statement */}
+              <p className="font-editorial text-2xl sm:text-3xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal">
+                Care isn't only about the finish. It's about the attention that gets you there.
+              </p>
+
+              {/* Editorial CTA */}
+              <div className="pt-2">
+                <a
+                  href="#belief"
+                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group"
+                >
+                  <span>DISCOVER THE TMR APPROACH</span>
+                  <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </a>
               </div>
+
             </div>
 
-            {/* Right Layered Asymmetric Photography Composition */}
-            <div className="lg:col-span-5 relative min-h-[420px] sm:min-h-[520px] w-full flex items-center justify-center">
+            {/* Right Primary Automotive Visual Layering */}
+            <div className="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] w-full flex items-center justify-end">
               
-              {/* Image 1: Main Flagship Studio Visual */}
-              <div className="absolute top-0 right-0 w-[88%] h-[340px] sm:h-[420px] rounded-xl overflow-hidden shadow-2xl border border-[#D8D8D5] bg-[#111111] z-10">
-                <img
-                  src="/images/about/about-hero-main.jpg"
-                  alt="Sleek vehicle inside TMR Car Care flagship studio bay in Tiruppur"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-
-              {/* Image 2: Secondary Offset Visual (Positioned lower left) */}
-              <div className="absolute bottom-0 left-0 w-[60%] h-[220px] sm:h-[280px] rounded-lg overflow-hidden shadow-xl border border-white/60 bg-[#111111] z-20">
+              {/* Primary Visual subject frame */}
+              <div className="relative w-full max-w-[460px] aspect-[4/3] sm:aspect-[14/10] rounded-xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-white/15 bg-black z-20 group">
                 <img
                   src="/images/about/about-hero-secondary.jpg"
-                  alt="Automotive paint protection and detailing work at TMR Car Care"
-                  className="w-full h-full object-cover"
+                  alt="Automotive paint protection and detailing work at TMR Car Care Tiruppur"
+                  className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-4 left-4 right-4 text-[10px] font-mono text-white/80 uppercase tracking-widest">
+                  FLAGSHIP STUDIO // TIRUPPUR BAY
+                </div>
               </div>
 
-              {/* Image 3: Floating Micro Detail Badge Overlay */}
-              <div className="absolute top-[35%] left-[5%] w-[130px] h-[130px] rounded-full overflow-hidden border-4 border-[#F5F4EF] shadow-2xl z-30 hidden sm:block">
+              {/* Overlapping secondary micro detail badge */}
+              <div className="absolute -bottom-4 -left-2 sm:left-4 w-[120px] sm:w-[140px] aspect-square rounded-full overflow-hidden border-4 border-[#050505] shadow-2xl z-30 hidden sm:block">
                 <img
                   src="/images/about/about-hero-detail.webp"
                   alt="Machine polishing clear coat refinement close up"
