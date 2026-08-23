@@ -112,6 +112,12 @@ export const GalleryPage: React.FC = () => {
   // --- SECTION 04: DETAIL TRANSFORMATION AUTOPLAY STATE ---
   const [detailIndex, setDetailIndex] = useState<number>(0);
 
+  // Refs for Section 05 Transformation & Section 06 Process Entry Animations
+  const transSectionRef = useRef<HTMLElement>(null);
+  const processSectionRef = useRef<HTMLElement>(null);
+  const processLineRef = useRef<HTMLDivElement>(null);
+  const hasTransRevealedRef = useRef<boolean>(false);
+
   // Hero dedicated local assets (No remote URLs, no duplicates across Section 01 & 02)
   const heroVisuals = [
     {
@@ -247,6 +253,56 @@ export const GalleryPage: React.FC = () => {
     };
     motionQuery.addEventListener('change', handleMotionChange);
     return () => motionQuery.removeEventListener('change', handleMotionChange);
+  }, []);
+
+  // IntersectionObserver for Section 05 Transformation & Section 06 Process Entry Animations
+  useEffect(() => {
+    const transObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasTransRevealedRef.current) {
+            hasTransRevealedRef.current = true;
+            // Smooth initial reveal of Transformation from 0% to 50%
+            gsap.to(
+              { pos: 0 },
+              {
+                pos: 50,
+                duration: 0.95,
+                ease: 'power3.out',
+                onUpdate: function () {
+                  setSliderPos(this.targets()[0].pos);
+                },
+              }
+            );
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (transSectionRef.current) {
+      transObserver.observe(transSectionRef.current);
+    }
+
+    const processObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && processLineRef.current) {
+            processLineRef.current.style.width = '100%';
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    if (processSectionRef.current) {
+      processObserver.observe(processSectionRef.current);
+    }
+
+    return () => {
+      transObserver.disconnect();
+      processObserver.disconnect();
+    };
   }, []);
 
   // Hero Section 01 Autoplay Timer (4.0s sequence)
@@ -602,99 +658,162 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 05 — TRANSFORMATION (BEFORE / AFTER INTERACTIVE SLIDER) */}
-      <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden min-h-[650px] border-b border-white/10">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 mb-8 flex justify-between items-center">
-          <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-            <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-            05 / TRANSFORMATION
+      {/* SECTION 05 — TRANSFORMATION (WARM IVORY RHYTHM & GENUINE MATCHED BEFORE/AFTER PAIR) */}
+      <section
+        id="transformation"
+        ref={transSectionRef}
+        className="relative bg-[#F5F4EF] text-[#111111] py-20 sm:py-32 overflow-hidden border-b border-[#D8D8D5] font-intertight"
+      >
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-10">
+          {/* Editorial Header */}
+          <div className="flex flex-col space-y-4 max-w-3xl">
+            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
+              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+              05 / TRANSFORMATION
+            </div>
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.95] tracking-tight">
+              FROM CONDITION TO <br />
+              <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">finish.</span>
+            </h2>
+            <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l pl-4 border-[#111111]/20">
+              A true before-and-after view of professional automotive paint correction and surface refinement at TMR Car Care, Tiruppur.
+            </p>
           </div>
-        </div>
 
-        <div className="text-center mb-8 px-5">
-          <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl text-white uppercase tracking-tighter leading-none">
-            FROM CONDITION TO <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">finish.</span>
-          </h2>
-          <p className="text-xs text-[#858585] mt-2 tracking-widest uppercase">Drag slider to reveal before / after</p>
-        </div>
-
-        <div
-          className="relative max-w-[1100px] mx-auto h-[350px] sm:h-[550px] overflow-hidden select-none cursor-ew-resize border border-white/20 rounded-lg shadow-2xl"
-          onMouseMove={handleMouseMove}
-          onTouchMove={handleTouchMove}
-        >
-          {/* After Image (Full background) */}
-          <img
-            src="/images/gallery/gallery-05.webp"
-            alt="After paint correction flawless gloss finish"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-
-          {/* Before Image (Clipped overlay) */}
+          {/* Dominant Large Before/After Viewer */}
           <div
-            className="absolute inset-0 overflow-hidden"
-            style={{ width: `${sliderPos}%` }}
+            className="relative max-w-[1280px] mx-auto h-[400px] sm:h-[600px] rounded-xl border border-[#D8D8D5] shadow-2xl overflow-hidden select-none cursor-ew-resize bg-[#000]"
+            onMouseMove={handleMouseMove}
+            onTouchMove={handleTouchMove}
           >
+            {/* After Image (Full background) */}
             <img
-              src="/images/gallery/gallery-06.webp"
-              alt="Before paint correction with surface defects"
-              className="absolute inset-0 w-full h-full object-cover max-w-none"
-              style={{ width: '100%', height: '100%' }}
+              src="/images/gallery/gallery-transformation-after-final.jpg"
+              alt="After paint correction flawless gloss finish on vehicle bonnet at TMR Car Care Tiruppur"
+              className="absolute inset-0 w-full h-full object-cover"
             />
-          </div>
 
-          {/* Slider Line Divider */}
-          <div
-            className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30"
-            style={{ left: `${sliderPos}%` }}
-          >
-            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-lg font-bold text-xs">
-              ↔
+            {/* Before Image (Clipped overlay) */}
+            <div
+              className="absolute inset-0 overflow-hidden"
+              style={{ width: `${sliderPos}%` }}
+            >
+              <img
+                src="/images/gallery/gallery-transformation-before-final.jpg"
+                alt="Before paint correction with surface defects and swirl marks on vehicle bonnet"
+                className="absolute inset-0 w-full h-full object-cover max-w-none"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
+
+            {/* Slider Line Divider */}
+            <div
+              className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30 pointer-events-none"
+              style={{ left: `${sliderPos}%` }}
+            >
+              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-xl font-extrabold text-xs border-2 border-white">
+                ↔
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 06 — PROCESS THEATRE */}
-      <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-6">
-            <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-            06 / PROCESS
+      {/* SECTION 06 — PROCESS (WARM IVORY RHYTHM & EDITORIAL HORIZONTAL TIMELINE) */}
+      <section
+        id="process"
+        ref={processSectionRef}
+        className="relative bg-[#F5F4EF] text-[#111111] py-20 sm:py-32 overflow-hidden border-b border-[#D8D8D5] font-intertight"
+      >
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-12">
+          {/* Editorial Header */}
+          <div className="flex flex-col space-y-4 max-w-3xl">
+            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
+              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+              06 / PROCESS
+            </div>
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.95] tracking-tight">
+              THE CRAFT OF <br />
+              <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">detail.</span>
+            </h2>
+            <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l pl-4 border-[#111111]/20">
+              A three-stage professional detailing workflow from surface preparation through paint correction and final protection.
+            </p>
           </div>
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-7xl text-white uppercase tracking-tighter mb-16">
-            THE CRAFT OF <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">detail.</span>
-          </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="border border-white/10 p-8 bg-[#0B0B0B] space-y-4">
-              <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block">
-                STAGE 01
-              </span>
-              <h3 className="font-manrope font-extrabold text-xl text-white uppercase">DECONTAMINATION</h3>
-              <p className="text-xs text-[#D8D8D5] leading-relaxed">
-                Chemical fallout removal, synthetic clay bar treatment, and foam wash prep to strip legacy waxes and tar.
-              </p>
+          {/* Full-width Horizontal Timeline System */}
+          <div className="relative pt-4">
+            {/* Animated Horizontal Connecting Line */}
+            <div className="hidden md:block absolute top-[52px] left-0 right-0 h-[1.5px] bg-[#D8D8D5] z-0">
+              <div
+                ref={processLineRef}
+                className="h-full bg-[#FF4B00] w-0 transition-all duration-1000 ease-out"
+              />
             </div>
 
-            <div className="border border-white/10 p-8 bg-[#0B0B0B] space-y-4">
-              <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block">
-                STAGE 02
-              </span>
-              <h3 className="font-manrope font-extrabold text-xl text-white uppercase">CORRECTION</h3>
-              <p className="text-xs text-[#D8D8D5] leading-relaxed">
-                Multi-stage rotary and dual-action machine polishing to permanently eliminate swirls, scratches, and micro-marring.
-              </p>
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 relative z-10">
+              {/* Stage 01 */}
+              <div
+                tabIndex={0}
+                className="group flex flex-col space-y-4 p-6 sm:p-8 rounded-xl border border-transparent hover:border-[#D8D8D5] hover:bg-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:border-[#FF4B00]"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-manrope font-extrabold text-5xl sm:text-7xl text-[#111111]/30 group-hover:text-[#FF4B00] group-focus:text-[#FF4B00] transition-colors duration-300">
+                    01
+                  </span>
+                  <span className="text-[10px] font-extrabold text-[#FF4B00] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                    STAGE ONE
+                  </span>
+                </div>
+                <h3 className="font-manrope font-extrabold text-xl sm:text-2xl text-[#111111] uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors">
+                  DECONTAMINATION
+                </h3>
+                <p className="font-manrope text-xs sm:text-sm text-[#5f5e5e] leading-relaxed">
+                  Chemical fallout removal, synthetic clay bar treatment, and foam wash prep to strip legacy waxes and road tar.
+                </p>
+              </div>
 
-            <div className="border border-white/10 p-8 bg-[#0B0B0B] space-y-4">
-              <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block">
-                STAGE 03
-              </span>
-              <h3 className="font-manrope font-extrabold text-xl text-white uppercase">PROTECTION</h3>
-              <p className="text-xs text-[#D8D8D5] leading-relaxed">
-                9H nano-ceramic coating or self-healing PPF application sealing in depth, reflection, and extreme hydrophobicity.
-              </p>
+              {/* Stage 02 */}
+              <div
+                tabIndex={0}
+                className="group flex flex-col space-y-4 p-6 sm:p-8 rounded-xl border border-transparent hover:border-[#D8D8D5] hover:bg-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:border-[#FF4B00]"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-manrope font-extrabold text-5xl sm:text-7xl text-[#111111]/30 group-hover:text-[#FF4B00] group-focus:text-[#FF4B00] transition-colors duration-300">
+                    02
+                  </span>
+                  <span className="text-[10px] font-extrabold text-[#FF4B00] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                    STAGE TWO
+                  </span>
+                </div>
+                <h3 className="font-manrope font-extrabold text-xl sm:text-2xl text-[#111111] uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors">
+                  CORRECTION
+                </h3>
+                <p className="font-manrope text-xs sm:text-sm text-[#5f5e5e] leading-relaxed">
+                  Multi-stage rotary and dual-action machine polishing to permanently eliminate swirls, scratches, and micro-marring.
+                </p>
+              </div>
+
+              {/* Stage 03 */}
+              <div
+                tabIndex={0}
+                className="group flex flex-col space-y-4 p-6 sm:p-8 rounded-xl border border-transparent hover:border-[#D8D8D5] hover:bg-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:border-[#FF4B00]"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-manrope font-extrabold text-5xl sm:text-7xl text-[#111111]/30 group-hover:text-[#FF4B00] group-focus:text-[#FF4B00] transition-colors duration-300">
+                    03
+                  </span>
+                  <span className="text-[10px] font-extrabold text-[#FF4B00] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">
+                    STAGE THREE
+                  </span>
+                </div>
+                <h3 className="font-manrope font-extrabold text-xl sm:text-2xl text-[#111111] uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors">
+                  PROTECTION
+                </h3>
+                <p className="font-manrope text-xs sm:text-sm text-[#5f5e5e] leading-relaxed">
+                  Ceramic coating application or paint protection film installation sealing in depth, reflection, and hydrophobic barrier.
+                </p>
+              </div>
             </div>
           </div>
         </div>
