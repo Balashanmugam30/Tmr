@@ -1,17 +1,147 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { companyData } from '@/data/company';
 
 export const GalleryPage: React.FC = () => {
+  // Existing state for Section 05 slider
   const [sliderPos, setSliderPos] = useState<number>(50);
-  const [hoveredServiceImg, setHoveredServiceImg] = useState<string>(
-    "https://lh3.googleusercontent.com/aida-public/AB6AXuB0ksa6fUrinxXOO-PTzjCm8jJmiNYsiJRvkAy7-jNcvcQzzuUzeZBwi7-QWcAiLLWzobNUTunFckyzqF1GslRmuKtc_yItmJVruWB7BKsXRfxpKJYGy0QiBpLSAxqV0ALfmfdY8tatCdbDRc2CXK-Wv_0UT6MyZq739bAj0BPI_rCcu-lnBdx06Iv8xCmb2262tF_2jrru-HDd0GOvvZ2DrGuxIB_0eaaOL-cAYjwvjlhNzITXBuy-"
-  );
-  const isDragging = useRef<boolean>(false);
+
+  // --- SECTION 01: HERO MULTI-IMAGE AUTOPLAY & PARALLAX STATE ---
+  const [heroIndex, setHeroIndex] = useState<number>(0);
+  const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [isReducedMotion, setIsReducedMotion] = useState<boolean>(false);
+
+  // --- SECTION 02: THE WORK IN MOTION AUTOPLAY STATE ---
+  const [motionIndex, setMotionIndex] = useState<number>(0);
+  const [isMotionHovered, setIsMotionHovered] = useState<boolean>(false);
+
+  // Hero dedicated local assets (No remote URLs, no duplicates across Section 01 & 02)
+  const heroVisuals = [
+    {
+      src: '/images/gallery/gallery-hero-01.jpg',
+      alt: 'Sleek dark supercar inside TMR Car Care detailing studio in Tiruppur',
+      tag: 'FLAGSHIP STUDIO // TIRUPPUR',
+    },
+    {
+      src: '/images/gallery/gallery-hero-02.jpg',
+      alt: 'Professional automotive technician inspecting paint clear coat with LED detailing light',
+      tag: 'CLEAR COAT INSPECTION AUDIT',
+    },
+    {
+      src: '/images/gallery/gallery-hero-03.jpg',
+      alt: 'Close up of dual-action machine polisher refining clear coat on a dark metallic body panel',
+      tag: 'MULTI-STAGE PAINT CORRECTION',
+    },
+    {
+      src: '/images/gallery/gallery-hero-04.jpg',
+      alt: 'Extreme close up macro photograph of mirror paint reflection post detailing',
+      tag: 'HIGH-GLOSS REFLECTION FINISH',
+    },
+  ];
+
+  // Motion Section 02 dedicated 2-column paired visual datasets
+  const motionPairs = [
+    {
+      left: {
+        id: '01',
+        title: 'PAINT REFINEMENT',
+        description: 'Multi-stage paint correction, swirl removal & deep reflection',
+        img: '/images/gallery/gallery-motion-01.jpg',
+        alt: 'Paint correction and ceramic prep on dark vehicle panel at TMR Car Care',
+        link: '/services/detailing-paint-care',
+      },
+      right: {
+        id: '02',
+        title: 'CERAMIC COATING',
+        description: '9H nano-ceramic surface protection & hydrophobic barrier',
+        img: '/images/gallery/gallery-motion-02.jpg',
+        alt: 'Ceramic coating application on dark vehicle surface at TMR Car Care',
+        link: '/services/ceramic-coating',
+      },
+    },
+    {
+      left: {
+        id: '03',
+        title: 'INTERIOR DETAILING',
+        description: 'Leather conditioning, cabin decontamination & precision cleaning',
+        img: '/images/gallery/gallery-motion-03.jpg',
+        alt: 'Interior cabin detailing on luxury vehicle leather seats at TMR Car Care',
+        link: '/services/car-wash-cleaning',
+      },
+      right: {
+        id: '04',
+        title: 'PPF INSTALLATION',
+        description: 'Self-healing Paint Protection Film armor against stone chips',
+        img: '/images/gallery/gallery-motion-04.jpg',
+        alt: 'Paint protection film PPF installation with squeegee at TMR Car Care',
+        link: '/services/ppf-paint-protection',
+      },
+    },
+    {
+      left: {
+        id: '05',
+        title: 'PAINT FINISH',
+        description: 'Flawless mirror finish after multi-stage machine polishing',
+        img: '/images/gallery/gallery-01.webp',
+        alt: 'Flawless mirror gloss finish on dark sports car bonnet at TMR Car Care',
+        link: '/services/detailing-paint-care',
+      },
+      right: {
+        id: '06',
+        title: 'STUDIO CRAFT',
+        description: 'Precision craftsmanship inside TMR Car Care detailing studio',
+        img: '/images/gallery/gallery-02.webp',
+        alt: 'High-end vehicle detailing inside TMR Tiruppur studio bay',
+        link: '/services/ceramic-coating',
+      },
+    },
+  ];
 
   useEffect(() => {
-    document.title = "TMR CAR CARE — GALLERY";
+    document.title = "TMR CAR CARE — GALLERY | Tiruppur Detailing Studio";
     window.scrollTo(0, 0);
+
+    // Check prefers-reduced-motion accessibility preference
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsReducedMotion(motionQuery.matches);
+
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      setIsReducedMotion(e.matches);
+    };
+    motionQuery.addEventListener('change', handleMotionChange);
+    return () => motionQuery.removeEventListener('change', handleMotionChange);
   }, []);
+
+  // Hero Section 01 Autoplay Timer (4.5s sequence)
+  useEffect(() => {
+    if (isReducedMotion) return;
+    const heroTimer = setInterval(() => {
+      setHeroIndex((prev) => (prev + 1) % heroVisuals.length);
+    }, 4500);
+    return () => clearInterval(heroTimer);
+  }, [isReducedMotion, heroVisuals.length]);
+
+  // Section 02 Motion Autoplay Timer (5s sequence, pauses when hovered)
+  useEffect(() => {
+    if (isReducedMotion || isMotionHovered) return;
+    const motionTimer = setInterval(() => {
+      setMotionIndex((prev) => (prev + 1) % motionPairs.length);
+    }, 5000);
+    return () => clearInterval(motionTimer);
+  }, [isReducedMotion, isMotionHovered, motionPairs.length]);
+
+  // Hero Micro-Parallax Mouse Shift (Subtle 4–8px offset)
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isReducedMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12; // -6px to +6px
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 12; // -6px to +6px
+    setHeroParallax({ x, y });
+  };
+
+  const handleHeroMouseLeave = () => {
+    setHeroParallax({ x: 0, y: 0 });
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -28,62 +158,63 @@ export const GalleryPage: React.FC = () => {
     setSliderPos(percentage);
   };
 
-  const servicesList = [
-    {
-      id: "01",
-      title: "Paint Correction",
-      img: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=2070",
-    },
-    {
-      id: "02",
-      title: "Ceramic Coating",
-      img: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=2072",
-    },
-    {
-      id: "03",
-      title: "Interior Restoration",
-      img: "https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&q=80&w=2070",
-    },
-    {
-      id: "04",
-      title: "PPF Installation",
-      img: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?auto=format&fit=crop&q=80&w=2070",
-    },
-  ];
-
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
       
-      {/* SECTION 01 — GALLERY HERO */}
-      <section className="relative w-full min-h-[90vh] lg:min-h-[100vh] flex flex-col justify-end pt-32 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 z-0 pointer-events-none grid grid-cols-12 max-w-[1360px] mx-auto w-full h-full">
-          {/* Dominant Primary Image */}
-          <div className="col-span-12 lg:col-span-9 h-full relative overflow-hidden opacity-80 mix-blend-lighten">
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/40 z-10" />
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB8-mtuWs_33gvnOrRaNDTR4YyV9T3C_y-4QYhgVf0_mRedVEKJA9fIj4AXnsyqHJJ4xCOK3yIdzYq94oFWuNFZxedEPKsdEW1o-7YIUTlL_oW3Yz2IiQV9DPUUn7kIwlOYnyO74amur78mOBBN8Ep9cKDF1QBI2b1yqFG4yjJHM76nTAlJVqDPAa8MpPMix6bs_e7H1VgeaiHF-Hz8fWJRAC3nYl3Q7N3CYG9xjP3xfilQ8IfCGNY"
-              alt="High gloss sports car detailing result"
-              className="w-full h-full object-cover object-center scale-105"
-            />
-          </div>
+      {/* SECTION 01 — GALLERY HERO (PREMIUM CINEMATIC MOTION REDESIGN) */}
+      <section
+        onMouseMove={handleHeroMouseMove}
+        onMouseLeave={handleHeroMouseLeave}
+        className="relative w-full min-h-[90vh] lg:min-h-[100vh] flex flex-col justify-end pt-32 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10"
+      >
+        {/* Dynamic Multi-Image Cinematic Canvas Background */}
+        <div
+          className="absolute inset-0 z-0 pointer-events-none transition-transform duration-700 ease-out"
+          style={{
+            transform: `translate3d(${heroParallax.x}px, ${heroParallax.y}px, 0)`,
+          }}
+        >
+          {heroVisuals.map((visual, idx) => {
+            const isActive = idx === heroIndex;
+            return (
+              <div
+                key={idx}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                }`}
+              >
+                <img
+                  src={visual.src}
+                  alt={visual.alt}
+                  className={`w-full h-full object-cover object-center transition-transform duration-[6000ms] ease-out ${
+                    isActive ? 'scale-105' : 'scale-100'
+                  }`}
+                />
+              </div>
+            );
+          })}
 
-          {/* Secondary Overlapping Detail Image */}
-          <div className="hidden lg:block col-span-5 absolute right-0 top-1/4 h-[550px] w-[40%] z-20 overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2rPw69AGhqA5CQz5P-r4aL23G0dz-hi4GgnsscDG6FrTWm_FkeQAGqWNvukXn4fay21ktjzqP1L4Sqi_qEmKtQbBDbvHLhgdnXndxMbdUC_2uz_M0fqi-6HK8EvEpkX3TK_dB9DsPcm6d5dwNxWXU6MytreHqvYVVo5Hq9tN0lIdlpPXwEsuQcSK8eJU6slObyIc8rKvIgV9Hs5K3L5lCqEK2CN2QOyiaiY-LthezhhrJfEIlZlgb"
-              alt="Macro light audit inspection detail"
-              className="w-full h-full object-cover object-left"
-            />
-            <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-[#FF4B00] m-4" />
-          </div>
+          {/* Sophisticated Dual-Tone Dark Overlay & Subtle Atmospheric Warmth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/65 to-[#050505]/40 z-20" />
+          <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/10 via-transparent to-transparent opacity-40 z-20 pointer-events-none" />
+
+          {/* Film Grain Texture Overlay */}
+          <div
+            className="absolute inset-0 z-20 opacity-[0.03] pointer-events-none mix-blend-overlay"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+            }}
+          />
         </div>
 
-        {/* Content Overlay */}
+        {/* Stable Content Overlay Layer */}
         <div className="relative z-30 max-w-[1360px] w-full mx-auto flex flex-col lg:flex-row items-end justify-between gap-12 mt-auto">
-          <div className="w-full lg:w-7/12 flex flex-col space-y-6">
-            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              01 / GALLERY
+          <div className="w-full lg:w-8/12 flex flex-col space-y-6">
+            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center gap-3">
+              <span className="w-12 h-px bg-[#FF4B00] block" />
+              <span>01 / GALLERY</span>
+              <span className="w-1.5 h-1.5 bg-[#FF4B00] rounded-full" />
+              <span className="text-white/60">{heroVisuals[heroIndex].tag}</span>
             </div>
 
             <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[88px] text-white leading-[0.9] tracking-tighter uppercase">
@@ -95,7 +226,7 @@ export const GalleryPage: React.FC = () => {
               A visual archive of TMR Car Care's detailing, protection and uncompromising automotive craftsmanship.
             </p>
 
-            <div className="pt-4">
+            <div className="pt-4 flex items-center gap-6">
               <a
                 href="#motion"
                 className="inline-flex items-center font-bold text-xs text-white tracking-widest uppercase group hover:text-[#FF4B00] transition-colors"
@@ -103,81 +234,155 @@ export const GalleryPage: React.FC = () => {
                 <span>EXPLORE THE WORK</span>
                 <span className="ml-2 text-base group-hover:translate-x-2 transition-transform">→</span>
               </a>
+
+              {/* Slide Indicator Dots */}
+              <div className="flex items-center gap-2">
+                {heroVisuals.map((_, dotIdx) => (
+                  <button
+                    key={dotIdx}
+                    onClick={() => setHeroIndex(dotIdx)}
+                    aria-label={`Go to slide ${dotIdx + 1}`}
+                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                      dotIdx === heroIndex ? 'w-6 bg-[#FF4B00]' : 'w-1.5 bg-white/30 hover:bg-white/60'
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 02 — THE WORK IN MOTION */}
-      <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10" id="motion">
+      {/* SECTION 02 — THE WORK IN MOTION (EDITORIAL ANIMATED 2-COLUMN GALLERY REDESIGN) */}
+      <section
+        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
+        id="motion"
+        onMouseEnter={() => setIsMotionHovered(true)}
+        onMouseLeave={() => setIsMotionHovered(false)}
+      >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="flex flex-col space-y-4 mb-12">
-            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              02 / THE WORK
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div className="flex flex-col space-y-4">
+              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
+                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+                02 / THE WORK
+              </div>
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight">
+                THE WORK IN <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">motion.</span>
+              </h2>
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-md border-l pl-4 border-white/20">
+                A moving archive of detailing, protection and automotive care.
+              </p>
             </div>
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight">
-              THE WORK IN <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">motion.</span>
-            </h2>
-            <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-md border-l pl-4 border-white/20">
-              A moving archive of detailing, protection and automotive care.
-            </p>
+
+            {/* Pagination Controls */}
+            <div className="flex items-center gap-3">
+              {motionPairs.map((_, pIdx) => (
+                <button
+                  key={pIdx}
+                  onClick={() => setMotionIndex(pIdx)}
+                  className={`text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded border transition-all ${
+                    pIdx === motionIndex
+                      ? 'bg-[#FF4B00] border-[#FF4B00] text-white'
+                      : 'border-white/20 text-white/50 hover:text-white hover:border-white/40'
+                  }`}
+                >
+                  0{pIdx + 1}
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Horizontal Track Grid */}
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 scrollbar-none">
-            {/* Frame 1 */}
-            <div className="min-w-[85vw] sm:min-w-[500px] md:min-w-[650px] snap-center flex-shrink-0 relative group overflow-hidden border border-white/10 bg-[#111111]">
-              <div className="aspect-[16/9] w-full">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlb5C-u9xddnVbHf-ZpqH_e-P3JwLAwks6K4D2rjCmd0UDaUI7U_A69oZUp2p7WdOd9_v1dw04eAyorlWgVe-fjaLr6g1TMAdWmOUYWAKSCwGE0ymS4TKjiSZY3-xrB4Tua7-OwsmvYw2ZukCwKa0o-CXucMf-s_CYKHdF44QDrx-Db3fWhSEu_GfFC1ZjzyDtoUyL7FP80qsrhS-J8sBFLExtjWDA8bA7j_DU6WDU8ZCZ8RHwrrnG"
-                  alt="Paint Refinement study"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <div className="p-4 bg-[#111111]">
-                <span className="font-bold text-[10px] text-white tracking-widest uppercase">
-                  01 / PAINT REFINEMENT
-                </span>
-              </div>
-            </div>
+          {/* Editorial 2-Column Animated Contact Sheet Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative min-h-[440px] sm:min-h-[520px]">
+            {/* LEFT COLUMN ITEM */}
+            {(() => {
+              const currentItem = motionPairs[motionIndex].left;
+              return (
+                <Link
+                  key={`left-${motionIndex}`}
+                  to={currentItem.link}
+                  className="group block relative overflow-hidden border border-white/10 bg-[#0B0B0B] rounded-lg transition-all duration-1000 ease-out hover:border-[#FF4B00]/60 shadow-2xl"
+                >
+                  <div className="aspect-[16/10] w-full overflow-hidden relative">
+                    <img
+                      src={currentItem.img}
+                      alt={currentItem.alt}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent opacity-80" />
+                    
+                    {/* Orange Index Detail Marker */}
+                    <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 border border-white/10 rounded">
+                      <span className="font-extrabold text-[10px] text-[#FF4B00] tracking-widest uppercase">
+                        {currentItem.id} // STUDIO ARCHIVE
+                      </span>
+                    </div>
+                  </div>
 
-            {/* Frame 2 */}
-            <div className="min-w-[85vw] sm:min-w-[500px] md:min-w-[650px] snap-center flex-shrink-0 relative group overflow-hidden border border-white/10 bg-[#111111]">
-              <div className="aspect-[16/9] w-full">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdqqs-4hWgkrSXcf9dkfIOvnmAEoI17QE6Ff2OSfN8iNrlzbl7T0vcw2QIJwA0lSvXPHv2LBt0Sz9I5fp5XuJKJ6eE-zO4ld4SFTD_zteRI_hqJuk8qpy1ooaRpphcFttIa6Dttk1XFCAW0dstKoZC2NXVMN-E67fjJzWbg5BOAg7fM10GuUmDCfachF19VwaQdAdT32UVUn0HdEVt1Y4YmJg7gZjFVRxZpaDuDh9-fB-Y3ce3b35Z"
-                  alt="Ceramic Study"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <div className="p-4 bg-[#111111]">
-                <span className="font-bold text-[10px] text-white/50 tracking-widest uppercase">
-                  02 / CERAMIC STUDY
-                </span>
-              </div>
-            </div>
+                  <div className="p-6 bg-[#0B0B0B] flex justify-between items-end border-t border-white/10">
+                    <div>
+                      <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block mb-1">
+                        {currentItem.title}
+                      </span>
+                      <p className="text-xs text-[#F5F4EF]/70 max-w-sm leading-relaxed">
+                        {currentItem.description}
+                      </p>
+                    </div>
+                    <span className="text-base text-white group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">
+                      ↗
+                    </span>
+                  </div>
+                </Link>
+              );
+            })()}
 
-            {/* Frame 3 */}
-            <div className="min-w-[85vw] sm:min-w-[500px] md:min-w-[650px] snap-center flex-shrink-0 relative group overflow-hidden border border-white/10 bg-[#111111]">
-              <div className="aspect-[16/9] w-full">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDttEpryTXpHSqZ3iWGAwBZwb24J6d7ofXMqzxAiAHspfiQoU-LuvRzO6NtMTTXPoNQsUgim3UwQ05VF3VjuqHpPx8aH-jkJgMi9jka4WUkxA27ROb1x35pEU7kLVdkYbzav2EZK1gQGPOJoLUE1CM8Wj_K9T7y_wcTkc2FFU53D_6XZWXperTEypNSOrBikRSr9pbMvzC-yEytd85X7U6nrb--4QzagGDOYGYuAUygPd2tjzeq0HML"
-                  alt="Interior Precision"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-              <div className="p-4 bg-[#111111]">
-                <span className="font-bold text-[10px] text-white/50 tracking-widest uppercase">
-                  03 / INTERIOR PRECISION
-                </span>
-              </div>
-            </div>
+            {/* RIGHT COLUMN ITEM */}
+            {(() => {
+              const currentItem = motionPairs[motionIndex].right;
+              return (
+                <Link
+                  key={`right-${motionIndex}`}
+                  to={currentItem.link}
+                  className="group block relative overflow-hidden border border-white/10 bg-[#0B0B0B] rounded-lg transition-all duration-1000 ease-out hover:border-[#FF4B00]/60 shadow-2xl"
+                >
+                  <div className="aspect-[16/10] w-full overflow-hidden relative">
+                    <img
+                      src={currentItem.img}
+                      alt={currentItem.alt}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent opacity-80" />
+                    
+                    {/* Orange Index Detail Marker */}
+                    <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 border border-white/10 rounded">
+                      <span className="font-extrabold text-[10px] text-[#FF4B00] tracking-widest uppercase">
+                        {currentItem.id} // STUDIO ARCHIVE
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6 bg-[#0B0B0B] flex justify-between items-end border-t border-white/10">
+                    <div>
+                      <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block mb-1">
+                        {currentItem.title}
+                      </span>
+                      <p className="text-xs text-[#F5F4EF]/70 max-w-sm leading-relaxed">
+                        {currentItem.description}
+                      </p>
+                    </div>
+                    <span className="text-base text-white group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">
+                      ↗
+                    </span>
+                  </div>
+                </Link>
+              );
+            })()}
           </div>
         </div>
       </section>
 
-      {/* SECTION 03 — SIGNATURE WORK */}
+      {/* SECTION 03 — SIGNATURE WORK (UNTOUCHED) */}
       <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-6">
@@ -249,218 +454,112 @@ export const GalleryPage: React.FC = () => {
           <p className="text-xs text-[#858585] mt-2 tracking-widest uppercase">Drag slider to reveal before / after</p>
         </div>
 
-        {/* Interactive Slider Stage */}
         <div
-          className="relative max-w-[1200px] mx-auto aspect-[16/9] w-full overflow-hidden cursor-ew-resize border border-white/10"
+          className="relative max-w-[1100px] mx-auto h-[350px] sm:h-[550px] overflow-hidden select-none cursor-ew-resize border border-white/20 rounded-lg shadow-2xl"
           onMouseMove={handleMouseMove}
           onTouchMove={handleTouchMove}
         >
-          {/* Before Image */}
+          {/* After Image (Full background) */}
           <img
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8hcseQYUUnUI0q20tNGed5MR6LmK9dwieR5Odz-Jo7YovQ1eUuVpiecxlFKwZBT9RF3AGKmQ4ZmCqXijRLZ_O7YKrECSHrjR340k6KuUlA4ASxEOTeTaCsm11-3ZntypMx7DqiyE9TWFivnzxFbapYLBKdg_5wapgfsMvN9bjDaEmHRJyn3KOUhFW4FeoPwUU2D5FQUI67H5ugWphUaXRAdiMmXhikIir-dTO9-33nUuxu1_zn0nF"
-            alt="Before condition paint swirls"
+            src="/images/gallery/gallery-05.webp"
+            alt="After paint correction flawless gloss finish"
             className="absolute inset-0 w-full h-full object-cover"
           />
 
-          {/* After Image */}
+          {/* Before Image (Clipped overlay) */}
           <div
             className="absolute inset-0 overflow-hidden"
-            style={{ clipPath: `inset(0 0 0 ${sliderPos}%)` }}
+            style={{ width: `${sliderPos}%` }}
           >
             <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCc0JgHuLft8felwzq5Aogb6gnplgoi72Mf7hFSvl66wz3YnZWXbAnpCMP50ZZQMOl8YyK4OcAbvExMIr7fvPkXUwC1JQaGh_LEjPjslZEKlx-M6MrtpVzW7iVK-zcS_Zh1DE-BzGBjd_VaBQjQDC0fe-b-LAyaesrGqd1Z26xdQDCPD9KrTRXrukMh3GN9e9ZN1T-QvSnogeMdoEg7-wlfiC3RGSwm23lKhNUlaFB11ki2xmE6xX5v"
-              alt="After paint correction flawless mirror finish"
-              className="w-full h-full object-cover"
+              src="/images/gallery/gallery-06.webp"
+              alt="Before paint correction with surface defects"
+              className="absolute inset-0 w-full h-full object-cover max-w-none"
+              style={{ width: '100%', height: '100%' }}
             />
           </div>
 
-          {/* Slider Line */}
+          {/* Slider Line Divider */}
           <div
-            className="absolute top-0 bottom-0 w-0.5 bg-[#FF4B00] z-20"
+            className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30"
             style={{ left: `${sliderPos}%` }}
           >
-            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#FF4B00] text-white flex items-center justify-center text-xs font-bold shadow-lg">
+            <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-lg font-bold text-xs">
               ↔
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 06 — SERVICES IN FRAME */}
-      <section className="relative bg-[#F5F4EF] py-20 sm:py-32 overflow-hidden text-[#111111] border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative">
-          <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-12">
-            <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-            06 / BY SERVICE
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-            {/* Left Rows */}
-            <div className="col-span-12 md:col-span-6 space-y-4">
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#111111] mb-8">
-                THE WORK, <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">by service.</span>
-              </h2>
-
-              <div className="flex flex-col border-t border-[#D8D8D5]">
-                {servicesList.map((svc) => (
-                  <div
-                    key={svc.id}
-                    onMouseEnter={() => setHoveredServiceImg(svc.img)}
-                    className="group flex items-center justify-between py-6 border-b border-[#D8D8D5] cursor-pointer hover:bg-white px-4 transition-colors"
-                  >
-                    <span className="font-bold text-xs text-[#FF4B00] w-8">{svc.id}</span>
-                    <h3 className="font-manrope font-bold text-xl sm:text-2xl uppercase flex-grow group-hover:text-[#FF4B00] transition-colors">
-                      {svc.title}
-                    </h3>
-                    <span className="text-xl text-[#858585] group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">
-                      ↗
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Preview Stage */}
-            <div className="col-span-12 md:col-span-6 h-[350px] sm:h-[500px] border border-[#D8D8D5] bg-[#111111] overflow-hidden">
-              <img
-                src={hoveredServiceImg}
-                alt="Service preview"
-                className="w-full h-full object-cover transition-opacity duration-500"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 07 — THE TMR ARCHIVE */}
+      {/* SECTION 06 — PROCESS THEATRE */}
       <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-6">
             <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-            07 / THE TMR ARCHIVE
+            06 / PROCESS
           </div>
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight mb-12">
-            THE TMR <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">Archive.</span>
+          <h2 className="font-manrope font-extrabold text-4xl sm:text-7xl text-white uppercase tracking-tighter mb-16">
+            THE CRAFT OF <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">detail.</span>
           </h2>
 
-          <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-12 md:col-span-8 h-[350px] sm:h-[480px] overflow-hidden border border-white/10 group">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcEqmR99aQmy_JCjzhQxygB0uxT8P3Hbu_Qi16dBiUIqb4VgauRxDUoYP2whEvuC09xjrSU4pIP27ROmF4-1MuoF3cuhlgwB6PaJhxFjQRDtSDlLhbDVlbxbeIa7a1fuqXVWzIvDAPl7_HYIINY14C37cmbz-Yl3ecGXQqqg9xgjh9AwKrWqT2hzaB0_Dmh-_jrt_XdXo0PA_ckrHCtpGsjcN3SPSXPS5nZRlUP54h7sW4E40R9xHr"
-                alt="Archive 1"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="border border-white/10 p-8 bg-[#0B0B0B] space-y-4">
+              <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block">
+                STAGE 01
+              </span>
+              <h3 className="font-manrope font-extrabold text-xl text-white uppercase">DECONTAMINATION</h3>
+              <p className="text-xs text-[#D8D8D5] leading-relaxed">
+                Chemical fallout removal, synthetic clay bar treatment, and foam wash prep to strip legacy waxes and tar.
+              </p>
             </div>
 
-            <div className="col-span-12 md:col-span-4 h-[350px] sm:h-[480px] overflow-hidden border border-white/10 group">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC27tKraASMFzFKuUTqRr-7lzZyvoW6tc1e-cc_a3mKF0o1Fqlmy0NXrBMui7nomnrkdVrBpeeMPvFp9ZlbLLg_XM-9xLiF7WmeZLwV-e2ZO1eWiUwaOp-rmPboDG8YV4J5_EqVDZ3AA4W9fZu7XJT_UMdxELXEMDz4iSVoSj5xQnqzZa8Ug97dSTexArk2eyOkNWFTXOKM-c_WYyCtKC59s5wyuqz-kS9EZxQAeco-L5Qr15lUhsmj"
-                alt="Archive 2"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 08 — SHOWROOM */}
-      <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-6">
-            <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-            08 / SHOWROOM
-          </div>
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight mb-12">
-            BEHIND THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">work.</span>
-          </h2>
-
-          <div className="grid grid-cols-12 gap-8 items-center">
-            <div className="col-span-12 md:col-span-7 h-[380px] sm:h-[550px] overflow-hidden border border-white/10">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCoVRw5hup9rsU6bmGNihsq8s5zyxn3tsHAbiz_AeOXIdU0LfejIpk7bbgD8Y2wcwiwq7qgrAd-FHInYtirxIslxrXFVigAYnq3Diu7pdQS9W4LO1bhHZi2MD7xpt4HCIJ1W2gBcjDCIwRQPREKOXzCMHajtbJl4-e6wCNVMs_Zc_g4ehDv_UXGwO8NiYEwKEXdVNS641uSkwk7v3h7IZJQrd8MhIYT6e0W8rkwQLiZwG2A6niqG4EG"
-                alt="Workshop Bay"
-                className="w-full h-full object-cover"
-              />
+            <div className="border border-white/10 p-8 bg-[#0B0B0B] space-y-4">
+              <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block">
+                STAGE 02
+              </span>
+              <h3 className="font-manrope font-extrabold text-xl text-white uppercase">CORRECTION</h3>
+              <p className="text-xs text-[#D8D8D5] leading-relaxed">
+                Multi-stage rotary and dual-action machine polishing to permanently eliminate swirls, scratches, and micro-marring.
+              </p>
             </div>
 
-            <div className="col-span-12 md:col-span-5 flex flex-col gap-6">
-              <div className="h-[250px] overflow-hidden border border-white/10">
-                <img
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQdRixaW4XJxgp0i53xz62dOVGGZMoDmzkL1hC4EoiOSbp9wkKbqmcAM1bTbxeE_PJut0_EYEWepatduYRrzK_ew46PZBPe67c2VvYMiPV8AYxjJceKINgPPq1heyocLjovfJ3orD-g_VC4j8Kx-KkaQXwUJosWQqdo74-vozgRMrV2DRwmCrnlFdfRnC_zU5yzziQcnizS4iUpM-nh85ZWWCe8djVCfp2ao_4yHH92qrK9pDn7WMy"
-                  alt="Tools Detail"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <div className="border border-white/10 p-8 bg-[#0B0B0B] space-y-4">
+              <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block">
+                STAGE 03
+              </span>
+              <h3 className="font-manrope font-extrabold text-xl text-white uppercase">PROTECTION</h3>
+              <p className="text-xs text-[#D8D8D5] leading-relaxed">
+                9H nano-ceramic coating or self-healing PPF application sealing in depth, reflection, and extreme hydrophobicity.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 09 — VISIT */}
-      <section className="relative bg-[#F5F4EF] py-20 sm:py-32 overflow-hidden text-[#111111] border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="flex flex-col space-y-6">
-            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              09 / VISIT
-            </div>
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tight">
-              SEE THE WORK.<br />VISIT <span className="text-[#FF4B00]">TMR.</span>
-            </h2>
-            <div className="space-y-1 text-sm sm:text-base text-[#5f5e5e]">
-              <p className="font-bold text-[#111111]">Tiruppur, Tamil Nadu</p>
-              <p>{companyData.address.street}, {companyData.address.city}</p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <a
-                href={`https://wa.me/${companyData.contact.whatsapp}?text=Visiting%20TMR%20Studio`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#FF4B00] text-white px-8 py-4 font-bold text-xs uppercase tracking-widest text-center hover:bg-[#111111] transition-colors"
-              >
-                WHATSAPP TMR →
-              </a>
-              <a
-                href={`tel:${companyData.contact.phone}`}
-                className="border border-[#111111] text-[#111111] px-8 py-4 font-bold text-xs uppercase tracking-widest text-center hover:bg-[#111111] hover:text-white transition-colors"
-              >
-                CALL TMR →
-              </a>
-            </div>
-          </div>
-
-          <div className="h-[400px] sm:h-[550px] overflow-hidden border border-[#D8D8D5] shadow-xl">
-            <img
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoP49MCpRS9UJoKPjDAjmcShcGcukxlYkt8tSe6V6Sn_Ef9vIECsIUs2s_9uE7qGGHqYfzyBzVT-yKx6BYQGA-XpLivEsfgWVdlJ3o2Fbd5ipckWqw0x1ZMJG3RmFKqb_-hmCGggljoPRwB-ZkSGPSU5M2c7fNtpx04lmNjDo0kO2ITw_WH2z_Z2wp252NtvRDmRnpf23awUTlqSXZKT-6g8W-G2-bBj_7AGPLU1gmBitXtyfng6nw"
-              alt="TMR Car Care studio location"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 10 — FINAL CALL TO ACTION */}
-      <section className="relative py-24 sm:py-32 bg-[#111111] text-white text-center">
+      {/* SECTION 07 — GALLERY FINAL CTA */}
+      <section className="py-24 sm:py-32 bg-[#111111] text-white text-center">
         <div className="max-w-3xl mx-auto px-5 space-y-8">
-          <h2 className="font-manrope font-extrabold text-3xl sm:text-6xl uppercase tracking-tighter text-white leading-tight">
-            READY TO GIVE YOUR CAR THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">right care?</span>
+          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-white leading-none">
+            EXPERIENCE THE FINISH.
           </h2>
+          <p className="text-base text-[#D8D8D5] max-w-lg mx-auto leading-relaxed">
+            Transform your vehicle with TMR Car Care's detailing and protection standards in Tiruppur.
+          </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
             <a
-              href={`https://wa.me/${companyData.contact.whatsapp}`}
+              href={`https://wa.me/${companyData.contact.whatsapp}?text=Booking%20Gallery%20Service`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#FF4B00] text-white px-10 py-5 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors"
+              className="bg-[#FF4B00] text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
             >
-              WHATSAPP NOW
+              WHATSAPP TMR
             </a>
-            <a
-              href={`tel:${companyData.contact.phone}`}
-              className="bg-white text-[#111111] px-10 py-5 font-bold text-xs uppercase tracking-widest hover:bg-[#D8D8D5] transition-colors"
+            <Link
+              to="/contact"
+              className="border border-white/30 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
             >
-              CALL NOW
-            </a>
+              BOOK APPOINTMENT
+            </Link>
           </div>
         </div>
       </section>
