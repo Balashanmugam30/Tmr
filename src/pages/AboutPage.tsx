@@ -70,7 +70,7 @@ export const AboutPage: React.FC = () => {
         onMouseLeave={handleHeroMouseLeave}
         className="relative w-full min-h-[95vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white"
       >
-        {/* Layer 1: Oversized Parallax Cinematic Background Canvas (Genuinely New Generated Asset) */}
+        {/* Layer 1: Oversized Parallax Cinematic Background Canvas (Real Web-Downloaded Photograph) */}
         <div
           className="absolute -top-10 -bottom-10 -left-10 -right-10 z-0 pointer-events-none transition-transform duration-700 ease-out"
           style={{
@@ -78,15 +78,15 @@ export const AboutPage: React.FC = () => {
           }}
         >
           <img
-            src="/images/about/about-hero-new.jpg"
-            alt="Flagship automotive detailing studio at night with controlled lighting and paint reflections"
+            src="/images/about/about-hero-web.jpg"
+            alt="Flagship dark vehicle inside automotive detailing studio"
             className="w-full h-full object-cover object-center scale-105"
           />
         </div>
 
         {/* Layer 2: Dual-Tone Dark Overlay & Atmospheric Gradient (Ensures 100% text legibility) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-[#050505]/30 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/60 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/75 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50 z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-40 z-10 pointer-events-none" />
 
         {/* Layer 3: Film Grain Texture Overlay */}
@@ -149,11 +149,11 @@ export const AboutPage: React.FC = () => {
 
             <div className="lg:col-span-5 relative border border-white/15 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black group">
               <img
-                src="/images/about/about-belief-new.jpg"
-                alt="Close up of precision paint inspection and clear coat surface reflection under professional detailing lighting"
+                src="/images/about/about-belief-web.jpg"
+                alt="Macro photograph of precision automotive paint surface reflection under detailing inspection light"
                 className="w-full h-[360px] sm:h-[480px] object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
             </div>
 
           </div>
