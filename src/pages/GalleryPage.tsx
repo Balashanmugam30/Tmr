@@ -355,7 +355,8 @@ export const GalleryPage: React.FC = () => {
     setHeroParallax({ x: 0, y: 0 });
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  // Section 05 Instant Pointer & Touch Comparison Control Logic
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
@@ -658,7 +659,7 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 05 — TRANSFORMATION (WARM IVORY RHYTHM & GENUINE MATCHED BEFORE/AFTER PAIR) */}
+      {/* SECTION 05 — TRANSFORMATION (WARM IVORY RHYTHM & INSTANT POINTER-CONTROLLED BEFORE/AFTER COMPARISON) */}
       <section
         id="transformation"
         ref={transSectionRef}
@@ -680,35 +681,36 @@ export const GalleryPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Dominant Large Before/After Viewer */}
+          {/* Dominant Large Before/After Pointer-Controlled Comparison Viewer */}
           <div
-            className="relative max-w-[1280px] mx-auto h-[400px] sm:h-[600px] rounded-xl border border-[#D8D8D5] shadow-2xl overflow-hidden select-none cursor-ew-resize bg-[#000]"
-            onMouseMove={handleMouseMove}
+            className="relative max-w-[1280px] mx-auto h-[400px] sm:h-[600px] rounded-xl border border-[#D8D8D5] shadow-2xl overflow-hidden select-none cursor-ew-resize bg-[#000] touch-none"
+            onPointerMove={handlePointerMove}
+            onPointerDown={handlePointerMove}
             onTouchMove={handleTouchMove}
           >
-            {/* After Image (Full background) */}
+            {/* After Image (Full background base) */}
             <img
               src="/images/gallery/gallery-transformation-after-final.jpg"
               alt="After paint correction flawless gloss finish on vehicle bonnet at TMR Car Care Tiruppur"
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
 
-            {/* Before Image (Clipped overlay) */}
+            {/* Before Image (Clipped overlay controlled by sliderPos) */}
             <div
-              className="absolute inset-0 overflow-hidden"
+              className="absolute inset-0 overflow-hidden pointer-events-none"
               style={{ width: `${sliderPos}%` }}
             >
               <img
                 src="/images/gallery/gallery-transformation-before-final.jpg"
                 alt="Before paint correction with surface defects and swirl marks on vehicle bonnet"
-                className="absolute inset-0 w-full h-full object-cover max-w-none"
+                className="absolute inset-0 w-full h-full object-cover max-w-none pointer-events-none"
                 style={{ width: '100%', height: '100%' }}
               />
             </div>
 
-            {/* Slider Line Divider */}
+            {/* TMR Orange Divider Line & Circular Control Handle */}
             <div
-              className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30 pointer-events-none"
+              className="absolute top-0 bottom-0 w-[2px] bg-[#FF4B00] z-30 pointer-events-none"
               style={{ left: `${sliderPos}%` }}
             >
               <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-xl font-extrabold text-xs border-2 border-white">
@@ -819,30 +821,64 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 07 — GALLERY FINAL CTA */}
-      <section className="py-24 sm:py-32 bg-[#111111] text-white text-center">
-        <div className="max-w-3xl mx-auto px-5 space-y-8">
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-white leading-none">
-            EXPERIENCE THE FINISH.
-          </h2>
-          <p className="text-base text-[#D8D8D5] max-w-lg mx-auto leading-relaxed">
-            Transform your vehicle with TMR Car Care's detailing and protection standards in Tiruppur.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-            <a
-              href={`https://wa.me/${companyData.contact.whatsapp}?text=Booking%20Gallery%20Service`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#FF4B00] text-[#FFFFFF] px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
-            >
-              WHATSAPP TMR
-            </a>
-            <Link
-              to="/contact"
-              className="border border-white/30 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
-            >
-              BOOK APPOINTMENT
-            </Link>
+      {/* SECTION 07 — GALLERY FINAL CTA (CINEMATIC AUTOMOTIVE END FRAME) */}
+      <section className="relative w-full min-h-[75vh] md:min-h-[85vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-32 font-intertight border-t border-white/10">
+        {/* Layer 1: Full-Bleed Cinematic Background Image */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <img
+            src="/images/gallery/gallery-final-cta.jpg"
+            alt="Freshly detailed supercar inside TMR Car Care flagship studio bay in Tiruppur"
+            className="w-full h-full object-cover object-center scale-[1.02] transition-transform duration-[10000ms] ease-out hover:scale-105"
+          />
+        </div>
+
+        {/* Layer 2: Fixed Dark Cinematic Overlay Gradient */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/95 via-black/80 to-black/40 pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/50 pointer-events-none" />
+
+        {/* Layer 3: Editorial Content Box */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 flex flex-col justify-end space-y-8 my-auto">
+          <div className="max-w-2xl space-y-6">
+            <div className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase flex items-center">
+              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+              TMR CAR CARE STUDIO
+            </div>
+
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
+              EXPERIENCE THE <br />
+              <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">finish.</span>
+            </h2>
+
+            <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l pl-4 border-white/20 max-w-xl">
+              Professional detailing, paint correction and surface protection in Tiruppur.
+            </p>
+
+            {/* Buttons */}
+            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <a
+                href={`https://wa.me/${companyData.contact.whatsapp}?text=Booking%20Gallery%20Service`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-[#FF4B00] text-white rounded-md font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors shadow-2xl text-center inline-flex items-center justify-center gap-2"
+              >
+                <span>WHATSAPP TMR</span>
+                <span className="text-base">→</span>
+              </a>
+
+              <Link
+                to="/contact"
+                className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-md font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors text-center inline-flex items-center justify-center gap-2"
+              >
+                <span>BOOK APPOINTMENT</span>
+                <span className="text-base">→</span>
+              </Link>
+            </div>
+
+            {/* Location Line */}
+            <div className="pt-6 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+              <span>Tiruppur, Tamil Nadu • Avinashi Road</span>
+            </div>
           </div>
         </div>
       </section>
