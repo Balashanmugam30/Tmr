@@ -15,13 +15,11 @@ export const GalleryPage: React.FC = () => {
   const [motionIndex, setMotionIndex] = useState<number>(0);
   const [isMotionHovered, setIsMotionHovered] = useState<boolean>(false);
 
-  // --- SECTION 03: SIGNATURE WORK AUTOPLAY STATE ---
-  const [sigIndex, setSigIndex] = useState<number>(0);
-  const [isSigHovered, setIsSigHovered] = useState<boolean>(false);
+  // --- SECTION 03: SIGNATURE WORK BEFORE/AFTER COMPARISON SLIDER STATE ---
+  const [sigSliderPos, setSigSliderPos] = useState<number>(50);
 
-  // --- SECTION 04: DETAIL TRANSFORMATION AUTOPLAY STATE ---
-  const [detailIndex, setDetailIndex] = useState<number>(0);
-  const [isDetailHovered, setIsDetailHovered] = useState<boolean>(false);
+  // --- SECTION 04: DETAIL BEFORE/AFTER COMPARISON SLIDER STATE ---
+  const [detailSliderPos, setDetailSliderPos] = useState<number>(50);
 
   // Hero dedicated local assets (No remote URLs, no duplicates across Section 01 & 02)
   const heroVisuals = [
@@ -105,67 +103,6 @@ export const GalleryPage: React.FC = () => {
     },
   ];
 
-  // Section 03 Signature Work datasets
-  const sigVisuals = [
-    {
-      primarySrc: '/images/gallery/gallery-sig-01.jpg',
-      primaryAlt: 'Graphite luxury sports car after professional paint correction at TMR Car Care Tiruppur',
-      secondarySrc: '/images/gallery/gallery-03.webp',
-      secondaryAlt: 'Technician machine-polishing dark vehicle panel in studio',
-      title: 'PAINT CORRECTION EXCELLENCE',
-      tag: '01 / STAGE REFLECTION',
-    },
-    {
-      primarySrc: '/images/gallery/gallery-07.webp',
-      primaryAlt: 'Precision surface audit under detailing lights in Tiruppur studio',
-      secondarySrc: '/images/gallery/gallery-sig-01.jpg',
-      secondaryAlt: 'High-gloss clear coat finish after multi-stage compounding',
-      title: 'CLEAR COAT SURFACE AUDIT',
-      tag: '02 / INSPECTION CRAFT',
-    },
-    {
-      primarySrc: '/images/gallery/gallery-08.webp',
-      primaryAlt: 'Ceramic coated dark automotive paint with hydrophobic water bead reflection',
-      secondarySrc: '/images/gallery/gallery-03.webp',
-      secondaryAlt: 'Ceramic coating application on dark glossy vehicle door panel',
-      title: '9H CERAMIC PROTECTION',
-      tag: '03 / NANO-COATING SHIELD',
-    },
-    {
-      primarySrc: '/images/gallery/gallery-03.webp',
-      primaryAlt: 'Clear PPF paint protection film installation on luxury car bonnet at TMR Car Care',
-      secondarySrc: '/images/gallery/gallery-08.webp',
-      secondaryAlt: 'Finished self-healing film gloss on dark car fender',
-      title: 'PPF ARMOR INSTALLATION',
-      tag: '04 / PPF PRO DEFENSE',
-    },
-  ];
-
-  // Section 04 Technical Detail Stages dataset
-  const detailStages = [
-    {
-      step: '01 / CONDITION INSPECTION',
-      title: 'CLEAR COAT AUDIT & DEFECT MAPPING',
-      desc: 'Identifying P1200+ sand scratches, micro-marring, and compound hazing under specialized LED inspection lighting.',
-      src: '/images/gallery/gallery-07.webp',
-      alt: 'Paint correction inspection under detailing studio lighting in Tiruppur',
-    },
-    {
-      step: '02 / MACHINE REFINEMENT',
-      title: 'MULTI-STAGE COMPOUNDING & GLAZE',
-      desc: 'Rotary and dual-action machine polishing utilizing 3M Perfect-It and Meguiar’s M210 compounds to level defects permanently.',
-      src: '/images/gallery/gallery-03.webp',
-      alt: 'Professional machine polishing on a dark vehicle at TMR Car Care Tiruppur',
-    },
-    {
-      step: '03 / ULTIMATE REFLECTION',
-      title: 'HAZE-FREE MIRROR FINISH',
-      desc: 'Final anti-hologram refinement creating a streak-free, glassy depth ready for ceramic or PPF encapsulation.',
-      src: '/images/gallery/gallery-08.webp',
-      alt: 'Finished mirror-gloss automotive paint after correction at TMR Car Care Tiruppur',
-    },
-  ];
-
   useEffect(() => {
     document.title = "TMR CAR CARE — GALLERY | Tiruppur Detailing Studio";
     window.scrollTo(0, 0);
@@ -199,24 +136,6 @@ export const GalleryPage: React.FC = () => {
     return () => clearInterval(motionTimer);
   }, [isReducedMotion, isMotionHovered, motionPairs.length]);
 
-  // Section 03 Signature Work Autoplay Timer (3.8s sequence)
-  useEffect(() => {
-    if (isReducedMotion || isSigHovered) return;
-    const sigTimer = setInterval(() => {
-      setSigIndex((prev) => (prev + 1) % sigVisuals.length);
-    }, 3800);
-    return () => clearInterval(sigTimer);
-  }, [isReducedMotion, isSigHovered, sigVisuals.length]);
-
-  // Section 04 Detail Transformation Autoplay Timer (3.5s sequence)
-  useEffect(() => {
-    if (isReducedMotion || isDetailHovered) return;
-    const detailTimer = setInterval(() => {
-      setDetailIndex((prev) => (prev + 1) % detailStages.length);
-    }, 3500);
-    return () => clearInterval(detailTimer);
-  }, [isReducedMotion, isDetailHovered, detailStages.length]);
-
   // Hero Micro-Parallax Mouse Shift (Constrained X: ±6px, Y: ±4px offset)
   const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isReducedMotion) return;
@@ -231,6 +150,39 @@ export const GalleryPage: React.FC = () => {
     setHeroParallax({ x: 0, y: 0 });
   };
 
+  // Section 03 Signature Work Before/After Drag Handler
+  const handleSigMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setSigSliderPos(percentage);
+  };
+
+  const handleSigTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setSigSliderPos(percentage);
+  };
+
+  // Section 04 Detail Before/After Drag Handler
+  const handleDetailMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setDetailSliderPos(percentage);
+  };
+
+  const handleDetailTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    setDetailSliderPos(percentage);
+  };
+
+  // Section 05 Interactive Slider Handlers
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -424,184 +376,151 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 03 — SIGNATURE WORK (PREMIUM AUTOMOTIVE REVEAL STAGE) */}
+      {/* SECTION 03 — SIGNATURE WORK (FULL-WIDTH INTERACTIVE BEFORE/AFTER SLIDER) */}
       <section
         className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
-        onMouseEnter={() => setIsSigHovered(true)}
-        onMouseLeave={() => setIsSigHovered(false)}
+        id="signature"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div className="flex flex-col space-y-4">
-              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-                03 / SIGNATURE WORK
-              </div>
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-7xl text-white uppercase tracking-tighter">
-                SIGNATURE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">automotive</span> WORK.
-              </h2>
-              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-xl border-l pl-4 border-white/20 leading-relaxed font-normal">
-                A curated view of paint correction, ceramic coating and paint protection work completed at TMR Car Care in Tiruppur.
-              </p>
+          <div className="flex flex-col space-y-4 mb-12">
+            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
+              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+              03 / SIGNATURE WORK
             </div>
-
-            {/* Slide Control Indicators */}
-            <div className="flex items-center gap-3">
-              {sigVisuals.map((_, sIdx) => (
-                <button
-                  key={sIdx}
-                  onClick={() => setSigIndex(sIdx)}
-                  aria-label={`Go to signature slide ${sIdx + 1}`}
-                  className={`text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded border transition-all ${
-                    sIdx === sigIndex
-                      ? 'bg-[#FF4B00] border-[#FF4B00] text-white shadow-[0_0_15px_rgba(255,75,0,0.4)]'
-                      : 'border-white/20 text-white/50 hover:text-white hover:border-white/40'
-                  }`}
-                >
-                  0{sIdx + 1}
-                </button>
-              ))}
-            </div>
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-7xl text-white uppercase tracking-tighter">
+              SIGNATURE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">automotive</span> WORK.
+            </h2>
+            <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-2xl border-l pl-4 border-white/20 leading-relaxed font-normal">
+              A curated view of paint correction, ceramic coating and paint protection work completed at TMR Car Care in Tiruppur.
+            </p>
           </div>
 
-          {/* Horizontal Reveal Stage Layout (Right to Left Transition, Zero Zoom) */}
-          <div className="relative overflow-hidden w-full rounded-lg min-h-[480px] sm:min-h-[600px] border border-white/10 bg-[#0B0B0B]">
+          {/* Full-Width Draggable Before/After Comparison Stage (Zero Text Overlap) */}
+          <div
+            className="relative w-full h-[400px] sm:h-[600px] md:h-[650px] overflow-hidden select-none cursor-ew-resize border border-white/15 rounded-lg shadow-2xl bg-[#0B0B0B]"
+            onMouseMove={handleSigMouseMove}
+            onTouchMove={handleSigTouchMove}
+          >
+            {/* After Image (Full background) */}
+            <img
+              src="/images/gallery/gallery-signature-after.webp"
+              alt="After professional paint correction showing deep gloss on an Indian-market SUV"
+              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+            />
+
+            {/* Before Image (Clipped overlay) */}
             <div
-              className={`flex w-full h-full ${
-                isReducedMotion
-                  ? 'transition-none'
-                  : 'transition-transform duration-[1100ms] ease-[cubic-bezier(0.65,0,0.35,1)]'
-              }`}
-              style={{
-                transform: `translate3d(-${sigIndex * 100}%, 0, 0)`,
-              }}
+              className="absolute inset-0 overflow-hidden pointer-events-none"
+              style={{ width: `${sigSliderPos}%` }}
             >
-              {sigVisuals.map((visual, vIdx) => (
-                <div
-                  key={vIdx}
-                  className="w-full flex-shrink-0 relative min-h-[480px] sm:min-h-[600px] flex items-center p-6 sm:p-12 overflow-hidden"
-                >
-                  {/* Primary Large Image */}
-                  <div className="absolute right-0 top-0 w-full md:w-[75%] h-full overflow-hidden">
-                    <img
-                      src={visual.primarySrc}
-                      alt={visual.primaryAlt}
-                      className="w-full h-full object-cover scale-100"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent z-10" />
-                  </div>
+              <img
+                src="/images/gallery/gallery-signature-before.webp"
+                alt="Before paint correction on a dark Indian-market SUV at TMR Car Care Tiruppur"
+                className="absolute inset-0 w-full h-full object-cover max-w-none"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </div>
 
-                  {/* Secondary Overlapping Inset Visual */}
-                  <div className="hidden md:block absolute left-12 bottom-12 w-[380px] h-[240px] z-20 border border-white/20 shadow-2xl overflow-hidden rounded-lg bg-[#000]">
-                    <img
-                      src={visual.secondarySrc}
-                      alt={visual.secondaryAlt}
-                      className="w-full h-full object-cover scale-100"
-                    />
-                    <div className="absolute top-3 left-3 bg-black/80 px-3 py-1 rounded text-[10px] text-[#FF4B00] font-bold uppercase tracking-widest border border-white/10">
-                      {visual.tag}
-                    </div>
-                  </div>
+            {/* Subdued Badges */}
+            <div className="absolute top-4 left-4 z-20 bg-black/70 backdrop-blur-md px-3.5 py-1.5 border border-white/10 rounded text-[10px] text-white/80 font-bold uppercase tracking-widest pointer-events-none">
+              BEFORE // SWIRLS & OXIDATION
+            </div>
+            <div className="absolute top-4 right-4 z-20 bg-[#FF4B00]/90 backdrop-blur-md px-3.5 py-1.5 border border-[#FF4B00] rounded text-[10px] text-white font-bold uppercase tracking-widest pointer-events-none">
+              AFTER // REFINED MIRROR GLOSS
+            </div>
 
-                  {/* Overlay Text Content */}
-                  <div className="relative z-30 max-w-lg space-y-4">
-                    <span className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase block">
-                      {visual.tag}
-                    </span>
-                    <h3 className="font-manrope font-extrabold text-2xl sm:text-4xl text-white uppercase tracking-tight">
-                      {visual.title}
-                    </h3>
-                  </div>
-                </div>
-              ))}
+            {/* Vertical Divider Line & Drag Handle */}
+            <div
+              className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30 pointer-events-none"
+              style={{ left: `${sigSliderPos}%` }}
+            >
+              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,75,0,0.6)] font-bold text-xs">
+                ↔
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 04 — DETAIL / PAINT CORRECTION & FINISH TRANSFORMATION */}
+      {/* SECTION 04 — DETAIL / MACRO PAINT CORRECTION BEFORE/AFTER */}
       <section
         className="relative bg-[#F5F4EF] py-20 sm:py-32 overflow-hidden text-[#111111] border-b border-[#D8D8D5]"
-        onMouseEnter={() => setIsDetailHovered(true)}
-        onMouseLeave={() => setIsDetailHovered(false)}
+        id="detail"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-6">
-            <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-            04 / DETAIL
-          </div>
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-            <div>
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-none mb-4">
-                PAINT CORRECTION & <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">finish transformation.</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Column: Heading & SEO Copy */}
+            <div className="lg:col-span-5 flex flex-col space-y-6">
+              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
+                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+                04 / DETAIL
+              </div>
+              
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tighter leading-[0.95]">
+                PAINT CORRECTION <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">changes everything.</span>
               </h2>
-              <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] max-w-xl border-l pl-4 border-[#111111]/20 leading-relaxed">
-                Close-up detailing work showing the inspection, refinement and final finish achieved through professional automotive paint correction and surface preparation at TMR Car Care in Tiruppur.
+
+              <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] border-l pl-4 border-[#111111]/20 leading-relaxed">
+                Close-up paint inspection and refinement showing the difference between a compromised clear coat and a professionally corrected finish at TMR Car Care in Tiruppur.
               </p>
-            </div>
 
-            {/* Technical Stage Buttons */}
-            <div className="flex items-center gap-2 shrink-0">
-              {detailStages.map((stage, stIdx) => (
-                <button
-                  key={stIdx}
-                  onClick={() => setDetailIndex(stIdx)}
-                  aria-label={`Go to detail stage ${stIdx + 1}`}
-                  className={`text-xs font-bold tracking-widest uppercase px-3.5 py-2 rounded border transition-all ${
-                    stIdx === detailIndex
-                      ? 'bg-[#111111] border-[#111111] text-white shadow-md'
-                      : 'border-[#D8D8D5] text-[#858585] hover:text-[#111111] hover:border-[#111111]'
-                  }`}
+              <div className="pt-2">
+                <Link
+                  to="/services/detailing-paint-care"
+                  className="inline-flex items-center gap-3 text-[#111111] font-bold text-xs uppercase tracking-widest border-b border-[#111111] pb-2 hover:text-[#FF4B00] hover:border-[#FF4B00] transition-colors"
                 >
-                  0{stIdx + 1}
-                </button>
-              ))}
+                  <span>EXPLORE PAINT CORRECTION SERVICES</span>
+                  <span className="text-base">↗</span>
+                </Link>
+              </div>
             </div>
-          </div>
 
-          {/* Technical Macro Visual Reveal Canvas (Right to Left Transition, Zero Zoom) */}
-          <div className="relative overflow-hidden w-full rounded-lg border border-[#D8D8D5] bg-white shadow-2xl min-h-[460px] sm:min-h-[580px]">
-            <div
-              className={`flex w-full h-full ${
-                isReducedMotion
-                  ? 'transition-none'
-                  : 'transition-transform duration-[1100ms] ease-[cubic-bezier(0.65,0,0.35,1)]'
-              }`}
-              style={{
-                transform: `translate3d(-${detailIndex * 100}%, 0, 0)`,
-              }}
-            >
-              {detailStages.map((stage, dIdx) => (
+            {/* Right Column: Macro Interactive Before/After Comparison Stage */}
+            <div className="lg:col-span-7">
+              <div
+                className="relative w-full h-[360px] sm:h-[500px] overflow-hidden select-none cursor-ew-resize border border-[#D8D8D5] rounded-lg shadow-2xl bg-white"
+                onMouseMove={handleDetailMouseMove}
+                onTouchMove={handleDetailTouchMove}
+              >
+                {/* After Image (Full background) */}
+                <img
+                  src="/images/gallery/gallery-detail-after.webp"
+                  alt="After paint correction showing corrected high-gloss automotive clear coat"
+                  className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                />
+
+                {/* Before Image (Clipped overlay) */}
                 <div
-                  key={dIdx}
-                  className="w-full flex-shrink-0 relative min-h-[460px] sm:min-h-[580px] grid grid-cols-1 lg:grid-cols-12 overflow-hidden"
+                  className="absolute inset-0 overflow-hidden pointer-events-none"
+                  style={{ width: `${detailSliderPos}%` }}
                 >
-                  {/* Left Technical Description Panel */}
-                  <div className="lg:col-span-5 p-8 sm:p-12 flex flex-col justify-center bg-[#F8F7F2] border-r border-[#D8D8D5] z-10">
-                    <span className="font-extrabold text-xs text-[#FF4B00] tracking-widest uppercase block mb-3">
-                      {stage.step}
-                    </span>
-                    <h3 className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#111111] uppercase tracking-tight mb-4">
-                      {stage.title}
-                    </h3>
-                    <p className="font-manrope text-sm text-[#5f5e5e] leading-relaxed">
-                      {stage.desc}
-                    </p>
-                  </div>
+                  <img
+                    src="/images/gallery/gallery-detail-before.webp"
+                    alt="Before clear-coat swirl marks under detailing inspection lighting"
+                    className="absolute inset-0 w-full h-full object-cover max-w-none"
+                    style={{ width: '100%', height: '100%' }}
+                  />
+                </div>
 
-                  {/* Right Macro Automotive Detailing Image */}
-                  <div className="lg:col-span-7 relative overflow-hidden bg-[#111111] min-h-[300px]">
-                    <img
-                      src={stage.src}
-                      alt={stage.alt}
-                      className="w-full h-full object-cover scale-100"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                {/* Subdued Badges */}
+                <div className="absolute top-4 left-4 z-20 bg-black/70 backdrop-blur-md px-3.5 py-1.5 border border-white/10 rounded text-[10px] text-white/80 font-bold uppercase tracking-widest pointer-events-none">
+                  BEFORE // MICRO-MARRING
+                </div>
+                <div className="absolute top-4 right-4 z-20 bg-[#FF4B00]/90 backdrop-blur-md px-3.5 py-1.5 border border-[#FF4B00] rounded text-[10px] text-white font-bold uppercase tracking-widest pointer-events-none">
+                  AFTER // GLASS CLEAR
+                </div>
+
+                {/* Vertical Divider Line & Drag Handle */}
+                <div
+                  className="absolute top-0 bottom-0 w-1 bg-[#FF4B00] z-30 pointer-events-none"
+                  style={{ left: `${detailSliderPos}%` }}
+                >
+                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-[0_0_20px_rgba(255,75,0,0.6)] font-bold text-xs">
+                    ↔
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
