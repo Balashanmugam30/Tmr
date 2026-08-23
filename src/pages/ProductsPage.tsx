@@ -202,28 +202,28 @@ export const ProductsPage: React.FC = () => {
       name: '3M™ Trizact™ Performance Abrasives',
       category: 'Abrasives & Leveling',
       image: '/images/products/3m/3m-hero-trizact-v2.jpg',
-      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+      slug: '3m-trizact-performance-abrasives',
     },
     {
       id: 'meguiars-m210',
       name: "Meguiar's Mirror Glaze M210 Ultra Finishing Polish",
       category: 'Finishing Compounds',
       image: '/images/products/3m/meguiars-hero-m210-v2.jpg',
-      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+      slug: 'meguiars-m210-ultra-finishing-polish',
     },
     {
       id: '3m-quick-wax',
       name: '3M™ Quick Wax Spray Sealant',
       category: 'Protection & Shine',
       image: '/images/products/3m/3m-hero-quick-wax-v2.jpg',
-      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+      slug: '3m-quick-wax-spray',
     },
     {
       id: '3m-machine-polish',
       name: '3M™ Perfect-It™ Machine Polish',
       category: 'Finish Polishes',
       image: '/images/products/3m/3m-hero-machine-polish-v2.jpg',
-      slug: '3m-perfect-it-ex-ac-rubbing-compound',
+      slug: '3m-perfect-it-machine-polish',
     },
   ];
 
@@ -234,6 +234,7 @@ export const ProductsPage: React.FC = () => {
       desc: "Professional vehicle-cleaning products for wash and maintenance applications.",
       image: "/images/products/3m/3m-cat-cleaning-v2.jpg",
       alt: "3M professional vehicle cleaning shampoo and quick wax spray",
+      link: "/products/3m-quick-wax-spray",
     },
     {
       id: 1,
@@ -241,6 +242,7 @@ export const ProductsPage: React.FC = () => {
       desc: "High-performance compounds, polishes, and pads for paint correction.",
       image: "/images/products/3m/3m-cat-polishing-v2.jpg",
       alt: "3M Perfect-It EX AC Rubbing Compound bottle",
+      link: "/products/3m-perfect-it-ex-ac-rubbing-compound",
     },
     {
       id: 2,
@@ -248,6 +250,7 @@ export const ProductsPage: React.FC = () => {
       desc: "Nanoceramic, wax, and sealant protection treatments.",
       image: "/images/products/3m/3m-cat-protection-v2.jpg",
       alt: "3M Ceramic Coating paint protection kit",
+      link: "/services/ceramic-coating",
     },
     {
       id: 3,
@@ -255,6 +258,7 @@ export const ProductsPage: React.FC = () => {
       desc: "Self-healing paint protection films and sun-control solar films.",
       image: "/images/products/3m/3m-cat-films-v2.jpg",
       alt: "3M Scotchgard Paint Protection Film Pro box and roll",
+      link: "/services/ppf-paint-protection",
     },
     {
       id: 4,
@@ -262,6 +266,7 @@ export const ProductsPage: React.FC = () => {
       desc: "Dual-action polishers, inspection lights, and precision detailing equipment.",
       image: "/images/products/3m/3m-cat-tools-v2.jpg",
       alt: "3M compounding and polishing foam pad tools",
+      link: "/products/3m-perfect-it-foam-compounding-pad",
     },
     {
       id: 5,
@@ -269,6 +274,7 @@ export const ProductsPage: React.FC = () => {
       desc: "Microfiber towels, applicators, and premium vehicle cabin accessories.",
       image: "/images/products/3m/3m-cat-accessories-v2.jpg",
       alt: "Premium 3M microfiber detailing accessories",
+      link: "/products/3m-automotive-performance-masking-tape-233",
     },
   ];
 
@@ -430,9 +436,6 @@ export const ProductsPage: React.FC = () => {
                   src={categoryWorlds[activeCategoryWorld].image}
                   alt={categoryWorlds[activeCategoryWorld].alt}
                   className="w-full h-full object-cover opacity-90 transition-all duration-500"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg";
-                  }}
                 />
                 <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/90 to-transparent">
                   <div className="flex justify-between items-end">
@@ -445,7 +448,7 @@ export const ProductsPage: React.FC = () => {
                       </p>
                     </div>
                     <Link
-                      to="/products/3m-perfect-it-ex-ac-rubbing-compound"
+                      to={categoryWorlds[activeCategoryWorld].link}
                       className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest flex items-center gap-2 hover:translate-x-2 transition-transform"
                     >
                       <span>EXPLORE</span>
@@ -700,11 +703,10 @@ export const ProductsPage: React.FC = () => {
                   <button
                     key={filter}
                     onClick={() => setSelectedCategoryFilter(filter)}
-                    aria-pressed={selectedCategoryFilter === filter}
-                    className={`text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full transition-all ${
+                    className={`px-4 py-2 rounded-full font-manrope font-bold text-xs uppercase tracking-widest transition-all ${
                       selectedCategoryFilter === filter
-                        ? "bg-[#FF4B00] text-white shadow-md"
-                        : "bg-black/10 text-[#3A3A3A] hover:text-[#111111] hover:bg-black/20"
+                        ? "bg-[#FF4B00] text-white shadow-lg"
+                        : "bg-white/10 text-[#333333] hover:bg-black/10 hover:text-black"
                     }`}
                   >
                     {filter}
@@ -715,278 +717,92 @@ export const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Viewport Edge Bleed Container for Train Rail (Headers stay inside max-w-[1360px], Rail extends 100vw) */}
-        <div className="w-full relative overflow-hidden">
-          <style>{`
-            @keyframes tmrContinuousTrain {
-              0% { transform: translate3d(0, 0, 0); }
-              100% { transform: translate3d(-50%, 0, 0); }
-            }
-          `}</style>
-
-          <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative flex justify-between items-center mb-4">
-            <span className="text-[10px] font-bold text-[#333333] uppercase tracking-widest">
-              Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Continuous Linear Runway →
-            </span>
-            <div className="hidden sm:flex items-center gap-2">
-              <button
-                onClick={() => scrollRunway('left')}
-                aria-label="Scroll products left"
-                className="w-10 h-10 rounded-full border border-[#222222]/40 flex items-center justify-center text-[#222222] hover:bg-[#FF4B00] hover:border-[#FF4B00] hover:text-white transition-colors"
+        {/* Product Cards Grid */}
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProducts.map((product) => (
+              <Link
+                key={product.id}
+                to={product.detailRoute}
+                className="group flex flex-col bg-[#0F0F0F] border border-white/10 rounded-xl overflow-hidden hover:border-[#FF4B00]/60 transition-all duration-300 shadow-xl"
               >
-                ←
-              </button>
-              <button
-                onClick={() => scrollRunway('right')}
-                aria-label="Scroll products right"
-                className="w-10 h-10 rounded-full border border-[#222222]/40 flex items-center justify-center text-[#222222] hover:bg-[#FF4B00] hover:border-[#FF4B00] hover:text-white transition-colors"
-              >
-                →
-              </button>
-            </div>
-          </div>
-
-          {/* Viewport Bleed Train Track (Exact Left Screen Edge to Exact Right Screen Edge) */}
-          <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] px-4 sm:px-8 overflow-hidden">
-            {filteredProducts.length > 0 ? (
-              <div className="relative w-full overflow-hidden pb-8 pt-2">
-                <div
-                  ref={runwayScrollRef}
-                  className="flex gap-6 w-max hover:[animation-play-state:paused]"
-                  style={{
-                    animation: 'tmrContinuousTrain 32s linear infinite',
-                    willChange: 'transform',
-                  }}
-                >
-                  {[...filteredProducts, ...filteredProducts].map((product, idx) => {
-                    const isClone = idx >= filteredProducts.length;
-                    const uniqueKey = `${product.id}-loop-${idx}`;
-                    const isDetailRoute = product.detailRoute.startsWith('/products/');
-                    const isServiceRoute = product.detailRoute.startsWith('/services/');
-
-                    return (
-                      <div
-                        key={uniqueKey}
-                        aria-hidden={isClone ? "true" : undefined}
-                        className="flex-none w-[82vw] sm:w-[320px] md:w-[360px] lg:w-[380px] bg-[#111418] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#FF4B00]/60 transition-all rounded-xl shadow-xl"
-                      >
-                        {/* Product Image Stage */}
-                        <div className="aspect-[4/3] mb-6 relative flex items-center justify-center bg-white/5 rounded-lg overflow-hidden p-4">
-                          <img
-                            src={product.image}
-                            alt={`${product.name} for professional automotive detailing in Tiruppur`}
-                            className="w-4/5 h-4/5 object-contain group-hover:scale-105 transition-transform duration-500"
-                            onError={(e) => {
-                              e.currentTarget.style.opacity = '0.7';
-                            }}
-                          />
-                          <div className="absolute top-3 left-3 px-2 py-0.5 bg-black/60 backdrop-blur-sm text-[9px] font-bold uppercase tracking-widest text-[#FF4B00] rounded">
-                            {product.category}
-                          </div>
-                        </div>
-
-                        {/* Meta & Title */}
-                        <div className="flex-1 flex flex-col justify-between">
-                          <div>
-                            <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase mb-2">
-                              <span>0{(idx % filteredProducts.length) + 1}</span>
-                              <span className="text-white/40">{product.sku}</span>
-                            </div>
-                            <h3 className="font-manrope font-bold text-lg text-white uppercase mb-2 group-hover:text-[#FF4B00] transition-colors leading-snug">
-                              {product.name}
-                            </h3>
-                            <p className="text-xs text-[#858585] line-clamp-2 leading-relaxed mb-6 font-normal">
-                              {product.shortDescription}
-                            </p>
-                          </div>
-
-                          {/* Card Smart CTA Link */}
-                          {isDetailRoute ? (
-                            <Link
-                              to={product.detailRoute}
-                              tabIndex={isClone ? -1 : undefined}
-                              aria-hidden={isClone ? "true" : undefined}
-                              className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
-                            >
-                              <span>VIEW PRODUCT DETAILS</span>
-                              <span>→</span>
-                            </Link>
-                          ) : isServiceRoute ? (
-                            <Link
-                              to={product.detailRoute}
-                              tabIndex={isClone ? -1 : undefined}
-                              aria-hidden={isClone ? "true" : undefined}
-                              className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
-                            >
-                              <span>VIEW SERVICE</span>
-                              <span>→</span>
-                            </Link>
-                          ) : (
-                            <a
-                              href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20${encodeURIComponent(product.name)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              tabIndex={isClone ? -1 : undefined}
-                              aria-hidden={isClone ? "true" : undefined}
-                              className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest group-hover:text-white transition-colors"
-                            >
-                              <span>ENQUIRE VIA WHATSAPP</span>
-                              <span>→</span>
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
+                <div className="relative aspect-[4/3] bg-[#141414] overflow-hidden flex items-center justify-center p-6">
+                  <img
+                    src={product.image}
+                    alt={`${product.name} - ${product.shortDescription}`}
+                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest border border-white/10">
+                    {product.category}
+                  </div>
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-white/70 uppercase tracking-widest border border-white/10">
+                    {product.sku}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              /* Empty Filter State */
-              <div className="w-full py-16 px-8 bg-[#111418] border border-white/10 rounded-xl text-center space-y-4">
-                <p className="font-manrope text-base text-[#D8D8D5] uppercase font-bold tracking-wider">
-                  No products match your search query or filter selection.
-                </p>
-                <p className="text-xs text-[#858585]">
-                  Try clearing your search keyword or switching category filters to view available items.
-                </p>
-                <button
-                  onClick={() => {
-                    setSelectedCategoryFilter('ALL');
-                    setSearchQuery('');
-                  }}
-                  className="px-6 py-3 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors"
-                >
-                  RESET ALL FILTERS →
-                </button>
-              </div>
-            )}
+
+                <div className="p-6 flex flex-col flex-grow justify-between space-y-4">
+                  <div>
+                    <span className="font-bold text-[10px] text-white/40 uppercase tracking-widest block mb-1">
+                      {product.brand}
+                    </span>
+                    <h3 className="font-manrope font-extrabold text-lg uppercase text-white group-hover:text-[#FF4B00] transition-colors leading-tight mb-2">
+                      {product.name}
+                    </h3>
+                    <p className="font-manrope text-xs text-[#D8D8D5]/70 line-clamp-2 leading-relaxed">
+                      {product.shortDescription}
+                    </p>
+                  </div>
+
+                  <div className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold uppercase tracking-widest text-[#FF4B00]">
+                    <span>VIEW DETAILS &amp; FAQS</span>
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* VERIFIED SOURCES & PROVENANCE TRUST STRIP */}
-      <section className="w-full py-12 sm:py-16 bg-[#0B0B0B] text-white border-t border-b border-white/10">
+      {/* 08 / FAQ */}
+      <section className="w-full py-20 sm:py-32 bg-[#050505] text-[#F5F4EF] border-t border-white/10">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Left: Section Header & Concise Summary */}
-            <div className="col-span-12 md:col-span-5 lg:col-span-4">
-              <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-2">
-                AUTHENTICITY &amp; PROVENANCE
-              </span>
-              <h2 className="font-manrope font-extrabold text-2xl sm:text-4xl uppercase tracking-tighter text-white leading-tight">
-                REAL PRODUCTS.<br />
-                <span className="text-[#FF4B00]">VERIFIED SOURCES.</span>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="col-span-12 md:col-span-5">
+              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-6">
+                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+                08 / PRODUCT VAULT FAQ
+              </div>
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-white leading-none mb-6">
+                QUESTIONS &amp;<br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">answers.</span>
               </h2>
-              <p className="text-xs text-[#858585] mt-3 leading-relaxed max-w-sm">
-                Product identity, product identifiers and selected product imagery are based on verified manufacturer information and approved TMR assets.
+              <p className="font-manrope text-sm text-[#D8D8D5] max-w-sm leading-relaxed">
+                Everything you need to know about our professional 3M product selections, usage, and detailing standards in Tiruppur.
               </p>
             </div>
 
-            {/* Right: Two Provenance Columns */}
-            <div className="col-span-12 md:col-span-7 lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 md:pl-4">
-              {/* Column 01 */}
-              <div className="group border-t border-white/10 hover:border-[#FF4B00] pt-5 transition-colors">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-manrope font-extrabold text-sm sm:text-base text-white uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors">
-                    3M™ Automotive Aftermarket
-                  </span>
-                  <span className="text-xs text-[#858585] group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">↗</span>
-                </div>
-                <span className="font-bold text-[9px] text-[#FF4B00] uppercase tracking-widest block mb-2">
-                  Official Manufacturer Source
-                </span>
-                <p className="text-xs text-[#858585] leading-relaxed">
-                  Product identity and technical product information are verified against manufacturer documentation.
-                </p>
-              </div>
-
-              {/* Column 02 */}
-              <div className="group border-t border-white/10 hover:border-[#FF4B00] pt-5 transition-colors">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-manrope font-extrabold text-sm sm:text-base text-white uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors">
-                    TMR Car Care
-                  </span>
-                  <span className="text-xs text-[#858585] group-hover:text-[#FF4B00] group-hover:translate-x-1 transition-all">↗</span>
-                </div>
-                <span className="font-bold text-[9px] text-[#FF4B00] uppercase tracking-widest block mb-2">
-                  Client-Approved Assets
-                </span>
-                <p className="text-xs text-[#858585] leading-relaxed">
-                  Selected product imagery and detailing assets are maintained as part of the TMR product catalogue.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCT FAQ */}
-      <section className="w-full py-20 sm:py-32 bg-white border-t border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="flex flex-col md:flex-row gap-12 lg:gap-16">
-            {/* Left Zone: Heading & Context */}
-            <div className="md:w-1/3 space-y-4">
-              <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block">
-                INFORMATION &amp; ANSWERS
-              </span>
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-[#111111] leading-none">
-                PRODUCT<br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">questions.</span>
-              </h2>
-              <p className="text-xs sm:text-sm text-[#5f5e5e] leading-relaxed max-w-sm">
-                Technical and service-focused answers regarding our curated product collection.
-              </p>
-            </div>
-
-            {/* Right Zone: Full-Width Editorial Horizontal FAQ List */}
-            <div className="md:w-2/3 flex flex-col border-t border-[#D8D8D5]">
+            <div className="col-span-12 md:col-span-7 flex flex-col divide-y divide-white/10">
               {faqs.map((faq, idx) => {
                 const isOpen = openFaq === idx;
-                const numStr = idx < 9 ? `0${idx + 1}` : `${idx + 1}`;
-
                 return (
-                  <div
-                    key={idx}
-                    onMouseEnter={() => setOpenFaq(idx)}
-                    onMouseLeave={() => setOpenFaq(null)}
-                    className="border-b border-[#D8D8D5] transition-colors cursor-pointer"
-                  >
+                  <div key={idx} className="py-6 transition-colors">
                     <button
                       onClick={() => toggleFaq(idx)}
-                      onFocus={() => setOpenFaq(idx)}
-                      aria-expanded={isOpen}
-                      aria-controls={`faq-answer-${idx}`}
-                      className="w-full py-6 flex items-center justify-between text-left group gap-4"
+                      className="w-full flex justify-between items-center text-left group"
                     >
-                      <div className="flex items-center gap-6 sm:gap-8 flex-1">
-                        <span className={`font-mono text-xs sm:text-sm font-bold tracking-widest transition-colors ${
-                          isOpen ? 'text-[#FF4B00]' : 'text-[#858585] group-hover:text-[#111111]'
-                        }`}>
-                          {numStr}
-                        </span>
-                        <h3 className={`font-manrope font-extrabold text-base sm:text-xl uppercase tracking-tight transition-colors ${
-                          isOpen ? 'text-[#FF4B00]' : 'text-[#111111] group-hover:text-[#FF4B00]'
-                        }`}>
-                          {faq.q}
-                        </h3>
-                      </div>
-                      <span className="text-xl sm:text-2xl font-bold text-[#FF4B00] transition-transform duration-300 ml-2">
+                      <span className="font-manrope font-extrabold text-base sm:text-lg uppercase text-white group-hover:text-[#FF4B00] transition-colors pr-4">
+                        {faq.q}
+                      </span>
+                      <span className="font-bold text-lg text-[#FF4B00] shrink-0">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
-
-                    <div
-                      id={`faq-answer-${idx}`}
-                      className={`grid transition-all duration-300 ease-out overflow-hidden ${
-                        isOpen ? 'grid-rows-[1fr] opacity-100 pb-6' : 'grid-rows-[0fr] opacity-0 pb-0'
-                      }`}
-                    >
-                      <div className="overflow-hidden pl-12 sm:pl-16 pr-4">
-                        <p className="font-manrope text-xs sm:text-sm text-[#5f5e5e] leading-relaxed max-w-2xl">
-                          {faq.a}
-                        </p>
-                      </div>
-                    </div>
+                    {isOpen && (
+                      <p className="font-manrope text-sm text-[#D8D8D5] pt-4 leading-relaxed max-w-xl">
+                        {faq.a}
+                      </p>
+                    )}
                   </div>
                 );
               })}
@@ -995,56 +811,30 @@ export const ProductsPage: React.FC = () => {
         </div>
       </section>
 
-      {/* FINAL EDITORIAL CLOSING CTA */}
-      <section className="relative w-full py-16 sm:py-24 bg-gradient-to-br from-[#0E0E0E] via-[#0A0A0A] to-[#050505] text-white border-t border-white/10 overflow-hidden">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left 65%: Large Asymmetric Statement */}
-            <div className="col-span-12 md:col-span-7 space-y-4">
-              <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block">
-                DIRECT CONSULTATION
-              </span>
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter text-white leading-tight">
-                LOOKING FOR<br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">something specific?</span>
-              </h2>
-              <p className="text-xs sm:text-sm text-[#D8D8D5] max-w-lg leading-relaxed pt-1">
-                Tell us what you're looking for. We'll help you identify the right product for your treatment.
-              </p>
-            </div>
-
-            {/* Right 35%: Action Area */}
-            <div className="col-span-12 md:col-span-5 flex flex-col justify-center border-t md:border-t-0 md:border-l border-white/10 pt-6 md:pt-0 md:pl-8 lg:pl-12 space-y-5">
-              <div>
-                <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
-                  PRODUCT ENQUIRY
-                </span>
-                <p className="text-xs text-[#858585]">
-                  Connect directly with our detailing technicians
-                </p>
-              </div>
-
-              <div className="flex flex-col sm:flex-row md:flex-col gap-3">
-                <a
-                  href={`https://wa.me/${companyData.contact.whatsapp}?text=Product%20Vault%20Enquiry`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group w-full px-6 py-4 bg-[#FF4B00] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-between hover:bg-white hover:text-[#111111] transition-all duration-300 rounded"
-                >
-                  <span>WHATSAPP TMR</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </a>
-                <a
-                  href={`tel:${companyData.contact.phone}`}
-                  className="group w-full px-6 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-widest flex items-center justify-between hover:bg-white hover:text-[#111111] hover:border-white transition-all duration-300 rounded"
-                >
-                  <span>CALL TMR</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </a>
-              </div>
-            </div>
-
+      {/* 09 / FINAL CTA */}
+      <section className="py-24 sm:py-32 bg-[#111111] text-white text-center">
+        <div className="max-w-3xl mx-auto px-5 space-y-8">
+          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-white leading-none">
+            EXPERIENCE THE PRODUCT MATRIX.
+          </h2>
+          <p className="text-base text-[#D8D8D5] max-w-lg mx-auto leading-relaxed">
+            Elevate your vehicle's clear coat protection with professional 3M formulations at TMR Car Care in Tiruppur.
+          </p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+            <a
+              href={`https://wa.me/${companyData.contact.whatsapp}?text=Booking%20Product%20Detailing%20Service`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#FF4B00] text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
+            >
+              WHATSAPP TMR
+            </a>
+            <Link
+              to="/contact"
+              className="border border-white/30 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
+            >
+              BOOK APPOINTMENT
+            </Link>
           </div>
         </div>
       </section>

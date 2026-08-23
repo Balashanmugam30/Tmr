@@ -5,22 +5,29 @@ import { companyData } from '@/data/company';
 
 // --- REUSABLE HOME-PAGE GSAP REVEAL STAGE COMPONENT ---
 // Reuses the EXACT GSAP reveal transition from GalleryRevealItem.tsx on the Home Page
+// Fast, smooth transition duration: 0.85s (850ms) with zero cursor-proximity dependency
 interface HomeStyleGalleryStageProps {
   images: { src: string; alt: string }[];
   activeIndex: number;
-  onHoverChange?: (isHovered: boolean) => void;
   aspectRatio?: string;
 }
 
 const HomeStyleGalleryStage: React.FC<HomeStyleGalleryStageProps> = ({
   images,
   activeIndex,
-  onHoverChange,
   aspectRatio = 'aspect-[16/9]',
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const prevIndexRef = useRef<number>(activeIndex);
+
+  // Preload all images in the sequence on mount to prevent blank frames or layout shifts
+  useEffect(() => {
+    images.forEach((img) => {
+      const tempImg = new Image();
+      tempImg.src = img.src;
+    });
+  }, [images]);
 
   useEffect(() => {
     const card = cardRef.current;
@@ -36,13 +43,14 @@ const HomeStyleGalleryStage: React.FC<HomeStyleGalleryStageProps> = ({
 
     if (prevIndexRef.current !== activeIndex) {
       // EXACT HOME PAGE GSAP REVEAL ANIMATION FROM GalleryRevealItem.tsx
+      // Optimized 850ms reveal transition for crisp, fast, smooth editorial motion
       gsap.fromTo(
         card,
         { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
         {
           clipPath: 'inset(0 0% 0 0)',
           opacity: 1,
-          duration: 0.95,
+          duration: 0.85,
           ease: 'power3.out',
           overwrite: 'auto',
         }
@@ -53,7 +61,7 @@ const HomeStyleGalleryStage: React.FC<HomeStyleGalleryStageProps> = ({
         {
           x: 0,
           scale: 1.0,
-          duration: 0.95,
+          duration: 0.85,
           ease: 'power3.out',
           overwrite: 'auto',
         }
@@ -65,8 +73,6 @@ const HomeStyleGalleryStage: React.FC<HomeStyleGalleryStageProps> = ({
   return (
     <div
       className={`relative w-full ${aspectRatio} overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
-      onMouseEnter={() => onHoverChange?.(true)}
-      onMouseLeave={() => onHoverChange?.(false)}
     >
       <div
         ref={cardRef}
@@ -99,15 +105,12 @@ export const GalleryPage: React.FC = () => {
 
   // --- SECTION 02: THE WORK IN MOTION AUTOPLAY STATE ---
   const [motionIndex, setMotionIndex] = useState<number>(0);
-  const [isMotionHovered, setIsMotionHovered] = useState<boolean>(false);
 
   // --- SECTION 03: SIGNATURE WORK AUTOPLAY STATE ---
   const [sigIndex, setSigIndex] = useState<number>(0);
-  const [isSigHovered, setIsSigHovered] = useState<boolean>(false);
 
   // --- SECTION 04: DETAIL TRANSFORMATION AUTOPLAY STATE ---
   const [detailIndex, setDetailIndex] = useState<number>(0);
-  const [isDetailHovered, setIsDetailHovered] = useState<boolean>(false);
 
   // Hero dedicated local assets (No remote URLs, no duplicates across Section 01 & 02)
   const heroVisuals = [
@@ -133,7 +136,7 @@ export const GalleryPage: React.FC = () => {
     },
   ];
 
-  // Motion Section 02 dedicated 2-column paired visual datasets
+  // Motion Section 02 dedicated 2-column paired visual datasets (100% unique local assets)
   const motionPairs = [
     {
       left: {
@@ -176,7 +179,7 @@ export const GalleryPage: React.FC = () => {
         id: '05',
         title: 'PAINT FINISH',
         description: 'Flawless mirror finish after multi-stage machine polishing',
-        img: '/images/gallery/gallery-01.webp',
+        img: '/images/gallery/gallery-motion-05.jpg',
         alt: 'Flawless mirror gloss finish on dark sports car bonnet at TMR Car Care',
         link: '/services/detailing-paint-care',
       },
@@ -184,14 +187,14 @@ export const GalleryPage: React.FC = () => {
         id: '06',
         title: 'STUDIO CRAFT',
         description: 'Precision craftsmanship inside TMR Car Care detailing studio',
-        img: '/images/gallery/gallery-02.webp',
+        img: '/images/gallery/gallery-motion-06.jpg',
         alt: 'High-end vehicle detailing inside TMR Tiruppur studio bay',
         link: '/services/ceramic-coating',
       },
     },
   ];
 
-  // Section 03 Signature Work datasets (Indian-market focus)
+  // Section 03 Signature Work datasets (Indian-market focus, 100% unique local assets)
   const sigVisuals = [
     {
       src: '/images/gallery/gallery-sig-xuv700.webp',
@@ -211,7 +214,7 @@ export const GalleryPage: React.FC = () => {
     },
   ];
 
-  // Section 04 Technical Detail Stages dataset
+  // Section 04 Technical Detail Stages dataset (100% unique local assets)
   const detailVisuals = [
     {
       src: '/images/gallery/gallery-detail-inspection.webp',
@@ -246,41 +249,41 @@ export const GalleryPage: React.FC = () => {
     return () => motionQuery.removeEventListener('change', handleMotionChange);
   }, []);
 
-  // Hero Section 01 Autoplay Timer (4.5s sequence)
+  // Hero Section 01 Autoplay Timer (4.0s sequence)
   useEffect(() => {
     if (isReducedMotion) return;
     const heroTimer = setInterval(() => {
       setHeroIndex((prev) => (prev + 1) % heroVisuals.length);
-    }, 4500);
+    }, 4000);
     return () => clearInterval(heroTimer);
   }, [isReducedMotion, heroVisuals.length]);
 
-  // Section 02 Motion Autoplay Timer (5s sequence, pauses when hovered)
+  // Section 02 Motion Autoplay Timer (3.5s sequence, continuous autoplay independent of cursor position)
   useEffect(() => {
-    if (isReducedMotion || isMotionHovered) return;
+    if (isReducedMotion) return;
     const motionTimer = setInterval(() => {
       setMotionIndex((prev) => (prev + 1) % motionPairs.length);
-    }, 5000);
+    }, 3500);
     return () => clearInterval(motionTimer);
-  }, [isReducedMotion, isMotionHovered, motionPairs.length]);
+  }, [isReducedMotion, motionPairs.length]);
 
-  // Section 03 Signature Work Autoplay Timer (3.5s sequence)
+  // Section 03 Signature Work Autoplay Timer (3.0s sequence, continuous autoplay independent of cursor position)
   useEffect(() => {
-    if (isReducedMotion || isSigHovered) return;
+    if (isReducedMotion) return;
     const sigTimer = setInterval(() => {
       setSigIndex((prev) => (prev + 1) % sigVisuals.length);
-    }, 3500);
+    }, 3000);
     return () => clearInterval(sigTimer);
-  }, [isReducedMotion, isSigHovered, sigVisuals.length]);
+  }, [isReducedMotion, sigVisuals.length]);
 
-  // Section 04 Detail Transformation Autoplay Timer (3.5s sequence)
+  // Section 04 Detail Transformation Autoplay Timer (3.0s sequence, continuous autoplay independent of cursor position)
   useEffect(() => {
-    if (isReducedMotion || isDetailHovered) return;
+    if (isReducedMotion) return;
     const detailTimer = setInterval(() => {
       setDetailIndex((prev) => (prev + 1) % detailVisuals.length);
-    }, 3500);
+    }, 3000);
     return () => clearInterval(detailTimer);
-  }, [isReducedMotion, isDetailHovered, detailVisuals.length]);
+  }, [isReducedMotion, detailVisuals.length]);
 
   // Hero Micro-Parallax Mouse Shift (Constrained X: ±6px, Y: ±4px offset)
   const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -403,8 +406,6 @@ export const GalleryPage: React.FC = () => {
       <section
         className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
         id="motion"
-        onMouseEnter={() => setIsMotionHovered(true)}
-        onMouseLeave={() => setIsMotionHovered(false)}
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -446,7 +447,7 @@ export const GalleryPage: React.FC = () => {
               className={`flex w-full ${
                 isReducedMotion
                   ? 'transition-none'
-                  : 'transition-transform duration-[1100ms] ease-[cubic-bezier(0.65,0,0.35,1)]'
+                  : 'transition-transform duration-[850ms] ease-[cubic-bezier(0.65,0,0.35,1)]'
               }`}
               style={{
                 transform: `translate3d(-${motionIndex * 100}%, 0, 0)`,
@@ -533,7 +534,6 @@ export const GalleryPage: React.FC = () => {
             <HomeStyleGalleryStage
               images={sigVisuals}
               activeIndex={sigIndex}
-              onHoverChange={setIsSigHovered}
               aspectRatio="aspect-[16/9] md:aspect-[21/9]"
             />
           </div>
@@ -595,7 +595,6 @@ export const GalleryPage: React.FC = () => {
               <HomeStyleGalleryStage
                 images={detailVisuals}
                 activeIndex={detailIndex}
-                onHoverChange={setIsDetailHovered}
                 aspectRatio="aspect-[4/3] sm:aspect-[16/10]"
               />
             </div>
