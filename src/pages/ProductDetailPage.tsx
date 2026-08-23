@@ -10,9 +10,12 @@ export const ProductDetailPage: React.FC = () => {
   // Find target product from data store or default to first record
   const product = productsData.find((p) => p.slug === slug) || productsData[0];
 
+  const titleText = product.seoTitle || `${product.name} | TMR Car Care Tiruppur`;
+  const descText = product.seoDescription || `${product.name} (${product.sku}) at TMR Car Care Tiruppur. ${product.shortDescription}`;
+
   useEffect(() => {
     // Page Title Target
-    document.title = `${product.name} | TMR Car Care Tiruppur`;
+    document.title = titleText;
 
     // Meta Description Target
     let metaDesc = document.querySelector('meta[name="description"]');
@@ -21,10 +24,7 @@ export const ProductDetailPage: React.FC = () => {
       metaDesc.setAttribute('name', 'description');
       document.head.appendChild(metaDesc);
     }
-    metaDesc.setAttribute(
-      'content',
-      `${product.name} (${product.sku}) at TMR Car Care Tiruppur. ${product.shortDescription}`
-    );
+    metaDesc.setAttribute('content', descText);
 
     // Canonical Link Target
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -42,7 +42,7 @@ export const ProductDetailPage: React.FC = () => {
       ogTitle.setAttribute('property', 'og:title');
       document.head.appendChild(ogTitle);
     }
-    ogTitle.setAttribute('content', `${product.name} | TMR Car Care Tiruppur`);
+    ogTitle.setAttribute('content', titleText);
 
     let ogDesc = document.querySelector('meta[property="og:description"]');
     if (!ogDesc) {
@@ -50,10 +50,7 @@ export const ProductDetailPage: React.FC = () => {
       ogDesc.setAttribute('property', 'og:description');
       document.head.appendChild(ogDesc);
     }
-    ogDesc.setAttribute(
-      'content',
-      `${product.name} (${product.sku}) at TMR Car Care Tiruppur. ${product.shortDescription}`
-    );
+    ogDesc.setAttribute('content', descText);
 
     // Product JSON-LD Schema (P0 Requirement)
     let productSchema = document.getElementById('product-detail-schema');
@@ -113,7 +110,7 @@ export const ProductDetailPage: React.FC = () => {
     breadcrumbSchema.textContent = JSON.stringify(breadcrumbLd);
 
     window.scrollTo(0, 0);
-  }, [slug, product]);
+  }, [slug, product, titleText, descText]);
 
   const faqs = [
     {
@@ -180,7 +177,7 @@ export const ProductDetailPage: React.FC = () => {
               </div>
 
               <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-[64px] text-[#111111] mb-8 leading-tight tracking-tighter uppercase">
-                {product.name}
+                {product.seoH1 || product.name}
               </h1>
 
               <div className="flex flex-wrap gap-4 pt-4">
