@@ -254,6 +254,7 @@ export const Navbar: React.FC = () => {
                 <div key={item.label} className="border-b border-white/10 pb-3">
                   <Link
                     to={item.href}
+                    onClick={() => setIsMobileOpen(false)}
                     className={`text-xl font-extrabold uppercase tracking-wider flex items-center justify-between ${
                       location.pathname === item.href ? 'text-[#FF4B00]' : 'text-white'
                     }`}
@@ -261,6 +262,21 @@ export const Navbar: React.FC = () => {
                     <span>{item.label}</span>
                     <ArrowUpRight className="w-5 h-5 text-[#FF4B00]" />
                   </Link>
+
+                  {item.subItems && item.subItems.length > 0 && (
+                    <div className="mt-3 pl-4 border-l border-white/15 space-y-2">
+                      {item.subItems.map((sub, sIdx) => (
+                        <Link
+                          key={sIdx}
+                          to={sub.href}
+                          onClick={() => setIsMobileOpen(false)}
+                          className="block text-xs font-bold uppercase tracking-wider text-white/70 hover:text-[#FF4B00] transition-colors"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
                 </div>
               ))}
             </nav>

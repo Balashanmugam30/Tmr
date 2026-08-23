@@ -119,13 +119,13 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
         items: [
           {
             title: 'CLEANING',
-            description: 'Exterior cleaners, interior care & wheel decontamination.',
-            href: '/products?category=cleaning',
+            description: 'Exterior cleaners, wash solutions and maintenance products.',
+            href: '/products?category=CLEANING',
           },
           {
             title: 'POLISHING',
-            description: 'Compounds, finishing polishes & applicators.',
-            href: '/products?category=polishing',
+            description: 'Compounds, finishing polishes and paint-refinement products.',
+            href: '/products?category=POLISHING',
           },
         ],
       },
@@ -134,13 +134,13 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
         items: [
           {
             title: 'PROTECTION',
-            description: 'Ceramic products, sealants & protective treatments.',
-            href: '/products?category=protection',
+            description: 'Ceramic, sealant and surface-protection products.',
+            href: '/products?category=PROTECTION',
           },
           {
             title: 'FILMS',
-            description: 'PPF armor & sun-control window films.',
-            href: '/products?category=films',
+            description: 'PPF and automotive protection-film products.',
+            href: '/products?category=FILMS',
           },
         ],
       },
@@ -149,13 +149,13 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
         items: [
           {
             title: 'TOOLS',
-            description: 'Polishers, detailing brushes & applicators.',
-            href: '/products?category=tools',
+            description: 'Polishers, pads, brushes and detailing tools.',
+            href: '/products?category=TOOLS',
           },
           {
             title: 'ACCESSORIES',
-            description: 'Interior, exterior & workshop utility items.',
-            href: '/products?category=accessories',
+            description: 'Microfibers, applicators and vehicle-care accessories.',
+            href: '/products?category=ACCESSORIES',
           },
         ],
       },

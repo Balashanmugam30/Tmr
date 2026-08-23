@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { companyData } from '@/data/company';
 import { productsData } from '@/data/products';
 import { ProductHeroCarousel, ProductItem } from '@/components/ProductHeroCarousel';
 
 export const ProductsPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+
   const [activeCategoryWorld, setActiveCategoryWorld] = useState<number>(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -17,6 +20,37 @@ export const ProductsPage: React.FC = () => {
 
   const runwayScrollRef = useRef<HTMLDivElement>(null);
   const isTrainHoveredRef = useRef<boolean>(false);
+
+  // Sync category filter from URL query parameter ?category=
+  useEffect(() => {
+    const VALID_CATEGORIES = [
+      'ALL',
+      'ABRASIVES',
+      'CLEANING',
+      'POLISHING',
+      'PROTECTION',
+      'FILMS',
+      'TOOLS',
+      'ACCESSORIES',
+    ];
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      const upperCategory = categoryParam.trim().toUpperCase();
+      if (VALID_CATEGORIES.includes(upperCategory)) {
+        setSelectedCategoryFilter(upperCategory);
+      } else {
+        setSelectedCategoryFilter('ALL');
+      }
+
+      // Smooth scroll to Section 07 Product Collection (#product-catalogue)
+      const catalogueEl = document.getElementById('product-catalogue');
+      if (catalogueEl) {
+        setTimeout(() => {
+          catalogueEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    }
+  }, [location.search, searchParams]);
 
   useEffect(() => {
     let animationFrameId: number;
