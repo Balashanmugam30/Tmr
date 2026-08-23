@@ -159,15 +159,15 @@ export const GalleryPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
+    <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* SECTION 01 — GALLERY HERO (PREMIUM CINEMATIC MOTION REDESIGN) */}
+      {/* SECTION 01 — GALLERY HERO (FULL-BLEED VIEWPORT HERO) */}
       <section
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
-        className="relative w-full min-h-[90vh] lg:min-h-[100vh] flex flex-col justify-end pt-32 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10"
+        className="relative w-full min-h-[90vh] lg:min-h-[100vh] flex flex-col justify-end pt-36 sm:pt-44 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10"
       >
-        {/* Dynamic Multi-Image Cinematic Canvas Background */}
+        {/* Dynamic Multi-Image Cinematic Canvas Background (Full Bleed to Viewport Top) */}
         <div
           className="absolute inset-0 z-0 pointer-events-none transition-transform duration-700 ease-out"
           style={{
@@ -210,13 +210,6 @@ export const GalleryPage: React.FC = () => {
         {/* Stable Content Overlay Layer */}
         <div className="relative z-30 max-w-[1360px] w-full mx-auto flex flex-col lg:flex-row items-end justify-between gap-12 mt-auto">
           <div className="w-full lg:w-8/12 flex flex-col space-y-6">
-            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center gap-3">
-              <span className="w-12 h-px bg-[#FF4B00] block" />
-              <span>01 / GALLERY</span>
-              <span className="w-1.5 h-1.5 bg-[#FF4B00] rounded-full" />
-              <span className="text-white/60">{heroVisuals[heroIndex].tag}</span>
-            </div>
-
             <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[88px] text-white leading-[0.9] tracking-tighter uppercase">
               THE WORK, <br />
               IN <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">frame.</span>
