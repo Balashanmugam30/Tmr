@@ -64,13 +64,13 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / HERO SECTION — CINEMATIC FULL-BLEED EDITORIAL CAMPAIGN WITH EXPRESSIVE DISPLAY TYPOGRAPHY */}
+      {/* 01 / HERO SECTION — CINEMATIC FULL-BLEED EDITORIAL 3-IMAGE COLLAGE POSTER */}
       <section
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
         className="relative w-full min-h-[95vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white"
       >
-        {/* Layer 1: Oversized Parallax Cinematic Background Canvas (Real Web-Downloaded Photograph) */}
+        {/* Layer 1: Oversized Parallax Cinematic Background Canvas (Real Web Photograph) */}
         <div
           className="absolute -top-10 -bottom-10 -left-10 -right-10 z-0 pointer-events-none transition-transform duration-700 ease-out"
           style={{
@@ -78,14 +78,14 @@ export const AboutPage: React.FC = () => {
           }}
         >
           <img
-            src="/images/about/about-hero-web.jpg"
-            alt="Flagship dark vehicle inside automotive detailing studio"
+            src="/images/about/about-hero-background-web.jpg"
+            alt="Flagship automotive studio background at night with dark metallic vehicle"
             className="w-full h-full object-cover object-center scale-105"
           />
         </div>
 
         {/* Layer 2: Dual-Tone Dark Overlay & Atmospheric Gradient (Ensures 100% text legibility) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/75 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/80 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50 z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-40 z-10 pointer-events-none" />
 
@@ -97,32 +97,64 @@ export const AboutPage: React.FC = () => {
           }}
         />
 
-        {/* Layer 4: Stable Art-Directed Content Overlay */}
+        {/* Layer 4: Stable Art-Directed Content Overlay (Headline on Left, 2-Layer Visual Collage on Right) */}
         <div className="relative z-30 max-w-[1360px] w-full mx-auto flex flex-col justify-end flex-grow my-auto">
           
-          <div className="max-w-3xl flex flex-col space-y-8 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end my-auto pt-8">
             
-            {/* Expressive Display Headline */}
-            <h1 className="font-manrope font-extrabold text-6xl sm:text-8xl md:text-[110px] lg:text-[124px] text-white uppercase tracking-tighter leading-[0.88] select-none">
-              BUILT <br />
-              AROUND <br />
-              THE <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform">craft.</span>
-            </h1>
+            {/* Left Oversized Headline & Editorial Group */}
+            <div className="lg:col-span-7 flex flex-col space-y-6">
+              
+              {/* Expressive Display Headline */}
+              <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] lg:text-[108px] text-white uppercase tracking-tighter leading-[0.88] select-none">
+                BUILT <br />
+                AROUND <br />
+                THE <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform">craft.</span>
+              </h1>
 
-            {/* Concise Supporting Statement */}
-            <p className="font-editorial text-2xl sm:text-3xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal">
-              Care isn't only about the finish. It's about the attention that gets you there.
-            </p>
+              {/* Concise Supporting Statement */}
+              <p className="font-editorial text-2xl sm:text-3xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal">
+                Care isn't only about the finish. It's about the attention that gets you there.
+              </p>
 
-            {/* Editorial CTA */}
-            <div className="pt-2">
-              <a
-                href="#belief"
-                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group"
-              >
-                <span>DISCOVER THE TMR APPROACH</span>
-                <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-              </a>
+              {/* Editorial CTA */}
+              <div className="pt-2">
+                <a
+                  href="#belief"
+                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group"
+                >
+                  <span>DISCOVER THE TMR APPROACH</span>
+                  <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </a>
+              </div>
+
+            </div>
+
+            {/* Right Layer 02 & Layer 03 Asymmetric Photography Collage */}
+            <div className="lg:col-span-5 relative min-h-[380px] sm:min-h-[460px] w-full flex items-center justify-end">
+              
+              {/* Layer 02: Primary Foreground Rectangular Image Panel */}
+              <div className="relative w-full max-w-[460px] aspect-[4/3] sm:aspect-[14/10] rounded-xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9)] border border-white/15 bg-black z-20 group">
+                <img
+                  src="/images/about/about-hero-foreground-web.jpg"
+                  alt="Vehicle inside TMR Car Care professional detailing studio in Tiruppur"
+                  className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute bottom-4 left-4 right-4 text-[10px] font-mono text-white/80 uppercase tracking-widest">
+                  FLAGSHIP STUDIO // TIRUPPUR BAY
+                </div>
+              </div>
+
+              {/* Layer 03: Small Floating Circular Image (Overlapping Foreground Panel) */}
+              <div className="absolute -bottom-4 -left-2 sm:left-4 w-[120px] sm:w-[140px] aspect-square rounded-full overflow-hidden border-4 border-[#050505] shadow-2xl z-30 hidden sm:block">
+                <img
+                  src="/images/about/about-hero-detail-web.jpg"
+                  alt="Close up of automotive machine polishing and paint refinement inspection"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
             </div>
 
           </div>
