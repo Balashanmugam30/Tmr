@@ -74,10 +74,10 @@ export const AboutPage: React.FC = () => {
         {/* Layer 1: GPU WebGL Continuous Fluid Video Canvas + Mouse Velocity Shader */}
         <LiquidHeroCanvas videoSrc="/videos/about/about-hero-fluid.mp4" />
 
-        {/* Layer 2: Dual-Tone Dark Overlay & Atmospheric Gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/95 via-[#050505]/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#050505]/50 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-40 z-10 pointer-events-none" />
+        {/* Layer 2: Lightweight Readability Gradient & Warm Accent (Fluid Video Fully Visible) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/70 via-[#050505]/35 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/20 via-transparent to-transparent opacity-60 z-10 pointer-events-none" />
 
         {/* Layer 3: Film Grain Texture Overlay */}
         <div

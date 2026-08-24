@@ -104,35 +104,36 @@ export const LiquidHeroCanvas: React.FC<LiquidHeroCanvasProps> = ({ videoSrc, im
         aspectSt.x *= screenAspect;
 
         float dist = distance(aspectSt, aspectMouse);
-        float mouseInfluence = smoothstep(0.4, 0.0, dist);
+        float mouseInfluence = smoothstep(0.45, 0.0, dist);
         float speed = length(u_velocity);
 
         // Continuous organic fluid movement (Time-based multi-octave FBM noise)
-        vec2 fluidUv = st;
-        float n1 = snoise(st * 3.0 + vec2(u_time * 0.15, u_time * 0.1));
-        float n2 = snoise(st * 6.0 - vec2(u_time * 0.2, u_time * 0.12));
+        float n1 = snoise(st * 3.5 + vec2(u_time * 0.2, u_time * 0.14));
+        float n2 = snoise(st * 6.5 - vec2(u_time * 0.25, u_time * 0.18));
         
         // Combine continuous time fluid + mouse velocity displacement
-        vec2 displacement = (vec2(n1, n2) * 0.04) + (u_velocity * mouseInfluence * clamp(speed * 4.0 + 0.2, 0.1, 1.8));
+        vec2 displacement = (vec2(n1, n2) * 0.06) + (u_velocity * mouseInfluence * clamp(speed * 8.0 + 0.3, 0.2, 2.5));
 
         if (u_hasTexture > 0.5) {
           vec4 texColor = texture2D(u_texture, st - displacement);
-          // Enhance fluid depth contrast and TMR warm orange accent reflections
-          float glow = mouseInfluence * speed * 0.25;
-          texColor.rgb += vec3(glow * 1.0, glow * 0.35, 0.0);
+          // Boost fluid visual contrast and brightness so motion is unmistakably clear
+          texColor.rgb = pow(texColor.rgb, vec3(0.85)) * 1.35;
+          // Dynamic warm TMR orange liquid accent reflection on cursor movement
+          float glow = mouseInfluence * (speed * 1.8 + 0.15);
+          texColor.rgb += vec3(glow * 0.5, glow * 0.18, 0.0);
           gl_FragColor = texColor;
         } else {
-          // Fallback procedural fluid rendering (#050505 to dark graphite with TMR orange fluid highlights)
-          float fluidBase = snoise(st * 2.5 + displacement * 3.0 + vec2(u_time * 0.08));
-          vec3 darkCharcoal = vec3(0.02, 0.02, 0.03);
-          vec3 graphite = vec3(0.08, 0.09, 0.12);
+          // Fallback procedural fluid rendering
+          float fluidBase = snoise(st * 2.5 + displacement * 3.0 + vec2(u_time * 0.1));
+          vec3 darkCharcoal = vec3(0.04, 0.04, 0.06);
+          vec3 graphite = vec3(0.14, 0.16, 0.22);
           vec3 tmrOrange = vec3(1.0, 0.29, 0.0);
 
           vec3 color = mix(darkCharcoal, graphite, fluidBase * 0.5 + 0.5);
-          float orangeStreak = smoothstep(0.65, 0.95, snoise(st * 4.0 - displacement * 2.0 + vec2(u_time * 0.1)));
-          color = mix(color, tmrOrange, orangeStreak * 0.22);
+          float orangeStreak = smoothstep(0.6, 0.92, snoise(st * 4.0 - displacement * 2.0 + vec2(u_time * 0.12)));
+          color = mix(color, tmrOrange, orangeStreak * 0.35);
 
-          gl_FragColor = vec4(color, 1.0);
+          gl_FragColor = vec4(color * 1.25, 1.0);
         }
       }
     `;
