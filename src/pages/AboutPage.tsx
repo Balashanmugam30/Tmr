@@ -64,118 +64,73 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / NEW EDITORIAL AUTOMOTIVE COLLAGE HERO */}
+      {/* 01 / AUTHORITATIVE AUTOMOTIVE EDITORIAL POSTER HERO */}
       <section
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
-        className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-center pt-28 sm:pt-36 pb-12 sm:pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white"
+        className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]"
       >
-        {/* Layer 1: Ambient TMR Warm Orange Radial Glow & Fine Film Grain */}
-        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/12 via-transparent to-transparent opacity-50 pointer-events-none" />
+        {/* Layer 1: Authoritative Full-Bleed Hero Background Image */}
         <div
-          className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none mix-blend-overlay"
+          className="absolute inset-0 z-0 w-full h-full pointer-events-none transition-transform duration-700 ease-out"
+          style={{
+            transform: isReducedMotion
+              ? 'none'
+              : `translate3d(${heroParallax.x * 6}px, ${heroParallax.y * 6}px, 0) scale(1.04)`,
+          }}
+        >
+          <img
+            src="/images/about/about-hero-authoritative.png"
+            alt="TMR Car Care authoritative matte-black muscle vehicle with quad halo headlights in burnt orange atmosphere"
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+
+        {/* Layer 2: Dual-Tone Atmospheric Readability Gradients & Fine Grain */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/55 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/95 via-transparent to-black/20 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-60 z-10 pointer-events-none" />
+        <div
+          className="absolute inset-0 z-10 opacity-[0.035] pointer-events-none mix-blend-overlay"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
         />
 
-        {/* Layer 2: Main Editorial Grid Container */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto my-auto pt-4 sm:pt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-            
-            {/* LEFT COLUMN: Oversized Editorial Typography & Eyebrow */}
-            <div className="lg:col-span-6 flex flex-col space-y-6 sm:space-y-8 z-20">
-              
-              {/* Eyebrow Label */}
-              <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-widest">
-                <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>01 / ABOUT</span>
-                <span className="text-white/30">•</span>
-                <span className="text-white/70">TMR CAR CARE / TIRUPPUR, TAMIL NADU</span>
-              </div>
-
-              {/* Expressive Oversized Display Headline */}
-              <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[88px] lg:text-[102px] text-white uppercase tracking-tighter leading-[0.88] select-none">
-                BUILT <br />
-                AROUND <br />
-                THE <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">craft.</span>
-              </h1>
-
-              {/* Concise Editorial Copy Statement */}
-              <p className="font-editorial text-xl sm:text-2xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal">
-                Care isn't only about the finish. It's about the attention that gets you there.
-              </p>
-
-              {/* Editorial Anchor Link CTA */}
-              <div className="pt-2">
-                <a
-                  href="#belief"
-                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group"
-                >
-                  <span>DISCOVER THE TMR APPROACH</span>
-                  <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-                </a>
-              </div>
-
-            </div>
-
-            {/* RIGHT COLUMN: Asymmetrical Editorial Photographic Collage with Subtle Parallax */}
-            <div className="lg:col-span-6 relative min-h-[380px] sm:min-h-[460px] lg:min-h-[520px] w-full flex items-center justify-center pt-6 lg:pt-0">
-              
-              {/* Main Dominant Photograph Container */}
-              <div
-                className="w-full max-w-[500px] lg:max-w-[540px] h-[300px] sm:h-[380px] lg:h-[420px] rounded-xl overflow-hidden shadow-2xl border border-white/15 bg-[#111111] relative z-10 transition-transform duration-700 ease-out"
-                style={{
-                  transform: isReducedMotion
-                    ? 'none'
-                    : `translate3d(${heroParallax.x * 8}px, ${heroParallax.y * 8}px, 0)`,
-                }}
-              >
-                <img
-                  src="/images/about/about-hero-main.jpg"
-                  alt="Premium dark luxury vehicle inside TMR professional automotive detailing studio"
-                  className="w-full h-full object-cover scale-105 hover:scale-100 transition-transform duration-1000"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-              </div>
-
-              {/* Secondary Editorial Image 01 (Overlapping Top-Right Detail Fragment) */}
-              <div
-                className="w-40 sm:w-56 h-28 sm:h-36 rounded-lg overflow-hidden shadow-2xl border border-white/20 bg-black absolute -top-2 right-2 sm:-top-6 sm:right-0 z-20 transition-transform duration-700 ease-out"
-                style={{
-                  transform: isReducedMotion
-                    ? 'none'
-                    : `translate3d(${heroParallax.x * -14}px, ${heroParallax.y * -14}px, 0)`,
-                }}
-              >
-                <img
-                  src="/images/about/about-hero-polishing.jpg"
-                  alt="Detailer machine polishing vehicle clear coat panel close up"
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              {/* Secondary Editorial Image 02 (Overlapping Bottom-Left Reflection Fragment) */}
-              <div
-                className="w-44 sm:w-60 h-32 sm:h-40 rounded-lg overflow-hidden shadow-2xl border border-white/20 bg-black absolute -bottom-4 left-2 sm:-bottom-6 sm:left-2 z-20 transition-transform duration-700 ease-out"
-                style={{
-                  transform: isReducedMotion
-                    ? 'none'
-                    : `translate3d(${heroParallax.x * 16}px, ${heroParallax.y * 16}px, 0)`,
-                }}
-              >
-                <img
-                  src="/images/about/about-hero-reflection.jpg"
-                  alt="Macro clear coat reflection depth and paint defect inspection under studio light"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-            </div>
-
+        {/* Layer 3: Minimal Editorial Content Hierarchy Overlay */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto my-auto flex flex-col justify-end min-h-[70vh]">
+          
+          {/* Eyebrow Label */}
+          <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-widest mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+            <span>01 / ABOUT</span>
+            <span className="text-white/30">•</span>
+            <span className="text-white/70">TMR CAR CARE / TIRUPPUR, TAMIL NADU</span>
           </div>
+
+          {/* Expressive Display Headline */}
+          <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] lg:text-[112px] text-white uppercase tracking-tighter leading-[0.88] select-none max-w-4xl">
+            BUILT <br />
+            AROUND <br />
+            THE <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">craft.</span>
+          </h1>
+
+          {/* Concise Editorial Supporting Copy */}
+          <p className="font-editorial text-xl sm:text-2xl md:text-3xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal mt-8 mb-8">
+            Care isn't only about the finish. It's about the attention that gets you there.
+          </p>
+
+          {/* Editorial CTA */}
+          <div>
+            <a
+              href="#belief"
+              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group"
+            >
+              <span>DISCOVER THE TMR APPROACH</span>
+              <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+            </a>
+          </div>
+
         </div>
       </section>
 
