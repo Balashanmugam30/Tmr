@@ -237,6 +237,11 @@ export const LiquidHeroCanvas: React.FC<LiquidHeroCanvasProps> = ({ videoSrc, im
       const elapsedTime = (currentTime - startTime) * 0.001;
       uniforms.u_time.value = elapsedTime;
 
+      // Update VideoTexture on every frame when video is playing
+      if (videoElem && videoElem.readyState >= videoElem.HAVE_CURRENT_DATA && uniforms.u_texture.value) {
+        uniforms.u_texture.value.needsUpdate = true;
+      }
+
       mouse.x += (mouse.targetX - mouse.x) * 0.08;
       mouse.y += (mouse.targetY - mouse.y) * 0.08;
       velocity.x += (velocity.targetX - velocity.x) * 0.08;
