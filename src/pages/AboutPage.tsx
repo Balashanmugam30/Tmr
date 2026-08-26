@@ -188,134 +188,119 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / THE BELIEF — MASTER CINEMATIC VIDEO-EDITORIAL SECTION */}
-      <section className="bg-[#111111] text-white relative w-full overflow-hidden py-24 sm:py-36 border-b border-white/10" id="belief">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-14 sm:space-y-16">
+      {/* 03 / THE BELIEF — FULL-BLEED CINEMATIC VIDEO MANIFESTO SECTION */}
+      <section className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]" id="belief">
+        
+        {/* Layer 0: Full-Bleed Video Canvas Background (Fills entire 100vh Section) */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster="/images/about/about-belief-video-poster.jpg"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
+          aria-label="Professional automotive detailing background video at TMR Car Care"
+        >
+          <source src="/videos/about/about-belief-cinematic.mp4" type="video/mp4" />
+          <img
+            src="/images/about/about-belief-video-poster.jpg"
+            alt="Professional automotive detailing background"
+            className="w-full h-full object-cover"
+          />
+        </video>
+
+        {/* Layer 1: Dark Cinematic Vignette & Readability Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-black/35 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/60 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#FF4B00]/15 via-transparent to-transparent z-10 pointer-events-none" />
+
+        {/* Layer 2: Floating Editorial UI Stack (Positioned Directly Over Video Background) */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pt-28 sm:pt-36 flex flex-col space-y-8">
           
-          {/* Top Label Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/15 pb-6">
-            <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-[0.2em]">
-              <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-              <span>03 / THE BELIEF</span>
-            </div>
-            <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em]">
-              THE TMR PHILOSOPHY
+          {/* Understated Top Section Marker */}
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+            <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#FF4B00] font-bold">
+              03 / THE BELIEF
+            </span>
+            <span className="text-white/30">•</span>
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-white/60">
+              TMR PHILOSOPHY
             </span>
           </div>
 
-          {/* Large Editorial Headline & Supporting Copy Stack (ABOVE THE VIDEO) */}
-          <div className="space-y-8 max-w-4xl">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[0.92] tracking-tighter uppercase text-white">
-              GOOD CARE <br />
-              STARTS WITH <br />
-              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">understanding.</span>
+          {/* Upper-Left Editorial Typography Stack */}
+          <div className="max-w-3xl space-y-6">
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[0.92] tracking-tighter uppercase text-white select-none">
+              GOOD AUTOMOTIVE <br />
+              CARE STARTS <br />
+              BEFORE THE <br />
+              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">polisher.</span>
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start pt-2">
-              <div className="md:col-span-8 space-y-4 font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l-2 border-[#FF4B00] pl-6">
-                <p>
-                  At TMR Car Care, quality begins before the machine touches the vehicle. We study the surface, understand its condition and choose the process that suits the finish.
-                </p>
-                <p className="text-sm sm:text-base text-[#A0A0A0]">
-                  For TMR, professional car detailing and paint correction in Tiruppur is not about following a fixed routine — it is about making the right decision for the vehicle in front of us.
-                </p>
-              </div>
+            {/* Small Editorial Paragraph */}
+            <p className="font-manrope text-base sm:text-lg text-[#E5E5E0] leading-relaxed max-w-xl font-normal border-l-2 border-[#FF4B00] pl-6">
+              At TMR Car Care in Tiruppur, quality begins before the machine touches the vehicle. We study the surface, understand its condition, and choose the right process for the finish.
+            </p>
 
-              <div className="md:col-span-4 flex items-end justify-start md:justify-end pt-2 md:pt-0">
-                <Link
-                  to="/services/detailing-paint-care"
-                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
-                >
-                  <span>EXPLORE TMR DETAILING</span>
-                  <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          {/* Full-Width Large Cinematic Editorial Video Showcase (PRIMARY VISUAL ELEMENT) */}
-          <div className="relative w-full aspect-[16/9] lg:aspect-[2.1/1] rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_70px_rgba(0,0,0,0.85)] bg-black group">
-            
-            {/* HTML5 Muted Autoplay Looping Editorial Video */}
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/about/about-belief-video-poster.jpg"
-              className="w-full h-full object-cover object-center scale-100 group-hover:scale-[1.02] transition-transform duration-1000 ease-out"
-              aria-label="Professional automotive detailing and paint refinement at TMR Car Care"
-            >
-              <source src="/videos/about/about-belief-cinematic.mp4" type="video/mp4" />
-              {/* Fallback image if video cannot be played */}
-              <img
-                src="/images/about/about-belief-video-poster.jpg"
-                alt="Professional automotive paint inspection at TMR Car Care in Tiruppur"
-                className="w-full h-full object-cover"
-              />
-            </video>
-
-            {/* Subtle Cinematic Vignette Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/35 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 pointer-events-none" />
-
-            {/* Micro Editorial Technical Label Overlay */}
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 z-20 pointer-events-none">
-              <div className="flex items-center gap-3 text-[11px] font-mono text-white/80 uppercase tracking-widest bg-black/75 backdrop-blur-md px-4 py-2 rounded-md border border-white/15">
-                <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>TMR CAR CARE / SURFACE REFINEMENT & PAINT CORRECTION</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Three Principles Below Video (Refined Editorial Strip) */}
-          <div className="pt-8 border-t border-white/15 space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              
-              <div className="flex flex-col space-y-4">
-                <div className="flex items-center gap-4">
-                  <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#FF4B00]">01</span>
-                  <div className="w-12 h-px bg-[#FF4B00]" />
-                  <h3 className="font-manrope font-extrabold text-lg uppercase tracking-wider text-white">
-                    UNDERSTAND
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed pl-1">
-                  Understand the vehicle, surface condition and material before treatment begins.
-                </p>
-              </div>
-
-              <div className="flex flex-col space-y-4 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-white/15 md:pl-10">
-                <div className="flex items-center gap-4">
-                  <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#FF4B00]">02</span>
-                  <div className="w-12 h-px bg-[#FF4B00]" />
-                  <h3 className="font-manrope font-extrabold text-lg uppercase tracking-wider text-white">
-                    REFINE
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed pl-1">
-                  Use the appropriate detailing, paint correction and multi-stage finishing process.
-                </p>
-              </div>
-
-              <div className="flex flex-col space-y-4 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-white/15 md:pl-10">
-                <div className="flex items-center gap-4">
-                  <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#FF4B00]">03</span>
-                  <div className="w-12 h-px bg-[#FF4B00]" />
-                  <h3 className="font-manrope font-extrabold text-lg uppercase tracking-wider text-white">
-                    PRESERVE
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed pl-1">
-                  Protect the finished surface with the right long-term care and ceramic strategy.
-                </p>
-              </div>
-
+            {/* Single Minimal Editorial CTA */}
+            <div className="pt-2">
+              <Link
+                to="/services/detailing-paint-care"
+                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
+              >
+                <span>EXPLORE TMR DETAILING</span>
+                <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+              </Link>
             </div>
           </div>
 
         </div>
+
+        {/* Layer 3: Bottom Editorial Navigation Strip (Floating Over Bottom Video Edge) */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pb-12 sm:pb-16 pt-12">
+          <div className="pt-8 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+            
+            <div className="flex flex-col space-y-2">
+              <div className="flex items-center gap-3">
+                <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#FF4B00]">01</span>
+                <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
+                  UNDERSTAND
+                </h3>
+              </div>
+              <p className="text-xs text-[#A0A0A0] leading-relaxed pl-1">
+                Understand the vehicle and surface condition before treatment.
+              </p>
+            </div>
+
+            <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-8">
+              <div className="flex items-center gap-3">
+                <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#FF4B00]">02</span>
+                <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
+                  REFINE
+                </h3>
+              </div>
+              <p className="text-xs text-[#A0A0A0] leading-relaxed pl-1">
+                Choose the correct detailing and paint correction process.
+              </p>
+            </div>
+
+            <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-8">
+              <div className="flex items-center gap-3">
+                <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#FF4B00]">03</span>
+                <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
+                  PRESERVE
+                </h3>
+              </div>
+              <p className="text-xs text-[#A0A0A0] leading-relaxed pl-1">
+                Protect the finished surface with lasting ceramic shielding.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
       </section>
 
       {/* 04 / THE APPROACH — METHOD & WORKFLOW */}
