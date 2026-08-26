@@ -20,6 +20,10 @@ export const ProductsPage: React.FC = () => {
 
   const runwayScrollRef = useRef<HTMLDivElement>(null);
   const isTrainHoveredRef = useRef<boolean>(false);
+  const isMouseDownRef = useRef<boolean>(false);
+  const startXRef = useRef<number>(0);
+  const startScrollLeftRef = useRef<number>(0);
+  const isInitializingRef = useRef<boolean>(false);
 
   // Sync category filter from URL query parameter ?category=
   useEffect(() => {
@@ -52,6 +56,7 @@ export const ProductsPage: React.FC = () => {
     }
   }, [location.search, searchParams]);
 
+  // Continuous linear auto-drift animation loop
   useEffect(() => {
     let animationFrameId: number;
     let lastTime = performance.now();
@@ -60,7 +65,12 @@ export const ProductsPage: React.FC = () => {
       const deltaTime = (currentTime - lastTime) / 1000;
       lastTime = currentTime;
 
-      if (runwayScrollRef.current && !isTrainHoveredRef.current) {
+      if (
+        runwayScrollRef.current &&
+        !isTrainHoveredRef.current &&
+        !isMouseDownRef.current &&
+        !isInitializingRef.current
+      ) {
         const el = runwayScrollRef.current;
         const speed = 25; // 25 px per second continuous linear drift
         el.scrollLeft += speed * deltaTime;
@@ -78,24 +88,82 @@ export const ProductsPage: React.FC = () => {
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
+  // Infinite reset boundary handler
   const handleRunwayScrollEvent = () => {
-    if (!runwayScrollRef.current) return;
+    if (!runwayScrollRef.current || isInitializingRef.current) return;
     const el = runwayScrollRef.current;
     const singleSetWidth = el.scrollWidth / 3;
     if (singleSetWidth > 0) {
       if (el.scrollLeft >= singleSetWidth * 2) {
         el.scrollLeft -= singleSetWidth;
-      } else if (el.scrollLeft <= 5) {
+      } else if (el.scrollLeft <= 10) {
         el.scrollLeft += singleSetWidth;
       }
     }
   };
 
+  // Direct pixel step by 1 card width + gap (NO scrollBy smooth behavior)
   const scrollRunway = (direction: 'left' | 'right') => {
-    if (runwayScrollRef.current) {
-      const scrollAmount = direction === 'left' ? -380 : 380;
-      runwayScrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    if (!runwayScrollRef.current) return;
+    const el = runwayScrollRef.current;
+    const firstCard = el.querySelector('a');
+    const cardWidth = firstCard ? firstCard.getBoundingClientRect().width : 380;
+    const gap = 24; // 24px gap between cards
+    const step = cardWidth + gap;
+
+    if (direction === 'right') {
+      el.scrollLeft += step;
+      const singleSetWidth = el.scrollWidth / 3;
+      if (singleSetWidth > 0 && el.scrollLeft >= singleSetWidth * 2) {
+        el.scrollLeft -= singleSetWidth;
+      }
+    } else {
+      el.scrollLeft -= step;
+      const singleSetWidth = el.scrollWidth / 3;
+      if (singleSetWidth > 0 && el.scrollLeft <= 10) {
+        el.scrollLeft += singleSetWidth;
+      }
     }
+  };
+
+  // Desktop Mouse Drag Event Handlers
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!runwayScrollRef.current) return;
+    isMouseDownRef.current = true;
+    isTrainHoveredRef.current = true;
+    startXRef.current = e.clientX;
+    startScrollLeftRef.current = runwayScrollRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isMouseDownRef.current || !runwayScrollRef.current) return;
+    e.preventDefault();
+    const delta = e.clientX - startXRef.current;
+    const el = runwayScrollRef.current;
+    el.scrollLeft = startScrollLeftRef.current - delta;
+
+    const singleSetWidth = el.scrollWidth / 3;
+    if (singleSetWidth > 0) {
+      if (el.scrollLeft >= singleSetWidth * 2) {
+        el.scrollLeft -= singleSetWidth;
+        startXRef.current = e.clientX;
+        startScrollLeftRef.current = el.scrollLeft;
+      } else if (el.scrollLeft <= 10) {
+        el.scrollLeft += singleSetWidth;
+        startXRef.current = e.clientX;
+        startScrollLeftRef.current = el.scrollLeft;
+      }
+    }
+  };
+
+  const handleMouseUp = () => {
+    isMouseDownRef.current = false;
+    isTrainHoveredRef.current = false;
+  };
+
+  const handleMouseLeave = () => {
+    isMouseDownRef.current = false;
+    isTrainHoveredRef.current = false;
   };
 
   const filteredProducts = productsData.filter((product) => {
@@ -117,11 +185,21 @@ export const ProductsPage: React.FC = () => {
     ? [...filteredProducts, ...filteredProducts, ...filteredProducts]
     : [];
 
-  // Reset carousel scroll position to start when filter or search changes
+  // Initialize scroll position at middle clone Set B (singleSetWidth) on filter/search change
   useEffect(() => {
-    if (runwayScrollRef.current) {
-      runwayScrollRef.current.scrollLeft = 0;
-    }
+    const timer = setTimeout(() => {
+      if (!runwayScrollRef.current) return;
+      const el = runwayScrollRef.current;
+      const singleSetWidth = Math.round(el.scrollWidth / 3);
+      if (singleSetWidth > 0) {
+        isInitializingRef.current = true;
+        el.scrollLeft = singleSetWidth;
+        setTimeout(() => {
+          isInitializingRef.current = false;
+        }, 50);
+      }
+    }, 100);
+    return () => clearTimeout(timer);
   }, [selectedCategoryFilter, searchQuery]);
 
   const handleMouseMoveInspect = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -772,11 +850,14 @@ export const ProductsPage: React.FC = () => {
             <div
               ref={runwayScrollRef}
               onScroll={handleRunwayScrollEvent}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseLeave}
               onMouseEnter={() => { isTrainHoveredRef.current = true; }}
-              onMouseLeave={() => { isTrainHoveredRef.current = false; }}
               onTouchStart={() => { isTrainHoveredRef.current = true; }}
               onTouchEnd={() => { isTrainHoveredRef.current = false; }}
-              className="flex gap-6 overflow-x-auto pb-8 pt-2 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-6 overflow-x-auto pb-8 pt-2 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
             >
               {infiniteProducts.map((product, idx) => (
                 <Link
