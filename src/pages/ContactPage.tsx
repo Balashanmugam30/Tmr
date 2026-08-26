@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { companyData } from '@/data/company';
 
 export const ContactPage: React.FC = () => {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -18,22 +18,131 @@ export const ContactPage: React.FC = () => {
 
   const faqs = [
     {
-      q: "Do I need to book an appointment in advance?",
-      a: "Yes, we operate strictly by appointment for detailing, ceramic coating, and PPF installations to allocate dedicated studio time to each vehicle. Car wash services are subject to daily bay availability.",
+      id: "faq-location",
+      q: "Where is TMR Car Care located in Tiruppur?",
+      a: (
+        <>
+          Our studio is located on Avinashi Road, Near Hope College Junction, Tiruppur, Tamil Nadu — 641602. You can view our live studio location or get directions via{' '}
+          <a href="#studio-location" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            Google Maps on this page
+          </a>.
+        </>
+      ),
+      plainAnswer: "Our studio is located on Avinashi Road, Near Hope College Junction, Tiruppur, Tamil Nadu — 641602.",
     },
     {
-      q: "Where is the studio located in Tiruppur?",
-      a: "Our studio is located on Avinashi Road, Near Hope College Junction, Tiruppur. Full directions and Google Maps links are available on this page.",
+      id: "faq-services",
+      q: "What car detailing services does TMR Car Care offer in Tiruppur?",
+      a: (
+        <>
+          We specialize in comprehensive automotive care including{' '}
+          <a href="/services/detailing-paint-care" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            detailing &amp; paint care
+          </a>,{' '}
+          <a href="/services/ceramic-coating" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            ceramic coating
+          </a>,{' '}
+          <a href="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            paint protection film (PPF)
+          </a>,{' '}
+          <a href="/services/car-wash-cleaning" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            car wash &amp; cleaning
+          </a>, sun-control films, and premium car accessories.
+        </>
+      ),
+      plainAnswer: "We specialize in comprehensive automotive care including detailing & paint care, ceramic coating, paint protection film (PPF), car wash & cleaning, sun-control films, and premium car accessories.",
     },
     {
-      q: "Can I get a quote before bringing my car?",
-      a: "Absolutely. You can send us photographs and vehicle details via WhatsApp or our enquiry form below for an initial consultation and estimate.",
+      id: "faq-paint-correction",
+      q: "What does TMR Car Care's paint correction service include?",
+      a: (
+        <>
+          Our paint correction process uses multi-stage machine polishing to eliminate swirl marks, light scratches, oxidation, and water spots, restoring deep clarity and reflection before applying protective ceramic or PPF coatings.{' '}
+          <a href="/services/detailing-paint-care" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            Learn more about detailing &amp; paint care →
+          </a>
+        </>
+      ),
+      plainAnswer: "Our paint correction process uses multi-stage machine polishing to eliminate swirl marks, light scratches, oxidation, and water spots, restoring deep clarity and reflection before applying protective ceramic or PPF coatings.",
     },
     {
-      q: "What payment methods do you accept?",
-      a: "We accept UPI, cash, credit/debit cards, and direct bank transfers.",
+      id: "faq-ceramic-coating",
+      q: "How does ceramic coating protect my vehicle's paint?",
+      a: (
+        <>
+          Ceramic coating forms a durable hydrophobic nanostructure barrier over your car's clear coat. It shields against UV rays, chemical stains, bird droppings, and road grime while delivering intense depth and hydrophobic water beading.{' '}
+          <a href="/services/ceramic-coating" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            Explore ceramic coating →
+          </a>
+        </>
+      ),
+      plainAnswer: "Ceramic coating forms a durable hydrophobic nanostructure barrier over your car's clear coat. It shields against UV rays, chemical stains, bird droppings, and road grime while delivering intense depth and hydrophobic water beading.",
+    },
+    {
+      id: "faq-coating-vs-ppf",
+      q: "What is the difference between ceramic coating and PPF?",
+      a: (
+        <>
+          Ceramic coating is a liquid polymer surface guard that enhances gloss and chemical stain resistance. Paint Protection Film (PPF) is an ultra-durable clear TPU film designed to physically absorb heavy impacts from stone chips, gravel, and scratches.{' '}
+          <a href="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            Compare PPF &amp; Ceramic Coating →
+          </a>
+        </>
+      ),
+      plainAnswer: "Ceramic coating is a liquid polymer surface guard that enhances gloss and chemical stain resistance. Paint Protection Film (PPF) is an ultra-durable clear TPU film designed to physically absorb heavy impacts from stone chips, gravel, and scratches.",
+    },
+    {
+      id: "faq-ppf",
+      q: "Does TMR Car Care offer Paint Protection Film (PPF) installation?",
+      a: (
+        <>
+          Yes, we provide computer-cut TPU Paint Protection Film (PPF) installation for full-body coverage or high-impact areas like bonnets, bumpers, side mirrors, and door edges at our Tiruppur studio.{' '}
+          <a href="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+            View PPF services →
+          </a>
+        </>
+      ),
+      plainAnswer: "Yes, we provide computer-cut TPU Paint Protection Film (PPF) installation for full-body coverage or high-impact areas like bonnets, bumpers, side mirrors, and door edges at our Tiruppur studio.",
+    },
+    {
+      id: "faq-appointment",
+      q: "Do I need an appointment for car detailing in Tiruppur?",
+      a: "Yes, detailing, ceramic coating, and PPF installations operate strictly by appointment to dedicate tailored studio time and bay space to every vehicle. Car wash services are available subject to daily bay capacity.",
+      plainAnswer: "Yes, detailing, ceramic coating, and PPF installations operate strictly by appointment to dedicate tailored studio time and bay space to every vehicle. Car wash services are available subject to daily bay capacity.",
+    },
+    {
+      id: "faq-inspection",
+      q: "Can my vehicle be inspected before choosing a detailing service?",
+      a: "Absolutely. We conduct pre-service paint inspections at our Avinashi Road studio to measure paint depth, analyze surface defects, and recommend the exact service your vehicle requires.",
+      plainAnswer: "Absolutely. We conduct pre-service paint inspections at our Avinashi Road studio to measure paint depth, analyze surface defects, and recommend the exact service your vehicle requires.",
+    },
+    {
+      id: "faq-hours",
+      q: "What are TMR Car Care's studio working hours?",
+      a: "Our Tiruppur studio is open Monday through Saturday from 9:00 AM to 8:00 PM, and Sunday from 10:00 AM to 5:00 PM (by appointment only).",
+      plainAnswer: "Our Tiruppur studio is open Monday through Saturday from 9:00 AM to 8:00 PM, and Sunday from 10:00 AM to 5:00 PM (by appointment only).",
+    },
+    {
+      id: "faq-contact",
+      q: "How can I contact TMR Car Care for a detailing enquiry?",
+      a: "You can reach our team via WhatsApp at +91 98765 43210, call our studio at +91 98765 43210, email enquiry@tmrcarcare.com, or submit the direct consultation form above.",
+      plainAnswer: "You can reach our team via WhatsApp at +91 98765 43210, call our studio at +91 98765 43210, email enquiry@tmrcarcare.com, or submit the direct consultation form above.",
     },
   ];
+
+  // Generate FAQPage JSON-LD Structured Data
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.plainAnswer,
+      },
+    })),
+  };
 
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -381,51 +490,108 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 04 / INTERACTIVE CONTACT FAQ SECTION */}
-      <section className="relative w-full py-20 sm:py-28 px-6 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
-          
-          <div className="col-span-12 md:col-span-4 space-y-4">
-            <span className="font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-[0.2em] block">
-              QUESTIONS &amp; ANSWERS
-            </span>
-            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
-              CONTACT FAQ.
-            </h2>
-            <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed">
-              Have questions prior to your visit? Select a question to view full appointment and pricing guidelines.
-            </p>
-          </div>
+      {/* 04 / FULL-WIDTH SEO-OPTIMIZED FAQ SECTION */}
+      <section
+        id="contact-faq"
+        className="relative w-full min-h-[85vh] py-24 sm:py-36 border-b border-[#D8D8D5] overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#FAF8F5] via-[#F1EEE7] to-[#E8E4DB]"
+      >
+        {/* FAQPage JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
 
-          <div className="col-span-12 md:col-span-8 flex flex-col border-t border-[#D8D8D5]">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div key={idx} className="border-b border-[#D8D8D5] transition-colors duration-200">
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full py-6 flex justify-between items-center text-left group cursor-pointer"
+        {/* Soft Radial Vignette Overlay */}
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_50%,_rgba(0,0,0,0.05)_100%)]" />
+
+        <div className="relative z-10 max-w-[1440px] mx-auto px-6 md:px-[6vw] lg:px-[8vw]">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            
+            {/* Left Column (5 cols): Editorial Headline & Intro */}
+            <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-28">
+              <h2 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl uppercase tracking-tight text-[#0A0A0A] leading-[0.96]">
+                FREQUENTLY <br />
+                ASKED <br />
+                <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-2 inline-block transform -rotate-1">
+                  questions.
+                </span>
+              </h2>
+
+              <p className="font-manrope text-base sm:text-lg text-[#5F5E5E] leading-relaxed max-w-md">
+                Find practical answers about TMR Car Care services, appointments, vehicle care, paint correction, ceramic coating, PPF, and visiting our Tiruppur studio.
+              </p>
+
+              <div className="pt-4">
+                <a
+                  href="#contact-details"
+                  className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-widest hover:text-[#0A0A0A] transition-colors group"
+                >
+                  <span>HAVE A SPECIFIC QUESTION? CONTACT US</span>
+                  <span className="group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column (7 cols): Full-Width Expandable FAQ Accordion */}
+            <div className="lg:col-span-7 border-t border-[#D8D8D5] divide-y divide-[#D8D8D5]">
+              {faqs.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div
+                    key={faq.id}
+                    className={`transition-colors duration-300 ${
+                      isOpen ? 'bg-white/40' : 'hover:bg-white/20'
+                    }`}
+                    onMouseEnter={() => {
+                      if (window.innerWidth >= 1024) {
+                        setOpenFaq(idx);
+                      }
+                    }}
                   >
-                    <span className="font-manrope font-bold text-base sm:text-xl text-[#050505] group-hover:text-[#FF4B00] transition-colors pr-4">
-                      {faq.q}
-                    </span>
-                    <span className="text-2xl font-mono text-[#FF4B00] transition-transform duration-300 shrink-0">
-                      {isOpen ? "−" : "+"}
-                    </span>
-                  </button>
+                    <button
+                      type="button"
+                      id={`faq-btn-${idx}`}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-ans-${idx}`}
+                      onClick={() => toggleFaq(idx)}
+                      className="w-full py-7 px-2 flex items-center justify-between text-left group cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#FF4B00]/40"
+                    >
+                      <div className="flex items-baseline gap-4 pr-6">
+                        <span className="font-mono text-xs font-bold text-[#FF4B00] shrink-0">
+                          0{idx + 1}
+                        </span>
+                        <span className={`font-manrope font-extrabold text-lg sm:text-xl transition-colors duration-300 ${
+                          isOpen ? 'text-[#FF4B00]' : 'text-[#0A0A0A] group-hover:text-[#FF4B00]'
+                        }`}>
+                          {faq.q}
+                        </span>
+                      </div>
 
-                  {isOpen && (
-                    <div className="pb-6 animate-fade-in">
-                      <p className="font-manrope text-sm sm:text-base text-[#5F5E5E] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
-                        {faq.a}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                      <span className={`font-mono text-2xl text-[#FF4B00] transition-transform duration-300 shrink-0 ${
+                        isOpen ? 'rotate-180' : 'group-hover:scale-110'
+                      }`}>
+                        {isOpen ? '−' : '+'}
+                      </span>
+                    </button>
+
+                    {isOpen && (
+                      <div
+                        id={`faq-ans-${idx}`}
+                        role="region"
+                        aria-labelledby={`faq-btn-${idx}`}
+                        className="pb-8 px-2 pl-10 animate-fade-in"
+                      >
+                        <p className="font-manrope text-base text-[#4A4846] leading-relaxed border-l-2 border-[#FF4B00] pl-5">
+                          {faq.a}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
           </div>
-
         </div>
       </section>
 
