@@ -1,96 +1,65 @@
-# TMR Car Care — About Page SEO Keyword Coverage & Strategy Report
+# TMR Car Care — About Page Final SEO Keyword Coverage & Strategy Matrix
 
 * **Target Route**: `/about` ([`src/pages/AboutPage.tsx`](file:///c:/Users/balashanmugam/OneDrive/Desktop/Freelance/TMR/src/pages/AboutPage.tsx))
-* **Source Specification**: `TMR_ABOUT_SEO_KEYWORD_TARGETING.md`
-* **Search Intent Focus**: Brand identity, company history, local credibility, founder story, craftsmanship standards, and Tiruppur studio location.
+* **Primary Objective**: Human-grade editorial tone, strong local entity signals, zero keyword stuffing, zero cannibalization with service pages.
 
 ---
 
-## 1. Primary About-Page Local Keyword Targets
+## 1. Complete Keyword Mapping & Placement Matrix
 
-| Keyword Variant | Natural Placement Site in `/about` | Intent Alignment |
-| :--- | :--- | :--- |
-| `car care Tiruppur` | Story paragraph & Tiruppur location section | Primary brand + city local entity |
-| `car care Tiruppur Tamil Nadu` | Tiruppur section body copy & address line | Regional local entity signal |
-| `car care center Tiruppur` | Story section ("professional car care center in Tiruppur") | Commercial local facility signal |
-| `car care center Tiruppur Tamil Nadu` | Tiruppur studio section | Full regional business signal |
-| `car detailing Tiruppur` | Document title, meta description, standard section | Core category + city target |
-| `car detailing Tiruppur Tamil Nadu` | Document title & Open Graph metadata | Regional category search |
-| `car detailing in Tiruppur` | Story section body copy & internal link anchors | Conversational search variant |
-| `car detailing center Tiruppur` | Standard section ("professional car detailing center in Tiruppur") | Entity search variant |
-| `car detailing center Tiruppur Tamil Nadu` | Structured JSON-LD LocalBusiness schema | Factual entity schema |
-| `full car detailing Tiruppur` | Section 3 manifesto & service internal link text | High-relevance service variant |
-
----
-
-## 2. Semantic & Topical Terms Incorporated
-
-* `professional automotive care`
-* `car detailing studio`
-* `paint correction`
-* `paint refinement`
-* `clear-coat care`
-* `machine polishing`
-* `surface inspection`
-* `ceramic coating`
-* `ceramic protection`
-* `paint protection film (PPF)`
-* `automotive care team`
-* `detailing workmanship`
-* `hydrophobic finish`
+| Keyword / Concept | Exact vs. Semantic Usage | Section Placement | Search Intent | Intentionally Excluded? |
+| :--- | :--- | :--- | :--- | :--- |
+| `TMR Car Care` | Exact & Entity Signal | Title, Meta, Hero, Story, Tiruppur | Primary Brand Entity | No |
+| `Tiruppur` / `Tiruppur Tamil Nadu` | Exact Local Signal | Title, Story, Location, Schema | Primary Local Entity | No |
+| `car care Tiruppur` | Semantic & Natural Copy | Story ("quality automotive care in Tiruppur") | Local Service Search | No |
+| `car detailing Tiruppur` / `car detailing in Tiruppur` | Exact & Semantic | Title, Meta, Story, Standard | Local Category Search | No |
+| `automotive detailing` | Exact & Semantic | Hero, Story, Services Link | Topical Authority | No |
+| `professional vehicle care` | Semantic | Standard & Belief Section | Trust / Quality Signal | No |
+| `paint correction` | Exact & Semantic | Belief, Standard, CTA Links | Core Craft Method | No |
+| `ceramic coating` | Exact & Semantic | Story, Standard, CTA Links | Core Protection Service | No |
+| `PPF` / `paint protection` | Exact & Semantic | Belief, Standard, CTA Links | Core Armor Service | No |
+| `Avinashi Road` / `Near Hope College Junction` | Exact Local Entity | Location Section & Schema | Physical Studio Address | No |
+| `Chandramohan Kandha Velu` | Factual Founder Entity | Story Section | Founder Trust Signal | No |
+| `Established 2009` | Factual Brand Signal | Title, Story, Statistics Row | Business History Signal | No |
+| `1,000+ vehicles cared for` | Factual Track Record | Story & Statistics Row | Social Proof Signal | No |
+| **Price / Cost / Cheap Queries** | N/A | Excluded | Transactional Intent | **YES** (Owned by Service pages) |
+| **Booking / WhatsApp Modifiers** | N/A | Excluded | Commercial Intent | **YES** (Owned by Contact/Service pages) |
+| **Near-Me Queries** | N/A | Excluded | Geo-location Intent | **YES** (Owned by Local Architecture) |
+| **3M Product / SKU Queries** | N/A | Excluded | Product Search Intent | **YES** (Owned by Product pages) |
 
 ---
 
-## 3. Real Local Entity & Trust Signals (Factual Data)
+## 2. Refined Human-Grade Editorial Copy Highlights
 
-* **Brand Name**: TMR Car Care
-* **Location**: Tiruppur, Tamil Nadu (Avinashi Road, Near Hope College Junction, Postal Code 641602)
-* **Founded**: Established in 2009
-* **Founder**: Chandramohan Kandha Velu
-* **Track Record**: 1,000+ vehicles cared for
-* **Team**: Specialized automotive-care team with over 10+ years of hands-on experience
-* **Zero Unsupported Claims**: No fake awards, no fake review counts, no fake official dealership claims.
-
----
-
-## 4. Keywords Intentionally Excluded (Preserving Service Page Ownership)
-
-The following query families are **strictly excluded** from `/about` to avoid keyword cannibalization and maintain search intent matching:
-
-* **Commercial Pricing Queries**: `ceramic coating price in Tiruppur`, `PPF price in Tiruppur`, `car wash price in Tiruppur` $\rightarrow$ Handled by dedicated service money pages.
-* **Booking / Transaction Modifiers**: `booking`, `cost`, `cheap`, `WhatsApp modifier` $\rightarrow$ Handled by Contact & Service pages.
-* **Near-Me Modifiers**: `car detailing near me` $\rightarrow$ Handled by local landing architecture.
-* **Product / SKU Searches**: 3M product variants $\rightarrow$ Handled by Product/Category pages.
-* **Vehicle-Type Modifiers**: `new car detailing`, `used car detailing` $\rightarrow$ Handled by Service pages.
+* **Removed Mechanical SEO Phrases**: Eliminated `"professional car care center standards"` and awkward concatenated location strings.
+* **Streamlined Brand Repetitions**: Reduced redundant usage of `"TMR Car Care"` and `"Tiruppur"` across adjacent paragraphs.
+* **Refined Alt Text**: Factual, concise image descriptions without keyword chains:
+  - `alt="TMR Car Care detailing studio in Tiruppur"`
+  - `alt="Vehicle surface inspection during professional automotive detailing at TMR Car Care"`
+  - `alt="Machine polishing and paint refinement inside TMR Car Care studio"`
+  - `alt="TMR Car Care studio facility on Avinashi Road Tiruppur"`
+  - `alt="Detailed vehicle with mirror finish inside TMR Car Care studio"`
 
 ---
 
-## 5. Internal Linking Architecture
+## 3. Heading Structure Audit
 
-Natural, descriptive contextual internal links embedded in `/about`:
-
-1. `/services/detailing-paint-care` $\rightarrow$ Anchor: *"TMR Car Care detailing services"* & *"paint correction and detailing"*
-2. `/services/ceramic-coating` $\rightarrow$ Anchor: *"ceramic coating services"* & *"ceramic coating protection"*
-3. `/services/ppf-paint-protection` $\rightarrow$ Anchor: *"PPF paint protection"*
-4. `/gallery` $\rightarrow$ Anchor: *"VIEW TMR CAR CARE GALLERY →"*
-5. `/contact` $\rightarrow$ Anchor: *"VIEW LOCATION & CONTACT TMR CAR CARE →"*
+* **`H1` Tag (1 per page)**: `BUILT AROUND THE craft.` (Hero)
+* **`H2` Tags (Major Sections)**:
+  - `BUILT IN TIRUPPUR. built on care.` (Story)
+  - `GREAT CARE BEGINS LONG BEFORE THE POLISHER.` (Belief)
+  - `QUALITY IS IN THE process.` (Standard)
+  - `ROOTED IN tiruppur.` (Location)
+  - `YOUR CAR DESERVES THE RIGHT care.` (CTA)
+* **Hidden / Decorative Headings**: **0**
 
 ---
 
-## 6. Implemented Technical SEO Layer
+## 4. Technical SEO Verification
 
-* **Document Title**: `About TMR Car Care | Automotive Detailing in Tiruppur | Established 2009`
+* **Title**: `About TMR Car Care | Automotive Detailing in Tiruppur | Established 2009`
 * **Meta Description**: `Learn about TMR Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF.`
 * **Canonical URL**: `https://tmrcarcare.com/about`
-* **Open Graph Metadata**: `og:title`, `og:description`, `og:url`, `og:type`, `og:image` (`/images/about/about-hero-static.jpg`)
-* **Structured Data (JSON-LD)**:
-  - `Organization` & `AutoRepair` / `LocalBusiness` multi-entity graph
-  - `BreadcrumbList` schema (`Home` $\rightarrow$ `About TMR Car Care`)
-
----
-
-## 7. Non-Regression & Verification
-
-* **Visual Layout**: 100% UNCHANGED. No CSS tweaks, no section reordering, no color changes.
+* **JSON-LD Schema**: `AutoRepair` + `LocalBusiness` + `BreadcrumbList` valid graph.
 * **TypeScript Check (`npx tsc --noEmit`)**: **PASS (0 errors)**
-* **Vite Build (`npm run build`)**: **PASS**
+* **Vite Production Build (`npm run build`)**: **PASS**
