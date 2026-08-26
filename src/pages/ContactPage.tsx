@@ -50,23 +50,15 @@ export const ContactPage: React.FC = () => {
     <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
       {/* 01 / FULL-BLEED EDITORIAL CONTACT HERO */}
-      <section className="relative w-full min-h-[78vh] lg:min-h-[88vh] border-b border-[#D8D8D5]">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 min-h-[78vh] lg:min-h-[88vh]">
+      <section className="relative w-full border-b border-[#D8D8D5]">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 lg:h-[calc(100vh-80px)] lg:min-h-[640px] lg:max-h-[820px]">
           
           {/* LEFT EDITORIAL PANEL: Muted Soft Pastel Orange / Peach (#F4C1A5) */}
-          <div className="lg:col-span-6 bg-[#F4C1A5] text-[#0A0A0A] p-8 sm:p-14 lg:p-20 lg:pl-[8vw] pt-28 sm:pt-36 flex flex-col justify-between relative">
+          <div className="lg:col-span-6 bg-[#F4C1A5] text-[#0A0A0A] p-8 sm:p-14 lg:p-20 lg:pl-[8vw] pt-28 sm:pt-36 flex flex-col justify-center relative">
             
-            {/* Top Eyebrow & Headline */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-                <span className="font-mono font-bold text-xs uppercase tracking-[0.25em] text-[#FF4B00]">
-                  CONTACT
-                </span>
-              </div>
-
-              {/* High-Contrast Editorial Serif Headline */}
-              <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl lg:text-[88px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] select-none pt-2">
+            {/* Headline — First Major Visual Element */}
+            <div>
+              <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl lg:text-[88px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] select-none">
                 GET IN <br />
                 TOUCH WITH <br />
                 <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-4 inline-block transform -rotate-1">
@@ -75,8 +67,8 @@ export const ContactPage: React.FC = () => {
               </h1>
             </div>
 
-            {/* Bottom Copy & CTA */}
-            <div className="space-y-6 pt-8 sm:pt-12 pb-6">
+            {/* Supporting Copy & CTA */}
+            <div className="space-y-6 pt-8 sm:pt-12">
               <p className="font-manrope text-sm sm:text-base text-[#3A3837] leading-relaxed max-w-md font-normal border-l-2 border-[#FF4B00] pl-4">
                 Tell us what your vehicle needs and we'll help you find the right next step.
               </p>
@@ -99,10 +91,10 @@ export const ContactPage: React.FC = () => {
           </div>
 
           {/* RIGHT PHOTOGRAPHIC PANEL: Fresh Downloaded Automotive Detailing Photo */}
-          <div className="lg:col-span-6 relative min-h-[360px] lg:min-h-full bg-[#0A0A0A]">
+          <div className="lg:col-span-6 relative min-h-[360px] lg:h-full bg-[#0A0A0A] overflow-hidden">
             <img
-              src="/images/contact/contact-hero-editorial.jpg"
-              alt="Professional automotive detailing, vehicle paint care and surface refinement inside studio"
+              src="/images/contact/contact-hero-new.jpg"
+              alt="Professional automotive detailing and surface refinement inside studio"
               className="w-full h-full object-cover object-center"
             />
           </div>
