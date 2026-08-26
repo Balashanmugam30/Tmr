@@ -4,7 +4,6 @@ import { companyData } from '@/data/company';
 
 export const AboutPage: React.FC = () => {
   const [activeApproachStep, setActiveApproachStep] = useState<number>(0);
-  const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isReducedMotion, setIsReducedMotion] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,19 +19,6 @@ export const AboutPage: React.FC = () => {
     motionQuery.addEventListener('change', handleMotionChange);
     return () => motionQuery.removeEventListener('change', handleMotionChange);
   }, []);
-
-  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isReducedMotion) return;
-    if (window.matchMedia('(pointer: coarse)').matches) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5); // -0.5 to +0.5
-    const y = ((e.clientY - rect.top) / rect.height - 0.5); // -0.5 to +0.5
-    setHeroParallax({ x, y });
-  };
-
-  const handleHeroMouseLeave = () => {
-    setHeroParallax({ x: 0, y: 0 });
-  };
 
   const approachSteps = [
     {
@@ -64,32 +50,34 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / AUTHORITATIVE AUTOMOTIVE EDITORIAL POSTER HERO */}
-      <section
-        onMouseMove={handleHeroMouseMove}
-        onMouseLeave={handleHeroMouseLeave}
-        className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]"
-      >
-        {/* Layer 1: Authoritative Full-Bleed Hero Background Image */}
-        <div
-          className="absolute inset-0 z-0 w-full h-full pointer-events-none transition-transform duration-700 ease-out"
-          style={{
-            transform: isReducedMotion
-              ? 'none'
-              : `translate3d(${heroParallax.x * 6}px, ${heroParallax.y * 6}px, 0) scale(1.04)`,
-          }}
-        >
+      {/* 01 / AUTHORITATIVE CINEMATIC HEADLIGHT ANIMATION HERO */}
+      <section className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]">
+        
+        {/* Layer 1: Native HTML5 Video Element with Poster Frame Fallback */}
+        {isReducedMotion ? (
           <img
-            src="/images/about/about-hero-authoritative.png"
-            alt="TMR Car Care authoritative matte-black muscle vehicle with quad halo headlights in burnt orange atmosphere"
-            className="w-full h-full object-cover object-center"
+            src="/images/about/about-hero-orange.jpg"
+            alt="TMR Car Care cinematic matte-black vehicle with lit quad halo headlights in burnt orange atmosphere"
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
           />
-        </div>
+        ) : (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/images/about/about-hero-orange.jpg"
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
+          >
+            <source src="/videos/about/about-hero-headlights.mp4" type="video/mp4" />
+          </video>
+        )}
 
-        {/* Layer 2: Dual-Tone Atmospheric Readability Gradients & Fine Grain */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/55 to-transparent z-10 pointer-events-none" />
+        {/* Layer 2: Subtle Editorial Readability Gradients & Atmospheric Radial Accent */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/85 via-[#050505]/40 to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/95 via-transparent to-black/20 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-60 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-50 z-10 pointer-events-none" />
         <div
           className="absolute inset-0 z-10 opacity-[0.035] pointer-events-none mix-blend-overlay"
           style={{
@@ -97,30 +85,27 @@ export const AboutPage: React.FC = () => {
           }}
         />
 
-        {/* Layer 3: Minimal Editorial Content Hierarchy Overlay */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto my-auto flex flex-col justify-end min-h-[70vh]">
+        {/* Layer 3: Minimal Editorial Typography Content Overlay */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto my-auto flex flex-col justify-end min-h-[65vh]">
           
           {/* Eyebrow Label */}
           <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-widest mb-6">
             <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-            <span>01 / ABOUT</span>
-            <span className="text-white/30">•</span>
-            <span className="text-white/70">TMR CAR CARE / TIRUPPUR, TAMIL NADU</span>
+            <span>TMR CAR CARE / TIRUPPUR</span>
           </div>
 
           {/* Expressive Display Headline */}
-          <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] lg:text-[112px] text-white uppercase tracking-tighter leading-[0.88] select-none max-w-4xl">
-            BUILT <br />
-            AROUND <br />
+          <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] lg:text-[108px] text-white uppercase tracking-tighter leading-[0.88] select-none max-w-4xl">
+            BUILT AROUND <br />
             THE <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">craft.</span>
           </h1>
 
           {/* Concise Editorial Supporting Copy */}
-          <p className="font-editorial text-xl sm:text-2xl md:text-3xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal mt-8 mb-8">
+          <p className="font-editorial text-xl sm:text-2xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal mt-6 mb-8">
             Care isn't only about the finish. It's about the attention that gets you there.
           </p>
 
-          {/* Editorial CTA */}
+          {/* Editorial Anchor Link CTA */}
           <div>
             <a
               href="#belief"
