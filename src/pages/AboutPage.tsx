@@ -285,7 +285,7 @@ export const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
             
             <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">EXPERIENCE</span>
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">01</span>
               <div className="space-y-3">
                 <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
                   EXPERIENCE
@@ -297,7 +297,7 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">QUALITY</span>
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">02</span>
               <div className="space-y-3">
                 <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
                   QUALITY
@@ -309,7 +309,7 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">SPECIALIZATION</span>
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">03</span>
               <div className="space-y-3">
                 <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
                   SPECIALIZATION
@@ -321,7 +321,7 @@ export const AboutPage: React.FC = () => {
             </div>
 
             <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">CONSISTENCY</span>
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">04</span>
               <div className="space-y-3">
                 <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
                   CONSISTENCY
@@ -332,9 +332,7 @@ export const AboutPage: React.FC = () => {
               </div>
             </div>
 
-          </div>
-
-        </div>
+          </div>        </div>
       </section>
 
       {/* 06 / ROOTED IN TIRUPPUR — LOCAL STUDIO IDENTITY */}
