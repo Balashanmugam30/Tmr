@@ -47,141 +47,178 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
+    <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / PREMIUM EDITORIAL DUAL-TONE CONTACT CONSOLE HERO */}
-      <section className="relative w-full min-h-[70vh] lg:min-h-[78vh] flex flex-col justify-center border-b border-[#D8D8D5]">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 min-h-[70vh] lg:min-h-[78vh]">
+      {/* 01 / ONE CONTINUOUS PREMIUM EDITORIAL CONTACT HERO */}
+      <section className="relative w-full min-h-[75vh] lg:min-h-[82vh] flex flex-col justify-center overflow-hidden border-b border-[#D8D8D5] bg-gradient-to-r from-[#080808] via-[#121212] via-65% to-[#F3F0E9] text-white selection:bg-[#FF4B00] selection:text-white pt-28 sm:pt-36 pb-16 lg:pb-24">
+        
+        {/* Subtle background noise texture */}
+        <div
+          className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-overlay"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+          }}
+        />
+
+        <div className="relative z-10 max-w-[1360px] w-full mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto">
           
-          {/* LEFT PANEL: DEEP CHARCOAL / NEAR-BLACK (#0A0A0A) */}
-          <div className="lg:col-span-6 bg-[#0A0A0A] text-white p-8 sm:p-14 lg:p-20 flex flex-col justify-between relative overflow-hidden">
-            {/* Subtle micro noise texture overlay */}
-            <div
-              className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay"
-              style={{
-                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-              }}
-            />
-
-            <div className="relative z-10 space-y-6 max-w-lg my-auto pt-6 lg:pt-0">
-              {/* Display Headline */}
-              <h1 className="font-['Syncopate'] font-bold text-5xl sm:text-7xl lg:text-[84px] text-white uppercase tracking-[0.08em] leading-[0.96] select-none">
-                <span className="block text-white">LET'S</span>
-                <span className="block font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase tracking-normal transform -rotate-1 inline-block">
-                  talk.
-                </span>
-              </h1>
-
-              {/* Supporting Copy */}
-              <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed max-w-md font-normal pt-2 border-l-2 border-[#FF4B00] pl-4">
-                Tell us what your vehicle needs. We'll help you find the right next step.
-              </p>
-
-              {/* Primary Compact Action Buttons */}
-              <div className="pt-4 flex flex-wrap gap-4">
-                <a
-                  href={`https://wa.me/${companyData.contact.whatsapp}?text=Hello%20TMR%20Car%20Care`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#FF4B00] text-white px-8 py-4 font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#0A0A0A] transition-colors shadow-lg"
-                >
-                  WHATSAPP NOW →
-                </a>
-                <a
-                  href={`tel:${companyData.contact.phone}`}
-                  className="border border-white/20 text-white px-8 py-4 font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#0A0A0A] transition-colors"
-                >
-                  CALL TMR →
-                </a>
-              </div>
+          {/* Left / Center-Left Editorial Column */}
+          <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+            
+            {/* Small Eyebrow with Orange Accent Dot */}
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
+              <span className="font-mono font-bold text-xs uppercase tracking-[0.25em] text-[#FF4B00]">
+                CONTACT TMR
+              </span>
+              <div className="h-px w-12 bg-white/20" />
             </div>
+
+            {/* Display Headline */}
+            <h1 className="font-['Syncopate'] font-bold text-5xl sm:text-7xl md:text-8xl lg:text-[96px] text-white uppercase tracking-[0.08em] leading-[0.94] select-none max-w-3xl">
+              <span className="block text-white">LET'S</span>
+              <span className="block font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase tracking-normal transform -rotate-1 hover:rotate-0 transition-transform duration-300 inline-block pr-4">
+                talk.
+              </span>
+            </h1>
+
+            {/* Supporting Copy */}
+            <p className="font-manrope text-base sm:text-xl text-[#D8D8D5] leading-relaxed max-w-xl font-normal border-l-2 border-[#FF4B00] pl-5 pt-1">
+              Tell us what your vehicle needs. We'll help you find the right next step.
+            </p>
+
+            {/* CTAs */}
+            <div className="pt-4 flex flex-wrap gap-4 items-center">
+              <a
+                href={`https://wa.me/${companyData.contact.whatsapp}?text=Hello%20TMR%20Car%20Care`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#FF4B00] text-white px-9 py-4 sm:py-5 font-manrope font-extrabold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#080808] transition-colors shadow-2xl inline-flex items-center gap-3"
+              >
+                <span>WHATSAPP TMR</span>
+                <span className="text-base">→</span>
+              </a>
+
+              <a
+                href={`tel:${companyData.contact.phone}`}
+                className="border border-white/25 text-white px-9 py-4 sm:py-5 font-manrope font-extrabold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#080808] transition-colors inline-flex items-center gap-3"
+              >
+                <span>CALL TMR</span>
+                <span className="text-base">→</span>
+              </a>
+            </div>
+
           </div>
 
-          {/* RIGHT PANEL: WARM OFF-WHITE / IVORY (#F3F0E9) */}
-          <div className="lg:col-span-6 bg-[#F3F0E9] text-[#0A0A0A] p-8 sm:p-14 lg:p-20 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-[#D8D8D5]">
-            <div className="space-y-6 max-w-lg w-full mx-auto my-auto">
-              
-              {/* Row 01: WHATSAPP */}
-              <div className="pt-2 pb-4 border-b border-[#D8D8D5]">
-                <span className="text-[11px] font-mono font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
+          {/* Right Side: Intentional Negative Space with Subtle Tonal Separation Line */}
+          <div className="hidden lg:flex lg:col-span-4 justify-end items-center relative">
+            <div className="w-px h-64 bg-gradient-to-b from-transparent via-white/15 to-transparent mr-12" />
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* 02 / DIRECT CHANNELS & STUDIO LOCATION */}
+      <section className="py-20 sm:py-28 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
+        <div className="mb-12">
+          <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
+            DIRECT CHANNELS &amp; LOCATION.
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          {/* Left Column: Channels Grid & Address */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {/* WhatsApp */}
+              <a
+                href={`https://wa.me/${companyData.contact.whatsapp}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group p-6 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between"
+              >
+                <span className="font-mono text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-2">
                   01 / WHATSAPP
                 </span>
-                <a
-                  href={`https://wa.me/${companyData.contact.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-manrope font-extrabold text-xl sm:text-2xl text-[#0A0A0A] hover:text-[#FF4B00] transition-colors inline-flex items-center gap-3 group"
-                >
-                  <span>{companyData.contact.whatsappFormatted}</span>
-                  <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
-                </a>
-              </div>
+                <span className="font-manrope font-extrabold text-sm text-[#050505] group-hover:text-[#FF4B00] transition-colors">
+                  {companyData.contact.whatsappFormatted} ↗
+                </span>
+              </a>
 
-              {/* Row 02: CALL */}
-              <div className="pb-4 border-b border-[#D8D8D5]">
-                <span className="text-[11px] font-mono font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
+              {/* Call */}
+              <a
+                href={`tel:${companyData.contact.phone}`}
+                className="group p-6 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between"
+              >
+                <span className="font-mono text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-2">
                   02 / CALL
                 </span>
-                <a
-                  href={`tel:${companyData.contact.phone}`}
-                  className="font-manrope font-extrabold text-xl sm:text-2xl text-[#0A0A0A] hover:text-[#FF4B00] transition-colors inline-flex items-center gap-3 group"
-                >
-                  <span>{companyData.contact.phoneFormatted}</span>
-                  <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
-                </a>
-              </div>
+                <span className="font-manrope font-extrabold text-sm text-[#050505] group-hover:text-[#FF4B00] transition-colors">
+                  {companyData.contact.phoneFormatted} ↗
+                </span>
+              </a>
 
-              {/* Row 03: EMAIL */}
-              <div className="pb-4 border-b border-[#D8D8D5]">
-                <span className="text-[11px] font-mono font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
+              {/* Email */}
+              <a
+                href={`mailto:${companyData.contact.email}`}
+                className="group p-6 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between"
+              >
+                <span className="font-mono text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-2">
                   03 / EMAIL
                 </span>
-                <a
-                  href={`mailto:${companyData.contact.email}`}
-                  className="font-manrope font-extrabold text-lg sm:text-xl text-[#0A0A0A] hover:text-[#FF4B00] transition-colors inline-flex items-center gap-3 group"
-                >
-                  <span>{companyData.contact.email}</span>
-                  <span className="text-base group-hover:translate-x-1 transition-transform">↗</span>
-                </a>
-              </div>
-
-              {/* Row 04: STUDIO ADDRESS & DIRECTIONS */}
-              <div className="pb-4 border-b border-[#D8D8D5]">
-                <span className="text-[11px] font-mono font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
-                  04 / STUDIO
+                <span className="font-manrope font-extrabold text-xs text-[#050505] group-hover:text-[#FF4B00] transition-colors truncate">
+                  {companyData.contact.email} ↗
                 </span>
-                <p className="font-manrope font-bold text-sm sm:text-base text-[#0A0A0A] leading-relaxed">
+              </a>
+            </div>
+
+            {/* Studio Address & Hours */}
+            <div className="p-8 border border-[#D8D8D5] bg-white space-y-6">
+              <div>
+                <span className="text-[10px] font-mono font-bold text-[#FF4B00] uppercase tracking-widest block mb-2">
+                  STUDIO ADDRESS
+                </span>
+                <p className="font-bold text-base text-[#050505] leading-relaxed">
                   {companyData.address.fullText}
                 </p>
-                <div className="pt-2">
+                <div className="pt-3">
                   <a
                     href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-mono font-bold text-xs uppercase tracking-widest text-[#FF4B00] hover:text-[#0A0A0A] transition-colors group"
+                    className="inline-flex items-center gap-2 font-mono font-bold text-xs uppercase tracking-widest text-[#FF4B00] hover:text-[#050505] transition-colors"
                   >
-                    <span>GET DIRECTIONS</span>
-                    <span className="group-hover:translate-x-1 transition-transform">↗</span>
+                    <span>OPEN IN GOOGLE MAPS</span>
+                    <span>↗</span>
                   </a>
                 </div>
               </div>
 
-              {/* Row 05: HOURS */}
-              <div className="pb-2">
-                <span className="text-[11px] font-mono font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
-                  05 / HOURS
+              <div className="pt-4 border-t border-[#D8D8D5]">
+                <span className="text-[10px] font-mono font-bold text-[#FF4B00] uppercase tracking-widest block mb-2">
+                  STUDIO HOURS
                 </span>
-                <p className="font-manrope font-bold text-xs sm:text-sm text-[#0A0A0A]">{companyData.hours.weekdays}</p>
-                <p className="font-manrope text-xs text-[#666666] pt-0.5">{companyData.hours.sunday}</p>
+                <p className="font-bold text-sm text-[#050505]">{companyData.hours.weekdays}</p>
+                <p className="font-bold text-sm text-[#666666] pt-0.5">{companyData.hours.sunday}</p>
               </div>
-
             </div>
+          </div>
+
+          {/* Right Column: Studio Location Image */}
+          <div className="lg:col-span-6 h-[340px] sm:h-[460px] border border-[#D8D8D5] bg-[#050505] overflow-hidden rounded-xl">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoP49MCpRS9UJoKPjDAjmcShcGcukxlYkt8tSe6V6Sn_Ef9vIECsIUs2s_9uE7qGGHqYfzyBzVT-yKx6BYQGA-XpLivEsfgWVdlJ3o2Fbd5ipckWqw0x1ZMJG3RmFKqb_-hmCGggljoPRwB-ZkSGPSU5M2c7fNtpx04lmNjDo0kO2ITw_WH2z_Z2wp252NtvRDmRnpf23awUTlqSXZKT-6g8W-G2-bBj_7AGPLU1gmBitXtyfng6nw"
+              alt="TMR Car Care studio location on Avinashi Road Tiruppur"
+              className="w-full h-full object-cover"
+            />
           </div>
 
         </div>
       </section>
 
-      {/* 02 / SERVICE ENQUIRY FORM */}
+      {/* 03 / SERVICE ENQUIRY FORM */}
       <section className="py-20 sm:py-32 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-5 space-y-4">
@@ -279,7 +316,7 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / FREQUENTLY ASKED QUESTIONS */}
+      {/* 04 / FREQUENTLY ASKED QUESTIONS */}
       <section className="py-20 sm:py-32 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-4 space-y-4">
