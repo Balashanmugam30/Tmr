@@ -314,123 +314,82 @@ export const AboutPage: React.FC = () => {
 
       </section>
 
-      {/* 04 / THE APPROACH — CINEMATIC AUTOMOTIVE PROCESS SECTION */}
-      <section className="bg-[#111111] text-white relative w-full overflow-hidden py-24 sm:py-32 border-b border-white/10" id="approach">
-        <div className="max-w-[1360px] mx-auto px-6 md:px-16 relative z-10 space-y-16">
+      {/* 04 / OUR APPROACH — COMPACT AUTOMOTIVE EDITORIAL INTERLUDE SECTION */}
+      <section className="bg-[#0E0E0E] text-white relative w-full overflow-hidden py-16 sm:py-20 border-b border-white/10" id="approach">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-16 relative z-10 space-y-12">
           
-          {/* Top Label Bar */}
-          <div className="flex items-center gap-3">
-            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-bold text-[#FF4B00] flex items-center gap-2">
-              <span className="inline-block w-3.5 h-0.5 bg-[#FF4B00] transform -rotate-45" />
-              <span>04 / THE APPROACH</span>
-            </span>
-            <span className="text-white/30 text-xs font-mono">|</span>
-            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-medium text-[#A0A0A0]">
-              WORKFLOW & METHODOLOGY
-            </span>
-          </div>
-
-          {/* Large Editorial Headline & Supporting Copy Stack */}
-          <div className="space-y-6 max-w-4xl">
-            <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[78px] leading-[1.02] tracking-[-0.015em] uppercase text-white select-none">
-              CARE IS A PROCESS OF <br />
-              <span className="font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
-                attention.
-              </span>
-            </h2>
-
-            <p className="font-['Geist','Manrope',sans-serif] text-base sm:text-lg text-[#D8D8D5] leading-relaxed max-w-2xl font-normal border-l-2 border-[#FF4B00] pl-6">
-              At TMR Car Care, we do not follow a generic detailing routine. We study the vehicle, understand its clear coat condition, choose the appropriate correction method, and finish with the right surface protection strategy.
-            </p>
-          </div>
-
-          {/* Full-Width Large Cinematic Visual Showcase (75-85% Desktop Width) */}
-          <div className="relative w-full lg:w-[88%] mx-auto aspect-[16/9] lg:aspect-[2.2/1] rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_70px_rgba(0,0,0,0.85)] bg-black group">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/about/about-approach-cinematic.jpg"
-              className="w-full h-full object-cover object-center scale-100 group-hover:scale-[1.02] transition-transform duration-1000 ease-out"
-              aria-label="Professional automotive detailing inspection and paint correction workflow at TMR Car Care"
-            >
-              <source src="/videos/approach/approach-cinematic.mp4" type="video/mp4" />
-              <img
-                src="/images/about/about-approach-cinematic.jpg"
-                alt="Professional automotive detailing technician inspecting clear coat finish at TMR Car Care studio"
-                className="w-full h-full object-cover"
-              />
-            </video>
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 z-20 pointer-events-none">
-              <div className="flex items-center gap-3 text-[11px] font-mono text-white/80 uppercase tracking-widest bg-black/75 backdrop-blur-md px-4 py-2 rounded-md border border-white/15">
-                <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>STUDIO WORKFLOW • SURFACE DIAGNOSIS & MULTI-STAGE CORRECTION</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Process Rail: Continuous Three-Column Editorial Sequence (NO CARDS, NO BOXES) */}
-          <div className="pt-8 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+          {/* Asymmetric Desktop Layout (~45% Text / ~55% Dedicated Visual) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            <div className="flex flex-col space-y-3">
-              <div className="flex items-center gap-3">
-                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+            {/* Left Content Column */}
+            <div className="lg:col-span-5 space-y-6">
+              <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-3xl sm:text-5xl lg:text-[54px] leading-[1.04] tracking-[-0.015em] uppercase text-white select-none">
+                CARE IS A PROCESS <br />
+                OF <span className="font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-0.5">attention.</span>
+              </h2>
+
+              <p className="font-['Geist','Manrope',sans-serif] text-sm sm:text-base text-[#C5C5C0] leading-relaxed max-w-lg font-normal border-l-2 border-[#FF4B00] pl-5">
+                At TMR Car Care, we do not follow a generic detailing routine. We study the vehicle, understand its clear coat condition, choose the appropriate correction method, and finish with the right surface protection strategy.
+              </p>
+            </div>
+
+            {/* Right Dedicated Indian Detailing Inspection Visual (55% Width, ZERO OVERLAY TEXT) */}
+            <div className="lg:col-span-7 relative aspect-[16/10] rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black group">
+              <img
+                src="/images/about/about-approach-inspect-new.jpg"
+                alt="Professional automotive detailing technician inspecting clear coat surface defects under studio inspection light"
+                className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
+              />
+            </div>
+
+          </div>
+
+          {/* Bottom Minimalist Editorial Principles Rail (Sitting Close to Bottom, NO CARDS) */}
+          <div className="pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
+            
+            <div className="flex flex-col space-y-1.5">
+              <div className="flex items-center gap-2">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl text-[#FF4B00]">
                   01
                 </span>
-                <span className="text-white/40 font-mono text-xs">—</span>
-                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
+                <span className="text-white/30 text-xs font-mono">—</span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-sm uppercase tracking-wider text-white">
                   OBSERVE
                 </h3>
               </div>
-              <span className="text-[11px] font-mono text-[#FF4B00] uppercase tracking-widest">
-                SURFACE DIAGNOSIS
-              </span>
-              <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Understand the clear coat, surface defects, and material condition before treatment.
+              <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#909090] leading-relaxed pl-7">
+                Surface diagnosis and clear coat analysis before treatment.
               </p>
-              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
             </div>
 
-            <div className="flex flex-col space-y-3 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
-              <div className="flex items-center gap-3">
-                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+            <div className="flex flex-col space-y-1.5 border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0 md:pl-8">
+              <div className="flex items-center gap-2">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl text-[#FF4B00]">
                   02
                 </span>
-                <span className="text-white/40 font-mono text-xs">—</span>
-                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
+                <span className="text-white/30 text-xs font-mono">—</span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-sm uppercase tracking-wider text-white">
                   CARE
                 </h3>
               </div>
-              <span className="text-[11px] font-mono text-[#FF4B00] uppercase tracking-widest">
-                REFINEMENT & PROTECTION
-              </span>
-              <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Use the appropriate polishing method, compound, pad and process for the vehicle.
+              <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#909090] leading-relaxed pl-7">
+                Appropriate polishing method, compound, pad and process.
               </p>
-              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
             </div>
 
-            <div className="flex flex-col space-y-3 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
-              <div className="flex items-center gap-3">
-                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+            <div className="flex flex-col space-y-1.5 border-t md:border-t-0 md:border-l border-white/10 pt-4 md:pt-0 md:pl-8">
+              <div className="flex items-center gap-2">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl text-[#FF4B00]">
                   03
                 </span>
-                <span className="text-white/40 font-mono text-xs">—</span>
-                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
+                <span className="text-white/30 text-xs font-mono">—</span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-sm uppercase tracking-wider text-white">
                   FINISH
                 </h3>
               </div>
-              <span className="text-[11px] font-mono text-[#FF4B00] uppercase tracking-widest">
-                FINAL PRESENTATION
-              </span>
-              <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Complete the vehicle with the appropriate ceramic protection or self-healing PPF strategy.
+              <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#909090] leading-relaxed pl-7">
+                Ceramic protection or self-healing PPF final presentation.
               </p>
-              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
             </div>
 
           </div>
