@@ -169,28 +169,13 @@ export const ProductDetailPage: React.FC = () => {
     <div className="w-full bg-[#0A0A0A] text-[#F1EEE7] font-manrope selection:bg-[#FF4B00] selection:text-white pt-24 min-h-screen relative">
       
       {/* SECTION A — PRODUCT HERO */}
-      <section className="relative w-full pt-12 pb-16 sm:pb-24 overflow-hidden border-b border-white/10">
+      <section className="relative w-full pt-12 pb-16 sm:pb-24 overflow-hidden border-b border-white/10 bg-gradient-to-b from-[#090909] to-[#151515]">
         <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
             
             {/* Left Content Column */}
             <div className="col-span-12 md:col-span-6 flex flex-col z-10">
               
-              {/* Visual Breadcrumb Trail */}
-              <div className="mb-6 flex flex-wrap items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#888888]">
-                <Link to="/" className="hover:text-[#FF4B00] transition-colors">
-                  HOME
-                </Link>
-                <span className="text-[#FF4B00]">•</span>
-                <Link to="/products" className="hover:text-[#FF4B00] transition-colors">
-                  PRODUCTS
-                </Link>
-                <span className="text-[#FF4B00]">•</span>
-                <span className="text-white/70">{product.brand}</span>
-                <span className="text-[#FF4B00]">•</span>
-                <span className="text-[#FF4B00]">{product.category}</span>
-              </div>
-
               {/* Category & Family Badge */}
               <span className="text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest mb-2">
                 {product.brand} — {product.category}
@@ -236,8 +221,8 @@ export const ProductDetailPage: React.FC = () => {
 
             {/* Right Product Image Column */}
             <div className="col-span-12 md:col-span-6 relative mt-4 md:mt-0">
-              <div className="relative w-full aspect-[4/3] bg-[#111111] border border-white/10 rounded-xl overflow-hidden flex items-center justify-center p-8 shadow-2xl">
-                <div className="absolute inset-0 bg-radial from-white/5 via-transparent to-black/60 pointer-events-none" />
+              <div className="relative w-full aspect-[4/3] bg-[#121212] border border-white/10 rounded-xl overflow-hidden flex items-center justify-center p-8 shadow-2xl">
+                <div className="absolute inset-0 bg-radial from-[#FF4B00]/10 via-transparent to-black/80 pointer-events-none" />
                 <img
                   src={product.image}
                   alt={`${product.name} product packaging - TMR Car Care`}
@@ -254,7 +239,7 @@ export const ProductDetailPage: React.FC = () => {
       </section>
 
       {/* SECTION B — QUICK PRODUCT FACTS */}
-      <section className="w-full py-8 border-b border-white/10 bg-[#0B0B0B]">
+      <section className="w-full py-8 border-b border-white/10 bg-gradient-to-b from-[#151515] to-[#1C1B19]">
         <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
           <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-left">
             <div>
@@ -302,7 +287,7 @@ export const ProductDetailPage: React.FC = () => {
       </section>
 
       {/* SECTION C — WHAT IT DOES */}
-      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0A0A0A]">
+      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-gradient-to-b from-[#1C1B19] to-[#20201E]">
         <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-4">
@@ -325,7 +310,7 @@ export const ProductDetailPage: React.FC = () => {
 
       {/* SECTION D — TECHNICAL SPECIFICATIONS */}
       {product.specs && product.specs.length > 0 && (
-        <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0B0B0B]">
+        <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-gradient-to-b from-[#20201E] via-[#1A1917] to-[#151515]">
           <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
             <div className="mb-8">
               <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00] mb-1">
@@ -353,7 +338,7 @@ export const ProductDetailPage: React.FC = () => {
       )}
 
       {/* SECTION E — USED WITHIN THE TMR PROCESS */}
-      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0A0A0A]">
+      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-gradient-to-b from-[#171716] to-[#101010]">
         <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
             <div className="col-span-12 md:col-span-8 space-y-4">
@@ -382,7 +367,7 @@ export const ProductDetailPage: React.FC = () => {
 
       {/* SECTION F — RELATED PRODUCTS */}
       {relatedProducts.length > 0 && (
-        <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0B0B0B]">
+        <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-gradient-to-b from-[#111111] to-[#090909]">
           <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
             <div className="mb-10">
               <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00] mb-1">
@@ -398,10 +383,10 @@ export const ProductDetailPage: React.FC = () => {
                 <Link
                   key={relProd.id}
                   to={relProd.detailRoute}
-                  className="group block bg-[#111111] border border-white/10 hover:border-[#FF4B00]/60 transition-all p-6 rounded-lg flex flex-col justify-between"
+                  className="group block bg-[#141414] border border-white/10 hover:border-[#FF4B00]/60 transition-all p-6 rounded-lg flex flex-col justify-between"
                 >
                   <div>
-                    <div className="aspect-[4/3] bg-[#161616] mb-4 relative overflow-hidden flex items-center justify-center p-4 rounded border border-white/5">
+                    <div className="aspect-[4/3] bg-[#1A1A1A] mb-4 relative overflow-hidden flex items-center justify-center p-4 rounded border border-white/5">
                       <img
                         src={relProd.image}
                         alt={relProd.name}
@@ -427,7 +412,7 @@ export const ProductDetailPage: React.FC = () => {
       )}
 
       {/* SECTION G — PRODUCT FAQ (EXPAND ON HOVER / FOCUS / CLICK) */}
-      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0A0A0A]">
+      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-gradient-to-b from-[#181816] via-[#141412] to-[#0E0E0D]">
         <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-4">
@@ -484,8 +469,9 @@ export const ProductDetailPage: React.FC = () => {
       </section>
 
       {/* SECTION H — FINAL PRODUCT CTA */}
-      <section className="w-full py-20 sm:py-28 bg-[#050505] text-center border-b border-white/10">
-        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 space-y-6">
+      <section className="relative w-full py-20 sm:py-28 bg-[#090909] text-center border-b border-white/10 overflow-hidden">
+        <div className="absolute inset-0 bg-radial from-[#FF4B00]/5 via-transparent to-transparent pointer-events-none" />
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 space-y-6 relative z-10">
           <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
             STUDIO ENQUIRY.
           </h2>
