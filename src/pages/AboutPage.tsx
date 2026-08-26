@@ -528,57 +528,93 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 06 / ROOTED IN TIRUPPUR — LOCAL STUDIO IDENTITY */}
-      <section className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
+      {/* 06 / ROOTED IN TIRUPPUR — LIGHT EDITORIAL BRAND LOCATION SECTION */}
+      <section className="bg-[#F9F8F3] text-[#111111] relative w-full overflow-hidden py-24 sm:py-36 border-b border-[#E2E1D9]" id="location">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-16 relative z-10 space-y-16">
           
-          <div className="flex items-center gap-4">
-            <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#858585]">
-              06 / TIRUPPUR
+          {/* Top Eyebrow Bar */}
+          <div className="flex items-center gap-3">
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-bold text-[#FF4B00] flex items-center gap-2">
+              <span className="inline-block w-3.5 h-0.5 bg-[#FF4B00] transform -rotate-45" />
+              <span>06 / TIRUPPUR</span>
             </span>
-            <div className="w-16 h-px bg-[#D8D8D5]" />
-            <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+            <span className="text-black/30 text-xs font-mono">|</span>
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-medium text-[#707070]">
               TMR CAR CARE / TIRUPPUR
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Asymmetric Header: Large Headline + Immersive Indian Detailing Photographic Composition */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             
-            <div className="lg:col-span-5 flex flex-col space-y-6">
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl tracking-tighter uppercase text-[#111111] leading-[0.95]">
+            {/* Left Content Column */}
+            <div className="lg:col-span-5 space-y-8">
+              <h2 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[76px] leading-[1.02] tracking-[-0.015em] uppercase text-[#111111] select-none">
                 ROOTED IN <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">tiruppur.</span>
+                <span className="font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
+                  tiruppur.
+                </span>
               </h2>
 
-              <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
-                TMR Car Care began in Tiruppur and continues to serve vehicle owners from the city and surrounding areas with professional automotive care.
+              <p className="font-['Geist','Manrope',sans-serif] text-base sm:text-lg text-[#555454] leading-relaxed font-normal border-l-2 border-[#FF4B00] pl-6">
+                TMR Car Care began in Tiruppur in 2009 and continues to serve vehicle owners from the city and surrounding areas with professional automotive care, paint correction, and vehicle protection.
               </p>
 
-              <div className="pt-2 flex flex-col space-y-2 text-xs font-mono text-[#707070] uppercase tracking-widest">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-                  <span>AVINASHI ROAD • NEAR HOPE COLLEGE JUNCTION</span>
+              {/* Location Editorial Metadata (NO CARDS, ELEGANT METADATA RAILS) */}
+              <div className="pt-4 space-y-6 border-t border-[#E2E1D9]">
+                
+                <div className="space-y-1">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-[#FF4B00] font-bold">
+                    FLAGSHIP STUDIO ADDRESS
+                  </span>
+                  <p className="font-['Geist','Manrope',sans-serif] text-sm text-[#111111] font-semibold">
+                    AVINASHI ROAD • NEAR HOPE COLLEGE JUNCTION
+                  </p>
+                  <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#707070]">
+                    TIRUPPUR, TAMIL NADU — 641602
+                  </p>
                 </div>
-                <span className="pl-4 text-[#111111] font-bold">TIRUPPUR, TAMIL NADU 641602</span>
+
+                <div className="pt-4 border-t border-[#E2E1D9] space-y-1">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-[#FF4B00] font-bold">
+                    STUDIO HOURS
+                  </span>
+                  <p className="font-['Geist','Manrope',sans-serif] text-sm text-[#111111] font-semibold">
+                    MONDAY — SATURDAY | 9:00 AM — 8:00 PM
+                  </p>
+                  <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#707070]">
+                    SUNDAY: BY PRIOR APPOINTMENT ONLY
+                  </p>
+                </div>
+
               </div>
 
+              {/* Single Minimal Direction CTA */}
               <div className="pt-4">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#111111] text-white font-extrabold text-xs uppercase tracking-widest hover:bg-[#FF4B00] transition-colors rounded-md shadow-lg"
+                  className="inline-flex items-center gap-3 font-['Geist','Manrope',sans-serif] font-bold text-xs uppercase tracking-[0.2em] text-[#111111] hover:text-[#FF4B00] transition-colors group"
                 >
                   <span>VIEW LOCATION & CONTACT</span>
-                  <span className="text-base">→</span>
+                  <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
                 </Link>
               </div>
             </div>
 
-            <div className="lg:col-span-7 relative h-[340px] sm:h-[460px] border border-[#D8D8D5] rounded-xl overflow-hidden bg-[#111111] shadow-2xl">
+            {/* Right Immersive Editorial Photographic Composition (Occupying ~60% Width, Asymmetric) */}
+            <div className="lg:col-span-7 relative border border-[#E2E1D9] rounded-xl overflow-hidden shadow-2xl bg-[#111111] group">
               <img
-                src="/images/about/about-tiruppur-studio.jpg"
-                alt="TMR Car Care flagship detailing studio in Tiruppur Tamil Nadu"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                src="/images/about/about-tiruppur-indian.jpg"
+                alt="Tata Safari and Mahindra SUV professional detailing surface inspection inside TMR Car Care studio in Tiruppur"
+                className="w-full h-[400px] sm:h-[560px] object-cover scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-6 left-6 right-6 flex items-center gap-3 z-20 pointer-events-none">
+                <div className="flex items-center gap-3 text-[11px] font-mono text-white/90 uppercase tracking-widest bg-black/75 backdrop-blur-md px-4 py-2 rounded-md border border-white/20">
+                  <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
+                  <span>TMR DETAILING STUDIO • AVINASHI ROAD, TIRUPPUR</span>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -586,45 +622,55 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 07 / FINAL CTA — START HERE */}
-      <section className="relative w-full min-h-[70vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-28 font-manrope">
-        {/* Layer 1: Full-Bleed Background Visual */}
+      {/* 07 / FINAL CTA — FULL-BLEED CINEMATIC CONVERSION SECTION */}
+      <section className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]">
+        
+        {/* Layer 0: Full-Bleed Background Visual (Freshly Detailed SUV in Studio at Night) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
-            src="/images/about/about-final-cta.jpg"
-            alt="Freshly detailed vehicle inside TMR Car Care studio bay in Tiruppur"
+            src="/images/about/about-cta-indian.jpg"
+            alt="Freshly detailed SUV inside TMR Car Care detailing bay in Tiruppur at night"
             className="w-full h-full object-cover object-center scale-[1.02] transition-transform duration-[10000ms] ease-out hover:scale-105"
           />
         </div>
 
-        {/* Layer 2: Fixed Dark Cinematic Overlay Gradient */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/95 via-black/80 to-black/40 pointer-events-none" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/50 pointer-events-none" />
+        {/* Layer 1: Dark Cinematic Vignette & Atmospheric Burnt-Orange Overlay */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/95 via-black/80 to-black/45 pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/60 pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-[#FF4B00]/20 via-transparent to-transparent pointer-events-none" />
 
-        {/* Layer 3: Editorial Content Box */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 flex flex-col justify-end space-y-8 my-auto">
-          <div className="max-w-2xl space-y-6">
-            <div className="font-extrabold text-xs text-[#FF4B00] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
+        {/* Layer 2: Floating Editorial UI Stack (Positioned Upper-Left directly over background) */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pt-28 sm:pt-36 flex flex-col space-y-8">
+          
+          {/* Eyebrow */}
+          <div className="flex items-center gap-3">
+            <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+            <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#FF4B00] font-bold">
               07 / START HERE
-            </div>
+            </span>
+          </div>
 
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
-              YOUR CAR DESERVES <br />
-              THE RIGHT <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">care.</span>
+          {/* Headline */}
+          <div className="max-w-3xl space-y-6">
+            <h2 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[1.02] tracking-tighter uppercase text-white select-none">
+              GIVE YOUR CAR <br />
+              THE CARE IT <br />
+              <span className="font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
+                deserves.
+              </span>
             </h2>
 
-            <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l pl-4 border-white/20 max-w-xl">
+            <p className="font-['Geist','Manrope',sans-serif] text-base sm:text-lg text-[#E5E5E0] leading-relaxed max-w-xl font-normal border-l-2 border-[#FF4B00] pl-6">
               Talk to the TMR Car Care team about the right next step for your vehicle.
             </p>
 
-            {/* Action Buttons */}
+            {/* Minimal Conversion Buttons (2 Actions Only) */}
             <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
               <a
                 href={`https://wa.me/${companyData.contact.whatsapp}?text=About%20Page%20Enquiry`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-[#FF4B00] text-white rounded-md font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors shadow-2xl text-center inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-[#FF4B00] text-white rounded-md font-['Geist','Manrope',sans-serif] font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-[#050505] transition-colors shadow-2xl text-center inline-flex items-center justify-center gap-2"
               >
                 <span>WHATSAPP TMR</span>
                 <span className="text-base">→</span>
@@ -632,20 +678,24 @@ export const AboutPage: React.FC = () => {
 
               <Link
                 to="/contact"
-                className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-md font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors text-center inline-flex items-center justify-center gap-2"
+                className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-md font-['Geist','Manrope',sans-serif] font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-[#050505] transition-colors text-center inline-flex items-center justify-center gap-2"
               >
                 <span>CONTACT TMR</span>
                 <span className="text-base">→</span>
               </Link>
             </div>
+          </div>
 
-            {/* Location Line */}
-            <div className="pt-6 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-              <span>Tiruppur, Tamil Nadu • Avinashi Road • TMR Car Care Studio</span>
-            </div>
+        </div>
+
+        {/* Layer 3: Bottom Location Metadata */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pb-12 sm:pb-16 pt-12">
+          <div className="pt-6 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex items-center gap-2 font-mono">
+            <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+            <span>TIRUPPUR, TAMIL NADU • AVINASHI ROAD • TMR CAR CARE STUDIO</span>
           </div>
         </div>
+
       </section>
 
     </div>
