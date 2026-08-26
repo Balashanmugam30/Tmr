@@ -4,20 +4,10 @@ import { companyData } from '@/data/company';
 
 export const AboutPage: React.FC = () => {
   const [activeApproachStep, setActiveApproachStep] = useState<number>(0);
-  const [isReducedMotion, setIsReducedMotion] = useState<boolean>(false);
 
   useEffect(() => {
     document.title = "About TMR Car Care | Premium Detailing Studio Tiruppur";
     window.scrollTo(0, 0);
-
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setIsReducedMotion(motionQuery.matches);
-
-    const handleMotionChange = (e: MediaQueryListEvent) => {
-      setIsReducedMotion(e.matches);
-    };
-    motionQuery.addEventListener('change', handleMotionChange);
-    return () => motionQuery.removeEventListener('change', handleMotionChange);
   }, []);
 
   const approachSteps = [
@@ -50,29 +40,15 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / EDITORIAL AUTOMOTIVE HERO — UPPER-LEFT TYPOGRAPHIC STACK */}
+      {/* 01 / EDITORIAL AUTOMOTIVE HERO — STATIC PHOTOGRAPHIC BACKGROUND */}
       <section className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-start pt-28 sm:pt-36 pb-16 px-6 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]">
         
-        {/* Layer 1: Native HTML5 Headlights Video Element with Poster Fallback */}
-        {isReducedMotion ? (
-          <img
-            src="/images/about/about-hero-orange.jpg"
-            alt="TMR Car Care cinematic matte-black vehicle with lit quad halo headlights in burnt orange atmosphere"
-            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
-          />
-        ) : (
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            poster="/images/about/about-hero-orange.jpg"
-            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
-          >
-            <source src="/videos/about/about-hero-headlights.mp4" type="video/mp4" />
-          </video>
-        )}
+        {/* Layer 1: Dedicated Static Cinematic Automotive Hero Photo */}
+        <img
+          src="/images/about/about-hero-static.jpg"
+          alt="TMR Car Care matte-black Dodge Challenger with lit quad halo headlights in burnt orange atmosphere"
+          className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
+        />
 
         {/* Layer 2: Subtle Left Readability Gradient & Fine Film Grain Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/92 via-[#050505]/45 to-transparent z-10 pointer-events-none" />
