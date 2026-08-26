@@ -49,7 +49,7 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / FULL-BLEED EDITORIAL CONTACT HERO — UNTOUCHED */}
+      {/* 01 / FULL-BLEED EDITORIAL CONTACT HERO — 100% UNTOUCHED */}
       <section className="relative w-full h-screen min-h-[680px] border-b border-[#D8D8D5] overflow-hidden">
         <div className="w-full h-full grid grid-cols-1 lg:grid-cols-12">
           
@@ -102,46 +102,45 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 02 / SECTION 02 — EDITORIAL CONTACT DIRECTORY (PREMIUM VISUAL REBUILD) */}
+      {/* 02 / COMBINED CONTACT + ENQUIRY SECTION (ONE PREMIUM EDITORIAL COMPOSITION) */}
       <section
         id="contact-details"
-        className="relative w-full py-24 sm:py-32 border-b border-[#D8D8D5] scroll-mt-20 overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F9F7F2] via-[#F1EEE7] to-[#E8E4DB]"
+        className="relative w-full py-20 sm:py-32 border-b border-[#D8D8D5] scroll-mt-20 overflow-hidden bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#F9F7F2] via-[#F1EEE7] to-[#E5E0D5]"
       >
-        {/* Subtle Edge Vignette */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_50%,_rgba(0,0,0,0.04)_100%)]" />
+        {/* Subtle Atmospheric Vignette Layer */}
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_45%,_rgba(0,0,0,0.05)_100%)]" />
 
-        <div className="relative z-10 max-w-[1360px] mx-auto px-6 md:px-16">
-          
-          {/* Section Heading & Intro Statement */}
-          <div className="max-w-2xl mb-16">
-            <h2 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl uppercase tracking-tight text-[#0A0A0A] leading-none mb-4">
-              REACH <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-2 inline-block transform -rotate-1">tmr.</span>
-            </h2>
-            <p className="font-manrope text-base sm:text-lg text-[#5F5E5E] leading-relaxed">
-              For bookings, enquiries, or a studio visit, connect directly with the TMR Car Care team in Tiruppur.
-            </p>
-          </div>
-
-          {/* Editorial Asymmetric Grid */}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* Left Column (7 cols): Full-Width Clickable Editorial Contact Rows & Info */}
-            <div className="lg:col-span-7 space-y-12">
+            {/* LEFT COLUMN (6 cols): Editorial Contact & Info */}
+            <div className="lg:col-span-6 space-y-10">
               
-              {/* Clickable Editorial Contact Rows */}
+              {/* Editorial Headline & Intro */}
+              <div className="space-y-4">
+                <h2 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl uppercase tracking-tight text-[#0A0A0A] leading-[0.96]">
+                  TELL US WHAT <br />
+                  YOUR CAR <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-2 inline-block transform -rotate-1">needs.</span>
+                </h2>
+                <p className="font-manrope text-base sm:text-lg text-[#5F5E5E] leading-relaxed max-w-lg">
+                  Tell us what you drive, what it needs, and we'll help you find the right next step.
+                </p>
+              </div>
+
+              {/* Editorial Clickable Contact Rows */}
               <div className="border-t border-[#D8D8D5] divide-y divide-[#D8D8D5]">
                 {/* WhatsApp Row */}
                 <a
                   href={`https://wa.me/${companyData.contact.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:pl-3 transition-all duration-300"
+                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300"
                 >
                   <div>
                     <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
                       01 / WHATSAPP DIRECT
                     </span>
-                    <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors">
+                    <span className="font-manrope font-extrabold text-xl sm:text-2xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors">
                       {companyData.contact.whatsappFormatted}
                     </span>
                   </div>
@@ -154,13 +153,13 @@ export const ContactPage: React.FC = () => {
                 {/* Call Row */}
                 <a
                   href={`tel:${companyData.contact.phone}`}
-                  className="py-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:pl-3 transition-all duration-300"
+                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300"
                 >
                   <div>
                     <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
                       02 / CALL STUDIO
                     </span>
-                    <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors">
+                    <span className="font-manrope font-extrabold text-xl sm:text-2xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors">
                       {companyData.contact.phoneFormatted}
                     </span>
                   </div>
@@ -173,34 +172,34 @@ export const ContactPage: React.FC = () => {
                 {/* Email Row */}
                 <a
                   href={`mailto:${companyData.contact.email}`}
-                  className="py-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 group hover:pl-3 transition-all duration-300"
+                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300"
                 >
                   <div>
                     <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
                       03 / EMAIL CONSULTATION
                     </span>
-                    <span className="font-manrope font-extrabold text-xl sm:text-2xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors">
+                    <span className="font-manrope font-extrabold text-lg sm:text-xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors">
                       {companyData.contact.email}
                     </span>
                   </div>
                   <div className="inline-flex items-center gap-2 font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-widest pt-2 sm:pt-0">
-                    <span>SEND EMAIL</span>
+                    <span>SEND MAIL</span>
                     <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
                   </div>
                 </a>
               </div>
 
-              {/* Factual Studio Location & Hours Info Strip */}
+              {/* Factual Information Strip */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4 border-t border-[#D8D8D5]">
                 {/* Location Block */}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block">
-                    STUDIO LOCATION
+                    STUDIO
                   </span>
-                  <p className="font-manrope font-bold text-base text-[#0A0A0A] leading-relaxed">
+                  <p className="font-manrope font-bold text-sm text-[#0A0A0A] leading-relaxed">
                     {companyData.address.fullText}
                   </p>
-                  <div className="pt-2">
+                  <div className="pt-1">
                     <a
                       href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
                       target="_blank"
@@ -214,9 +213,9 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 {/* Hours Block */}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block">
-                    STUDIO HOURS
+                    HOURS
                   </span>
                   <div>
                     <p className="font-manrope font-bold text-sm text-[#0A0A0A]">{companyData.hours.weekdays}</p>
@@ -227,72 +226,21 @@ export const ContactPage: React.FC = () => {
 
             </div>
 
-            {/* Right Column (5 cols): Visual Anchor Image (Fresh Photorealistic Studio Photo) */}
-            <div className="lg:col-span-5 h-[440px] sm:h-[540px] bg-[#0A0A0A] overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-2xl relative group">
-              <img
-                src="/images/contact/contact-location-new.jpg"
-                alt="Photorealistic Indian automotive detailing studio bay at TMR Car Care Tiruppur"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-6 left-6 right-6 text-white pointer-events-none">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF4B00] block mb-1">
-                  FLAGSHIP STUDIO &amp; INSPECTION BAY
+            {/* RIGHT COLUMN (6 cols): Integrated Charcoal Consultation Form Container */}
+            <div className="lg:col-span-6 bg-[#121212]/95 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-white/10 shadow-2xl text-white space-y-6">
+              
+              <div>
+                <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
+                  DIRECT CONSULTATION
                 </span>
-                <p className="font-manrope font-bold text-sm text-white">
-                  Avinashi Road, Tiruppur, Tamil Nadu
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* 03 / SECTION 03 — DIRECT STUDIO INQUIRY (PREMIUM VISUAL REBUILD) */}
-      <section className="relative w-full py-24 sm:py-32 bg-[#0A0A0A] text-white border-b border-[#222222] overflow-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#161210] via-[#0A0A0A] to-[#050505]">
-        {/* Subtle Atmospheric Glow & Dark Vignette Layer */}
-        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_40%,_rgba(0,0,0,0.65)_100%)]" />
-
-        <div className="relative z-10 max-w-[1360px] mx-auto px-6 md:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            
-            {/* Left Column (5 cols): Editorial Consultation Statement */}
-            <div className="lg:col-span-5 space-y-8">
-              <div className="space-y-3">
-                <span className="font-mono font-bold text-xs uppercase tracking-[0.2em] text-[#FF4B00] block">
-                  FROM WASH TO PAINT CORRECTION TO PROTECTION
-                </span>
-                <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tight text-white leading-[1.02]">
-                  TELL US ABOUT <br />
-                  <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase tracking-normal inline-block">
-                    your vehicle.
-                  </span>
-                </h2>
+                <h3 className="font-manrope font-extrabold text-2xl sm:text-3xl uppercase tracking-tight text-white">
+                  START YOUR ENQUIRY.
+                </h3>
               </div>
 
-              <p className="font-manrope text-base text-[#D8D8D5] leading-relaxed font-normal">
-                Tell us what you drive, what it needs, and we'll help you choose the right service for your vehicle.
-              </p>
-
-              <div className="pt-6 space-y-4 border-t border-white/10">
-                <div className="flex items-center gap-3 text-xs font-bold text-white uppercase tracking-wider">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />
-                  <span>DIRECT WHATSAPP CONSULTATION</span>
-                </div>
-                <div className="flex items-center gap-3 text-xs font-bold text-white uppercase tracking-wider">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />
-                  <span>TAILORED TIME &amp; BAY ALLOCATION</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column (7 cols): Integrated Charcoal Consultation Form Container */}
-            <div className="lg:col-span-7 bg-[#121212]/90 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-white/10 shadow-2xl relative z-10">
-              <form onSubmit={handleFormSubmit} className="space-y-6">
+              <form onSubmit={handleFormSubmit} className="space-y-5">
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
                       YOUR NAME
@@ -303,7 +251,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-4 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
                     />
                   </div>
 
@@ -317,12 +265,12 @@ export const ContactPage: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-4 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
                       VEHICLE MAKE &amp; MODEL
@@ -333,7 +281,7 @@ export const ContactPage: React.FC = () => {
                       value={formData.vehicle}
                       onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
                       placeholder="e.g. BMW M4 / Porsche 911"
-                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-4 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
                     />
                   </div>
 
@@ -344,7 +292,7 @@ export const ContactPage: React.FC = () => {
                     <select
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full bg-[#181818] border border-white/15 rounded-lg p-4 text-sm text-white focus:border-[#FF4B00] focus:outline-none transition-all duration-300 cursor-pointer"
+                      className="w-full bg-[#181818] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:outline-none transition-all duration-300 cursor-pointer"
                     >
                       <option value="Car Wash & Cleaning">Car Wash &amp; Cleaning</option>
                       <option value="Detailing & Paint Care">Detailing &amp; Paint Care</option>
@@ -365,13 +313,13 @@ export const ContactPage: React.FC = () => {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us about your vehicle's current condition or specific services needed..."
-                    className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-4 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                    className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-5 bg-[#FF4B00] text-white font-manrope font-extrabold text-xs uppercase tracking-widest rounded-lg hover:bg-white hover:text-[#0A0A0A] transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl"
+                  className="w-full py-4 sm:py-5 bg-[#FF4B00] text-white font-manrope font-extrabold text-xs uppercase tracking-widest rounded-lg hover:bg-white hover:text-[#0A0A0A] transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl"
                 >
                   <span>SUBMIT ENQUIRY VIA WHATSAPP</span>
                   <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -384,35 +332,91 @@ export const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 04 / FREQUENTLY ASKED QUESTIONS — UNTOUCHED */}
-      <section className="py-20 sm:py-32 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+      {/* 03 / DEDICATED STUDIO LOCATION SECTION (REAL GOOGLE MAPS EMBED) */}
+      <section id="studio-location" className="relative w-full py-20 sm:py-28 bg-[#0A0A0A] text-white border-b border-[#222222] overflow-hidden">
+        {/* Subtle Atmospheric Vignette Layer */}
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_45%,_rgba(0,0,0,0.65)_100%)]" />
+
+        <div className="relative z-10 max-w-[1360px] mx-auto px-6 md:px-16 space-y-10">
+          
+          {/* Header Row */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-2">
+              <span className="font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-[0.2em] block">
+                STUDIO LOCATION
+              </span>
+              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
+                VISIT THE STUDIO.
+              </h2>
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-xl">
+                {companyData.address.fullText}
+              </p>
+            </div>
+
+            <div>
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#FF4B00] text-white px-8 py-4 font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#0A0A0A] transition-colors shadow-lg inline-flex items-center gap-2"
+              >
+                <span>OPEN IN GOOGLE MAPS</span>
+                <span>↗</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Real Google Maps Embed Container */}
+          <div className="w-full h-[400px] sm:h-[480px] rounded-2xl border border-white/15 overflow-hidden shadow-2xl relative">
+            <iframe
+              title="TMR Car Care Studio Location Map"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(companyData.address.fullText)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+              className="w-full h-full border-0 filter contrast-125 brightness-90 hover:filter-none transition-all duration-700"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+
+        </div>
+      </section>
+
+      {/* 04 / INTERACTIVE CONTACT FAQ SECTION */}
+      <section className="relative w-full py-20 sm:py-28 px-6 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+          
           <div className="col-span-12 md:col-span-4 space-y-4">
+            <span className="font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-[0.2em] block">
+              QUESTIONS &amp; ANSWERS
+            </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
               CONTACT FAQ.
             </h2>
+            <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed">
+              Have questions prior to your visit? Select a question to view full appointment and pricing guidelines.
+            </p>
           </div>
 
           <div className="col-span-12 md:col-span-8 flex flex-col border-t border-[#D8D8D5]">
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <div key={idx} className="border-b border-[#D8D8D5]">
+                <div key={idx} className="border-b border-[#D8D8D5] transition-colors duration-200">
                   <button
                     onClick={() => toggleFaq(idx)}
-                    className="w-full py-6 flex justify-between items-center text-left group"
+                    className="w-full py-6 flex justify-between items-center text-left group cursor-pointer"
                   >
-                    <span className="font-manrope font-bold text-base sm:text-xl text-[#050505] group-hover:text-[#FF4B00] transition-colors">
+                    <span className="font-manrope font-bold text-base sm:text-xl text-[#050505] group-hover:text-[#FF4B00] transition-colors pr-4">
                       {faq.q}
                     </span>
-                    <span className="text-2xl text-[#FF4B00] transition-transform duration-300">
+                    <span className="text-2xl font-mono text-[#FF4B00] transition-transform duration-300 shrink-0">
                       {isOpen ? "−" : "+"}
                     </span>
                   </button>
 
                   {isOpen && (
-                    <div className="pb-6">
-                      <p className="font-manrope text-sm sm:text-base text-[#858585] leading-relaxed">
+                    <div className="pb-6 animate-fade-in">
+                      <p className="font-manrope text-sm sm:text-base text-[#5F5E5E] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
                         {faq.a}
                       </p>
                     </div>
@@ -421,6 +425,7 @@ export const ContactPage: React.FC = () => {
               );
             })}
           </div>
+
         </div>
       </section>
 
