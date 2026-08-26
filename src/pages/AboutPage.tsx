@@ -188,82 +188,112 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / THE BELIEF — BRAND PHILOSOPHY */}
-      <section className="bg-[#111111] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10" id="belief">
+      {/* 03 / THE BELIEF — EDITORIAL AUTOMOTIVE MANIFESTO */}
+      <section className="bg-[#111111] text-white relative w-full overflow-hidden py-24 sm:py-36 border-b border-white/10" id="belief">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-16">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left Column: Philosophy Headline & Statement */}
-            <div className="lg:col-span-7 space-y-8 z-20">
-              <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-widest">
-                <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>03 / THE BELIEF</span>
-                <span className="text-white/30">•</span>
-                <span className="text-white/70">BRAND PHILOSOPHY</span>
-              </div>
-
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[84px] leading-[0.92] tracking-tighter uppercase text-white">
-                WE BELIEVE THE <br />
-                <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform">details</span> MATTER.
-              </h2>
-
-              <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-xl leading-relaxed font-normal border-l-2 border-[#FF4B00] pl-5">
-                A vehicle is more than a machine. It is a surface, a material and a reflection of the person behind it. At TMR, quality begins with understanding the vehicle before deciding how it should be cared for.
-              </p>
+          {/* Header & Sub-label */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/15 pb-8">
+            <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-[0.2em]">
+              <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+              <span>03 / THE BELIEF</span>
             </div>
-
-            {/* Right Column: Dedicated Photography Asset */}
-            <div className="lg:col-span-5 relative border border-white/15 rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black group">
-              <img
-                src="/images/about/about-belief-new.jpg"
-                alt="TMR Car Care professional automotive detailing studio surface inspection under precision lighting"
-                className="w-full h-[360px] sm:h-[480px] object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-            </div>
-
+            <span className="font-mono text-xs text-white/50 uppercase tracking-[0.2em]">
+              THE TMR PHILOSOPHY OF AUTOMOTIVE CARE
+            </span>
           </div>
 
-          {/* Three Editorial Principles (Distinct Philosophy Focus) */}
-          <div className="pt-10 grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/15">
-            
-            <div className="flex flex-col space-y-3 p-2">
-              <div className="flex items-center gap-3">
-                <span className="font-manrope font-extrabold text-2xl text-[#FF4B00]">01</span>
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wider text-white">
-                  ATTENTION
-                </h3>
-              </div>
-              <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Understand the vehicle and its surface before treatment begins. Inspect defects, clear coat condition, and material sensitivity.
-              </p>
-            </div>
+          {/* Large Editorial Manifesto Statement */}
+          <div className="space-y-8 max-w-4xl">
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[88px] leading-[0.92] tracking-tighter uppercase text-white">
+              GOOD AUTOMOTIVE <br />
+              CARE STARTS <br />
+              BEFORE THE <br />
+              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">polisher.</span>
+            </h2>
 
-            <div className="flex flex-col space-y-3 p-2 border-t md:border-t-0 md:border-l border-white/15 md:pl-8">
-              <div className="flex items-center gap-3">
-                <span className="font-manrope font-extrabold text-2xl text-[#FF4B00]">02</span>
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wider text-white">
-                  PRECISION
-                </h3>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start pt-4">
+              <div className="md:col-span-8 space-y-4 font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l-2 border-[#FF4B00] pl-6">
+                <p>
+                  At TMR Car Care, quality starts before any machine touches the vehicle. We look at the surface, understand its condition, and choose the right approach for the finish.
+                </p>
+                <p className="text-sm sm:text-base text-[#A0A0A0]">
+                  From professional car detailing and paint correction to ceramic coating and paint protection, every treatment should begin with understanding the vehicle — not simply following a preset process.
+                </p>
               </div>
-              <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Use the appropriate process, tools and materials for the condition. Multi-stage polishing tailored to paint hardness.
-              </p>
-            </div>
 
-            <div className="flex flex-col space-y-3 p-2 border-t md:border-t-0 md:border-l border-white/15 md:pl-8">
-              <div className="flex items-center gap-3">
-                <span className="font-manrope font-extrabold text-2xl text-[#FF4B00]">03</span>
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wider text-[#FF4B00]">
-                  FINISH
-                </h3>
+              <div className="md:col-span-4 flex items-end justify-start md:justify-end pt-2 md:pt-0">
+                <Link
+                  to="/services/detailing-paint-care"
+                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
+                >
+                  <span>EXPLORE TMR DETAILING & PAINT CARE</span>
+                  <span className="text-base group-hover:translate-x-1.5 transition-transform">→</span>
+                </Link>
               </div>
-              <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Treat the final result as the standard. Seal in reflection with hydrophobic ceramic protection or self-healing PPF.
-              </p>
             </div>
+          </div>
 
+          {/* Full-Width Storytelling Cinematic Image Showcase */}
+          <div className="relative w-full h-[360px] sm:h-[520px] rounded-xl overflow-hidden border border-white/15 shadow-2xl bg-black group">
+            <img
+              src="/images/about/about-belief-editorial.jpg"
+              alt="Professional automotive paint inspection at TMR Car Care in Tiruppur"
+              className="w-full h-full object-cover scale-100 group-hover:scale-105 transition-transform duration-1000 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 z-20">
+              <div className="flex items-center gap-3 text-xs font-mono text-white/70 uppercase tracking-widest bg-black/60 backdrop-blur-md px-4 py-2 rounded-md border border-white/10">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />
+                <span>DETAILED SURFACE DIAGNOSIS & INSPECTION • TMR STUDIO</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Continuous Horizontal Principles Line (01 UNDERSTAND —— 02 REFINE —— 03 PRESERVE) */}
+          <div className="pt-8 border-t border-white/15 space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+              
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center gap-4">
+                  <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#FF4B00]">01</span>
+                  <div className="w-12 h-px bg-[#FF4B00]" />
+                  <h3 className="font-manrope font-extrabold text-lg uppercase tracking-wider text-white">
+                    UNDERSTAND
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed pl-1">
+                  Before any treatment, understand the vehicle, surface condition, existing defects and material characteristics.
+                </p>
+              </div>
+
+              <div className="flex flex-col space-y-4 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-white/15 md:pl-10">
+                <div className="flex items-center gap-4">
+                  <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#FF4B00]">02</span>
+                  <div className="w-12 h-px bg-[#FF4B00]" />
+                  <h3 className="font-manrope font-extrabold text-lg uppercase tracking-wider text-white">
+                    REFINE
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed pl-1">
+                  Choose the appropriate cleaning, paint correction and finishing process for the vehicle rather than forcing a generic treatment.
+                </p>
+              </div>
+
+              <div className="flex flex-col space-y-4 pt-6 md:pt-0 border-t md:border-t-0 md:border-l border-white/15 md:pl-10">
+                <div className="flex items-center gap-4">
+                  <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#FF4B00]">03</span>
+                  <div className="w-12 h-px bg-[#FF4B00]" />
+                  <h3 className="font-manrope font-extrabold text-lg uppercase tracking-wider text-white">
+                    PRESERVE
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed pl-1">
+                  Finish with the appropriate protection and care strategy so the result can be maintained over time.
+                </p>
+              </div>
+
+            </div>
           </div>
 
         </div>
