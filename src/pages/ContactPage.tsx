@@ -49,70 +49,64 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / ONE CONTINUOUS PREMIUM EDITORIAL CONTACT HERO */}
-      <section className="relative w-full min-h-[75vh] lg:min-h-[82vh] flex flex-col justify-center overflow-hidden border-b border-[#D8D8D5] bg-gradient-to-r from-[#080808] via-[#121212] via-65% to-[#F3F0E9] text-white selection:bg-[#FF4B00] selection:text-white pt-28 sm:pt-36 pb-16 lg:pb-24">
+      {/* 01 / CONTAINED RECTANGULAR EDITORIAL HERO */}
+      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-8 max-w-[1440px] mx-auto">
         
-        {/* Subtle background noise texture */}
-        <div
-          className="absolute inset-0 opacity-[0.035] pointer-events-none mix-blend-overlay"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
-        />
-
-        <div className="relative z-10 max-w-[1360px] w-full mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center my-auto">
+        {/* Joined Rectangular Hero Container (Outer Rounded Corners Only) */}
+        <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-[#D8D8D5] grid grid-cols-1 lg:grid-cols-12 min-h-[520px] sm:min-h-[580px] lg:min-h-[620px]">
           
-          {/* Left / Center-Left Editorial Column */}
-          <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+          {/* LEFT EDITORIAL PANEL: Warm Ivory / TMR Cream (#F3F0E9) */}
+          <div className="lg:col-span-6 bg-[#F3F0E9] text-[#0A0A0A] p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative">
             
-            {/* Small Eyebrow with Orange Accent Dot */}
-            <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-              <span className="font-mono font-bold text-xs uppercase tracking-[0.25em] text-[#FF4B00]">
-                CONTACT TMR
-              </span>
-              <div className="h-px w-12 bg-white/20" />
+            {/* Top Eyebrow */}
+            <div className="space-y-6">
+              <div className="flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
+                <span className="font-mono font-bold text-xs uppercase tracking-[0.25em] text-[#FF4B00]">
+                  CONTACT
+                </span>
+              </div>
+
+              {/* High-Contrast Editorial Serif Headline */}
+              <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl lg:text-[82px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] select-none pt-2">
+                GET IN <br />
+                TOUCH WITH <br />
+                <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-4 inline-block transform -rotate-1">
+                  tmr.
+                </span>
+              </h1>
             </div>
 
-            {/* Display Headline */}
-            <h1 className="font-['Syncopate'] font-bold text-5xl sm:text-7xl md:text-8xl lg:text-[96px] text-white uppercase tracking-[0.08em] leading-[0.94] select-none max-w-3xl">
-              <span className="block text-white">LET'S</span>
-              <span className="block font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase tracking-normal transform -rotate-1 hover:rotate-0 transition-transform duration-300 inline-block pr-4">
-                talk.
-              </span>
-            </h1>
+            {/* Bottom Copy & CTA */}
+            <div className="space-y-6 pt-8">
+              <p className="font-manrope text-sm sm:text-base text-[#5F5E5E] leading-relaxed max-w-md font-normal border-l-2 border-[#FF4B00] pl-4">
+                Tell us what your vehicle needs and we'll help you find the right next step.
+              </p>
 
-            {/* Supporting Copy */}
-            <p className="font-manrope text-base sm:text-xl text-[#D8D8D5] leading-relaxed max-w-xl font-normal border-l-2 border-[#FF4B00] pl-5 pt-1">
-              Tell us what your vehicle needs. We'll help you find the right next step.
-            </p>
-
-            {/* CTAs */}
-            <div className="pt-4 flex flex-wrap gap-4 items-center">
-              <a
-                href={`https://wa.me/${companyData.contact.whatsapp}?text=Hello%20TMR%20Car%20Care`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#FF4B00] text-white px-9 py-4 sm:py-5 font-manrope font-extrabold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#080808] transition-colors shadow-2xl inline-flex items-center gap-3"
-              >
-                <span>WHATSAPP TMR</span>
-                <span className="text-base">→</span>
-              </a>
-
-              <a
-                href={`tel:${companyData.contact.phone}`}
-                className="border border-white/25 text-white px-9 py-4 sm:py-5 font-manrope font-extrabold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#080808] transition-colors inline-flex items-center gap-3"
-              >
-                <span>CALL TMR</span>
-                <span className="text-base">→</span>
-              </a>
+              <div>
+                <a
+                  href={`https://wa.me/${companyData.contact.whatsapp}?text=Hello%20TMR%20Car%20Care`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group"
+                >
+                  <span>CONTACT TMR</span>
+                  <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                </a>
+              </div>
             </div>
 
           </div>
 
-          {/* Right Side: Intentional Negative Space with Subtle Tonal Separation Line */}
-          <div className="hidden lg:flex lg:col-span-4 justify-end items-center relative">
-            <div className="w-px h-64 bg-gradient-to-b from-transparent via-white/15 to-transparent mr-12" />
+          {/* RIGHT PHOTOGRAPHIC PANEL: Single Cinematic Automotive Detailing Studio Photo */}
+          <div className="lg:col-span-6 relative min-h-[320px] lg:min-h-full bg-[#0A0A0A] overflow-hidden">
+            <img
+              src="/images/about/about-story.jpg"
+              alt="Professional automotive detailing and vehicle inspection inside TMR Car Care studio"
+              className="w-full h-full object-cover object-center scale-100 hover:scale-105 transition-transform duration-700 ease-out"
+            />
+            {/* Subtle Vignette Overlay for Depth */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
           </div>
 
         </div>
@@ -120,8 +114,8 @@ export const ContactPage: React.FC = () => {
       </section>
 
       {/* 02 / DIRECT CHANNELS & STUDIO LOCATION */}
-      <section className="py-20 sm:py-28 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
-        <div className="mb-12">
+      <section className="py-16 sm:py-24 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
+        <div className="mb-10">
           <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
             DIRECT CHANNELS &amp; LOCATION.
           </h2>
