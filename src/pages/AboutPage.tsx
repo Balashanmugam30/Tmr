@@ -50,8 +50,8 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / FUTURISTIC AUTOMOTIVE EDITORIAL HERO (MATCHES USER REFERENCE COMPOSITION) */}
-      <section className="relative w-full min-h-[92vh] lg:min-h-screen flex flex-col justify-between pt-32 sm:pt-36 pb-12 sm:pb-16 px-6 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]">
+      {/* 01 / EDITORIAL AUTOMOTIVE HERO — UPPER-LEFT TYPOGRAPHIC STACK */}
+      <section className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-start pt-28 sm:pt-36 pb-16 px-6 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]">
         
         {/* Layer 1: Native HTML5 Headlights Video Element with Poster Fallback */}
         {isReducedMotion ? (
@@ -74,9 +74,9 @@ export const AboutPage: React.FC = () => {
           </video>
         )}
 
-        {/* Layer 2: Subtle Editorial Left Gradient & Fine Film Grain Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/80 via-transparent to-black/30 z-10 pointer-events-none" />
+        {/* Layer 2: Subtle Left Readability Gradient & Fine Film Grain Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/92 via-[#050505]/45 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/85 via-transparent to-black/35 z-10 pointer-events-none" />
         <div
           className="absolute inset-0 z-10 opacity-[0.035] pointer-events-none mix-blend-overlay"
           style={{
@@ -84,21 +84,13 @@ export const AboutPage: React.FC = () => {
           }}
         />
 
-        {/* Layer 3: Left-Side Editorial Content Overlay (Matching Reference Proportions) */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto flex-grow flex flex-col justify-center my-auto">
+        {/* Layer 3: Upper-Left Editorial Content Stack (Anchored to Upper-Left Negative Space) */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto flex flex-col justify-start pt-4 sm:pt-8">
           
-          <div className="max-w-2xl flex flex-col space-y-6 pt-8 sm:pt-12">
+          <div className="max-w-xl flex flex-col space-y-5 sm:space-y-6">
             
-            {/* Top Subdued Metadata Label */}
-            <div className="flex items-center gap-3 text-[11px] font-mono text-[#FF4B00] uppercase tracking-[0.25em] select-none opacity-90">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" />
-              <span>01 / ABOUT</span>
-              <span className="text-white/30">•</span>
-              <span className="text-white/70">TMR CAR CARE / TIRUPPUR</span>
-            </div>
-
             {/* Futuristic Geometric Display Headline (Syncopate + Bricolage Grotesque Italic) */}
-            <h1 className="font-['Syncopate'] font-bold text-4xl sm:text-6xl md:text-[72px] lg:text-[84px] text-white uppercase tracking-[0.14em] leading-[1.05] select-none max-w-2xl">
+            <h1 className="font-['Syncopate'] font-bold text-4xl sm:text-6xl md:text-[68px] lg:text-[76px] text-white uppercase tracking-[0.14em] leading-[1.05] select-none max-w-xl">
               <span className="block font-medium tracking-[0.16em] text-white">BUILT</span>
               <span className="block font-bold tracking-[0.12em] text-white">AROUND</span>
               <span className="block font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal transform -rotate-1 hover:rotate-0 transition-transform duration-300">
@@ -106,37 +98,23 @@ export const AboutPage: React.FC = () => {
               </span>
             </h1>
 
-          </div>
-
-        </div>
-
-        {/* Layer 4: Bottom Editorial Caption & Minimal Arrow CTA (Matching Reference Position) */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto flex flex-col sm:flex-row sm:items-end justify-between gap-6 pt-4">
-          
-          {/* Bottom-Left Minimal Caption Column */}
-          <div className="flex items-center gap-4 max-w-md">
-            <a
-              href="#belief"
-              aria-label="Discover TMR Approach"
-              className="w-10 h-10 rounded-full border border-white/25 flex items-center justify-center text-white hover:border-[#FF4B00] hover:text-[#FF4B00] transition-colors flex-shrink-0 group"
-            >
-              <span className="text-sm transform group-hover:translate-x-0.5 transition-transform">→</span>
-            </a>
-            <p className="font-manrope text-xs sm:text-sm text-[#C8C8C2] uppercase tracking-widest leading-relaxed font-semibold">
+            {/* Refined Small Supporting Copy Statement */}
+            <p className="font-editorial text-base sm:text-lg text-[#E5E5E0] leading-relaxed max-w-md font-normal pt-1">
               Care isn't only about the finish. <br className="hidden sm:inline" />
               It's about the attention that gets you there.
             </p>
-          </div>
 
-          {/* Bottom-Right Minimal Text CTA Link */}
-          <div>
-            <a
-              href="#belief"
-              className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-white/70 hover:text-[#FF4B00] transition-colors group"
-            >
-              <span>DISCOVER THE TMR APPROACH</span>
-              <span className="text-sm text-[#FF4B00] group-hover:translate-x-1 transition-transform">→</span>
-            </a>
+            {/* Single Minimal Editorial CTA Link */}
+            <div className="pt-2">
+              <a
+                href="#belief"
+                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-white hover:text-[#FF4B00] transition-colors group"
+              >
+                <span>DISCOVER THE TMR APPROACH</span>
+                <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+              </a>
+            </div>
+
           </div>
 
         </div>
