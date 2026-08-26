@@ -50,8 +50,8 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / AUTHORITATIVE CINEMATIC HEADLIGHT ANIMATION HERO */}
-      <section className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-end pt-32 sm:pt-40 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]">
+      {/* 01 / CINEMATIC CENTERED EDITORIAL TYPOGRAPHIC HERO */}
+      <section className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-center items-center pt-28 sm:pt-36 pb-16 px-5 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]">
         
         {/* Layer 1: Native HTML5 Video Element with Poster Frame Fallback */}
         {isReducedMotion ? (
@@ -75,8 +75,7 @@ export const AboutPage: React.FC = () => {
         )}
 
         {/* Layer 2: Subtle Editorial Readability Gradients & Atmospheric Radial Accent */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/85 via-[#050505]/40 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505]/95 via-transparent to-black/20 z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/75 via-transparent to-[#050505]/85 z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-radial-gradient from-[#FF4B00]/15 via-transparent to-transparent opacity-50 z-10 pointer-events-none" />
         <div
           className="absolute inset-0 z-10 opacity-[0.035] pointer-events-none mix-blend-overlay"
@@ -85,31 +84,38 @@ export const AboutPage: React.FC = () => {
           }}
         />
 
-        {/* Layer 3: Minimal Editorial Typography Content Overlay */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto my-auto flex flex-col justify-end min-h-[65vh]">
+        {/* Layer 3: Centered Editorial Content Hierarchy Overlay */}
+        <div className="relative z-20 max-w-[960px] w-full mx-auto text-center flex flex-col items-center justify-center my-auto space-y-6 sm:space-y-8 pt-6">
           
-          {/* Eyebrow Label */}
-          <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-widest mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-            <span>TMR CAR CARE / TIRUPPUR</span>
+          {/* Top Brand / Location Line */}
+          <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-[0.25em] justify-center select-none">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] animate-pulse" />
+            <span>TMR CAR CARE</span>
+            <span className="text-white/30">•</span>
+            <span className="text-white/80">TIRUPPUR, TAMIL NADU</span>
           </div>
 
-          {/* Expressive Display Headline */}
-          <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[96px] lg:text-[108px] text-white uppercase tracking-tighter leading-[0.88] select-none max-w-4xl">
-            BUILT AROUND <br />
-            THE <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">craft.</span>
+          {/* Expressive Centered Display Headline */}
+          <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[88px] lg:text-[104px] text-white uppercase tracking-tighter leading-[0.88] select-none text-center flex flex-col items-center">
+            <span>BUILT</span>
+            <span>AROUND</span>
+            <span className="flex items-center gap-2 sm:gap-4 mt-1">
+              <span className="text-2xl sm:text-4xl md:text-5xl text-white/80 font-light tracking-widest uppercase font-manrope">THE</span>
+              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">craft.</span>
+            </span>
           </h1>
 
-          {/* Concise Editorial Supporting Copy */}
-          <p className="font-editorial text-xl sm:text-2xl text-[#E5E5E0] leading-snug border-l-2 border-[#FF4B00] pl-5 max-w-xl font-normal mt-6 mb-8">
-            Care isn't only about the finish. It's about the attention that gets you there.
+          {/* Refined Supporting Copy Statement */}
+          <p className="font-editorial text-lg sm:text-xl text-[#E5E5E0] leading-relaxed max-w-lg mx-auto font-normal text-center pt-1">
+            Care isn't only about the finish. <br className="hidden sm:inline" />
+            It's about the attention that gets you there.
           </p>
 
-          {/* Editorial Anchor Link CTA */}
-          <div>
+          {/* Minimal Editorial CTA */}
+          <div className="pt-2">
             <a
               href="#belief"
-              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group"
+              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-white hover:text-[#FF4B00] transition-colors group"
             >
               <span>DISCOVER THE TMR APPROACH</span>
               <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
