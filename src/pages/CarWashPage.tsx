@@ -33,23 +33,25 @@ export const CarWashPage: React.FC = () => {
               We deliver a meticulous, multi-stage wash process designed to safely remove road grime and environmental contamination while preserving your vehicle's delicate clear coat. Using pH-neutral snow foams, two-bucket contact washing, and scratch-free microfiber drying, a cleaner, refined vehicle starts here.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+            {/* Minimal Editorial Text Link CTAs — NO Box / Rectangle */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
               <a
                 href={`https://wa.me/${companyData.contact.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#FF4B00] text-white px-8 py-4 font-manrope font-bold text-xs uppercase tracking-widest hover:bg-[#0A0A0A] transition-colors duration-300 inline-flex items-center justify-center gap-2 shadow-lg"
+                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
               >
                 <span>WHATSAPP US</span>
-                <span className="text-base">→</span>
+                <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
               </a>
               <a
                 href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20Car%20Wash%20Services`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="border border-[#0A0A0A] text-[#0A0A0A] px-8 py-4 font-manrope font-bold text-xs uppercase tracking-widest text-center hover:bg-[#0A0A0A] hover:text-white transition-colors duration-300"
+                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
               >
-                ENQUIRE NOW
+                <span>ENQUIRE NOW</span>
+                <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
               </a>
             </div>
           </div>
@@ -165,13 +167,13 @@ export const CarWashPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Compact 4-Stage Horizontal/Vertical Editorial Sequence — NO images for steps */}
+        {/* Unboxed Open Editorial Process Grid — NO Cards / Boxes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           
           {/* Stage 01 */}
-          <div className="p-6 border border-[#D8D8D5] bg-white/50 rounded-xl space-y-4 hover:border-[#FF4B00] transition-colors duration-300">
-            <span className="font-mono text-2xl font-bold text-[#FF4B00] block">01</span>
-            <h3 className="font-manrope font-bold text-lg uppercase text-[#0A0A0A] tracking-wider">
+          <div className="space-y-3 pt-6 border-t border-[#D8D8D5]">
+            <span className="font-mono text-xs font-bold text-[#FF4B00] block">01</span>
+            <h3 className="font-manrope font-bold text-base uppercase text-[#0A0A0A] tracking-wider">
               PRE-RINSE
             </h3>
             <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed">
@@ -180,9 +182,9 @@ export const CarWashPage: React.FC = () => {
           </div>
 
           {/* Stage 02 */}
-          <div className="p-6 border border-[#D8D8D5] bg-white/50 rounded-xl space-y-4 hover:border-[#FF4B00] transition-colors duration-300">
-            <span className="font-mono text-2xl font-bold text-[#FF4B00] block">02</span>
-            <h3 className="font-manrope font-bold text-lg uppercase text-[#0A0A0A] tracking-wider">
+          <div className="space-y-3 pt-6 border-t border-[#D8D8D5]">
+            <span className="font-mono text-xs font-bold text-[#FF4B00] block">02</span>
+            <h3 className="font-manrope font-bold text-base uppercase text-[#0A0A0A] tracking-wider">
               SNOW FOAM
             </h3>
             <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed">
@@ -191,9 +193,9 @@ export const CarWashPage: React.FC = () => {
           </div>
 
           {/* Stage 03 */}
-          <div className="p-6 border border-[#D8D8D5] bg-white/50 rounded-xl space-y-4 hover:border-[#FF4B00] transition-colors duration-300">
-            <span className="font-mono text-2xl font-bold text-[#FF4B00] block">03</span>
-            <h3 className="font-manrope font-bold text-lg uppercase text-[#0A0A0A] tracking-wider">
+          <div className="space-y-3 pt-6 border-t border-[#D8D8D5]">
+            <span className="font-mono text-xs font-bold text-[#FF4B00] block">03</span>
+            <h3 className="font-manrope font-bold text-base uppercase text-[#0A0A0A] tracking-wider">
               CONTACT WASH
             </h3>
             <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed">
@@ -202,9 +204,9 @@ export const CarWashPage: React.FC = () => {
           </div>
 
           {/* Stage 04 */}
-          <div className="p-6 border border-[#D8D8D5] bg-white/50 rounded-xl space-y-4 hover:border-[#FF4B00] transition-colors duration-300">
-            <span className="font-mono text-2xl font-bold text-[#FF4B00] block">04</span>
-            <h3 className="font-manrope font-bold text-lg uppercase text-[#0A0A0A] tracking-wider">
+          <div className="space-y-3 pt-6 border-t border-[#D8D8D5]">
+            <span className="font-mono text-xs font-bold text-[#FF4B00] block">04</span>
+            <h3 className="font-manrope font-bold text-base uppercase text-[#0A0A0A] tracking-wider">
               DRY &amp; FINISH
             </h3>
             <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed">
@@ -291,21 +293,23 @@ export const CarWashPage: React.FC = () => {
             Book a professional car wash and cleaning service in Tiruppur and let TMR Car Care take care of the details.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+          {/* Minimal Editorial Text Link CTAs — NO Box / Rectangle */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-8 pt-4">
             <a
               href={`https://wa.me/${companyData.contact.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#FF4B00] text-white px-8 py-4 font-manrope font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#0B0B0B] transition-all duration-300 shadow-xl inline-flex items-center justify-center gap-2"
+              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer"
             >
               <span>BOOK VIA WHATSAPP</span>
-              <span className="text-base">→</span>
+              <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
             </a>
             <a
               href={`tel:${companyData.contact.phone}`}
-              className="border border-white/20 text-white px-8 py-4 font-manrope font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#0B0B0B] transition-all duration-300"
+              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer"
             >
-              CALL TMR
+              <span>CALL TMR</span>
+              <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
             </a>
           </div>
         </div>
