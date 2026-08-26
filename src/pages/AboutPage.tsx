@@ -149,69 +149,69 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / THE BELIEF — CONTAINED MEDIUM EDITORIAL VIDEO SECTION */}
-      <section className="bg-[#050505] text-white relative w-full overflow-hidden py-16 sm:py-20 border-b border-white/10 selection:bg-[#FF4B00]" id="belief">
-        <div className="max-w-[1360px] mx-auto px-6 md:px-16">
+      {/* 03 / THE BELIEF — FULL-WIDTH RECTANGULAR EDITORIAL VIDEO SECTION */}
+      <section className="relative w-full overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]" id="belief">
+        
+        {/* Full-Width Video Frame (Edge-to-Edge, Rectangular rounded-none, Height ~60-70vh) */}
+        <div className="relative w-full h-[540px] sm:h-[620px] lg:h-[680px] overflow-hidden bg-black flex flex-col justify-between">
           
-          {/* Contained Medium Frame with Subtle Border & Shadow */}
-          <div className="relative w-full rounded-2xl overflow-hidden border border-white/15 shadow-2xl bg-black flex flex-col justify-between p-6 sm:p-10 md:p-12 min-h-[480px] sm:min-h-[540px]">
+          {/* Layer 0: Video Background (Fills entire width, edge-to-edge) */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/images/about/about-belief-video-poster.jpg"
+            className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
+            aria-label="Professional automotive detailing background video at TMR Car Care"
+          >
+            <source src="/videos/about/about-belief-cinematic.mp4" type="video/mp4" />
+            <img
+              src="/images/about/about-belief-video-poster.jpg"
+              alt="Professional automotive detailing background"
+              className="w-full h-full object-cover"
+            />
+          </video>
+
+          {/* Layer 1: Left-Heavy Dark Vignette Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/50 z-10 pointer-events-none" />
+
+          {/* Layer 2: Floating Editorial UI Stack (Max-width container inside full-width video) */}
+          <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pt-10 sm:pt-14 md:pt-16 flex flex-col space-y-4 sm:space-y-5">
             
-            {/* Layer 0: Contained Video Background */}
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/images/about/about-belief-video-poster.jpg"
-              className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
-              aria-label="Professional automotive detailing background video at TMR Car Care"
-            >
-              <source src="/videos/about/about-belief-cinematic.mp4" type="video/mp4" />
-              <img
-                src="/images/about/about-belief-video-poster.jpg"
-                alt="Professional automotive detailing background"
-                className="w-full h-full object-cover"
-              />
-            </video>
+            {/* 4-Line Refined Geometric Display Headline */}
+            <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-3xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[78px] leading-[1.04] tracking-[-0.015em] uppercase text-white select-none max-w-[540px] xl:max-w-[620px]">
+              <span className="block font-normal text-white">GREAT CARE</span>
+              <span className="block font-normal text-white">BEGINS LONG</span>
+              <span className="block font-normal text-white">BEFORE THE</span>
+              <span className="block font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
+                POLISHER.
+              </span>
+            </h2>
 
-            {/* Layer 1: Left-Heavy Dark Vignette Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/50 z-10 pointer-events-none" />
+            {/* Supporting Paragraph */}
+            <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#D8D8D5] leading-relaxed max-w-[480px] font-normal pt-1">
+              At TMR Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its condition, and choose the right process for the finish.
+            </p>
 
-            {/* Layer 2: Floating Editorial UI Stack */}
-            <div className="relative z-20 max-w-2xl flex flex-col space-y-5 pt-2">
-              
-              {/* 4-Line Refined Geometric Display Headline */}
-              <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-3xl sm:text-5xl md:text-6xl lg:text-[68px] leading-[1.04] tracking-[-0.015em] uppercase text-white select-none max-w-[540px]">
-                <span className="block font-normal text-white">GREAT CARE</span>
-                <span className="block font-normal text-white">BEGINS LONG</span>
-                <span className="block font-normal text-white">BEFORE THE</span>
-                <span className="block font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
-                  POLISHER.
-                </span>
-              </h2>
-
-              {/* Supporting Paragraph */}
-              <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#D8D8D5] leading-relaxed max-w-[460px] font-normal">
-                At TMR Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its condition, and choose the right process for the finish.
-              </p>
-
-              {/* Single Minimal CTA Link */}
-              <div className="pt-2">
-                <Link
-                  to="/services/detailing-paint-care"
-                  className="inline-flex items-center gap-3 font-['Geist','Manrope',sans-serif] font-bold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
-                >
-                  <span>EXPLORE OUR PROCESS</span>
-                  <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-                </Link>
-              </div>
-
+            {/* Single Minimal CTA Link */}
+            <div className="pt-1">
+              <Link
+                to="/services/detailing-paint-care"
+                className="inline-flex items-center gap-3 font-['Geist','Manrope',sans-serif] font-bold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
+              >
+                <span>EXPLORE OUR PROCESS</span>
+                <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+              </Link>
             </div>
 
-            {/* Layer 3: Bottom Information Rail */}
-            <div className="relative z-20 pt-8 mt-6 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-6">
+          </div>
+
+          {/* Layer 3: Bottom Information Rail */}
+          <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pb-8 sm:pb-12 pt-6">
+            <div className="pt-6 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
               
               {/* Column 01 */}
               <div className="flex flex-col space-y-1">
@@ -229,7 +229,7 @@ export const AboutPage: React.FC = () => {
               </div>
 
               {/* Column 02 */}
-              <div className="flex flex-col space-y-1 border-t md:border-t-0 md:border-l border-white/15 pt-4 md:pt-0 md:pl-6">
+              <div className="flex flex-col space-y-1 border-t md:border-t-0 md:border-l border-white/15 pt-4 md:pt-0 md:pl-8">
                 <div className="flex items-center gap-3">
                   <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl sm:text-2xl text-[#FF4B00]">
                     02
@@ -244,7 +244,7 @@ export const AboutPage: React.FC = () => {
               </div>
 
               {/* Column 03 */}
-              <div className="flex flex-col space-y-1 border-t md:border-t-0 md:border-l border-white/15 pt-4 md:pt-0 md:pl-6">
+              <div className="flex flex-col space-y-1 border-t md:border-t-0 md:border-l border-white/15 pt-4 md:pt-0 md:pl-8">
                 <div className="flex items-center gap-3">
                   <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl sm:text-2xl text-[#FF4B00]">
                     03
@@ -259,10 +259,10 @@ export const AboutPage: React.FC = () => {
               </div>
 
             </div>
-
           </div>
 
         </div>
+
       </section>
 
 
