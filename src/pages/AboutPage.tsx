@@ -79,14 +79,13 @@ export const AboutPage: React.FC = () => {
               Care isn't only about the finish. <br className="hidden sm:inline" />
               It's about the attention that gets you there.
             </p>
-
             {/* Single Minimal Editorial CTA Link */}
             <div className="pt-2">
               <a
-                href="#belief"
+                href="#story"
                 className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-white hover:text-[#FF4B00] transition-colors group"
               >
-                <span>DISCOVER THE TMR APPROACH</span>
+                <span>DISCOVER THE TMR STORY</span>
                 <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
               </a>
             </div>
@@ -97,7 +96,99 @@ export const AboutPage: React.FC = () => {
 
       </section>
 
-      {/* 02 / THE BELIEF — BRAND PHILOSOPHY MANIFESTO */}
+      {/* 02 / OUR STORY — BRAND ORIGIN & FOUNDER STATEMENT */}
+      <section className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]" id="story">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-16">
+          
+          <div className="flex items-center gap-4">
+            <span className="font-manrope font-extrabold text-xs text-[#858585] uppercase tracking-widest">
+              02 / OUR STORY
+            </span>
+            <div className="w-16 h-px bg-[#D8D8D5]" />
+            <span className="font-manrope font-extrabold text-xs text-[#FF4B00] uppercase tracking-widest">
+              TMR CAR CARE • EST. 2009
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+            
+            {/* Left Story Content Column */}
+            <div className="lg:col-span-7 space-y-8">
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[0.92] tracking-tighter uppercase text-[#111111]">
+                BUILT IN TIRUPPUR. <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-4">built on care.</span>
+              </h2>
+
+              <div className="space-y-6 font-manrope text-base sm:text-lg text-[#5f5e5e] leading-relaxed max-w-2xl border-l-2 border-[#FF4B00] pl-6">
+                <p>
+                  TMR Car Care began in Tiruppur in 2009 with a simple, singular purpose: to provide quality automotive care with greater attention to the vehicle, the process, and the final result.
+                </p>
+                <p>
+                  Founded by Chandramohan Kandha Velu, the business grew from a dedication to precision paintwork into an established professional automotive detailing studio backed by a specialized team.
+                </p>
+                <p>
+                  Today, the founder remains actively involved in daily studio operations, ensuring that every vehicle receives the same disciplined preparation, clear-coat respect, and hydrophobic finish that built the TMR reputation across 1,000+ vehicles.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Story Photographic Asset */}
+            <div className="lg:col-span-5 relative border border-[#D8D8D5] rounded-xl overflow-hidden shadow-2xl bg-[#111111] group">
+              <img
+                src="/images/about/about-story.jpg"
+                alt="TMR Car Care professional detailing studio team working on luxury vehicle surface in Tiruppur"
+                className="w-full h-[380px] sm:h-[500px] object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+            </div>
+
+          </div>
+
+          {/* Bottom Large Editorial Statistics Row */}
+          <div className="pt-12 border-t border-[#D8D8D5] grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div className="flex flex-col space-y-2 p-2">
+              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-[#111111] tracking-tight">
+                EST. 2009
+              </span>
+              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                FOUNDED IN TIRUPPUR
+              </span>
+              <p className="text-xs text-[#707070] leading-relaxed">
+                Built on over a decade of disciplined automotive care and surface refinement.
+              </p>
+            </div>
+
+            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-[#D8D8D5] md:pl-8">
+              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-[#111111] tracking-tight">
+                1000+
+              </span>
+              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                VEHICLES CARED FOR
+              </span>
+              <p className="text-xs text-[#707070] leading-relaxed">
+                Trusted by vehicle owners across Tiruppur and surrounding districts.
+              </p>
+            </div>
+
+            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-[#D8D8D5] md:pl-8">
+              <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#111111] tracking-tight uppercase">
+                TIRUPPUR
+              </span>
+              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                TAMIL NADU, INDIA
+              </span>
+              <p className="text-xs text-[#707070] leading-relaxed">
+                Flagship studio on Avinashi Road, Near Hope College Junction.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 03 / THE BELIEF — BRAND PHILOSOPHY */}
       <section className="bg-[#111111] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10" id="belief">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-16">
           
@@ -107,7 +198,7 @@ export const AboutPage: React.FC = () => {
             <div className="lg:col-span-7 space-y-8 z-20">
               <div className="flex items-center gap-3 text-xs font-mono text-[#FF4B00] uppercase tracking-widest">
                 <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>02 / THE BELIEF</span>
+                <span>03 / THE BELIEF</span>
                 <span className="text-white/30">•</span>
                 <span className="text-white/70">BRAND PHILOSOPHY</span>
               </div>
@@ -118,7 +209,7 @@ export const AboutPage: React.FC = () => {
               </h2>
 
               <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-xl leading-relaxed font-normal border-l-2 border-[#FF4B00] pl-5">
-                A vehicle is more than a machine. It is a surface, a material, a reflection of the person behind it. At TMR, care begins with attention — understanding the clear coat, respecting the material, and taking the time required for a lasting finish.
+                A vehicle is more than a machine. It is a surface, a material and a reflection of the person behind it. At TMR, quality begins with understanding the vehicle before deciding how it should be cared for.
               </p>
             </div>
 
@@ -145,7 +236,7 @@ export const AboutPage: React.FC = () => {
                 </h3>
               </div>
               <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Surface inspection, clear coat condition evaluation, and material diagnostics before any treatment begins.
+                Understand the vehicle and its surface before treatment begins. Inspect defects, clear coat condition, and material sensitivity.
               </p>
             </div>
 
@@ -157,7 +248,7 @@ export const AboutPage: React.FC = () => {
                 </h3>
               </div>
               <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Correct tool selection, controlled multi-stage polishing, and disciplined paint correction methodology.
+                Use the appropriate process, tools and materials for the condition. Multi-stage polishing tailored to paint hardness.
               </p>
             </div>
 
@@ -169,7 +260,7 @@ export const AboutPage: React.FC = () => {
                 </h3>
               </div>
               <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
-                Refined surface presentation, hydrophobic ceramic sealing, and lasting paint protection.
+                Treat the final result as the standard. Seal in reflection with hydrophobic ceramic protection or self-healing PPF.
               </p>
             </div>
 
@@ -178,13 +269,13 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / THE APPROACH — METHOD & WORKFLOW */}
+      {/* 04 / THE APPROACH — METHOD & WORKFLOW */}
       <section className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
           
           <div className="flex items-center gap-4">
             <span className="font-manrope font-extrabold text-xs text-[#858585] uppercase tracking-widest">
-              03 / APPROACH
+              04 / THE APPROACH
             </span>
             <div className="w-16 h-px bg-[#D8D8D5]" />
             <span className="font-manrope font-extrabold text-xs text-[#FF4B00] uppercase tracking-widest">
@@ -266,13 +357,93 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 04 / PLACE — ROOTED IN TIRUPPUR (CONCISE LOCAL IDENTITY) */}
+      {/* 05 / THE TMR STANDARD — BRAND DIFFERENTIATION */}
+      <section className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-16">
+          
+          <div className="flex items-center gap-4">
+            <span className="font-extrabold text-xs text-[#FF4B00] uppercase tracking-widest">
+              05 / THE TMR STANDARD
+            </span>
+            <div className="w-16 h-px bg-white/20" />
+            <span className="font-extrabold text-xs text-[#858585] uppercase tracking-widest">
+              BRAND DIFFERENTIATION
+            </span>
+          </div>
+
+          <div className="max-w-3xl space-y-6">
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-white leading-[0.92]">
+              QUALITY IS IN THE <br />
+              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1">process.</span>
+            </h2>
+            <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed border-l-2 border-[#FF4B00] pl-5">
+              What sets TMR apart isn't marketing claims — it's the disciplined standard applied to every vehicle that enters our studio.
+            </p>
+          </div>
+
+          {/* 4 Editorial Differentiation Principles Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-6">
+            
+            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">01 / EXPERIENCE</span>
+              <div className="space-y-3">
+                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
+                  EXPERIENCE
+                </h3>
+                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
+                  Established in 2009 and built around long-term automotive-care knowledge and clear-coat expertise.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">02 / QUALITY</span>
+              <div className="space-y-3">
+                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
+                  QUALITY
+                </h3>
+                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
+                  The focus is on doing the work properly rather than rushing the preparation or finishing stages.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">03 / SPECIALIZATION</span>
+              <div className="space-y-3">
+                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
+                  SPECIALIZATION
+                </h3>
+                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
+                  TMR's team is focused specifically on automotive care, paint correction, and vehicle protection.
+                </p>
+              </div>
+            </div>
+
+            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
+              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">04 / CONSISTENCY</span>
+              <div className="space-y-3">
+                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
+                  CONSISTENCY
+                </h3>
+                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
+                  The same attention to preparation, execution and finish carries through every vehicle we care for.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 06 / ROOTED IN TIRUPPUR — LOCAL STUDIO IDENTITY */}
       <section className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
           
           <div className="flex items-center gap-4">
             <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#858585]">
-              04 / PLACE
+              06 / TIRUPPUR
             </span>
             <div className="w-16 h-px bg-[#D8D8D5]" />
             <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
@@ -289,20 +460,23 @@ export const AboutPage: React.FC = () => {
               </h2>
 
               <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
-                TMR Car Care is a professional automotive detailing studio built around precision surface care, thoughtful workmanship and long-term vehicle finish in Tiruppur, Tamil Nadu.
+                TMR Car Care began in Tiruppur and continues to serve vehicle owners from the city and surrounding areas with professional automotive care.
               </p>
 
-              <div className="pt-2 flex items-center gap-3 text-xs font-mono text-[#858585] uppercase tracking-widest">
-                <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-                <span>AVINASHI ROAD • NEAR HOPE COLLEGE JUNCTION • TIRUPPUR</span>
+              <div className="pt-2 flex flex-col space-y-2 text-xs font-mono text-[#707070] uppercase tracking-widest">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
+                  <span>AVINASHI ROAD • NEAR HOPE COLLEGE JUNCTION</span>
+                </div>
+                <span className="pl-4 text-[#111111] font-bold">TIRUPPUR, TAMIL NADU 641602</span>
               </div>
 
               <div className="pt-4">
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-3 px-6 py-4 bg-[#111111] text-white font-extrabold text-xs uppercase tracking-widest hover:bg-[#FF4B00] transition-colors rounded-md shadow-lg"
+                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#111111] text-white font-extrabold text-xs uppercase tracking-widest hover:bg-[#FF4B00] transition-colors rounded-md shadow-lg"
                 >
-                  <span>STUDIO DIRECTIONS & CONTACT</span>
+                  <span>VIEW LOCATION & CONTACT</span>
                   <span className="text-base">→</span>
                 </Link>
               </div>
@@ -321,7 +495,7 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 05 / ENQUIRY — CONCISE AUTOMOTIVE CLOSING FRAME */}
+      {/* 07 / FINAL CTA — START HERE */}
       <section className="relative w-full min-h-[70vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-28 font-manrope">
         {/* Layer 1: Full-Bleed Background Visual */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -341,16 +515,16 @@ export const AboutPage: React.FC = () => {
           <div className="max-w-2xl space-y-6">
             <div className="font-extrabold text-xs text-[#FF4B00] tracking-widest uppercase flex items-center">
               <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              05 / ENQUIRY
+              07 / START HERE
             </div>
 
             <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
-              READY TO START THE <br />
-              <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">conversation?</span>
+              YOUR CAR DESERVES <br />
+              THE RIGHT <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">care.</span>
             </h2>
 
             <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l pl-4 border-white/20 max-w-xl">
-              Tell TMR what you're looking for and we'll help you find the right service or next step for your vehicle.
+              Talk to the TMR Car Care team about the right next step for your vehicle.
             </p>
 
             {/* Action Buttons */}
@@ -365,13 +539,13 @@ export const AboutPage: React.FC = () => {
                 <span className="text-base">→</span>
               </a>
 
-              <a
-                href={`tel:${companyData.contact.phone}`}
+              <Link
+                to="/contact"
                 className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-md font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors text-center inline-flex items-center justify-center gap-2"
               >
-                <span>CALL TMR</span>
+                <span>CONTACT TMR</span>
                 <span className="text-base">→</span>
-              </a>
+              </Link>
             </div>
 
             {/* Location Line */}
