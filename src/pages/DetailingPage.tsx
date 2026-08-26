@@ -136,22 +136,13 @@ export const DetailingPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Dedicated Hero Image 1 of 2 */}
+        {/* Dedicated Hero Image 1 of 2 — Clean Photography Only */}
         <div className="mt-12 sm:mt-16 w-full h-[360px] sm:h-[520px] md:h-[640px] relative overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-2xl bg-[#0A0A0A] group">
           <img
-            src="https://lh3.googleusercontent.com/aida/AP1WRLuerGKC_1ULZcPObVg8PpCBLfX_aWHLPXezoH_L7xpPXQQb-ZYzaEdS6ZUJtoZVWt8Sm7LZiytK5p3Ybb0ffrfZt6e59-PYIoY29P2352gEf0Kv2bKewzCjSC-qCRFm6Y-1bzR72-vK1zu2w23HXTJElhKGWPShqhMUl_rSoKuidJBEQCxdHnL6NHDBqOjefdqA44pdOPlh5Y_v4Pfla3tSGbU4jzT2u42hH_FVEa4kSX0_bcK1ySJt6g"
-            alt="Professional automotive machine paint correction and surface detailing at TMR Car Care studio Tiruppur"
+            src="/images/services/detailing/detail-paint-hero.jpg"
+            alt="Professional machine paint correction on a dark vehicle at a detailing studio in Tiruppur"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-6 left-6 right-6 text-white pointer-events-none">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF4B00] block mb-1">
-              PRECISION PAINT CORRECTION
-            </span>
-            <p className="font-manrope font-bold text-sm text-white">
-              TMR Car Care Studio — Avinashi Road, Tiruppur
-            </p>
-          </div>
         </div>
       </section>
 
@@ -207,22 +198,13 @@ export const DetailingPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Dedicated Supporting Image 2 of 2 — Close-Up Inspection */}
+          {/* Dedicated Supporting Image 2 of 2 — Clean Inspection Photography Only */}
           <div className="lg:col-span-7 h-[380px] sm:h-[500px] bg-[#0A0A0A] overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-xl relative group">
             <img
-              src="https://lh3.googleusercontent.com/aida/AP1WRLu76ppBIHNU6AsUvNbsOnt37wVPWAr1xhQThMWyvRy413nI6wNyEz4auNmTw9sjzvmS_Utx-q2TLm7a9hYiJBKD4AtIXyRDuRt2noQIs0qw9eEmUXQ0V_wr2FD2fLApQ2YkXQ5OYkV8xDmQgu8OckOYdADqyfeO99m0JmKbEC9G84djJnQifg4rIPaHaO85d4SXqhI_rNvsSUOCWRwkNO9CuNzpB_IcusWjxYlTG2uq1LrNXFkNBdyp1OY"
-              alt="Detailed paint surface defect audit under professional inspection lights at TMR Car Care"
+              src="/images/services/detailing/detail-paint-inspection.jpg"
+              alt="Paint surface inspection under detailing lights before machine polishing"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-            <div className="absolute bottom-6 left-6 right-6 text-white pointer-events-none">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF4B00] block mb-1">
-                HIGH-INTENSITY OPTICAL AUDIT
-              </span>
-              <p className="font-manrope font-bold text-sm text-white">
-                Defect Identification &amp; Paint Thickness Assessment
-              </p>
-            </div>
           </div>
 
         </div>
@@ -397,7 +379,7 @@ export const DetailingPage: React.FC = () => {
       </section>
 
       {/* 06. DETAILING FAQ SECTION */}
-      <section className="relative w-full min-h-[75vh] py-24 sm:py-32 border-b border-[#D8D8D5] overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#FAF8F5] via-[#F1EEE7] to-[#E8E4DB]">
+      <section className="relative w-full min-h-[75vh] py-24 sm:py-36 border-b border-[#D8D8D5] overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#FAF8F5] via-[#F1EEE7] to-[#E8E4DB]">
         {/* FAQPage JSON-LD Structured Data */}
         <script
           type="application/ld+json"
