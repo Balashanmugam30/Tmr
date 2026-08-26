@@ -769,9 +769,9 @@ export const ProductsPage: React.FC = () => {
 
       {/* THE COLLECTION CATALOGUE (DYNAMIC EDITORIAL PRODUCT RUNWAY SLIDER - VIEWPORT EDGE BLEED) */}
       <section className="relative w-full bg-gradient-to-b from-[#F5F4EF] via-[#141414] to-[#050505] text-white py-20 sm:py-32 overflow-hidden" id="product-catalogue">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 pb-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-10">
-            <div>
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 pb-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start md:items-end mb-8">
+            <div className="col-span-12 md:col-span-5 lg:col-span-4">
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-[#111111] leading-none mb-2">
                 THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">products.</span>
               </h2>
@@ -780,7 +780,7 @@ export const ProductsPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="w-full md:w-auto flex flex-col gap-6 items-start md:items-end">
+            <div className="col-span-12 md:col-span-7 lg:col-span-8 flex flex-col gap-5 items-start md:items-end">
               {/* FIND A PRODUCT Search Input */}
               <div className="relative w-full md:w-80">
                 <input
@@ -802,7 +802,7 @@ export const ProductsPage: React.FC = () => {
               </div>
 
               {/* Category Filter Navigation */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3 justify-start md:justify-end">
                 {["ALL", "ABRASIVES", "CLEANING", "POLISHING", "PROTECTION", "FILMS", "TOOLS", "ACCESSORIES"].map((filter) => (
                   <button
                     key={filter}
@@ -822,7 +822,7 @@ export const ProductsPage: React.FC = () => {
         </div>
 
         {/* Carousel Navigation Bar */}
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 pb-4 flex justify-between items-center">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 pb-4 flex justify-between items-center">
           <span className="text-[10px] sm:text-xs font-bold text-[#A0A0A0] uppercase tracking-widest">
             Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Drag or Swipe →
           </span>
