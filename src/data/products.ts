@@ -52,26 +52,34 @@ export const productsData: Product[] = [
     detailRoute: "/products/3m-perfect-it-ex-ac-rubbing-compound",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,
-    seoTitle: "3M™ Perfect-It™ EX AC Rubbing Compound | TMR Car Care Tiruppur",
-    seoDescription: "3M™ Perfect-It™ EX AC Rubbing Compound (PN 36060) at TMR Car Care Tiruppur. High-performance paint correction formula for removing P1200 or finer sand scratches.",
-    seoH1: "3M™ PERFECT-IT™ EX AC RUBBING COMPOUND",
+    seoTitle: "3M™ Perfect-It™ EX AC Rubbing Compound PN 36060 | TMR Car Care Tiruppur",
+    seoDescription: "3M™ Perfect-It™ EX AC Rubbing Compound (PN 36060) at TMR Car Care Tiruppur. Precision compound for removing P1200 or finer sand scratches while leaving high-gloss finish.",
+    seoH1: "3M™ PERFECT-IT™ EX AC RUBBING COMPOUND (PN 36060)",
     relatedProductIds: ["3m-perfect-it-machine-polish", "3m-perfect-it-ultrafine-machine-polish", "3m-perfect-it-foam-compounding-pad"],
     faqs: [
       {
-        q: "What type of compounding pads are recommended for 3M Perfect-It EX AC Rubbing Compound?",
-        a: "For optimal defect removal and finish, we recommend using a 3M Perfect-It Foam Compounding Pad (PN 05706) or wool compounding pad on a rotary or dual-action polisher."
+        q: "What is 3M Perfect-It EX AC Rubbing Compound used for?",
+        a: "3M Perfect-It EX AC Rubbing Compound (PN 36060) is an advanced paint correction compound formulated to rapidly remove P1200 or finer sand scratches, heavy oxidation, and surface defects."
+      },
+      {
+        q: "What type of compounding pads are recommended for 3M EX AC?",
+        a: "For optimal defect removal and minimal sling, we recommend pairing it with a 3M Perfect-It Foam Compounding Pad (PN 05706) or a wool compounding pad on a rotary or dual-action polisher."
       },
       {
         q: "Is 3M Perfect-It EX AC Rubbing Compound safe for all clear coats?",
-        a: "Yes, the EX AC formulation is explicitly engineered to be safe and highly effective on all modern clear coats, single-stage paints, and fresh refinish clear coats."
+        a: "Yes, the EX AC formulation is engineered for high performance on modern clear coats, fresh refinish paint systems, and hard OEM finishes without overheating the panel."
       },
       {
-        q: "Does 3M Perfect-It EX AC Rubbing Compound contain silicones or fillers?",
-        a: "No, it is a true abrasive compound that permanently eliminates P1200 or finer sand scratches rather than temporarily filling defects."
+        q: "Does 3M EX AC Rubbing Compound contain fillers or silicones?",
+        a: "No, it is a true abrasive compound that permanently levels paint defects rather than temporarily filling scratches."
       },
       {
         q: "What step should follow compounding with 3M EX AC?",
-        a: "Following compounding, apply 3M Perfect-It Machine Polish (PN 06064) with a foam polishing pad to eliminate compounding swirl marks and elevate gloss."
+        a: "Following heavy compounding, proceed to Step 2 with 3M Perfect-It Machine Polish (PN 06064) to eliminate compound swirl marks and refine depth of gloss."
+      },
+      {
+        q: "How does TMR Car Care use 3M EX AC in Tiruppur?",
+        a: "TMR Car Care technicians utilize 3M EX AC Rubbing Compound as the foundational heavy-cut correction stage during multi-step detailing workflows in our Tiruppur studio."
       }
     ],
   },

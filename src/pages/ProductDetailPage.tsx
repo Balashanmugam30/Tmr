@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { companyData } from '@/data/company';
-import { productsData } from '@/data/products';
+import { productsData, Product } from '@/data/products';
 
 export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Find target product from data store or default to first record
-  const product = productsData.find((p) => p.slug === slug) || productsData[0];
+  const product: Product = productsData.find((p) => p.slug === slug) || productsData[0];
 
-  const titleText = product.seoTitle || `${product.name} | TMR Car Care Tiruppur`;
+  const titleText = product.seoTitle || `${product.name} (${product.sku}) | TMR Car Care Tiruppur`;
   const descText = product.seoDescription || `${product.name} (${product.sku}) at TMR Car Care Tiruppur. ${product.shortDescription}`;
 
   useEffect(() => {
@@ -115,20 +115,20 @@ export const ProductDetailPage: React.FC = () => {
   // Product-specific FAQs from productsData or fallback
   const faqs = product.faqs || [
     {
-      q: `What type of pads or tools are recommended for ${product.name}?`,
-      a: `For optimal performance with ${product.name}, we recommend using professional-grade foam or microfiber pads tailored to ${product.category.toLowerCase()} applications.`,
+      q: `What is ${product.name} used for?`,
+      a: `${product.name} (${product.sku}) is a professional ${product.category.toLowerCase()} formulation engineered for paint surface preparation and automotive refinement.`,
     },
     {
-      q: "Is this safe for modern clear coats and specialized vehicle finishes?",
-      a: `Yes, ${product.name} is explicitly engineered to be safe and effective on clear coats and factory paint systems when applied by trained detailing professionals.`,
+      q: `Is ${product.name} safe for modern clear coat finishes?`,
+      a: `Yes, ${product.name} is engineered to perform safely across modern OEM clear coats, single-stage finishes, and fresh refinish paintwork when used by trained detailing specialists.`,
     },
     {
-      q: "Does TMR Car Care use this product in studio services?",
-      a: `Yes. We integrate ${product.name} directly into our professional detailing and surface prep workflows in Tiruppur.`,
+      q: `How does TMR Car Care utilize ${product.name} in Tiruppur?`,
+      a: `TMR Car Care integrates ${product.name} into our surface correction and preparation workflows in Tiruppur according to paint condition and required refinement grade.`,
     },
   ];
 
-  // Determine service link mapping based on category
+  // Service Target Mapping based on category
   const getServiceLink = () => {
     switch (product.category) {
       case 'POLISHING':
@@ -148,7 +148,7 @@ export const ProductDetailPage: React.FC = () => {
 
   const serviceTarget = getServiceLink();
 
-  // Logical related products mapping based on relatedProductIds
+  // Related products mapping
   const relatedProducts = (() => {
     if (product.relatedProductIds && product.relatedProductIds.length > 0) {
       const matched = productsData.filter((p) => product.relatedProductIds?.includes(p.id));
@@ -157,86 +157,165 @@ export const ProductDetailPage: React.FC = () => {
     return productsData.filter((p) => p.id !== product.id).slice(0, 3);
   })();
 
+  // Application spec finder for quick facts
+  const applicationSpec = product.specs.find(
+    (s) =>
+      s.label.toLowerCase().includes('application') ||
+      s.label.toLowerCase().includes('surface') ||
+      s.label.toLowerCase().includes('area')
+  )?.value || 'Exterior Clear Coat';
+
   return (
-    <div className="w-full bg-[#F5F4EF] text-[#111111] font-manrope selection:bg-[#FF4B00] selection:text-white pt-20">
+    <div className="w-full bg-[#0A0A0A] text-[#F1EEE7] font-manrope selection:bg-[#FF4B00] selection:text-white pt-24 min-h-screen relative">
       
-      {/* 01 / BREADCRUMB & PRODUCT HERO */}
-      <header className="relative w-full pt-16 pb-24 sm:pb-32 overflow-hidden border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      {/* SECTION A — PRODUCT HERO */}
+      <section className="relative w-full pt-12 pb-16 sm:pb-24 overflow-hidden border-b border-white/10">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+            
+            {/* Left Content Column */}
             <div className="col-span-12 md:col-span-6 flex flex-col z-10">
               
               {/* Visual Breadcrumb Trail */}
-              <div className="mb-6 flex flex-wrap items-center gap-3 text-[#858585] font-bold uppercase tracking-wider text-xs sm:text-sm">
+              <div className="mb-6 flex flex-wrap items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-[#888888]">
                 <Link to="/" className="hover:text-[#FF4B00] transition-colors">
                   HOME
                 </Link>
-                <span className="w-1.5 h-1.5 bg-[#FF4B00] rounded-full" />
+                <span className="text-[#FF4B00]">•</span>
                 <Link to="/products" className="hover:text-[#FF4B00] transition-colors">
                   PRODUCTS
                 </Link>
-                <span className="w-1.5 h-1.5 bg-[#FF4B00] rounded-full" />
-                <span className="text-[#FF4B00]">{product.brand}</span>
-                <span className="w-1.5 h-1.5 bg-[#FF4B00] rounded-full" />
-                <span className="text-[#111111]">{product.category}</span>
+                <span className="text-[#FF4B00]">•</span>
+                <span className="text-white/70">{product.brand}</span>
+                <span className="text-[#FF4B00]">•</span>
+                <span className="text-[#FF4B00]">{product.category}</span>
               </div>
 
-              <h1 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-[64px] text-[#111111] mb-8 leading-tight tracking-tighter uppercase">
+              {/* Category & Family Badge */}
+              <span className="text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest mb-2">
+                {product.brand} — {product.category}
+              </span>
+
+              {/* Product Name H1 */}
+              <h1 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white mb-4 leading-tight tracking-tighter uppercase">
                 {product.seoH1 || product.name}
               </h1>
 
-              <div className="flex flex-wrap gap-4 pt-4">
+              {/* Concise Product Statement */}
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5]/80 leading-relaxed mb-4 max-w-xl">
+                {product.shortDescription}
+              </p>
+
+              {/* Supporting Technical Line */}
+              <span className="font-mono text-xs text-[#A0A0A0] font-bold uppercase tracking-wider mb-8 block">
+                PART / SKU: <span className="text-[#FF4B00]">{product.sku}</span>
+              </span>
+
+              {/* Minimal Text/Line CTAs (NO BOXY BUTTONS) */}
+              <div className="flex flex-wrap items-center gap-6 pt-2">
                 <a
                   href={`https://wa.me/${companyData.contact.whatsapp}?text=Inquiry%20regarding%20${encodeURIComponent(product.name)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-[#111111] text-white font-bold text-xs sm:text-sm uppercase tracking-wider px-8 py-4 hover:bg-[#FF4B00] transition-colors inline-flex items-center gap-2 rounded"
+                  className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors"
                 >
                   <span>ENQUIRE ABOUT THIS PRODUCT</span>
-                  <span className="text-base">↗</span>
+                  <span className="text-sm">→</span>
                 </a>
                 <a
                   href={`https://wa.me/${companyData.contact.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-[#111111] text-[#111111] font-bold text-xs sm:text-sm uppercase tracking-wider px-8 py-4 hover:bg-[#111111] hover:text-white transition-colors inline-flex items-center gap-2 rounded"
+                  className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#A0A0A0] border-b-2 border-white/20 pb-1 hover:text-white hover:border-white transition-colors"
                 >
                   <span>WHATSAPP TMR</span>
-                  <span className="text-base">↗</span>
+                  <span className="text-sm">→</span>
                 </a>
               </div>
             </div>
 
-            {/* Hero Image Right */}
-            <div className="col-span-12 md:col-span-6 relative mt-8 md:mt-0">
-              <div className="relative w-full aspect-[4/3] sm:aspect-square bg-white border border-[#D8D8D5] overflow-hidden flex items-center justify-center p-8 rounded-lg shadow-sm">
+            {/* Right Product Image Column */}
+            <div className="col-span-12 md:col-span-6 relative mt-4 md:mt-0">
+              <div className="relative w-full aspect-[4/3] bg-[#111111] border border-white/10 rounded-xl overflow-hidden flex items-center justify-center p-8 shadow-2xl">
+                <div className="absolute inset-0 bg-radial from-white/5 via-transparent to-black/60 pointer-events-none" />
                 <img
                   src={product.image}
-                  alt={`${product.name} high resolution product packaging`}
-                  className="w-4/5 h-4/5 object-contain"
+                  alt={`${product.name} product packaging - TMR Car Care`}
+                  className="w-4/5 h-4/5 object-contain relative z-10 group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
                     e.currentTarget.style.opacity = '0.7';
                   }}
                 />
               </div>
             </div>
+
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* 02 / PRODUCT OVERVIEW */}
-      <section className="py-20 sm:py-32 border-b border-[#D8D8D5] bg-white">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
+      {/* SECTION B — QUICK PRODUCT FACTS */}
+      <section className="w-full py-8 border-b border-white/10 bg-[#0B0B0B]">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-6 text-left">
+            <div>
+              <span className="text-[10px] font-bold text-[#888888] uppercase tracking-widest block mb-1">
+                BRAND
+              </span>
+              <span className="font-manrope font-extrabold text-sm sm:text-base text-white">
+                {product.brand}
+              </span>
+            </div>
+            <div>
+              <span className="text-[10px] font-bold text-[#888888] uppercase tracking-widest block mb-1">
+                PART NUMBER
+              </span>
+              <span className="font-manrope font-extrabold text-sm sm:text-base text-[#FF4B00] font-mono">
+                {product.sku}
+              </span>
+            </div>
+            <div>
+              <span className="text-[10px] font-bold text-[#888888] uppercase tracking-widest block mb-1">
+                CATEGORY
+              </span>
+              <span className="font-manrope font-extrabold text-sm sm:text-base text-white">
+                {product.category}
+              </span>
+            </div>
+            <div>
+              <span className="text-[10px] font-bold text-[#888888] uppercase tracking-widest block mb-1">
+                APPLICATION
+              </span>
+              <span className="font-manrope font-extrabold text-sm sm:text-base text-white truncate block">
+                {applicationSpec}
+              </span>
+            </div>
+            <div className="col-span-2 md:col-span-1">
+              <span className="text-[10px] font-bold text-[#888888] uppercase tracking-widest block mb-1">
+                STATUS
+              </span>
+              <span className="font-manrope font-extrabold text-sm sm:text-base text-white">
+                Studio Verified
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION C — WHAT IT DOES */}
+      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0A0A0A]">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-4">
-              <span className="font-bold uppercase tracking-widest text-[#858585] text-xs block mb-2">
-                What It Is.
+              <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00] mb-2">
+                WHAT IT DOES.
+              </h2>
+              <span className="font-manrope font-extrabold text-2xl sm:text-4xl text-white uppercase tracking-tight block">
+                THE PRODUCT.
               </span>
-              <div className="w-12 h-1 bg-[#111111]" />
             </div>
 
             <div className="col-span-12 md:col-span-8">
-              <p className="font-editorial text-2xl sm:text-4xl text-[#111111] leading-relaxed">
+              <p className="font-manrope text-base sm:text-lg text-[#D8D8D5]/90 leading-relaxed max-w-3xl">
                 {product.fullDescription}
               </p>
             </div>
@@ -244,88 +323,56 @@ export const ProductDetailPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / VERIFIED TECHNICAL SPECIFICATIONS */}
-      <section className="py-20 sm:py-24 bg-[#F5F4EF] border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="mb-12">
-            <span className="font-bold uppercase tracking-widest text-[#858585] text-xs block">
-              The Specifications.
-            </span>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 border-t border-b border-[#D8D8D5] bg-white rounded-lg overflow-hidden shadow-sm">
-            <div className="border-r border-b md:border-b-0 border-[#D8D8D5] p-6 sm:p-8 flex flex-col justify-between">
-              <span className="font-bold text-xs text-[#858585] uppercase tracking-wider mb-4">Brand</span>
-              <span className="font-manrope font-extrabold text-xl sm:text-2xl text-[#111111]">{product.brand}</span>
-            </div>
-
-            <div className="border-r border-b md:border-b-0 border-[#D8D8D5] p-6 sm:p-8 flex flex-col justify-between">
-              <span className="font-bold text-xs text-[#858585] uppercase tracking-wider mb-4">Part / SKU</span>
-              <span className="font-manrope font-extrabold text-xl sm:text-2xl text-[#FF4B00]">{product.sku}</span>
-            </div>
-
-            <div className="border-r border-[#D8D8D5] p-6 sm:p-8 flex flex-col justify-between">
-              <span className="font-bold text-xs text-[#858585] uppercase tracking-wider mb-4">Category</span>
-              <span className="font-manrope font-extrabold text-xl sm:text-2xl text-[#111111]">{product.category}</span>
-            </div>
-
-            <div className="p-6 sm:p-8 flex flex-col justify-between">
-              <span className="font-bold text-xs text-[#858585] uppercase tracking-wider mb-4">Status</span>
-              <span className="font-manrope font-extrabold text-xl sm:text-2xl text-[#111111]">Studio Verified</span>
-            </div>
-          </div>
-
-          {/* Technical Specs List */}
-          {product.specs && product.specs.length > 0 && (
-            <div className="mt-12 bg-white p-8 border border-[#D8D8D5] rounded-lg shadow-sm">
-              <h3 className="font-manrope font-extrabold text-xl uppercase tracking-tight text-[#111111] mb-6 pb-4 border-b border-[#D8D8D5]">
-                Verified Technical Attributes
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {product.specs.map((spec, idx) => (
-                  <div key={idx} className="border-b border-[#D8D8D5]/60 pb-3">
-                    <span className="text-[10px] text-[#858585] uppercase tracking-widest block mb-1">{spec.label}</span>
-                    <span className="font-bold text-sm text-[#111111]">{spec.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* 04 / WHY IT BELONGS IN THE TMR WORKFLOW */}
-      <section className="py-20 sm:py-32 bg-[#111111] text-white border-b border-white/10">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            <div className="col-span-12 md:col-span-5 order-2 md:order-1">
-              <div className="relative aspect-square w-full max-w-md border border-white/20 overflow-hidden rounded-lg">
-                <img
-                  src={product.image}
-                  alt={`${product.name} studio prep view`}
-                  className="w-full h-full object-contain p-8 bg-white/5"
-                />
-              </div>
-            </div>
-
-            <div className="col-span-12 md:col-span-6 md:col-start-7 order-1 md:order-2 space-y-6">
-              <span className="font-bold uppercase tracking-widest text-[#FF4B00] text-xs block">
-                Part of the TMR Workflow.
-              </span>
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
-                Engineered for absolute clarity.
+      {/* SECTION D — TECHNICAL SPECIFICATIONS */}
+      {product.specs && product.specs.length > 0 && (
+        <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0B0B0B]">
+          <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
+            <div className="mb-8">
+              <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00] mb-1">
+                PRODUCT DATA.
               </h2>
-              <p className="text-base text-[#D8D8D5] leading-relaxed">
-                We don't just supply products; we integrate {product.name} into our high-performance detailing workflows in Tiruppur, ensuring maximum longevity and precision for your vehicle finish.
-              </p>
+              <h3 className="font-manrope font-extrabold text-2xl sm:text-3xl text-white uppercase tracking-tight">
+                TECHNICAL SPECIFICATIONS.
+              </h3>
+            </div>
 
-              <div className="pt-4">
+            <div className="divide-y divide-white/10 border-t border-b border-white/10 max-w-4xl">
+              {product.specs.map((spec, idx) => (
+                <div key={idx} className="py-4 flex justify-between items-center text-xs sm:text-sm">
+                  <span className="font-bold uppercase tracking-widest text-[#888888]">
+                    {spec.label}
+                  </span>
+                  <span className="font-bold text-white text-right">
+                    {spec.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SECTION E — USED WITHIN THE TMR PROCESS */}
+      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0A0A0A]">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div className="col-span-12 md:col-span-8 space-y-4">
+              <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                WORKFLOW INTEGRATION.
+              </h2>
+              <h3 className="font-manrope font-extrabold text-2xl sm:text-4xl text-white uppercase tracking-tight">
+                USED WITHIN THE TMR PROCESS.
+              </h3>
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5]/80 leading-relaxed max-w-2xl">
+                This product is used as part of controlled paint correction and surface preparation at TMR Car Care in Tiruppur, selected according to paint condition, defect severity, and required refinement stage.
+              </p>
+              <div className="pt-2">
                 <Link
                   to={serviceTarget.route}
-                  className="inline-flex items-center gap-3 text-white font-bold text-xs uppercase tracking-widest border-b border-white pb-2 hover:text-[#FF4B00] hover:border-[#FF4B00] transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors"
                 >
                   <span>EXPLORE {serviceTarget.name.toUpperCase()} SERVICE</span>
-                  <span className="text-base">↗</span>
+                  <span className="text-sm">→</span>
                 </Link>
               </div>
             </div>
@@ -333,58 +380,66 @@ export const ProductDetailPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 05 / RELATED PRODUCTS FROM CATALOGUE */}
-      <section className="py-20 sm:py-32 bg-white border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="mb-12">
-            <span className="font-bold uppercase tracking-widest text-[#858585] text-xs block mb-2">
-              From the Same Collection.
-            </span>
-            <h3 className="font-manrope font-extrabold text-3xl sm:text-4xl text-[#111111] uppercase tracking-tight">
-              Complete the system.
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {relatedProducts.map((relProd) => (
-              <Link
-                key={relProd.id}
-                to={relProd.detailRoute}
-                className="group block border border-[#D8D8D5] p-6 hover:border-[#FF4B00] transition-colors bg-[#F5F4EF] rounded-lg"
-              >
-                <div className="aspect-square bg-white mb-6 relative overflow-hidden flex items-center justify-center p-4 rounded border border-[#D8D8D5]/50">
-                  <img
-                    src={relProd.image}
-                    alt={relProd.name}
-                    className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-wider block mb-1">
-                  {relProd.category}
-                </span>
-                <h4 className="font-bold text-base text-[#111111] group-hover:text-[#FF4B00] transition-colors">
-                  {relProd.name}
-                </h4>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 06 / PRODUCT FAQ (REFINED HOVER + FOCUS + TOUCH INTERACTION) */}
-      <section className="py-20 sm:py-32 bg-white border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            <div className="col-span-12 md:col-span-4">
-              <span className="font-bold uppercase tracking-widest text-[#858585] text-xs block mb-2">
-                Questions.
-              </span>
-              <h3 className="font-manrope font-extrabold text-3xl sm:text-4xl text-[#111111] uppercase tracking-tight">
-                Technical Details.
+      {/* SECTION F — RELATED PRODUCTS */}
+      {relatedProducts.length > 0 && (
+        <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0B0B0B]">
+          <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
+            <div className="mb-10">
+              <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00] mb-1">
+                RECOMMENDED SYSTEM.
+              </h2>
+              <h3 className="font-manrope font-extrabold text-2xl sm:text-3xl text-white uppercase tracking-tight">
+                RELATED PRODUCTS.
               </h3>
             </div>
 
-            <div className="col-span-12 md:col-span-8 flex flex-col border-t border-[#D8D8D5]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {relatedProducts.map((relProd) => (
+                <Link
+                  key={relProd.id}
+                  to={relProd.detailRoute}
+                  className="group block bg-[#111111] border border-white/10 hover:border-[#FF4B00]/60 transition-all p-6 rounded-lg flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="aspect-[4/3] bg-[#161616] mb-4 relative overflow-hidden flex items-center justify-center p-4 rounded border border-white/5">
+                      <img
+                        src={relProd.image}
+                        alt={relProd.name}
+                        className="w-3/4 h-3/4 object-contain group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <span className="font-bold text-[10px] text-[#FF4B00] uppercase tracking-widest block mb-1">
+                      {relProd.category} • {relProd.sku}
+                    </span>
+                    <h4 className="font-manrope font-extrabold text-base text-white group-hover:text-[#FF4B00] transition-colors leading-snug">
+                      {relProd.name}
+                    </h4>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-bold uppercase tracking-widest text-[#FF4B00]">
+                    <span>VIEW DETAILS</span>
+                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* SECTION G — PRODUCT FAQ (EXPAND ON HOVER / FOCUS / CLICK) */}
+      <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-[#0A0A0A]">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="col-span-12 md:col-span-4">
+              <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00] mb-1">
+                KNOWLEDGE BASE.
+              </h2>
+              <h3 className="font-manrope font-extrabold text-2xl sm:text-4xl text-white uppercase tracking-tight">
+                PRODUCT FREQUENTLY ASKED QUESTIONS.
+              </h3>
+            </div>
+
+            <div className="col-span-12 md:col-span-8 flex flex-col divide-y divide-white/10 border-t border-b border-white/10">
               {faqs.map((faq, idx) => {
                 const isOpen = openFaq === idx;
                 return (
@@ -392,30 +447,30 @@ export const ProductDetailPage: React.FC = () => {
                     key={idx}
                     onMouseEnter={() => setOpenFaq(idx)}
                     onMouseLeave={() => setOpenFaq(null)}
-                    className="border-b border-[#D8D8D5] transition-colors group"
+                    className="transition-colors group py-5"
                   >
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
                       onFocus={() => setOpenFaq(idx)}
                       aria-expanded={isOpen}
-                      className="w-full py-6 flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00]"
+                      className="w-full flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00]"
                     >
-                      <span className="font-manrope font-bold text-base sm:text-lg text-[#111111] group-hover:text-[#FF4B00] transition-colors">
+                      <span className="font-manrope font-bold text-base sm:text-lg text-white group-hover:text-[#FF4B00] transition-colors pr-4">
                         {faq.q}
                       </span>
-                      <span className="text-2xl text-[#FF4B00] transition-transform duration-300 ml-4 shrink-0">
+                      <span className="text-xl text-[#FF4B00] transition-transform duration-300 shrink-0 font-mono">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
 
                     <div
                       className={`grid transition-all duration-300 ease-out overflow-hidden ${
-                        isOpen ? 'grid-rows-[1fr] opacity-100 pb-6' : 'grid-rows-[0fr] opacity-0 pb-0'
+                        isOpen ? 'grid-rows-[1fr] opacity-100 pt-3' : 'grid-rows-[0fr] opacity-0 pt-0'
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed">
+                        <p className="font-manrope text-sm text-[#D8D8D5]/80 leading-relaxed max-w-2xl">
                           {faq.a}
                         </p>
                       </div>
@@ -428,29 +483,35 @@ export const ProductDetailPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 07 / PRODUCT ENQUIRY CTA */}
-      <section className="py-24 sm:py-32 bg-[#111111] text-white text-center">
-        <div className="max-w-3xl mx-auto px-5 space-y-8">
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-white leading-none">
-            Enquire about {product.name}.
+      {/* SECTION H — FINAL PRODUCT CTA */}
+      <section className="w-full py-20 sm:py-28 bg-[#050505] text-center border-b border-white/10">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 space-y-6">
+          <h2 className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+            STUDIO ENQUIRY.
           </h2>
-          <p className="text-base text-[#D8D8D5] max-w-lg mx-auto leading-relaxed">
-            Contact our detailing team in Tiruppur to arrange application or confirm availability for your vehicle.
+          <h3 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-white leading-none max-w-3xl mx-auto">
+            NEED THIS PRODUCT FOR YOUR VEHICLE?
+          </h3>
+          <p className="font-manrope text-sm sm:text-base text-[#D8D8D5]/80 max-w-lg mx-auto leading-relaxed">
+            Talk to TMR Car Care about product availability or application for your vehicle in Tiruppur.
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
+
+          <div className="flex flex-wrap justify-center gap-8 pt-4">
             <a
               href={`https://wa.me/${companyData.contact.whatsapp}?text=Ordering%20${encodeURIComponent(product.name)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-[#FF4B00] text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
+              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors"
             >
-              WHATSAPP TMR
+              <span>WHATSAPP TMR STUDIO</span>
+              <span className="text-sm">→</span>
             </a>
             <a
               href={`tel:${companyData.contact.phone}`}
-              className="border border-white/30 text-white px-8 py-4 font-bold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-colors rounded"
+              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#A0A0A0] border-b-2 border-white/20 pb-1 hover:text-white hover:border-white transition-colors"
             >
-              CALL TMR
+              <span>CALL TMR CAR CARE</span>
+              <span className="text-sm">→</span>
             </a>
           </div>
         </div>
