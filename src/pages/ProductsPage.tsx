@@ -61,12 +61,13 @@ export const ProductsPage: React.FC = () => {
       lastTime = currentTime;
 
       if (runwayScrollRef.current && !isTrainHoveredRef.current) {
-        const speed = 30; // 30 px per second linear speed
-        runwayScrollRef.current.scrollLeft += speed * deltaTime;
+        const el = runwayScrollRef.current;
+        const speed = 25; // 25 px per second continuous linear drift
+        el.scrollLeft += speed * deltaTime;
 
-        const maxScroll = runwayScrollRef.current.scrollWidth - runwayScrollRef.current.clientWidth;
-        if (runwayScrollRef.current.scrollLeft >= maxScroll - 4) {
-          runwayScrollRef.current.scrollLeft = 0;
+        const singleSetWidth = el.scrollWidth / 3;
+        if (singleSetWidth > 0 && el.scrollLeft >= singleSetWidth * 2) {
+          el.scrollLeft -= singleSetWidth;
         }
       }
 
@@ -76,6 +77,19 @@ export const ProductsPage: React.FC = () => {
     animationFrameId = requestAnimationFrame(animateTrain);
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
+
+  const handleRunwayScrollEvent = () => {
+    if (!runwayScrollRef.current) return;
+    const el = runwayScrollRef.current;
+    const singleSetWidth = el.scrollWidth / 3;
+    if (singleSetWidth > 0) {
+      if (el.scrollLeft >= singleSetWidth * 2) {
+        el.scrollLeft -= singleSetWidth;
+      } else if (el.scrollLeft <= 5) {
+        el.scrollLeft += singleSetWidth;
+      }
+    }
+  };
 
   const scrollRunway = (direction: 'left' | 'right') => {
     if (runwayScrollRef.current) {
@@ -97,6 +111,11 @@ export const ProductsPage: React.FC = () => {
       product.shortDescription.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
+
+  // Render-time 3-sequence clone array for seamless infinite product train
+  const infiniteProducts = filteredProducts.length > 0
+    ? [...filteredProducts, ...filteredProducts, ...filteredProducts]
+    : [];
 
   // Reset carousel scroll position to start when filter or search changes
   useEffect(() => {
@@ -752,17 +771,18 @@ export const ProductsPage: React.FC = () => {
           {filteredProducts.length > 0 ? (
             <div
               ref={runwayScrollRef}
+              onScroll={handleRunwayScrollEvent}
               onMouseEnter={() => { isTrainHoveredRef.current = true; }}
               onMouseLeave={() => { isTrainHoveredRef.current = false; }}
               onTouchStart={() => { isTrainHoveredRef.current = true; }}
               onTouchEnd={() => { isTrainHoveredRef.current = false; }}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-2 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-6 overflow-x-auto pb-8 pt-2 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
-              {filteredProducts.map((product) => (
+              {infiniteProducts.map((product, idx) => (
                 <Link
-                  key={product.id}
+                  key={`${product.id}-train-${idx}`}
                   to={product.detailRoute}
-                  className="min-w-[82vw] sm:min-w-[340px] md:min-w-[380px] lg:min-w-[400px] max-w-[400px] snap-start flex-shrink-0 group flex flex-col bg-[#0F0F0F] border border-white/10 rounded-xl overflow-hidden hover:border-[#FF4B00]/60 transition-all duration-300 shadow-xl justify-between"
+                  className="min-w-[82vw] sm:min-w-[340px] md:min-w-[380px] lg:min-w-[400px] max-w-[400px] flex-shrink-0 group flex flex-col bg-[#0F0F0F] border border-white/10 rounded-xl overflow-hidden hover:border-[#FF4B00]/60 transition-all duration-300 shadow-xl justify-between"
                 >
                   <div className="relative aspect-[4/3] bg-[#141414] overflow-hidden flex items-center justify-center p-6">
                     <img
