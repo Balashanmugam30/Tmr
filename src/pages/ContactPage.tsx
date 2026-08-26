@@ -7,7 +7,7 @@ export const ContactPage: React.FC = () => {
     name: '',
     phone: '',
     vehicle: '',
-    service: 'Detailing',
+    service: 'Detailing & Paint Care',
     message: '',
   });
 
@@ -23,7 +23,7 @@ export const ContactPage: React.FC = () => {
     },
     {
       q: "Where is the studio located in Tiruppur?",
-      a: "Our flagship studio is located on Avinashi Road, Tiruppur. Full directions and Google Maps pins are available on this page.",
+      a: "Our studio is located on Avinashi Road, Near Hope College Junction, Tiruppur. Full directions and Google Maps pins are available on this page.",
     },
     {
       q: "Can I get a quote before bringing my car?",
@@ -53,23 +53,13 @@ export const ContactPage: React.FC = () => {
       <section className="pt-24 pb-16 md:pt-36 md:pb-24 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
           <div className="md:col-span-8 space-y-6">
-            <div className="flex items-center gap-4">
-              <span className="font-manrope font-bold text-xs uppercase tracking-widest text-[#FF4B00]">
-                01 / CONTACT
-              </span>
-              <div className="h-px w-12 bg-[#D8D8D5]" />
-              <span className="font-manrope font-bold text-xs uppercase tracking-widest text-[#858585]">
-                TMR CAR CARE / TIRUPPUR
-              </span>
-            </div>
-
             <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl md:text-[88px] text-[#050505] uppercase tracking-tighter leading-none">
               START THE<br />
               CONVERSATION.
             </h1>
 
             <p className="font-manrope text-base sm:text-lg text-[#5f5e5e] max-w-xl leading-relaxed">
-              Refined architectural contact experience. Connect with our detailing studio in Tiruppur for enquiries, appointments, and studio visits.
+              Connect with our detailing studio in Tiruppur for enquiries, appointments, and studio visits.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
@@ -95,9 +85,6 @@ export const ContactPage: React.FC = () => {
       {/* 02 / DIRECT CHANNELS */}
       <section className="py-20 sm:py-32 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
         <div className="mb-12">
-          <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-            02 / CHANNELS
-          </span>
           <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
             DIRECT CHANNELS.
           </h2>
@@ -109,18 +96,12 @@ export const ContactPage: React.FC = () => {
             href={`https://wa.me/${companyData.contact.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group p-8 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between h-[280px]"
+            className="group p-8 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between space-y-6"
           >
             <div>
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-                01 / WHATSAPP
-              </span>
               <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-[#050505] mb-2 group-hover:text-[#FF4B00] transition-colors">
-                Instant Chat
+                WHATSAPP
               </h3>
-              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
-                Instant responses for service enquiries, quote estimates, and booking scheduling.
-              </p>
             </div>
             <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest pt-4 border-t border-[#D8D8D5]">
               <span>{companyData.contact.whatsappFormatted}</span>
@@ -131,18 +112,12 @@ export const ContactPage: React.FC = () => {
           {/* Phone */}
           <a
             href={`tel:${companyData.contact.phone}`}
-            className="group p-8 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between h-[280px]"
+            className="group p-8 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between space-y-6"
           >
             <div>
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-                02 / TELEPHONE
-              </span>
               <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-[#050505] mb-2 group-hover:text-[#FF4B00] transition-colors">
-                Studio Line
+                CALL
               </h3>
-              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
-                Direct voice line to our studio manager and service advisors during studio hours.
-              </p>
             </div>
             <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest pt-4 border-t border-[#D8D8D5]">
               <span>{companyData.contact.phoneFormatted}</span>
@@ -153,18 +128,12 @@ export const ContactPage: React.FC = () => {
           {/* Email */}
           <a
             href={`mailto:${companyData.contact.email}`}
-            className="group p-8 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between h-[280px]"
+            className="group p-8 border border-[#D8D8D5] bg-white hover:border-[#FF4B00] transition-colors flex flex-col justify-between space-y-6"
           >
             <div>
-              <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-                03 / EMAIL
-              </span>
               <h3 className="font-manrope font-extrabold text-2xl uppercase tracking-tight text-[#050505] mb-2 group-hover:text-[#FF4B00] transition-colors">
-                Written Consultation
+                EMAIL
               </h3>
-              <p className="text-xs sm:text-sm text-[#858585] leading-relaxed">
-                Detailed project consultations, fleet enquiries, and written correspondence.
-              </p>
             </div>
             <div className="flex justify-between items-center text-xs font-bold text-[#FF4B00] uppercase tracking-widest pt-4 border-t border-[#D8D8D5]">
               <span>{companyData.contact.email}</span>
@@ -178,11 +147,8 @@ export const ContactPage: React.FC = () => {
       <section className="py-20 sm:py-32 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           <div className="col-span-12 md:col-span-5 space-y-6">
-            <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-              03 / STUDIO LOCATION
-            </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
-              VISIT THE FLAGSHIP.
+              VISIT THE STUDIO.
             </h2>
 
             <div className="space-y-6 pt-4 border-t border-[#D8D8D5]">
@@ -206,7 +172,7 @@ export const ContactPage: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <a
-                href={`https://wa.me/${companyData.contact.whatsapp}?text=Directions%20to%20TMR%20Studio`}
+                href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#050505] text-white px-8 py-4 font-bold text-xs uppercase tracking-widest text-center hover:bg-[#FF4B00] transition-colors"
@@ -214,7 +180,7 @@ export const ContactPage: React.FC = () => {
                 OPEN IN GOOGLE MAPS →
               </a>
               <a
-                href={`https://wa.me/${companyData.contact.whatsapp}`}
+                href={`https://wa.me/${companyData.contact.whatsapp}?text=Location%20and%20Directions`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="border border-[#050505] text-[#050505] px-8 py-4 font-bold text-xs uppercase tracking-widest text-center hover:bg-[#050505] hover:text-white transition-colors"
@@ -238,9 +204,6 @@ export const ContactPage: React.FC = () => {
       <section className="py-20 sm:py-32 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-5 space-y-4">
-            <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-              04 / ENQUIRY
-            </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
               DIRECT STUDIO INQUIRY.
             </h2>
@@ -339,9 +302,6 @@ export const ContactPage: React.FC = () => {
       <section className="py-20 sm:py-32 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
           <div className="col-span-12 md:col-span-4 space-y-4">
-            <span className="font-bold text-xs text-[#FF4B00] uppercase tracking-widest block mb-2">
-              05 / QUESTIONS
-            </span>
             <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
               CONTACT FAQ.
             </h2>
