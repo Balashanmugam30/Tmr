@@ -188,10 +188,10 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / THE BELIEF — FULL-BLEED CINEMATIC VIDEO MANIFESTO SECTION */}
+      {/* 03 / THE BELIEF — MASTER EDITORIAL REBUILD MATCHING REFERENCE SCREENSHOT */}
       <section className="relative w-full min-h-screen min-h-[100svh] flex flex-col justify-between overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]" id="belief">
         
-        {/* Layer 0: Full-Bleed Video Canvas Background (Fills entire 100vh Section) */}
+        {/* Layer 0: Full-Bleed Video Background (Fills entire 100vh Section) */}
         <video
           autoPlay
           muted
@@ -210,95 +210,103 @@ export const AboutPage: React.FC = () => {
           />
         </video>
 
-        {/* Layer 1: Dark Cinematic Vignette & Readability Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-black/35 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/60 z-10 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#FF4B00]/15 via-transparent to-transparent z-10 pointer-events-none" />
+        {/* Layer 1: Left-Heavy Dark Vignette & Readability Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/50 z-10 pointer-events-none" />
 
         {/* Layer 2: Floating Editorial UI Stack (Matching Reference Image Typography Exactly) */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pt-28 sm:pt-36 flex flex-col space-y-8">
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pt-24 sm:pt-32 flex flex-col space-y-6">
           
-          {/* Top Eyebrow / Label Marker: ╱ THE BELIEF | OUR PHILOSOPHY */}
-          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em]">
-            <span className="text-[#FF4B00] font-bold">╱ THE BELIEF</span>
-            <span className="text-white/40">|</span>
-            <span className="text-[#A0A0A0]">OUR PHILOSOPHY</span>
+          {/* Eyebrow: Slash marker + THE BELIEF | OUR PHILOSOPHY */}
+          <div className="flex items-center gap-3">
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-bold text-[#FF4B00] flex items-center gap-2">
+              <span className="inline-block w-3.5 h-0.5 bg-[#FF4B00] transform -rotate-45" />
+              <span>THE BELIEF</span>
+            </span>
+            <span className="text-white/30 text-xs font-mono">|</span>
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-medium text-[#A0A0A0]">
+              OUR PHILOSOPHY
+            </span>
           </div>
 
-          {/* Headline Matching Image: GREAT CARE / BEGINS LONG / BEFORE THE / POLISHER. */}
-          <div className="max-w-3xl space-y-6">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] leading-[1.05] tracking-tight uppercase text-white select-none">
-              GREAT CARE <br />
-              BEGINS LONG <br />
-              BEFORE THE <br />
-              <span className="font-manrope font-extrabold italic text-[#FF4B00] border-b-2 border-[#FF4B00] pb-1 inline-block">
-                POLISHER.
-              </span>
-            </h2>
+          {/* 4-Line Refined Geometric Display Headline */}
+          <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[76px] xl:text-[82px] leading-[1.04] tracking-[-0.015em] uppercase text-white select-none max-w-[540px] xl:max-w-[620px] pt-2">
+            <span className="block font-normal text-white">GREAT CARE</span>
+            <span className="block font-normal text-white">BEGINS LONG</span>
+            <span className="block font-normal text-white">BEFORE THE</span>
+            <span className="block font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
+              POLISHER.
+            </span>
+          </h2>
 
-            {/* Supporting Paragraph Matching Image */}
-            <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] leading-relaxed max-w-lg font-normal">
-              At TMR Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its condition, and choose the right process for the finish.
-            </p>
+          {/* Supporting Paragraph */}
+          <p className="font-['Geist','Manrope',sans-serif] text-sm sm:text-base text-[#D8D8D5] leading-relaxed max-w-[480px] font-normal pt-2">
+            At TMR Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its condition, and choose the right process for the finish.
+          </p>
 
-            {/* CTA Matching Image: EXPLORE OUR PROCESS → */}
-            <div className="pt-2">
-              <Link
-                to="/services/detailing-paint-care"
-                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
-              >
-                <span>EXPLORE OUR PROCESS</span>
-                <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-              </Link>
-            </div>
+          {/* Single Minimal CTA Link */}
+          <div className="pt-3">
+            <Link
+              to="/services/detailing-paint-care"
+              className="inline-flex items-center gap-3 font-['Geist','Manrope',sans-serif] font-bold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
+            >
+              <span>EXPLORE OUR PROCESS</span>
+              <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+            </Link>
           </div>
 
         </div>
 
-        {/* Layer 3: Bottom Editorial Principles Navigation Strip (Matching Reference Image) */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pb-12 sm:pb-16 pt-12">
-          <div className="pt-8 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+        {/* Layer 3: Bottom Three-Column Integrated Information Rail */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pb-12 sm:pb-16 pt-8">
+          <div className="pt-8 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
             
-            {/* 01 UNDERSTAND */}
+            {/* Column 01 */}
             <div className="flex flex-col space-y-2">
               <div className="flex items-center gap-3">
-                <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#FF4B00]">01</span>
-                <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+                  01
+                </span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
                   UNDERSTAND
                 </h3>
               </div>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+              <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#A0A0A0] leading-relaxed">
                 We inspect and study every detail.
               </p>
-              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-2" />
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
             </div>
 
-            {/* 02 REFINE */}
-            <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-8">
+            {/* Column 02 */}
+            <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
               <div className="flex items-center gap-3">
-                <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#FF4B00]">02</span>
-                <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+                  02
+                </span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
                   REFINE
                 </h3>
               </div>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+              <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#A0A0A0] leading-relaxed">
                 We choose the right method and perfect it.
               </p>
-              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-2" />
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
             </div>
 
-            {/* 03 PRESERVE */}
-            <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-8">
+            {/* Column 03 */}
+            <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
               <div className="flex items-center gap-3">
-                <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#FF4B00]">03</span>
-                <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+                  03
+                </span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
                   PRESERVE
                 </h3>
               </div>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+              <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#A0A0A0] leading-relaxed">
                 We protect the finish for lasting perfection.
               </p>
-              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-2" />
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
             </div>
 
           </div>
