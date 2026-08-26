@@ -50,11 +50,11 @@ export const ContactPage: React.FC = () => {
     <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
       {/* 01 / FULL-BLEED EDITORIAL CONTACT HERO */}
-      <section className="relative w-full border-b border-[#D8D8D5]">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 lg:h-[calc(100vh-80px)] lg:min-h-[640px] lg:max-h-[820px]">
+      <section className="relative w-full lg:h-[calc(100vh-80px)] lg:min-h-[620px] lg:max-h-[860px] mt-20 border-b border-[#D8D8D5] overflow-hidden bg-[#F4C1A5]">
+        <div className="w-full h-full grid grid-cols-1 lg:grid-cols-12">
           
           {/* LEFT EDITORIAL PANEL: Muted Soft Pastel Orange / Peach (#F4C1A5) */}
-          <div className="lg:col-span-6 bg-[#F4C1A5] text-[#0A0A0A] p-8 sm:p-14 lg:p-20 lg:pl-[8vw] pt-28 sm:pt-36 flex flex-col justify-center relative">
+          <div className="lg:col-span-6 bg-[#F4C1A5] text-[#0A0A0A] p-8 sm:p-14 lg:p-20 lg:pl-[8vw] flex flex-col justify-center h-full relative">
             
             {/* Headline — First Major Visual Element */}
             <div>
@@ -90,11 +90,11 @@ export const ContactPage: React.FC = () => {
 
           </div>
 
-          {/* RIGHT PHOTOGRAPHIC PANEL: Fresh Downloaded Automotive Detailing Photo */}
+          {/* RIGHT PHOTOGRAPHIC PANEL: Dedicated Generated Automotive Detailing Photo */}
           <div className="lg:col-span-6 relative min-h-[360px] lg:h-full bg-[#0A0A0A] overflow-hidden">
             <img
-              src="/images/contact/contact-hero-new.jpg"
-              alt="Professional automotive detailing and surface refinement inside studio"
+              src="/images/contact/contact-hero-generated.jpg"
+              alt="Professional automotive detailing, vehicle paint care and surface refinement inside studio"
               className="w-full h-full object-cover object-center"
             />
           </div>
