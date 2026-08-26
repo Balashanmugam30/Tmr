@@ -844,9 +844,9 @@ export const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Horizontal Product Track / Viewport */}
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          {filteredProducts.length > 0 ? (
+        {/* Horizontal Product Track / Viewport — FULL-BLEED EDGE-TO-EDGE */}
+        {filteredProducts.length > 0 ? (
+          <div className="w-full px-0 mx-0 overflow-hidden">
             <div
               ref={runwayScrollRef}
               onScroll={handleRunwayScrollEvent}
@@ -857,7 +857,7 @@ export const ProductsPage: React.FC = () => {
               onMouseEnter={() => { isTrainHoveredRef.current = true; }}
               onTouchStart={() => { isTrainHoveredRef.current = true; }}
               onTouchEnd={() => { isTrainHoveredRef.current = false; }}
-              className="flex gap-6 overflow-x-auto pb-8 pt-2 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing"
+              className="flex gap-6 overflow-x-auto pb-8 pt-2 select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden cursor-grab active:cursor-grabbing w-full px-0"
             >
               {infiniteProducts.map((product, idx) => (
                 <Link
@@ -900,7 +900,9 @@ export const ProductsPage: React.FC = () => {
                 </Link>
               ))}
             </div>
-          ) : (
+          </div>
+        ) : (
+          <div className="max-w-[1360px] mx-auto px-5 md:px-16">
             <div className="py-16 text-center space-y-3 bg-[#0A0A0A] border border-white/10 rounded-xl">
               <p className="font-manrope text-base text-[#D8D8D5] uppercase font-bold tracking-wider">
                 No products match your search query or filter selection.
@@ -918,8 +920,8 @@ export const ProductsPage: React.FC = () => {
                 RESET ALL FILTERS
               </button>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </section>
 
       {/* 08 / FAQ */}
