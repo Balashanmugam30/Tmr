@@ -215,42 +215,39 @@ export const AboutPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/60 z-10 pointer-events-none" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#FF4B00]/15 via-transparent to-transparent z-10 pointer-events-none" />
 
-        {/* Layer 2: Floating Editorial UI Stack (Positioned Directly Over Video Background) */}
+        {/* Layer 2: Floating Editorial UI Stack (Matching Reference Image Typography Exactly) */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pt-28 sm:pt-36 flex flex-col space-y-8">
           
-          {/* Understated Top Section Marker */}
-          <div className="flex items-center gap-3">
-            <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-            <span className="font-mono text-xs uppercase tracking-[0.25em] text-[#FF4B00] font-bold">
-              03 / THE BELIEF
-            </span>
-            <span className="text-white/30">•</span>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-white/60">
-              TMR PHILOSOPHY
-            </span>
+          {/* Top Eyebrow / Label Marker: ╱ THE BELIEF | OUR PHILOSOPHY */}
+          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em]">
+            <span className="text-[#FF4B00] font-bold">╱ THE BELIEF</span>
+            <span className="text-white/40">|</span>
+            <span className="text-[#A0A0A0]">OUR PHILOSOPHY</span>
           </div>
 
-          {/* Upper-Left Editorial Typography Stack */}
+          {/* Headline Matching Image: GREAT CARE / BEGINS LONG / BEFORE THE / POLISHER. */}
           <div className="max-w-3xl space-y-6">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[0.92] tracking-tighter uppercase text-white select-none">
-              GOOD AUTOMOTIVE <br />
-              CARE STARTS <br />
+            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[76px] leading-[1.05] tracking-tight uppercase text-white select-none">
+              GREAT CARE <br />
+              BEGINS LONG <br />
               BEFORE THE <br />
-              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1 hover:rotate-0 transition-transform duration-300">polisher.</span>
+              <span className="font-manrope font-extrabold italic text-[#FF4B00] border-b-2 border-[#FF4B00] pb-1 inline-block">
+                POLISHER.
+              </span>
             </h2>
 
-            {/* Small Editorial Paragraph */}
-            <p className="font-manrope text-base sm:text-lg text-[#E5E5E0] leading-relaxed max-w-xl font-normal border-l-2 border-[#FF4B00] pl-6">
-              At TMR Car Care in Tiruppur, quality begins before the machine touches the vehicle. We study the surface, understand its condition, and choose the right process for the finish.
+            {/* Supporting Paragraph Matching Image */}
+            <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] leading-relaxed max-w-lg font-normal">
+              At TMR Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its condition, and choose the right process for the finish.
             </p>
 
-            {/* Single Minimal Editorial CTA */}
+            {/* CTA Matching Image: EXPLORE OUR PROCESS → */}
             <div className="pt-2">
               <Link
                 to="/services/detailing-paint-care"
                 className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
               >
-                <span>EXPLORE TMR DETAILING</span>
+                <span>EXPLORE OUR PROCESS</span>
                 <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
               </Link>
             </div>
@@ -258,44 +255,50 @@ export const AboutPage: React.FC = () => {
 
         </div>
 
-        {/* Layer 3: Bottom Editorial Navigation Strip (Floating Over Bottom Video Edge) */}
+        {/* Layer 3: Bottom Editorial Principles Navigation Strip (Matching Reference Image) */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pb-12 sm:pb-16 pt-12">
           <div className="pt-8 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
             
+            {/* 01 UNDERSTAND */}
             <div className="flex flex-col space-y-2">
               <div className="flex items-center gap-3">
-                <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#FF4B00]">01</span>
+                <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#FF4B00]">01</span>
                 <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
                   UNDERSTAND
                 </h3>
               </div>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed pl-1">
-                Understand the vehicle and surface condition before treatment.
+              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                We inspect and study every detail.
               </p>
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-2" />
             </div>
 
+            {/* 02 REFINE */}
             <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-8">
               <div className="flex items-center gap-3">
-                <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#FF4B00]">02</span>
+                <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#FF4B00]">02</span>
                 <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
                   REFINE
                 </h3>
               </div>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed pl-1">
-                Choose the correct detailing and paint correction process.
+              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                We choose the right method and perfect it.
               </p>
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-2" />
             </div>
 
+            {/* 03 PRESERVE */}
             <div className="flex flex-col space-y-2 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-8">
               <div className="flex items-center gap-3">
-                <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#FF4B00]">03</span>
+                <span className="font-manrope font-extrabold text-2xl sm:text-3xl text-[#FF4B00]">03</span>
                 <h3 className="font-manrope font-extrabold text-base sm:text-lg uppercase tracking-wider text-white">
                   PRESERVE
                 </h3>
               </div>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed pl-1">
-                Protect the finished surface with lasting ceramic shielding.
+              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                We protect the finish for lasting perfection.
               </p>
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-2" />
             </div>
 
           </div>
