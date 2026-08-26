@@ -98,6 +98,13 @@ export const ProductsPage: React.FC = () => {
     return matchesCategory && matchesSearch;
   });
 
+  // Reset carousel scroll position to start when filter or search changes
+  useEffect(() => {
+    if (runwayScrollRef.current) {
+      runwayScrollRef.current.scrollLeft = 0;
+    }
+  }, [selectedCategoryFilter, searchQuery]);
+
   const handleMouseMoveInspect = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
@@ -717,50 +724,100 @@ export const ProductsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Product Cards Grid */}
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
-              <Link
-                key={product.id}
-                to={product.detailRoute}
-                className="group flex flex-col bg-[#0F0F0F] border border-white/10 rounded-xl overflow-hidden hover:border-[#FF4B00]/60 transition-all duration-300 shadow-xl"
-              >
-                <div className="relative aspect-[4/3] bg-[#141414] overflow-hidden flex items-center justify-center p-6">
-                  <img
-                    src={product.image}
-                    alt={`${product.name} - ${product.shortDescription}`}
-                    className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest border border-white/10">
-                    {product.category}
-                  </div>
-                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-white/70 uppercase tracking-widest border border-white/10">
-                    {product.sku}
-                  </div>
-                </div>
-
-                <div className="p-6 flex flex-col flex-grow justify-between space-y-4">
-                  <div>
-                    <span className="font-bold text-[10px] text-white/40 uppercase tracking-widest block mb-1">
-                      {product.brand}
-                    </span>
-                    <h3 className="font-manrope font-extrabold text-lg uppercase text-white group-hover:text-[#FF4B00] transition-colors leading-tight mb-2">
-                      {product.name}
-                    </h3>
-                    <p className="font-manrope text-xs text-[#D8D8D5]/70 line-clamp-2 leading-relaxed">
-                      {product.shortDescription}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold uppercase tracking-widest text-[#FF4B00]">
-                    <span>VIEW DETAILS &amp; FAQS</span>
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+        {/* Carousel Navigation Bar */}
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 pb-4 flex justify-between items-center">
+          <span className="text-[10px] sm:text-xs font-bold text-[#A0A0A0] uppercase tracking-widest">
+            Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Drag or Swipe →
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => scrollRunway('left')}
+              aria-label="Scroll products left"
+              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors cursor-pointer"
+            >
+              ←
+            </button>
+            <button
+              onClick={() => scrollRunway('right')}
+              aria-label="Scroll products right"
+              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors cursor-pointer"
+            >
+              →
+            </button>
           </div>
+        </div>
+
+        {/* Horizontal Product Track / Viewport */}
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
+          {filteredProducts.length > 0 ? (
+            <div
+              ref={runwayScrollRef}
+              onMouseEnter={() => { isTrainHoveredRef.current = true; }}
+              onMouseLeave={() => { isTrainHoveredRef.current = false; }}
+              onTouchStart={() => { isTrainHoveredRef.current = true; }}
+              onTouchEnd={() => { isTrainHoveredRef.current = false; }}
+              className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-8 pt-2 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {filteredProducts.map((product) => (
+                <Link
+                  key={product.id}
+                  to={product.detailRoute}
+                  className="min-w-[82vw] sm:min-w-[340px] md:min-w-[380px] lg:min-w-[400px] max-w-[400px] snap-start flex-shrink-0 group flex flex-col bg-[#0F0F0F] border border-white/10 rounded-xl overflow-hidden hover:border-[#FF4B00]/60 transition-all duration-300 shadow-xl justify-between"
+                >
+                  <div className="relative aspect-[4/3] bg-[#141414] overflow-hidden flex items-center justify-center p-6">
+                    <img
+                      src={product.image}
+                      alt={`${product.name} - ${product.shortDescription}`}
+                      className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest border border-white/10">
+                      {product.category}
+                    </div>
+                    <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-white/70 uppercase tracking-widest border border-white/10 font-mono">
+                      {product.sku}
+                    </div>
+                  </div>
+
+                  <div className="p-6 flex flex-col flex-grow justify-between space-y-4">
+                    <div>
+                      <span className="font-bold text-[10px] text-white/40 uppercase tracking-widest block mb-1">
+                        {product.brand}
+                      </span>
+                      <h3 className="font-manrope font-extrabold text-lg uppercase text-white group-hover:text-[#FF4B00] transition-colors leading-tight mb-2">
+                        {product.name}
+                      </h3>
+                      <p className="font-manrope text-xs text-[#D8D8D5]/70 line-clamp-2 leading-relaxed">
+                        {product.shortDescription}
+                      </p>
+                    </div>
+
+                    <div className="pt-4 border-t border-white/10 flex justify-between items-center text-xs font-bold uppercase tracking-widest text-[#FF4B00]">
+                      <span>VIEW DETAILS &amp; FAQS</span>
+                      <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="py-16 text-center space-y-3 bg-[#0A0A0A] border border-white/10 rounded-xl">
+              <p className="font-manrope text-base text-[#D8D8D5] uppercase font-bold tracking-wider">
+                No products match your search query or filter selection.
+              </p>
+              <p className="text-xs text-[#A0A0A0]">
+                Try clearing your search keyword or switching category filters to view available items.
+              </p>
+              <button
+                onClick={() => {
+                  setSelectedCategoryFilter('ALL');
+                  setSearchQuery('');
+                }}
+                className="mt-2 text-xs font-bold uppercase tracking-widest text-[#FF4B00] hover:underline"
+              >
+                RESET ALL FILTERS
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
