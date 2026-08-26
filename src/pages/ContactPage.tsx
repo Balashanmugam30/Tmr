@@ -49,16 +49,14 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / CONTAINED RECTANGULAR EDITORIAL HERO */}
-      <section className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-4 sm:px-8 max-w-[1440px] mx-auto">
-        
-        {/* Joined Rectangular Hero Container (Outer Rounded Corners Only) */}
-        <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-[#D8D8D5] grid grid-cols-1 lg:grid-cols-12 min-h-[520px] sm:min-h-[580px] lg:min-h-[620px]">
+      {/* 01 / FULL-BLEED EDITORIAL CONTACT HERO */}
+      <section className="relative w-full min-h-[70vh] lg:min-h-[82vh] border-b border-[#D8D8D5] pt-24 sm:pt-32">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 min-h-[70vh] lg:min-h-[82vh]">
           
-          {/* LEFT EDITORIAL PANEL: Warm Ivory / TMR Cream (#F3F0E9) */}
-          <div className="lg:col-span-6 bg-[#F3F0E9] text-[#0A0A0A] p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative">
+          {/* LEFT EDITORIAL PANEL: Muted Soft Pastel Orange / Peach (#F4C1A5) */}
+          <div className="lg:col-span-6 bg-[#F4C1A5] text-[#0A0A0A] p-8 sm:p-14 lg:p-20 lg:pl-[8vw] flex flex-col justify-between relative">
             
-            {/* Top Eyebrow */}
+            {/* Top Eyebrow & Headline */}
             <div className="space-y-6">
               <div className="flex items-center gap-3">
                 <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
@@ -68,7 +66,7 @@ export const ContactPage: React.FC = () => {
               </div>
 
               {/* High-Contrast Editorial Serif Headline */}
-              <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl lg:text-[82px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] select-none pt-2">
+              <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl lg:text-[88px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] select-none pt-2">
                 GET IN <br />
                 TOUCH WITH <br />
                 <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-4 inline-block transform -rotate-1">
@@ -78,17 +76,19 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* Bottom Copy & CTA */}
-            <div className="space-y-6 pt-8">
-              <p className="font-manrope text-sm sm:text-base text-[#5F5E5E] leading-relaxed max-w-md font-normal border-l-2 border-[#FF4B00] pl-4">
+            <div className="space-y-6 pt-8 sm:pt-12">
+              <p className="font-manrope text-sm sm:text-base text-[#3A3837] leading-relaxed max-w-md font-normal border-l-2 border-[#FF4B00] pl-4">
                 Tell us what your vehicle needs and we'll help you find the right next step.
               </p>
 
               <div>
                 <a
-                  href={`https://wa.me/${companyData.contact.whatsapp}?text=Hello%20TMR%20Car%20Care`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group"
+                  href="#contact-details"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('contact-details')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
                 >
                   <span>CONTACT TMR</span>
                   <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -98,23 +98,20 @@ export const ContactPage: React.FC = () => {
 
           </div>
 
-          {/* RIGHT PHOTOGRAPHIC PANEL: Single Cinematic Automotive Detailing Studio Photo */}
-          <div className="lg:col-span-6 relative min-h-[320px] lg:min-h-full bg-[#0A0A0A] overflow-hidden">
+          {/* RIGHT PHOTOGRAPHIC PANEL: Single Full-Height Automotive Photograph */}
+          <div className="lg:col-span-6 relative min-h-[360px] lg:min-h-full bg-[#0A0A0A]">
             <img
               src="/images/about/about-story.jpg"
               alt="Professional automotive detailing and vehicle inspection inside TMR Car Care studio"
-              className="w-full h-full object-cover object-center scale-100 hover:scale-105 transition-transform duration-700 ease-out"
+              className="w-full h-full object-cover object-center"
             />
-            {/* Subtle Vignette Overlay for Depth */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
           </div>
 
         </div>
-
       </section>
 
       {/* 02 / DIRECT CHANNELS & STUDIO LOCATION */}
-      <section className="py-16 sm:py-24 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5]">
+      <section id="contact-details" className="py-16 sm:py-24 px-5 md:px-16 max-w-[1360px] mx-auto border-b border-[#D8D8D5] scroll-mt-24">
         <div className="mb-10">
           <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#050505]">
             DIRECT CHANNELS &amp; LOCATION.
