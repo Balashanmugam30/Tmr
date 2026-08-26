@@ -314,87 +314,123 @@ export const AboutPage: React.FC = () => {
 
       </section>
 
-      {/* 04 / THE APPROACH — METHOD & WORKFLOW */}
-      <section className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
+      {/* 04 / THE APPROACH — CINEMATIC AUTOMOTIVE PROCESS SECTION */}
+      <section className="bg-[#111111] text-white relative w-full overflow-hidden py-24 sm:py-32 border-b border-white/10" id="approach">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-16 relative z-10 space-y-16">
           
-          <div className="flex items-center gap-4">
-            <span className="font-manrope font-extrabold text-xs text-[#858585] uppercase tracking-widest">
-              04 / THE APPROACH
+          {/* Top Label Bar */}
+          <div className="flex items-center gap-3">
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-bold text-[#FF4B00] flex items-center gap-2">
+              <span className="inline-block w-3.5 h-0.5 bg-[#FF4B00] transform -rotate-45" />
+              <span>04 / THE APPROACH</span>
             </span>
-            <div className="w-16 h-px bg-[#D8D8D5]" />
-            <span className="font-manrope font-extrabold text-xs text-[#FF4B00] uppercase tracking-widest">
+            <span className="text-white/30 text-xs font-mono">|</span>
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-medium text-[#A0A0A0]">
               WORKFLOW & METHODOLOGY
             </span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
-            {/* Left Steps Progression Group */}
-            <div className="lg:col-span-6 flex flex-col justify-between space-y-8">
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tight leading-[0.95] text-[#111111]">
-                CARE IS A PROCESS OF <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">attention.</span>
-              </h2>
+          {/* Large Editorial Headline & Supporting Copy Stack */}
+          <div className="space-y-6 max-w-4xl">
+            <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[78px] leading-[1.02] tracking-[-0.015em] uppercase text-white select-none">
+              CARE IS A PROCESS OF <br />
+              <span className="font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
+                attention.
+              </span>
+            </h2>
 
-              <div className="flex flex-col space-y-4 pt-4">
-                {approachSteps.map((step, idx) => {
-                  const isActive = idx === activeApproachStep;
-                  return (
-                    <div
-                      key={step.num}
-                      onClick={() => setActiveApproachStep(idx)}
-                      tabIndex={0}
-                      role="button"
-                      aria-label={`Select stage ${step.num}: ${step.title}`}
-                      className={`p-6 rounded-xl border transition-all duration-300 cursor-pointer focus:outline-none ${
-                        isActive
-                          ? 'bg-white border-[#FF4B00] shadow-xl'
-                          : 'bg-transparent border-[#D8D8D5] hover:border-[#111111]/30'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-3">
-                          <span className={`font-manrope font-extrabold text-sm ${isActive ? 'text-[#FF4B00]' : 'text-[#858585]'}`}>
-                            {step.num}
-                          </span>
-                          <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-[#111111]">
-                            {step.title}
-                          </h3>
-                        </div>
-                        <span className="text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest">
-                          {step.subtitle}
-                        </span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-[#5f5e5e] leading-relaxed">
-                        {step.desc}
-                      </p>
-                    </div>
-                  );
-                })}
+            <p className="font-['Geist','Manrope',sans-serif] text-base sm:text-lg text-[#D8D8D5] leading-relaxed max-w-2xl font-normal border-l-2 border-[#FF4B00] pl-6">
+              At TMR Car Care, we do not follow a generic detailing routine. We study the vehicle, understand its clear coat condition, choose the appropriate correction method, and finish with the right surface protection strategy.
+            </p>
+          </div>
+
+          {/* Full-Width Large Cinematic Visual Showcase (75-85% Desktop Width) */}
+          <div className="relative w-full lg:w-[88%] mx-auto aspect-[16/9] lg:aspect-[2.2/1] rounded-xl overflow-hidden border border-white/15 shadow-[0_30px_70px_rgba(0,0,0,0.85)] bg-black group">
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              poster="/images/about/about-approach-cinematic.jpg"
+              className="w-full h-full object-cover object-center scale-100 group-hover:scale-[1.02] transition-transform duration-1000 ease-out"
+              aria-label="Professional automotive detailing inspection and paint correction workflow at TMR Car Care"
+            >
+              <source src="/videos/approach/approach-cinematic.mp4" type="video/mp4" />
+              <img
+                src="/images/about/about-approach-cinematic.jpg"
+                alt="Professional automotive detailing technician inspecting clear coat finish at TMR Car Care studio"
+                className="w-full h-full object-cover"
+              />
+            </video>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none" />
+            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4 z-20 pointer-events-none">
+              <div className="flex items-center gap-3 text-[11px] font-mono text-white/80 uppercase tracking-widest bg-black/75 backdrop-blur-md px-4 py-2 rounded-md border border-white/15">
+                <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+                <span>STUDIO WORKFLOW • SURFACE DIAGNOSIS & MULTI-STAGE CORRECTION</span>
               </div>
             </div>
+          </div>
 
-            {/* Right Active Image Stage */}
-            <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] sm:aspect-[16/11] w-full border border-[#D8D8D5] rounded-xl overflow-hidden bg-[#111111] shadow-2xl">
-                {approachSteps.map((step, idx) => {
-                  const isActive = idx === activeApproachStep;
-                  return (
-                    <img
-                      key={step.num}
-                      src={step.img}
-                      alt={step.alt}
-                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
-                        isActive ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                      }`}
-                    />
-                  );
-                })}
-                <div className="absolute bottom-4 right-4 z-20 bg-black/70 backdrop-blur-md px-4 py-2 rounded text-[11px] font-mono text-white uppercase tracking-widest">
-                  STAGE 0{activeApproachStep + 1} / 03
-                </div>
+          {/* Process Rail: Continuous Three-Column Editorial Sequence (NO CARDS, NO BOXES) */}
+          <div className="pt-8 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12">
+            
+            <div className="flex flex-col space-y-3">
+              <div className="flex items-center gap-3">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+                  01
+                </span>
+                <span className="text-white/40 font-mono text-xs">—</span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
+                  OBSERVE
+                </h3>
               </div>
+              <span className="text-[11px] font-mono text-[#FF4B00] uppercase tracking-widest">
+                SURFACE DIAGNOSIS
+              </span>
+              <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
+                Understand the clear coat, surface defects, and material condition before treatment.
+              </p>
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
+            </div>
+
+            <div className="flex flex-col space-y-3 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
+              <div className="flex items-center gap-3">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+                  02
+                </span>
+                <span className="text-white/40 font-mono text-xs">—</span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
+                  CARE
+                </h3>
+              </div>
+              <span className="text-[11px] font-mono text-[#FF4B00] uppercase tracking-widest">
+                REFINEMENT & PROTECTION
+              </span>
+              <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
+                Use the appropriate polishing method, compound, pad and process for the vehicle.
+              </p>
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
+            </div>
+
+            <div className="flex flex-col space-y-3 border-t md:border-t-0 md:border-l border-white/15 pt-6 md:pt-0 md:pl-10">
+              <div className="flex items-center gap-3">
+                <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-2xl sm:text-3xl text-[#FF4B00]">
+                  03
+                </span>
+                <span className="text-white/40 font-mono text-xs">—</span>
+                <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-base sm:text-lg uppercase tracking-wider text-white">
+                  FINISH
+                </h3>
+              </div>
+              <span className="text-[11px] font-mono text-[#FF4B00] uppercase tracking-widest">
+                FINAL PRESENTATION
+              </span>
+              <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#A0A0A0] leading-relaxed">
+                Complete the vehicle with the appropriate ceramic protection or self-healing PPF strategy.
+              </p>
+              <div className="w-8 h-0.5 bg-[#FF4B00]/60 mt-1" />
             </div>
 
           </div>
@@ -402,79 +438,89 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 05 / THE TMR STANDARD — BRAND DIFFERENTIATION */}
-      <section className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-16">
+      {/* 05 / THE TMR STANDARD — TYPOGRAPHIC MAGAZINE EDITORIAL SECTION */}
+      <section className="bg-[#050505] text-white relative w-full overflow-hidden py-24 sm:py-32 border-b border-white/10" id="standard">
+        <div className="max-w-[1360px] mx-auto px-6 md:px-16 relative z-10 space-y-16">
           
-          <div className="flex items-center gap-4">
-            <span className="font-extrabold text-xs text-[#FF4B00] uppercase tracking-widest">
-              05 / THE TMR STANDARD
+          {/* Top Label Bar */}
+          <div className="flex items-center gap-3">
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-bold text-[#FF4B00] flex items-center gap-2">
+              <span className="inline-block w-3.5 h-0.5 bg-[#FF4B00] transform -rotate-45" />
+              <span>05 / THE TMR STANDARD</span>
             </span>
-            <div className="w-16 h-px bg-white/20" />
-            <span className="font-extrabold text-xs text-[#858585] uppercase tracking-widest">
+            <span className="text-white/30 text-xs font-mono">|</span>
+            <span className="font-['Geist','Plus_Jakarta_Sans',sans-serif] text-xs uppercase tracking-[0.2em] font-medium text-[#A0A0A0]">
               BRAND DIFFERENTIATION
             </span>
           </div>
 
-          <div className="max-w-3xl space-y-6">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-white leading-[0.92]">
-              QUALITY IS IN THE <br />
-              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1">process.</span>
-            </h2>
-            <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed border-l-2 border-[#FF4B00] pl-5">
-              What sets TMR apart isn't marketing claims — it's the disciplined standard applied to every vehicle that enters our studio.
-            </p>
+          {/* Asymmetric Desktop Layout: Left Headline + Right Brand Statement */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-end pb-8 border-b border-white/15">
+            <div className="lg:col-span-7">
+              <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-4xl sm:text-6xl md:text-7xl lg:text-[76px] leading-[1.02] tracking-[-0.015em] uppercase text-white select-none">
+                QUALITY IS IN THE <br />
+                <span className="font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
+                  process.
+                </span>
+              </h2>
+            </div>
+
+            <div className="lg:col-span-5 pb-2">
+              <p className="font-['Geist','Manrope',sans-serif] text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l-2 border-[#FF4B00] pl-6">
+                What sets TMR apart isn't marketing claims — it's the disciplined standard applied to every vehicle that enters our studio. From preparation to final inspection, we prioritize precision over speed.
+              </p>
+            </div>
           </div>
 
-          {/* 4 Editorial Differentiation Principles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-6">
+          {/* Four Standard Principles: Magazine-Style Numbered Editorial Grid (NO CARDS, NO SHADOWS) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
             
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">01 / EXPERIENCE</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  EXPERIENCE
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  Established in 2009 and built around long-term automotive-care knowledge and clear-coat expertise.
-                </p>
-              </div>
+            <div className="flex flex-col space-y-3 pb-8 border-b border-white/15">
+              <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-light text-3xl sm:text-4xl text-[#FF4B00]">
+                01
+              </span>
+              <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-xl uppercase tracking-wider text-white">
+                EXPERIENCE
+              </h3>
+              <p className="font-['Geist','Manrope',sans-serif] text-sm text-[#A0A0A0] leading-relaxed max-w-lg">
+                Established in 2009, TMR brings more than a decade of dedicated automotive-care experience and clear-coat expertise into every vehicle we handle.
+              </p>
             </div>
 
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">02 / QUALITY</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  QUALITY
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  The focus is on doing the work properly rather than rushing the preparation or finishing stages.
-                </p>
-              </div>
+            <div className="flex flex-col space-y-3 pb-8 border-b border-white/15">
+              <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-light text-3xl sm:text-4xl text-[#FF4B00]">
+                02
+              </span>
+              <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-xl uppercase tracking-wider text-white">
+                QUALITY
+              </h3>
+              <p className="font-['Geist','Manrope',sans-serif] text-sm text-[#A0A0A0] leading-relaxed max-w-lg">
+                We prioritise correct preparation, controlled execution and a properly finished surface rather than rushing the job.
+              </p>
             </div>
 
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">03 / SPECIALIZATION</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  SPECIALIZATION
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  TMR's team is focused specifically on automotive care, paint correction, and vehicle protection.
-                </p>
-              </div>
+            <div className="flex flex-col space-y-3 pb-8 border-b md:border-b-0 border-white/15">
+              <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-light text-3xl sm:text-4xl text-[#FF4B00]">
+                03
+              </span>
+              <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-xl uppercase tracking-wider text-white">
+                SPECIALIZATION
+              </h3>
+              <p className="font-['Geist','Manrope',sans-serif] text-sm text-[#A0A0A0] leading-relaxed max-w-lg">
+                Our team is focused specifically on automotive care, paint refinement, ceramic protection and vehicle surface preservation.
+              </p>
             </div>
 
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">04 / CONSISTENCY</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  CONSISTENCY
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  The same attention to preparation, execution and finish carries through every vehicle we care for.
-                </p>
-              </div>
+            <div className="flex flex-col space-y-3">
+              <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-light text-3xl sm:text-4xl text-[#FF4B00]">
+                04
+              </span>
+              <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-xl uppercase tracking-wider text-white">
+                CONSISTENCY
+              </h3>
+              <p className="font-['Geist','Manrope',sans-serif] text-sm text-[#A0A0A0] leading-relaxed max-w-lg">
+                The same disciplined approach carries from initial surface inspection through multi-stage correction and final hydrophobic protection.
+              </p>
             </div>
 
           </div>
