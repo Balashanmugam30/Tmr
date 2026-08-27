@@ -85,7 +85,7 @@ export const TermsPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-[#0C0C0B] text-[#F1EEE7] font-manrope pt-28 pb-24 min-h-screen relative selection:bg-[#FF4B00] selection:text-white">
+    <div data-navbar-theme="dark" className="w-full bg-[#0C0C0B] text-[#F1EEE7] font-manrope pt-28 pb-24 min-h-screen relative selection:bg-[#FF4B00] selection:text-white">
       
       {/* HEADER SECTION */}
       <header className="w-full border-b border-white/10 pb-12 pt-6 bg-gradient-to-b from-[#090909] to-[#0C0C0B]">

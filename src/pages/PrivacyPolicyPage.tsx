@@ -82,7 +82,7 @@ export const PrivacyPolicyPage: React.FC = () => {
   };
 
   return (
-    <div className="w-full bg-[#F6F5F0] text-[#1C1C1A] font-manrope pt-28 pb-24 min-h-screen relative selection:bg-[#FF4B00] selection:text-white">
+    <div data-navbar-theme="light" className="w-full bg-[#F6F5F0] text-[#1C1C1A] font-manrope pt-28 pb-24 min-h-screen relative selection:bg-[#FF4B00] selection:text-white">
       
       {/* HEADER SECTION */}
       <header className="w-full border-b border-[#E2DFD7] pb-12 pt-6">

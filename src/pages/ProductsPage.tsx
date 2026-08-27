@@ -568,7 +568,7 @@ export const ProductsPage: React.FC = () => {
       </section>
 
       {/* SECTION 03 — FEATURED PRODUCT (TRUE 50/50 FULL-BLEED SPLIT) */}
-      <section className="relative w-full bg-[#F5F4EF] border-b border-[#D8D8D5] overflow-hidden" id="featured-product">
+      <section data-navbar-theme="light" className="relative w-full bg-[#F5F4EF] border-b border-[#D8D8D5] overflow-hidden" id="featured-product">
         <div className="w-full grid grid-cols-1 md:grid-cols-12 min-h-[550px] md:min-h-[650px] items-stretch">
           {/* Left 50%: TRUE FULL-BLEED MEDIA - NO GAP, NO MARGIN, NO BORDER, NO CONTAINED CARD */}
           <div className="col-span-12 md:col-span-6 relative bg-[#141414] overflow-hidden min-h-[350px] md:min-h-full flex items-center justify-center">

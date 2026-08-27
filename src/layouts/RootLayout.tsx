@@ -7,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PageTransition } from '@/components/PageTransition';
 import { OfflineState } from '@/components/OfflineState';
+import { NavbarThemeProvider } from '@/context/NavbarThemeContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,15 +44,17 @@ export const RootLayout: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-tmr-black text-tmr-softblack font-sans selection:bg-tmr-orange selection:text-white">
-      <Navbar />
-      <main className="flex-grow w-full overflow-x-clip">
-        <PageTransition>
-          <Outlet />
-        </PageTransition>
-      </main>
-      <Footer />
-      <OfflineState />
-    </div>
+    <NavbarThemeProvider>
+      <div className="min-h-screen flex flex-col bg-tmr-black text-tmr-softblack font-sans selection:bg-tmr-orange selection:text-white">
+        <Navbar />
+        <main className="flex-grow w-full overflow-x-clip">
+          <PageTransition>
+            <Outlet />
+          </PageTransition>
+        </main>
+        <Footer />
+        <OfflineState />
+      </div>
+    </NavbarThemeProvider>
   );
 };

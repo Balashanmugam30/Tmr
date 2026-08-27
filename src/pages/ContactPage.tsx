@@ -179,7 +179,7 @@ export const ContactPage: React.FC = () => {
     <div className="w-full bg-[#F5F4EF] text-[#050505] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
       {/* 01 / FULL-BLEED EDITORIAL CONTACT HERO — 100% UNTOUCHED */}
-      <section className="relative w-full h-screen min-h-[680px] border-b border-[#D8D8D5] overflow-hidden">
+      <section data-navbar-theme="light" className="relative w-full h-screen min-h-[680px] border-b border-[#D8D8D5] overflow-hidden">
         <div className="w-full h-full grid grid-cols-1 lg:grid-cols-12">
           
           {/* LEFT EDITORIAL PANEL: Muted Soft Pastel Orange / Peach (#F4C1A5) */}

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { LiquidGlassSurface } from './LiquidGlassSurface';
+import { useNavbarTheme } from '@/context/NavbarThemeContext';
 
-export const CANONICAL_TMR_LOGO_SRC = '/images/tmr-logo-navbar.png';
+export const LOGO_LIGHT_TRANSPARENT_SRC = '/images/tmr-logo-light-transparent.png';
+export const LOGO_DARK_TRANSPARENT_SRC = '/images/tmr-logo-dark-transparent.png';
 
 interface LogoProps {
   className?: string;
@@ -17,12 +19,29 @@ export const Logo: React.FC<LogoProps> = ({
   imgClassName = 'w-[140px] sm:w-[155px] md:w-[165px]',
   useGlass = true,
 }) => {
+  const { theme } = useNavbarTheme();
+
   const content = (
-    <img
-      src={CANONICAL_TMR_LOGO_SRC}
-      alt="TMR Car Care - Precision • Protection • Perfection"
-      className={`${imgClassName} ${heightClassName} object-contain shrink-0 max-h-[50px] filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]`}
-    />
+    <div className={`relative flex items-center justify-center shrink-0 ${imgClassName} ${heightClassName} max-h-[50px]`}>
+      {/* LIGHT LOGO VARIANT (White artwork for dark backgrounds) */}
+      <img
+        src={LOGO_LIGHT_TRANSPARENT_SRC}
+        alt="TMR Car Care"
+        className={`absolute inset-0 w-full h-full object-contain shrink-0 transition-opacity duration-200 ease-out ${
+          theme === 'dark' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+
+      {/* DARK LOGO VARIANT (Dark artwork for light backgrounds) */}
+      <img
+        src={LOGO_DARK_TRANSPARENT_SRC}
+        alt=""
+        aria-hidden="true"
+        className={`absolute inset-0 w-full h-full object-contain shrink-0 transition-opacity duration-200 ease-out ${
+          theme === 'light' ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+    </div>
   );
 
   return (

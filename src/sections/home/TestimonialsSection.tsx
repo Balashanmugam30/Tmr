@@ -130,13 +130,28 @@ export const TestimonialsSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="client-proof"
-      className="w-full min-h-[90svh] py-16 md:py-24 bg-[#F3F0EA] text-[#111111] border-t border-b border-black/10 relative overflow-hidden isolate font-intertight flex flex-col justify-center select-none"
+      data-navbar-theme="light"
+      className="w-full min-h-[90svh] py-16 md:py-24 bg-[#F3F0EA] text-[#111111] border-t border-b border-black/10 relative overflow-hidden isolate font-intertight flex flex-col justify-between select-none"
       style={{ backgroundColor: '#F3F0EA' }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       {/* SUBTLE FINE NOISE OVERLAY */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-4 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:18px_18px]" />
+
+      {/* TOP ARCHITECTURAL METADATA ROW */}
+      <Container className="relative z-20 pt-2">
+        <div className="w-full border-t border-black/15 pt-4 flex items-center justify-between font-intertight font-bold text-xs uppercase tracking-[0.14em] text-[#111111]">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#FF4B00]">07</span>
+            <span className="text-black/30">/</span>
+            <span>CLIENT PROOF</span>
+          </div>
+          <span className="text-black/50 tracking-[0.2em] hidden sm:inline-block">
+            EDITORIAL CLIENT FOCUS SLIDER // TIRUPPUR STUDIO
+          </span>
+        </div>
+      </Container>
 
       {/* MAIN CONTENT: ASYMMETRICAL 12-COLUMN EDITORIAL FOCUS SLIDER */}
       <Container className="relative z-20 my-auto py-8 lg:py-12">
@@ -145,6 +160,11 @@ export const TestimonialsSection: React.FC = () => {
           {/* LEFT COLUMN: ACTIVE FEATURED CLIENT TESTIMONIAL (COLUMNS 1–7 / ~60%) */}
           <div className="lg:col-span-7 space-y-6">
             
+            {/* EYEBROW */}
+            <div className="font-intertight font-extrabold text-[11px] uppercase tracking-[0.22em] text-[#FF4B00]">
+              07 // WHAT CLIENTS NOTICE
+            </div>
+
             {/* MAIN HEADLINE */}
             <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-[#111111] leading-[0.90] tracking-[-0.04em]">
               WHAT CLIENTS <br />
@@ -240,6 +260,14 @@ export const TestimonialsSection: React.FC = () => {
 
           </div>
 
+        </div>
+      </Container>
+
+      {/* BOTTOM TECHNICAL DIRECTION FOOTER */}
+      <Container className="relative z-20 pb-2">
+        <div className="w-full border-t border-black/15 pt-4 flex items-center justify-between font-intertight text-[10px] font-bold text-black/50 uppercase tracking-widest">
+          <span>TMR / CLIENT EXPERIENCE / TIRUPPUR</span>
+          <span>AUTHENTIC CLIENT VERIFICATION</span>
         </div>
       </Container>
     </section>

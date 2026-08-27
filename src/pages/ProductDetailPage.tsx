@@ -166,7 +166,7 @@ export const ProductDetailPage: React.FC = () => {
   )?.value || 'Exterior Clear Coat';
 
   return (
-    <div className="w-full bg-[#0A0A0A] text-[#F1EEE7] font-manrope selection:bg-[#FF4B00] selection:text-white pt-24 min-h-screen relative">
+    <div data-navbar-theme="dark" className="w-full bg-[#0A0A0A] text-[#F1EEE7] font-manrope selection:bg-[#FF4B00] selection:text-white pt-24 min-h-screen relative">
       
       {/* SECTION A — PRODUCT HERO */}
       <section className="relative w-full pt-12 pb-16 sm:pb-24 overflow-hidden border-b border-white/10 bg-gradient-to-b from-[#090909] to-[#151515]">
