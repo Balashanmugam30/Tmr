@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { companyData } from '@/data/company';
 
 export const CarWashPage: React.FC = () => {
@@ -263,13 +264,13 @@ export const CarWashPage: React.FC = () => {
             </h3>
             <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed">
               The wash is treated as essential automotive care, creating the optimal foundation for{' '}
-              <a href="/services/ceramic-coating" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+              <Link to="/services/ceramic-coating" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
                 ceramic coatings
-              </a>{' '}
+              </Link>{' '}
               or{' '}
-              <a href="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
+              <Link to="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
                 PPF installations
-              </a>.
+              </Link>.
             </p>
           </div>
 

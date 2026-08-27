@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { companyData } from '@/data/company';
 
 export const CarAccessoriesPage: React.FC = () => {
@@ -431,13 +432,13 @@ export const CarAccessoriesPage: React.FC = () => {
               <span>WHATSAPP TMR</span>
               <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
             </a>
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer"
             >
               <span>CONTACT TMR</span>
               <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

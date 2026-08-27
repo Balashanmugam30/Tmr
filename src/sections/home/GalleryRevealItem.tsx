@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 
 interface GalleryRevealItemProps {
@@ -20,7 +21,7 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
   overlapClass = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -96,9 +97,11 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
       className={`${gridSpan} ${overlapClass} relative w-full`}
     >
       {/* STATIC LAYOUT CONTAINER (PREVENTS VERTICAL LAYOUT SHIFTS) */}
-      <div
+      <Link
         ref={cardRef}
-        className={`w-full ${aspect} relative overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
+        to="/gallery"
+        aria-label={`View ${title} - ${service} in TMR Gallery`}
+        className={`w-full ${aspect} relative block overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
         style={{
           clipPath: 'inset(0 100% 0 0)',
           opacity: 0,
@@ -118,7 +121,7 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none opacity-40 group-hover:opacity-65 transition-opacity duration-500" />
-      </div>
+      </Link>
     </div>
   );
 };
