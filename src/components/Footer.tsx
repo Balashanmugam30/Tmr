@@ -241,10 +241,10 @@ export const Footer: React.FC = () => {
           <p>© {new Date().getFullYear()} TMR CAR CARE. ALL RIGHTS RESERVED.</p>
 
           <div className="flex items-center gap-6">
-            <Link to="/contact" className="hover:text-white transition-colors">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors">
               PRIVACY POLICY
             </Link>
-            <Link to="/contact" className="hover:text-white transition-colors">
+            <Link to="/terms" className="hover:text-white transition-colors">
               TERMS & CONDITIONS
             </Link>
             <span className="hidden sm:inline-block">TIRUPPUR, TAMIL NADU</span>
