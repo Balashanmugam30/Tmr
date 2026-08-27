@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PageTransition } from '@/components/PageTransition';
+import { OfflineState } from '@/components/OfflineState';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,6 +51,7 @@ export const RootLayout: React.FC = () => {
         </PageTransition>
       </main>
       <Footer />
+      <OfflineState />
     </div>
   );
 };

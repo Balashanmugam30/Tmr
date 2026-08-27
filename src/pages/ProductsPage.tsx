@@ -3,6 +3,7 @@ import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import { companyData } from '@/data/company';
 import { productsData } from '@/data/products';
 import { ProductHeroCarousel, ProductItem } from '@/components/ProductHeroCarousel';
+import { EmptySearchState } from '@/components/EmptySearchState';
 
 export const ProductsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -903,23 +904,14 @@ export const ProductsPage: React.FC = () => {
           </div>
         ) : (
           <div className="max-w-[1360px] mx-auto px-5 md:px-16">
-            <div className="py-16 text-center space-y-3 bg-[#0A0A0A] border border-white/10 rounded-xl">
-              <p className="font-manrope text-base text-[#D8D8D5] uppercase font-bold tracking-wider">
-                No products match your search query or filter selection.
-              </p>
-              <p className="text-xs text-[#A0A0A0]">
-                Try clearing your search keyword or switching category filters to view available items.
-              </p>
-              <button
-                onClick={() => {
-                  setSelectedCategoryFilter('ALL');
-                  setSearchQuery('');
-                }}
-                className="mt-2 text-xs font-bold uppercase tracking-widest text-[#FF4B00] hover:underline"
-              >
-                RESET ALL FILTERS
-              </button>
-            </div>
+            <EmptySearchState
+              query={searchQuery}
+              category={selectedCategoryFilter}
+              onReset={() => {
+                setSelectedCategoryFilter('ALL');
+                setSearchQuery('');
+              }}
+            />
           </div>
         )}
       </section>

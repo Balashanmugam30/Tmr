@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { companyData } from '@/data/company';
+import { SubmissionSuccessState } from '@/components/SubmissionSuccessState';
+import { SubmissionErrorState } from '@/components/SubmissionErrorState';
 
 export const ContactPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -144,15 +146,33 @@ export const ContactPage: React.FC = () => {
     })),
   };
 
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [generatedWhatsappUrl, setGeneratedWhatsappUrl] = useState<string>('');
+  const [formErrorMessage, setFormErrorMessage] = useState<string>('');
+
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = `Hello TMR Car Care!\n\nName: ${formData.name}\nPhone: ${formData.phone}\nVehicle: ${formData.vehicle}\nService Interest: ${formData.service}\nNotes: ${formData.message}`;
-    const url = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+
+    if (!formData.name.trim() || !formData.phone.trim() || !formData.vehicle.trim()) {
+      setFormErrorMessage('Please provide your name, phone number, and vehicle details before submitting.');
+      setSubmitStatus('error');
+      return;
+    }
+
+    try {
+      const text = `Hello TMR Car Care!\n\nName: ${formData.name}\nPhone: ${formData.phone}\nVehicle: ${formData.vehicle}\nService Interest: ${formData.service}\nNotes: ${formData.message}`;
+      const url = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(text)}`;
+      setGeneratedWhatsappUrl(url);
+      setSubmitStatus('success');
+      window.open(url, '_blank');
+    } catch {
+      setFormErrorMessage('An unexpected error occurred while generating your WhatsApp enquiry.');
+      setSubmitStatus('error');
+    }
   };
 
   return (
@@ -336,105 +356,116 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* RIGHT COLUMN (6 cols): Integrated Charcoal Consultation Form Container */}
-            <div className="lg:col-span-6 bg-[#121212]/95 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-white/10 shadow-2xl text-white space-y-6">
-              
-              <div>
-                <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
-                  DIRECT CONSULTATION
-                </span>
-                <h3 className="font-manrope font-extrabold text-2xl sm:text-3xl uppercase tracking-tight text-white">
-                  START YOUR ENQUIRY.
-                </h3>
-              </div>
-
-              <form onSubmit={handleFormSubmit} className="space-y-5">
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="lg:col-span-6">
+              {submitStatus === 'success' ? (
+                <SubmissionSuccessState
+                  whatsappUrl={generatedWhatsappUrl}
+                  onReset={() => setSubmitStatus('idle')}
+                />
+              ) : submitStatus === 'error' ? (
+                <SubmissionErrorState
+                  errorMessage={formErrorMessage}
+                  onRetry={() => setSubmitStatus('idle')}
+                />
+              ) : (
+                <div className="bg-[#121212]/95 backdrop-blur-md p-8 sm:p-12 rounded-2xl border border-white/10 shadow-2xl text-white space-y-6">
                   <div>
-                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
-                      YOUR NAME
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="e.g. Rahul Sharma"
-                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
-                    />
+                    <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
+                      DIRECT CONSULTATION
+                    </span>
+                    <h3 className="font-manrope font-extrabold text-2xl sm:text-3xl uppercase tracking-tight text-white">
+                      START YOUR ENQUIRY.
+                    </h3>
                   </div>
 
-                  <div>
-                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
-                      PHONE / WHATSAPP NUMBER
-                    </label>
-                    <input
-                      type="tel"
-                      required
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="+91 98765 43210"
-                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
-                    />
-                  </div>
-                </div>
+                  <form onSubmit={handleFormSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
+                          YOUR NAME
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="e.g. Rahul Sharma"
+                          className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                        />
+                      </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
-                      VEHICLE MAKE &amp; MODEL
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.vehicle}
-                      onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
-                      placeholder="e.g. BMW M4 / Porsche 911"
-                      className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
-                    />
-                  </div>
+                      <div>
+                        <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
+                          PHONE / WHATSAPP NUMBER
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="+91 98765 43210"
+                          className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                        />
+                      </div>
+                    </div>
 
-                  <div>
-                    <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
-                      SERVICE INTEREST
-                    </label>
-                    <select
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                      className="w-full bg-[#181818] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:outline-none transition-all duration-300 cursor-pointer"
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
+                          VEHICLE MAKE &amp; MODEL
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.vehicle}
+                          onChange={(e) => setFormData({ ...formData, vehicle: e.target.value })}
+                          placeholder="e.g. BMW M4 / Porsche 911"
+                          className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
+                          SERVICE INTEREST
+                        </label>
+                        <select
+                          value={formData.service}
+                          onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                          className="w-full bg-[#181818] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:outline-none transition-all duration-300 cursor-pointer"
+                        >
+                          <option value="Car Wash & Cleaning">Car Wash &amp; Cleaning</option>
+                          <option value="Detailing & Paint Care">Detailing &amp; Paint Care</option>
+                          <option value="Ceramic Coating">Ceramic Coating</option>
+                          <option value="PPF & Paint Protection">PPF &amp; Paint Protection</option>
+                          <option value="Sun-Control Films">Sun-Control Films</option>
+                          <option value="Car Accessories">Car Accessories</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
+                        MESSAGE / SPECIFIC REQUIREMENTS
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        placeholder="Tell us about your vehicle's current condition or specific services needed..."
+                        className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      className="w-full py-4 sm:py-5 bg-[#FF4B00] text-white font-manrope font-extrabold text-xs uppercase tracking-widest rounded-lg hover:bg-white hover:text-[#0A0A0A] transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl"
                     >
-                      <option value="Car Wash & Cleaning">Car Wash &amp; Cleaning</option>
-                      <option value="Detailing & Paint Care">Detailing &amp; Paint Care</option>
-                      <option value="Ceramic Coating">Ceramic Coating</option>
-                      <option value="PPF & Paint Protection">PPF &amp; Paint Protection</option>
-                      <option value="Sun-Control Films">Sun-Control Films</option>
-                      <option value="Car Accessories">Car Accessories</option>
-                    </select>
-                  </div>
+                      <span>SUBMIT ENQUIRY VIA WHATSAPP</span>
+                      <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                    </button>
+                  </form>
                 </div>
-
-                <div>
-                  <label className="block text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF4B00] mb-2">
-                    MESSAGE / SPECIFIC REQUIREMENTS
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us about your vehicle's current condition or specific services needed..."
-                    className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full py-4 sm:py-5 bg-[#FF4B00] text-white font-manrope font-extrabold text-xs uppercase tracking-widest rounded-lg hover:bg-white hover:text-[#0A0A0A] transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl"
-                >
-                  <span>SUBMIT ENQUIRY VIA WHATSAPP</span>
-                  <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
-                </button>
-
-              </form>
+              )}
             </div>
 
           </div>
