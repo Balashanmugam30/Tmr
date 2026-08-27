@@ -87,12 +87,6 @@ export const PrivacyPolicyPage: React.FC = () => {
       {/* HEADER SECTION */}
       <header className="w-full border-b border-[#E2DFD7] pb-12 pt-6">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
-          <div className="flex items-center gap-3 text-[11px] font-extrabold uppercase tracking-widest text-[#FF4B00] mb-3">
-            <span>TMR CAR CARE</span>
-            <span>•</span>
-            <span>PRIVACY</span>
-          </div>
-
           <h1 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl text-[#141414] tracking-tight uppercase leading-tight mb-4">
             PRIVACY POLICY
           </h1>

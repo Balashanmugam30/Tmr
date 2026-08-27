@@ -90,12 +90,6 @@ export const TermsPage: React.FC = () => {
       {/* HEADER SECTION */}
       <header className="w-full border-b border-white/10 pb-12 pt-6 bg-gradient-to-b from-[#090909] to-[#0C0C0B]">
         <div className="max-w-[1240px] mx-auto px-5 sm:px-8">
-          <div className="flex items-center gap-3 text-[11px] font-extrabold uppercase tracking-widest text-[#FF4B00] mb-3">
-            <span>TMR CAR CARE</span>
-            <span>•</span>
-            <span>LEGAL</span>
-          </div>
-
           <h1 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-tight mb-4">
             TERMS & CONDITIONS
           </h1>
