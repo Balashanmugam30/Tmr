@@ -482,9 +482,6 @@ export const ContactPage: React.FC = () => {
           {/* Header Row */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="space-y-2">
-              <span className="font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-[0.2em] block">
-                STUDIO LOCATION
-              </span>
               <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-white">
                 VISIT THE STUDIO.
               </h2>
