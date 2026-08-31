@@ -168,9 +168,13 @@ export const ProductsPage: React.FC = () => {
   };
 
   const filteredProducts = productsData.filter((product) => {
+    const filter = selectedCategoryFilter.toUpperCase();
     const matchesCategory =
-      selectedCategoryFilter === 'ALL' ||
-      product.category.toUpperCase() === selectedCategoryFilter;
+      filter === 'ALL' ||
+      product.category.toUpperCase() === filter ||
+      (filter === '3M' && product.brand.toUpperCase().includes('3M')) ||
+      (filter === "MEGUIAR'S" && product.brand.toUpperCase().includes('MEGUIAR')) ||
+      (filter === 'WÜRTH' && product.brand.toUpperCase().includes('WÜRTH'));
     const matchesSearch =
       searchQuery.trim() === '' ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -802,9 +806,9 @@ export const ProductsPage: React.FC = () => {
                 )}
               </div>
 
-              {/* Category Filter Navigation */}
+              {/* Category & Brand Filter Navigation */}
               <div className="flex flex-wrap gap-2 sm:gap-3 justify-start md:justify-end">
-                {["ALL", "ABRASIVES", "CLEANING", "POLISHING", "PROTECTION", "FILMS", "TOOLS", "ACCESSORIES"].map((filter) => (
+                {["ALL", "3M", "MEGUIAR'S", "WÜRTH", "ABRASIVES", "CLEANING", "POLISHING", "PROTECTION", "FILMS", "TOOLS", "ACCESSORIES"].map((filter) => (
                   <button
                     key={filter}
                     onClick={() => setSelectedCategoryFilter(filter)}
