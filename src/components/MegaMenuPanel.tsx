@@ -161,22 +161,6 @@ export const MegaMenuPanel: React.FC<MegaMenuPanelProps> = ({
               </div>
             ))}
           </div>
-
-          {/* EDITORIAL BOTTOM CTA BAR */}
-          {config.cta && (
-            <div className="stagger-item border-t border-white/12 pt-4 flex items-center justify-between">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#F5F4EF]/50">
-                TMR CAR CARE // TIRUPPUR STUDIO DIRECTORY
-              </span>
-              <Link
-                to={config.cta.href}
-                className="text-xs font-black text-[#FF4B00] hover:text-white flex items-center gap-1.5 transition-colors uppercase tracking-wider"
-              >
-                <span>{config.cta.label}</span>
-                <ArrowUpRight className="w-4 h-4 text-[#FF4B00]" />
-              </Link>
-            </div>
-          )}
         </div>
       </LiquidGlassSurface>
     </div>,

@@ -42,10 +42,6 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
         ],
       },
     ],
-    cta: {
-      label: 'EXPLORE HOME →',
-      href: '/',
-    },
   },
   SERVICES: {
     id: 'services',
@@ -237,7 +233,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
       },
     ],
     cta: {
-      label: 'ABOUT TMR →',
+      label: 'VIEW ABOUT TMR →',
       href: '/about',
     },
   },
@@ -265,7 +261,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
       },
     ],
     cta: {
-      label: 'OPEN CONTACT →',
+      label: 'CONTACT TMR →',
       href: '/contact',
     },
   },
