@@ -330,9 +330,6 @@ export const CeramicCoatingPage: React.FC = () => {
       {/* 05. RELATED SERVICE LINK — PAINT CORRECTION & DETAILING */}
       <section className="py-20 sm:py-28 px-6 md:px-16 max-w-[1400px] mx-auto border-b border-[#D8D8D5]">
         <div className="max-w-2xl space-y-4 mb-10">
-          <span className="font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-widest block">
-            RECOMMENDED PREPARATION
-          </span>
           <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tight text-[#0A0A0A]">
             PREPARATION IS KEY.
           </h2>
