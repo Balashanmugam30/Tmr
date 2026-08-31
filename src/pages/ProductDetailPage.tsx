@@ -225,7 +225,7 @@ export const ProductDetailPage: React.FC = () => {
                 <div className="absolute inset-0 bg-radial from-[#FF4B00]/10 via-transparent to-black/80 pointer-events-none" />
                 <img
                   src={product.image}
-                  alt={`${product.name} product packaging - TMR Car Care`}
+                  alt={`${product.name} ${product.sku}`}
                   className="w-4/5 h-4/5 object-contain relative z-10 group-hover:scale-105 transition-transform duration-500"
                   onError={(e) => {
                     e.currentTarget.style.opacity = '0.7';

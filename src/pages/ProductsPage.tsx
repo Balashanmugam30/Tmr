@@ -869,7 +869,7 @@ export const ProductsPage: React.FC = () => {
                   <div className="relative aspect-[4/3] bg-[#141414] overflow-hidden flex items-center justify-center p-6">
                     <img
                       src={product.image}
-                      alt={`${product.name} - ${product.shortDescription}`}
+                      alt={`${product.name} ${product.sku}`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest border border-white/10">
