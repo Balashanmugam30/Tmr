@@ -227,7 +227,7 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
                 >
                   {/* Top Badge Inside Card */}
                   <div className="flex justify-between items-center text-[10px] font-bold uppercase tracking-widest text-[#858585] z-10">
-                    <span>{prod.category}</span>
+                    <span />
                     {isActive && <span className="text-[#FF4B00]">TMR VAULT</span>}
                   </div>
 

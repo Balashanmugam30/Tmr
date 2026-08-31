@@ -10,7 +10,8 @@ export const ProductsPage: React.FC = () => {
   const location = useLocation();
 
   const [activeCategoryWorld, setActiveCategoryWorld] = useState<number>(0);
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [hoveredFaq, setHoveredFaq] = useState<number | null>(null);
+  const [pinnedFaqs, setPinnedFaqs] = useState<Set<number>>(new Set());
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('ALL');
   const [inspectPos, setInspectPos] = useState<{ x: number; y: number; active: boolean }>({
@@ -410,8 +411,16 @@ export const ProductsPage: React.FC = () => {
     },
   ];
 
-  const toggleFaq = (idx: number) => {
-    setOpenFaq(openFaq === idx ? null : idx);
+  const togglePinFaq = (idx: number) => {
+    setPinnedFaqs((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) {
+        next.delete(idx);
+      } else {
+        next.add(idx);
+      }
+      return next;
+    });
   };
 
   return (
@@ -549,9 +558,6 @@ export const ProductsPage: React.FC = () => {
                 <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/90 to-transparent">
                   <div className="flex justify-between items-end">
                     <div className="flex flex-col gap-2">
-                      <span className="font-bold text-[10px] text-[#FF4B00] uppercase tracking-widest">
-                        Active Visual
-                      </span>
                       <p className="text-sm text-[#D8D8D5] max-w-[240px] leading-relaxed">
                         {categoryWorlds[activeCategoryWorld].desc}
                       </p>
@@ -876,9 +882,6 @@ export const ProductsPage: React.FC = () => {
                       alt={`${product.name} ${product.sku}`}
                       className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-[#FF4B00] uppercase tracking-widest border border-white/10">
-                      {product.category}
-                    </div>
                     <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded text-[10px] font-bold text-white/70 uppercase tracking-widest border border-white/10 font-mono">
                       {product.sku}
                     </div>
@@ -940,25 +943,50 @@ export const ProductsPage: React.FC = () => {
 
             <div className="col-span-12 md:col-span-7 flex flex-col divide-y divide-white/10">
               {faqs.map((faq, idx) => {
-                const isOpen = openFaq === idx;
+                const isOpen = pinnedFaqs.has(idx) || hoveredFaq === idx;
                 return (
-                  <div key={idx} className="py-6 transition-colors">
+                  <div
+                    key={idx}
+                    onMouseEnter={() => setHoveredFaq(idx)}
+                    onMouseLeave={() => setHoveredFaq(null)}
+                    className="py-6 transition-colors group"
+                  >
                     <button
-                      onClick={() => toggleFaq(idx)}
-                      className="w-full flex justify-between items-center text-left group"
+                      type="button"
+                      id={`faq-btn-${idx}`}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${idx}`}
+                      onClick={() => togglePinFaq(idx)}
+                      onFocus={() => setHoveredFaq(idx)}
+                      onBlur={() => setHoveredFaq(null)}
+                      className="w-full flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00] cursor-pointer"
                     >
-                      <span className="font-manrope font-extrabold text-base sm:text-lg uppercase text-white group-hover:text-[#FF4B00] transition-colors pr-4">
+                      <span
+                        className={`font-manrope font-extrabold text-base sm:text-lg uppercase transition-colors pr-4 ${
+                          isOpen ? 'text-[#FF4B00]' : 'text-white group-hover:text-[#FF4B00]'
+                        }`}
+                      >
                         {faq.q}
                       </span>
-                      <span className="font-bold text-lg text-[#FF4B00] shrink-0">
+                      <span className="font-bold text-lg text-[#FF4B00] shrink-0 font-mono transition-transform duration-300">
                         {isOpen ? "−" : "+"}
                       </span>
                     </button>
-                    {isOpen && (
-                      <p className="font-manrope text-sm text-[#D8D8D5] pt-4 leading-relaxed max-w-xl">
-                        {faq.a}
-                      </p>
-                    )}
+
+                    <div
+                      id={`faq-answer-${idx}`}
+                      role="region"
+                      aria-labelledby={`faq-btn-${idx}`}
+                      className={`grid transition-all duration-300 ease-out overflow-hidden ${
+                        isOpen ? 'grid-rows-[1fr] opacity-100 pt-3 pb-1' : 'grid-rows-[0fr] opacity-0 pt-0 pb-0'
+                      }`}
+                    >
+                      <div className="overflow-hidden">
+                        <p className="font-manrope text-sm text-[#D8D8D5]/90 leading-relaxed max-w-2xl">
+                          {faq.a}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 );
               })}
