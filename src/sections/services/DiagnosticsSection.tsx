@@ -59,9 +59,6 @@ export const DiagnosticsSection: React.FC = () => {
         
         {/* Section Header Intro */}
         <div className="mb-12">
-          <span className="font-manrope font-bold text-xs uppercase tracking-[0.3em] text-[#FF4B00] block mb-2">
-            WHAT DOES YOUR CAR NEED?
-          </span>
           <h2 className="font-manrope font-extrabold text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight text-[#111111] mb-3">
             WHAT NEEDS ATTENTION?
           </h2>
