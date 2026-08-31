@@ -622,10 +622,6 @@ export const GalleryPage: React.FC = () => {
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="flex flex-col space-y-4">
-              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-                02 / THE WORK
-              </div>
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight">
                 THE WORK IN <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">motion.</span>
               </h2>
@@ -709,10 +705,6 @@ export const GalleryPage: React.FC = () => {
           {/* EDITORIAL HEADER GROUP (OUTSIDE THE IMAGE STAGE) */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="flex flex-col space-y-4">
-              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-                03 / SIGNATURE WORK
-              </div>
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl text-white uppercase tracking-tight leading-[0.95]">
                 SIGNATURE <br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">automotive</span> WORK.
@@ -759,11 +751,6 @@ export const GalleryPage: React.FC = () => {
             
             {/* LEFT SIDE TECHNICAL EDITORIAL GROUP */}
             <div className="lg:col-span-5 space-y-6">
-              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-                04 / DETAIL
-              </div>
-
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-[0.95]">
                 PAINT CORRECTION <br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">changes everything.</span>
@@ -823,10 +810,6 @@ export const GalleryPage: React.FC = () => {
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-10">
           {/* Editorial Header */}
           <div className="flex flex-col space-y-4 max-w-3xl">
-            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              05 / TRANSFORMATION
-            </div>
             <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.95] tracking-tight">
               FROM CONDITION TO <br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">finish.</span>
@@ -885,10 +868,6 @@ export const GalleryPage: React.FC = () => {
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-12">
           {/* Editorial Header */}
           <div className="flex flex-col space-y-4 max-w-3xl">
-            <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              06 / PROCESS
-            </div>
             <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.95] tracking-tight">
               THE CRAFT OF <br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">detail.</span>
@@ -994,11 +973,6 @@ export const GalleryPage: React.FC = () => {
         {/* Layer 3: Editorial Content Box */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 flex flex-col justify-end space-y-8 my-auto">
           <div className="max-w-2xl space-y-6">
-            <div className="font-bold text-xs text-[#FF4B00] tracking-widest uppercase flex items-center">
-              <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-              TMR CAR CARE STUDIO
-            </div>
-
             <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
               EXPERIENCE THE <br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">finish.</span>
