@@ -80,121 +80,89 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
         }}
       >
         <Container className="h-full flex flex-col justify-center py-4 md:py-6 lg:py-8 relative z-10 overflow-hidden">
+          
+          {/* TOP LINEAR PROGRESSION STEP INDICATOR BAR */}
+          <div className="w-full mb-4 md:mb-6 border-b border-black/15 pb-3">
+            <div className="flex items-center justify-between gap-2 overflow-x-auto select-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+              {processStages.map((stage, idx) => {
+                const isActive = activeStageIndex === idx;
+                const isPassed = activeStageIndex > idx;
+                return (
+                  <button
+                    key={stage.id}
+                    type="button"
+                    onClick={() => setActiveStageIndex(idx)}
+                    className={`flex items-center gap-2 transition-all duration-300 py-1.5 px-3 rounded-lg text-left cursor-pointer ${
+                      isActive
+                        ? 'text-[#111111] font-extrabold bg-black/10'
+                        : isPassed
+                        ? 'text-[#111111]/70 font-semibold hover:text-[#111111]'
+                        : 'text-black/35 font-medium hover:text-black/70'
+                    }`}
+                  >
+                    <span
+                      className={`font-mono text-xs transition-colors ${
+                        isActive ? 'text-[#FF4B00] font-bold' : isPassed ? 'text-black/60' : 'text-black/30'
+                      }`}
+                    >
+                      {stage.number}
+                    </span>
+                    <span className="font-intertight uppercase tracking-wider text-xs sm:text-sm whitespace-nowrap">
+                      {stage.title}
+                    </span>
+                    {isActive && (
+                      <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse shrink-0 ml-1" />
+                    )}
+                    {idx < processStages.length - 1 && (
+                      <span className="text-black/20 text-xs hidden sm:inline ml-2">→</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* MAIN 12-COLUMN LIGHT EDITORIAL THEATRE GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center flex-1 min-h-0 my-auto relative overflow-hidden py-2 sm:py-4">
             
             {/* LEFT / EDITORIAL STAGE RAIL NAVIGATION (COLUMNS 1–5) */}
             <div className="lg:col-span-5 relative z-10 space-y-3 sm:space-y-4 lg:space-y-5">
+              {/* ACTIVE STAGE SUBTITLE / EYEBROW */}
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
+                {currentStage.subtitle}
+              </span>
+
               {/* ACTIVE STAGE DESCRIPTOR STATEMENT */}
-              <p className="font-intertight font-extrabold text-sm sm:text-base md:text-lg lg:text-xl uppercase leading-tight tracking-wide text-[#111111] max-w-[400px]">
+              <p className="font-intertight font-extrabold text-base sm:text-lg md:text-xl lg:text-2xl uppercase leading-tight tracking-wide text-[#111111] max-w-[420px]">
                 "{currentStage.description}"
               </p>
 
-              {/* SEMI-CIRCULAR CLOCK / INSTRUMENT-DIAL STAGE SELECTOR */}
-              <div className="relative w-full max-w-[360px] h-[190px] sm:h-[220px] my-2 select-none overflow-hidden flex items-center justify-center">
-                
-                {/* UNDERSTATED INSTRUMENT DIAL ARC TRACK & PRECISION TICKS */}
-                <svg
-                  className="absolute inset-0 w-full h-full pointer-events-none opacity-40"
-                  viewBox="0 0 360 220"
-                  fill="none"
-                >
-                  {/* Subtle Curved Instrument Gauge Arc */}
-                  <path
-                    d="M 40 190 A 150 150 0 0 1 320 190"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeDasharray="4 6"
-                    className="text-black/30"
-                  />
-                  
-                  {/* Outer Faint Guide Ring */}
-                  <path
-                    d="M 60 185 A 130 130 0 0 1 300 185"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    className="text-black/15"
-                  />
-
-                  {/* Focal Top Center Active Marker Needle Line */}
-                  <line x1="180" y1="12" x2="180" y2="28" stroke="#FF4B00" strokeWidth="2.5" strokeLinecap="round" />
-                </svg>
-
-                {/* DYNAMIC STAGE DIAL ITEMS (ANIMATED ALONG THE ARC BASED ON ACTIVE STAGE INDEX) */}
-                <div className="relative w-full h-full">
-                  {processStages.map((stage, idx) => {
-                    const offset = idx - activeStageIndex; // Relative offset from active stage (-2, -1, 0, 1, 2)
-                    const isActive = offset === 0;
-
-                    // Polar angle mapping along open top arc
-                    // Focal center = 0 deg, Offset 1 = +32 deg, Offset -1 = -32 deg
-                    const angleDeg = offset * 34;
-                    const angleRad = (angleDeg * Math.PI) / 180;
-                    const radius = 135; // Responsive pixel radius for arc trajectory
-
-                    // Calculate arc coordinates (Focal point centered at top x=0, y=0)
-                    const x = Math.sin(angleRad) * radius;
-                    const y = (1 - Math.cos(angleRad)) * (radius * 0.65);
-
-                    // Scale & Opacity based on distance from focal center
-                    let scale = 1.12;
-                    let opacity = 1.0;
-                    let zIndex = 30;
-
-                    if (Math.abs(offset) === 1) {
-                      scale = 0.86;
-                      opacity = 0.52;
-                      zIndex = 20;
-                    } else if (Math.abs(offset) === 2) {
-                      scale = 0.70;
-                      opacity = 0.22;
-                      zIndex = 10;
-                    } else if (Math.abs(offset) > 2) {
-                      opacity = 0;
-                      scale = 0.5;
-                      zIndex = 0;
-                    }
-
-                    return (
-                      <div
-                        key={stage.id}
-                        onClick={() => setActiveStageIndex(idx)}
-                        className={`absolute left-1/2 top-4 -translate-x-1/2 cursor-pointer transition-all duration-700 ease-out font-intertight uppercase tracking-wider flex items-center gap-2 px-3 py-1.5 rounded-full ${
-                          isActive
-                            ? 'bg-black/10 border border-black/15 shadow-sm text-[#111111]'
-                            : 'text-black/60 hover:text-black hover:opacity-80'
-                        }`}
-                        style={{
-                          transform: `translate(calc(-50% + ${x}px), ${y}px) scale(${scale})`,
-                          opacity,
-                          zIndex,
-                        }}
-                      >
-                        {/* ACTIVE STAGE ORANGE PULSE POINT */}
-                        <span
-                          className={`font-black text-xs transition-colors ${
-                            isActive ? 'text-[#FF4B00]' : 'text-black/40'
-                          }`}
-                        >
+              {/* COMPACT EDITORIAL STAGE RAIL */}
+              <div className="pt-2 sm:pt-3 border-l-2 border-black/15 space-y-2 sm:space-y-3 pl-3 sm:pl-4">
+                {processStages.map((stage, idx) => {
+                  const isActive = activeStageIndex === idx;
+                  return (
+                    <div
+                      key={stage.id}
+                      className={`flex items-center justify-between cursor-pointer transition-all duration-300 font-intertight uppercase tracking-wider py-1 ${
+                        isActive
+                          ? 'text-[#111111] font-extrabold translate-x-2 text-base sm:text-lg'
+                          : 'text-black/35 hover:text-black/70 text-xs sm:text-sm'
+                      }`}
+                      onClick={() => setActiveStageIndex(idx)}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <span className={isActive ? 'text-[#FF4B00] font-mono' : 'text-black/30 font-mono'}>
                           {stage.number}
                         </span>
-
-                        <span
-                          className={`font-extrabold text-xs sm:text-sm whitespace-nowrap transition-colors ${
-                            isActive ? 'text-[#111111]' : 'text-black/60'
-                          }`}
-                        >
-                          {stage.title}
-                        </span>
-
-                        {isActive && (
-                          <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse ml-0.5" />
-                        )}
+                        <span>{stage.title}</span>
                       </div>
-                    );
-                  })}
-                </div>
-
+                      {isActive && (
+                        <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
