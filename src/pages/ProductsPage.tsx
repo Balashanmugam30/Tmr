@@ -587,12 +587,6 @@ export const ProductsPage: React.FC = () => {
               alt="3M™ Perfect-It™ EX AC Rubbing Compound"
               className="w-full h-full object-contain p-6 md:p-12 drop-shadow-2xl transition-transform duration-700 hover:scale-[1.03]"
             />
-            <div className="absolute top-6 left-6 z-10 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
-              <div className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-              <span className="font-manrope font-bold text-[10px] uppercase tracking-widest text-white">
-                Verified Product Specimen
-              </span>
-            </div>
           </div>
 
           {/* Right 50%: EDITORIAL CONTENT */}
@@ -648,13 +642,6 @@ export const ProductsPage: React.FC = () => {
 
         {/* Centered Restrained Text Overlay */}
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center text-white space-y-6 py-20">
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 mb-2">
-            <div className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-            <span className="font-manrope font-bold text-[10px] uppercase tracking-widest text-white/90">
-              Product In Practice — Automotive Paint Correction
-            </span>
-          </div>
-
           <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tighter text-white leading-tight">
             3M™ PERFECT-IT™ EX AC<br />
             <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">rubbing compound.</span>
@@ -833,10 +820,7 @@ export const ProductsPage: React.FC = () => {
         </div>
 
         {/* Carousel Navigation Bar */}
-        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 pb-4 flex justify-between items-center">
-          <span className="text-[10px] sm:text-xs font-bold text-[#A0A0A0] uppercase tracking-widest">
-            Showing {filteredProducts.length} Product{filteredProducts.length === 1 ? '' : 's'} — Drag or Swipe →
-          </span>
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 pb-4 flex justify-end items-center">
           <div className="flex items-center gap-2">
             <button
               onClick={() => scrollRunway('left')}
@@ -928,10 +912,6 @@ export const ProductsPage: React.FC = () => {
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-5">
-              <div className="font-bold text-xs text-[#858585] tracking-widest uppercase flex items-center mb-6">
-                <span className="w-12 h-px bg-[#FF4B00] mr-4 block" />
-                08 / PRODUCT VAULT FAQ
-              </div>
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-white leading-none mb-6">
                 QUESTIONS &amp;<br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">answers.</span>
