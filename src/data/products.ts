@@ -464,7 +464,7 @@ export const productsData: Product[] = [
       "Glide clay bar gently across surface in back-and-forth motions until smooth.",
       "Knead clay to clean surface periodically; wipe dry with microfiber towel."
     ],
-    image: "/images/products/3m/3m-clay-lube-kit.jpg",
+    image: "/images/products/3m/3m-synthetic-detail-clay-bar.jpg",
     detailRoute: "/products/3m-synthetic-detail-clay-bar",
     sourceUrl: "https://www.3m.com/",
     isVerified: true,
