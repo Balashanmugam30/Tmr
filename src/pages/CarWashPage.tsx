@@ -165,9 +165,6 @@ export const CarWashPage: React.FC = () => {
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
           <div className="col-span-1 md:col-span-12">
-            <span className="font-mono text-xs font-bold text-[#FF4B00] uppercase tracking-widest block mb-3">
-              CAR WASH &amp; CLEANING
-            </span>
             <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-4xl sm:text-6xl lg:text-[76px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] mb-6">
               PROFESSIONAL CAR WASH &amp; CLEANING<br />
               <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-4 inline-block transform -rotate-1">
