@@ -1,4 +1,17 @@
-export interface ProductFAQ {
+export interface ProductSpec {
+  label: string;
+  value: string;
+}
+
+export interface ApplicationStepObject {
+  step: number;
+  title: string;
+  description: string;
+}
+
+export type ApplicationStep = string | ApplicationStepObject;
+
+export interface ProductFaq {
   q: string;
   a: string;
 }
@@ -12,8 +25,8 @@ export interface Product {
   category: "ABRASIVES" | "CLEANING" | "POLISHING" | "PROTECTION" | "FILMS" | "TOOLS" | "ACCESSORIES";
   shortDescription: string;
   fullDescription: string;
-  specs: { label: string; value: string }[];
-  applicationSteps: string[];
+  specs: ProductSpec[];
+  applicationSteps: ApplicationStep[];
   image: string;
   detailRoute: string;
   sourceUrl?: string;
@@ -21,8 +34,8 @@ export interface Product {
   seoTitle?: string;
   seoDescription?: string;
   seoH1?: string;
-  faqs?: ProductFAQ[];
-  relatedProductIds?: string[];
+  faqs: ProductFaq[];
+  relatedProductIds: string[];
 }
 
 export const productsData: Product[] = [
@@ -3277,6 +3290,1139 @@ export const productsData: Product[] = [
         "q": "Does it protect against future rust?",
         "a": "Yes, it leaves a microscopic protective film that repels moisture and prevents rust reoccurrence."
       }
+    ]
+  },
+  {
+    "id": "3m-headlight-lens-restoration-kit-39008",
+    "slug": "3m-headlight-lens-restoration-kit-39008",
+    "sku": "PN 39008",
+    "name": "3M\u2122 Headlight Lens Restoration System",
+    "brand": "3M\u2122 Automotive",
+    "category": "CLEANING",
+    "shortDescription": "Complete mechanical multi-stage restoration system engineered to eliminate severe cloudiness, yellowing, and oxidation from polycarbonate automotive headlight lenses.",
+    "fullDescription": "3M\u2122 Headlight Lens Restoration System PN 39008 is an advanced mechanical restoration kit designed for professional automotive detailers and enthusiasts. Utilizing genuine 3M abrasive discs and abrasive compounding technology, this multi-step process restores cloudy, sun-damaged, and yellowed plastic lenses to optical clarity. The system eliminates deep surface defects, enhances nighttime beam throw, and prepares the lens for UV protective sealing.",
+    "specs": [
+      {
+        "label": "Process Type",
+        "value": "Multi-stage mechanical sanding & compounding"
+      },
+      {
+        "label": "System Contents",
+        "value": "P500/P800 discs, P3000 Trizact disc, compound, pad, drill arbor"
+      },
+      {
+        "label": "Recommended RPM",
+        "value": "1200 - 1600 RPM with standard rotary/drill"
+      },
+      {
+        "label": "Surface Compatibility",
+        "value": "Polycarbonate, acrylic, and composite headlights"
+      },
+      {
+        "label": "Optical Result",
+        "value": "Crystal-clear optical transparency & beam restoration"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Masking & Surface Prep",
+        "description": "Clean lens thoroughly and apply 3M Performance Masking Tape generously around painted body panels."
+      },
+      {
+        "step": 2,
+        "title": "Coarse & Medium Sanding",
+        "description": "Attach P500 disc followed by P800 disc to eliminate heavy oxidation and yellowed UV clear coat."
+      },
+      {
+        "step": 3,
+        "title": "Trizact P3000 Refining",
+        "description": "Dampen the Trizact P3000 foam disc with water and refine sanding scratch patterns until uniform."
+      },
+      {
+        "step": 4,
+        "title": "Compounding & Finishing",
+        "description": "Apply 3M Rubbing Compound with the included orange foam pad for high-gloss crystal clarity."
+      }
+    ],
+    "image": "/images/products/3m/3m-headlight-lens-restoration-kit-39008.jpg",
+    "detailRoute": "/products/3m-headlight-lens-restoration-kit-39008",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/592397J/3m-headlight-lens-restoration-system-39008.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Headlight Lens Restoration System PN 39008 | TMR Car Care",
+    "seoDescription": "Restore yellowed and hazy polycarbonate headlights to optical clarity with the genuine 3M\u2122 Headlight Lens Restoration System PN 39008 at TMR Car Care.",
+    "seoH1": "3M\u2122 Headlight Lens Restoration System PN 39008",
+    "faqs": [
+      {
+        "q": "How long does headlight restoration take with 3M PN 39008?",
+        "a": "A standard pair of headlights typically takes 30 to 45 minutes to restore completely through all sanding and compounding stages."
+      },
+      {
+        "q": "Can this kit be used on taillights and motorcycle windscreens?",
+        "a": "Yes, it is fully safe and effective on all smooth polycarbonate, acrylic, and rigid automotive plastics."
+      },
+      {
+        "q": "Do I need a UV sealant after completing the process?",
+        "a": "Yes, applying a dedicated UV protective ceramic coating or clear coat after restoration prevents future UV oxidation."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-plastic-cleaner-39017",
+      "3m-plastic-polish-39010",
+      "3m-masking-tape"
+    ]
+  },
+  {
+    "id": "3m-plastic-cleaner-39017",
+    "slug": "3m-plastic-cleaner-39017",
+    "sku": "PN 39017",
+    "name": "3M\u2122 Plastic Cleaner",
+    "brand": "3M\u2122 Automotive",
+    "category": "CLEANING",
+    "shortDescription": "Precision liquid cleaner formulated to safely remove fine scratches, stains, and light hazing from clear automotive interior and exterior plastics.",
+    "fullDescription": "3M\u2122 Plastic Cleaner PN 39017 provides controlled micro-abrasive cleaning action specifically formulated for clear and transparent plastics. It effectively lifts road film, chemical stains, yellowing, and minor scratches without etching delicate surfaces. Ideal for maintaining instrument cluster lenses, gauge faces, motorcycle visors, convertible rear windows, and vehicle lighting assemblies.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "8 fl oz / 236 mL"
+      },
+      {
+        "label": "Formulation",
+        "value": "Micro-cleaning mineral suspension"
+      },
+      {
+        "label": "Application Method",
+        "value": "Hand microfiber or dual-action machine"
+      },
+      {
+        "label": "Substrates",
+        "value": "Clear plastics, acrylic, polycarbonate, rigid PVC"
+      },
+      {
+        "label": "Primary Function",
+        "value": "Removes light scratches, haze, and oxidation"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Dust Removal",
+        "description": "Ensure the plastic surface is cool and free of abrasive dust or grit."
+      },
+      {
+        "step": 2,
+        "title": "Dispense",
+        "description": "Apply a dime-sized amount onto a clean 3M Microfiber Detailing Cloth."
+      },
+      {
+        "step": 3,
+        "title": "Work Surface",
+        "description": "Rub the surface using moderate circular pressure until defects diminish."
+      },
+      {
+        "step": 4,
+        "title": "Wipe Clean",
+        "description": "Buff away residue with a dry section of the microfiber cloth."
+      }
+    ],
+    "image": "/images/products/3m/3m-plastic-cleaner-39017.jpg",
+    "detailRoute": "/products/3m-plastic-cleaner-39017",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/928220J/3m-plastic-cleaner-39017-8-fl-oz-6-per-case.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Plastic Cleaner PN 39017 | TMR Car Care",
+    "seoDescription": "Remove fine scratches and haze from instrument clusters and clear automotive plastics with 3M\u2122 Plastic Cleaner PN 39017 at TMR Car Care.",
+    "seoH1": "3M\u2122 Plastic Cleaner PN 39017",
+    "faqs": [
+      {
+        "q": "Can 3M Plastic Cleaner be used on navigation touchscreens?",
+        "a": "It is designed for untreated clear rigid plastics. It should not be used on anti-reflective coated LCD touchscreens."
+      },
+      {
+        "q": "Should I follow with 3M Plastic Polish?",
+        "a": "Yes, using 3M Plastic Polish PN 39010 immediately afterwards creates an ultra-glossy, optically transparent finish."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-plastic-polish-39010",
+      "3m-headlight-lens-restoration-kit-39008"
+    ]
+  },
+  {
+    "id": "3m-plastic-polish-39010",
+    "slug": "3m-plastic-polish-39010",
+    "sku": "PN 39010",
+    "name": "3M\u2122 Plastic Polish",
+    "brand": "3M\u2122 Automotive",
+    "category": "POLISHING",
+    "shortDescription": "High-clarity finishing polish that restores optical gloss and deep transparency to clear automotive plastics and light covers.",
+    "fullDescription": "3M\u2122 Plastic Polish PN 39010 is the definitive finishing step in automotive plastic care. Specially formulated with ultra-fine clarifying polymers, it restores deep optical clarity to clear plastics after cleaning or compounding. It leaves behind a slick, anti-static barrier that repels dust, moisture, and road contaminants while restoring showroom transparency.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "8 fl oz / 236 mL"
+      },
+      {
+        "label": "Formulation",
+        "value": "Ultra-fine clarifying polymer emulsion"
+      },
+      {
+        "label": "Application Method",
+        "value": "Hand buffing or soft foam finishing pad"
+      },
+      {
+        "label": "Compatible Surfaces",
+        "value": "Headlights, tail lamps, gauge lenses, helmets"
+      },
+      {
+        "label": "Finish Profile",
+        "value": "High-gloss optical transparency & water repellency"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Surface Cleaning",
+        "description": "Clean the target plastic surface with 3M Plastic Cleaner or mild car shampoo."
+      },
+      {
+        "step": 2,
+        "title": "Apply Polish",
+        "description": "Apply a small drop of 3M Plastic Polish to a clean microfiber applicator."
+      },
+      {
+        "step": 3,
+        "title": "Buffing",
+        "description": "Spread evenly across the lens with light, overlapping circular motions."
+      },
+      {
+        "step": 4,
+        "title": "Final Buff",
+        "description": "Wipe with a clean microfiber towel to reveal brilliant optical clarity."
+      }
+    ],
+    "image": "/images/products/3m/3m-plastic-polish-39010.jpg",
+    "detailRoute": "/products/3m-plastic-polish-39010",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/928222J/3m-plastic-polish-39010-8-fl-oz-6-per-case.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Plastic Polish PN 39010 | TMR Car Care",
+    "seoDescription": "Achieve crystal optical clarity and high gloss on vehicle light covers and clear plastics with 3M\u2122 Plastic Polish PN 39010 at TMR Car Care.",
+    "seoH1": "3M\u2122 Plastic Polish PN 39010",
+    "faqs": [
+      {
+        "q": "Does this polish remove heavy yellow oxidation?",
+        "a": "For heavy yellow oxidation, use the 3M Headlight Restoration Kit or 3M Plastic Cleaner first, followed by this polish as the final gloss step."
+      },
+      {
+        "q": "Is it safe on motorcycle helmet visors?",
+        "a": "Yes, it safely restores clarity on polycarbonate helmet visors and motorcycle fairings."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-plastic-cleaner-39017",
+      "3m-headlight-lens-restoration-kit-39008"
+    ]
+  },
+  {
+    "id": "3m-specialty-adhesive-remover-38987",
+    "slug": "3m-specialty-adhesive-remover-38987",
+    "sku": "PN 38987",
+    "name": "3M\u2122 Specialty Adhesive Remover",
+    "brand": "3M\u2122 Automotive",
+    "category": "CLEANING",
+    "shortDescription": "Industrial-grade aerosol solvent designed to quickly dissolve tough adhesive residue, PPF glue, road tar, tree sap, and silicone oils.",
+    "fullDescription": "3M\u2122 Specialty Adhesive Remover PN 38987 is a solvent blend developed for automotive body shops and detailing professionals. It penetrates and dissolves reactive adhesive residues from vinyl wraps, emblem removals, paint protection films (PPF), bumper stickers, road tar, and stubborn tree sap. It evaporates cleanly without leaving oily films when wiped down.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "15 fl oz / 443 mL Aerosol"
+      },
+      {
+        "label": "Active Base",
+        "value": "High-solvency specialized hydrocarbon blend"
+      },
+      {
+        "label": "Paint Safety",
+        "value": "Safe on fully cured automotive OEM clear coats"
+      },
+      {
+        "label": "Penetration Time",
+        "value": "30 to 60 seconds rapid softening"
+      },
+      {
+        "label": "Primary Target",
+        "value": "PPF adhesives, emblem tape, road tar, silicone"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Target Spray",
+        "description": "Spray directly onto the adhesive residue or saturated cotton towel."
+      },
+      {
+        "step": 2,
+        "title": "Dwell Period",
+        "description": "Allow solvent to dwell for 30\u201360 seconds to penetrate and soften glue."
+      },
+      {
+        "step": 3,
+        "title": "Gently Lift",
+        "description": "Gently wipe away softened residue with a microfiber towel or plastic razor."
+      },
+      {
+        "step": 4,
+        "title": "Final Clean",
+        "description": "Wipe surface dry with clean cloth and rinse with water or detailer spray."
+      }
+    ],
+    "image": "/images/products/3m/3m-specialty-adhesive-remover-38987.jpg",
+    "detailRoute": "/products/3m-specialty-adhesive-remover-38987",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/928224J/3m-specialty-adhesive-remover-38987-15-fl-oz-can-6-per-case.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Specialty Adhesive Remover PN 38987 | TMR Car Care",
+    "seoDescription": "Quickly dissolve PPF glue, emblem tape, and stubborn road tar with professional 3M\u2122 Specialty Adhesive Remover PN 38987 at TMR Car Care.",
+    "seoH1": "3M\u2122 Specialty Adhesive Remover PN 38987",
+    "faqs": [
+      {
+        "q": "Will this harm factory automotive paint?",
+        "a": "No, it is formulated to be completely safe on cured automotive OEM clear coats, glass, and chrome when used as directed."
+      },
+      {
+        "q": "Can it be used to remove window tint glue?",
+        "a": "Yes, it dissolves window film and PPF adhesive residues rapidly without scratching glass."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-scotchgard-ppf-pro",
+      "3m-automotive-attachment-tape-06382"
+    ]
+  },
+  {
+    "id": "3m-chrome-and-metal-polish-39527",
+    "slug": "3m-chrome-and-metal-polish-39527",
+    "sku": "PN 39527",
+    "name": "3M\u2122 Chrome and Metal Polish",
+    "brand": "3M\u2122 Automotive",
+    "category": "POLISHING",
+    "shortDescription": "Premium metal polish that safely eliminates oxidation, pitting, and corrosion from chrome, stainless steel, aluminum, and brass trims.",
+    "fullDescription": "3M\u2122 Chrome and Metal Polish PN 39527 is formulated to clean, polish, and protect all automotive metal surfaces. It safely removes surface rust, oxidation, corrosion, and water spotting from chrome bumpers, stainless steel exhaust tips, aluminum wheels, and brass fittings. It leaves a protective polymer film that inhibits future corrosion and maintains high luster.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "10 fl oz / 295 mL"
+      },
+      {
+        "label": "Substrates",
+        "value": "Chrome, stainless steel, aluminum, brass, copper"
+      },
+      {
+        "label": "Abrasive Grade",
+        "value": "Micro-fine brightening mineral particles"
+      },
+      {
+        "label": "Protection",
+        "value": "Corrosion-inhibiting polymer barrier"
+      },
+      {
+        "label": "Finish",
+        "value": "Mirror-like brilliant reflection"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Prep",
+        "description": "Wash and dry the metal surface to remove loose grit and dirt."
+      },
+      {
+        "step": 2,
+        "title": "Dispense",
+        "description": "Apply a small amount to a microfiber towel or applicator pad."
+      },
+      {
+        "step": 3,
+        "title": "Polish",
+        "description": "Rub the metal surface firmly until black residue appears."
+      },
+      {
+        "step": 4,
+        "title": "Buff",
+        "description": "Buff off residue with a clean, dry microfiber cloth to a brilliant shine."
+      }
+    ],
+    "image": "/images/products/3m/3m-chrome-and-metal-polish-39527.jpg",
+    "detailRoute": "/products/3m-chrome-and-metal-polish-39527",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/928226J/3m-chrome-and-metal-polish-39527-10-fl-oz-6-per-case.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Chrome and Metal Polish PN 39527 | TMR Car Care",
+    "seoDescription": "Eliminate corrosion and restore mirror shine to chrome exhaust tips and wheels with 3M\u2122 Chrome and Metal Polish PN 39527 at TMR Car Care.",
+    "seoH1": "3M\u2122 Chrome and Metal Polish PN 39527",
+    "faqs": [
+      {
+        "q": "Can I use this on chrome-plated plastic trim?",
+        "a": "Yes, but use light hand pressure only to avoid buffing through thin decorative plating."
+      },
+      {
+        "q": "Does it remove blue heat stains from exhaust pipes?",
+        "a": "Yes, with repeated application and firm microfiber rubbing, it breaks down thermal oxidation on stainless steel."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-perfect-it-ex-rubbing-compound",
+      "3m-quick-wax-spray"
+    ]
+  },
+  {
+    "id": "3m-flexible-foam-abrasive-disc-33540",
+    "slug": "3m-flexible-foam-abrasive-disc-33540",
+    "sku": "PN 33540",
+    "name": "3M\u2122 Flexible Foam Abrasive Disc P1500",
+    "brand": "3M\u2122 Automotive",
+    "category": "ABRASIVES",
+    "shortDescription": "Ultra-conformable foam-backed abrasive disc engineered for sanding complex curved automotive body panels and blend areas.",
+    "fullDescription": "3M\u2122 Flexible Foam Abrasive Disc PN 33540 combines high-performance aluminum oxide abrasive grains with a flexible foam backing. Designed for both machine and hand wet/dry sanding, it conforms effortlessly to intricate body lines, curved bumper fascias, door jambs, and swage lines without cut-through risk. It produces a uniform scratch pattern that compounds out quickly.",
+    "specs": [
+      {
+        "label": "Diameter",
+        "value": "6 in / 152 mm"
+      },
+      {
+        "label": "Grit Grade",
+        "value": "P1500 Flexible Micro-Mineral"
+      },
+      {
+        "label": "Attachment",
+        "value": "3M Hookit\u2122 Hook-and-Loop System"
+      },
+      {
+        "label": "Usage Mode",
+        "value": "Wet or dry sanding versatility"
+      },
+      {
+        "label": "Backing",
+        "value": "High-density flexible conformable foam"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Mount Disc",
+        "description": "Attach the disc to a 3M Hookit back-up pad on a dual-action sander."
+      },
+      {
+        "step": 2,
+        "title": "Mist Surface",
+        "description": "Spray a light mist of clean water onto the panel for wet sanding lubrication."
+      },
+      {
+        "step": 3,
+        "title": "Sand Panel",
+        "description": "Operate sander with light, flat pressure across curved and contoured panels."
+      },
+      {
+        "step": 4,
+        "title": "Inspect Texture",
+        "description": "Wipe panel dry with a squeegee to inspect for uniform scratch refinement."
+      }
+    ],
+    "image": "/images/products/3m/3m-flexible-foam-abrasive-disc-33540.jpg",
+    "detailRoute": "/products/3m-flexible-foam-abrasive-disc-33540",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/1655738J/3m-flexible-foam-abrasive-disc-p1500-33540.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540 | TMR Car Care",
+    "seoDescription": "Level paint defects on complex curved automotive panels with 3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540 at TMR Car Care.",
+    "seoH1": "3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540",
+    "faqs": [
+      {
+        "q": "How is this different from rigid sandpaper discs?",
+        "a": "The integrated foam backing cushions the abrasive, distributing pressure evenly across convex and concave contours to prevent edge burn-through."
+      },
+      {
+        "q": "Can it be used by hand without a machine?",
+        "a": "Yes, it wraps around soft foam hand blocks for manual detail sanding."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-trizact-1500",
+      "3m-trizact-abrasives",
+      "3m-compounding-pad"
+    ]
+  },
+  {
+    "id": "3m-precision-poly-masking-tape-06525",
+    "slug": "3m-precision-poly-masking-tape-06525",
+    "sku": "PN 06525",
+    "name": "3M\u2122 Precision Poly Masking Tape",
+    "brand": "3M\u2122 Automotive",
+    "category": "TOOLS",
+    "shortDescription": "Ultra-thin polymer film masking tape for ultra-sharp paint lines, trim separation, and solvent barrier protection during detailing.",
+    "fullDescription": "3M\u2122 Precision Poly Masking Tape PN 06525 features an ultra-thin, smooth polymeric film backing with a specialized acrylic adhesive. Engineered for multi-stage paint correction and precision masking, it prevents compound penetration behind rubber gaskets, window seals, and emblem badges. It removes cleanly in one piece with zero adhesive transfer or edge bleed.",
+    "specs": [
+      {
+        "label": "Width & Length",
+        "value": "24 mm x 50 m"
+      },
+      {
+        "label": "Backing Material",
+        "value": "Ultra-thin polymeric film backing"
+      },
+      {
+        "label": "Adhesive Type",
+        "value": "High-performance clean-removal acrylic"
+      },
+      {
+        "label": "Thermal Rating",
+        "value": "Withstands up to 121\u00b0C / 250\u00b0F"
+      },
+      {
+        "label": "Solvent Resistance",
+        "value": "Impervious to water, compound slurries, and solvents"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Surface Cleaning",
+        "description": "Ensure rubber seals, trim, and body gaps are clean and dry."
+      },
+      {
+        "step": 2,
+        "title": "Application",
+        "description": "Align tape precisely along the edge and press down with smooth thumb pressure."
+      },
+      {
+        "step": 3,
+        "title": "Machine Work",
+        "description": "Proceed with machine compounding and polishing over adjacent panels."
+      },
+      {
+        "step": 4,
+        "title": "Clean Removal",
+        "description": "Pull tape back smoothly at a 45-degree angle for a flawless release."
+      }
+    ],
+    "image": "/images/products/3m/3m-precision-poly-masking-tape-06525.jpg",
+    "detailRoute": "/products/3m-precision-poly-masking-tape-06525",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/1315758J/3m-precision-poly-masking-tape-06525.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Precision Poly Masking Tape PN 06525 | TMR Car Care",
+    "seoDescription": "Protect rubber trim and create razor-sharp edges with 3M\u2122 Precision Poly Masking Tape PN 06525 at TMR Car Care.",
+    "seoH1": "3M\u2122 Precision Poly Masking Tape PN 06525",
+    "faqs": [
+      {
+        "q": "Does this tape lift or tear when rotary pads make contact?",
+        "a": "No, the durable polymer film backing resists tearing and pad friction far better than standard paper masking tapes."
+      },
+      {
+        "q": "Is it safe on freshly painted panels?",
+        "a": "Yes, its acrylic adhesive releases cleanly without pulling clear coat."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-masking-tape",
+      "3m-yellow-masking-tape-06654"
+    ]
+  },
+  {
+    "id": "3m-perfect-it-detail-cloth-06016",
+    "slug": "3m-perfect-it-detail-cloth-06016",
+    "sku": "PN 06016",
+    "name": "3M\u2122 Perfect-It\u2122 Clean and Shine Microfiber Cloth",
+    "brand": "3M\u2122 Automotive",
+    "category": "ACCESSORIES",
+    "shortDescription": "High-density non-scratch microfiber detailing cloth designed for safe, streak-free compound, polish, and wax residue removal.",
+    "fullDescription": "3M\u2122 Perfect-It\u2122 Clean and Shine Microfiber Cloth PN 06016 is engineered specifically for paint correction and detailing studios. Constructed with high-density polyester-polyamide microfibers, it traps and lifts abrasive residue, oily polishing oils, and finger marks without marring delicate clear coats. It is completely lint-free, silicone-free, and machine washable for hundreds of cycles.",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "32 cm x 36 cm (12.5 in x 14 in)"
+      },
+      {
+        "label": "Fiber Composition",
+        "value": "80% Polyester / 20% Polyamide blend"
+      },
+      {
+        "label": "Edge Construction",
+        "value": "Ultrasonic non-scratch sealed edge"
+      },
+      {
+        "label": "Lint Properties",
+        "value": "100% lint-free and silicone-free"
+      },
+      {
+        "label": "Care",
+        "value": "Machine washable without fabric softener"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Fold Cloth",
+        "description": "Fold cloth into quarters to provide eight clean wiping surfaces."
+      },
+      {
+        "step": 2,
+        "title": "Wipe Residue",
+        "description": "Use gentle linear strokes to lift compound and polish haze."
+      },
+      {
+        "step": 3,
+        "title": "Flip Side",
+        "description": "Flip to a fresh quarter for final streak-free buffing to high gloss."
+      },
+      {
+        "step": 4,
+        "title": "Washing",
+        "description": "Wash in warm water with dedicated microfiber detergent after use."
+      }
+    ],
+    "image": "/images/products/3m/3m-perfect-it-detail-cloth-06016.jpg",
+    "detailRoute": "/products/3m-perfect-it-detail-cloth-06016",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/1091307J/3m-perfect-it-clean-and-shine-cloth-06016.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Clean and Shine Cloth PN 06016 | TMR Car Care",
+    "seoDescription": "Remove polish residue safely without marring with 3M\u2122 Perfect-It\u2122 Clean and Shine Microfiber Cloth PN 06016 at TMR Car Care.",
+    "seoH1": "3M\u2122 Perfect-It\u2122 Clean and Shine Cloth PN 06016",
+    "faqs": [
+      {
+        "q": "Will this cloth scratch sensitive piano-black pillars?",
+        "a": "No, its plush microscopic fibers and edge-sealed construction ensure scratch-free wiping on high-gloss and piano-black finishes."
+      },
+      {
+        "q": "How often should it be washed?",
+        "a": "Wash after each compounding session to prevent embedded mineral grains from contacting painted surfaces."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-perfect-it-ex-machine-polish",
+      "3m-clean-and-shine-spray-06084"
+    ]
+  },
+  {
+    "id": "3m-rubbing-compound-paste-39002",
+    "slug": "3m-rubbing-compound-paste-39002",
+    "sku": "PN 39002",
+    "name": "3M\u2122 Rubbing Compound Paste",
+    "brand": "3M\u2122 Automotive",
+    "category": "POLISHING",
+    "shortDescription": "Heavy-duty paste compound designed to aggressively remove heavy oxidation, chalking, deep scratches, and coarse surface defects.",
+    "fullDescription": "3M\u2122 Rubbing Compound Paste PN 39002 is a paste formulation engineered for severe paint defect correction. Containing aggressive aluminum oxide abrasive minerals, it quickly levels heavy surface oxidation, deep scratches, acid rain etching, and coarse sanding marks. It restores dull, faded clear coats and single-stage paints prior to machine finishing.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "16 fl oz / 473 mL Paste"
+      },
+      {
+        "label": "Abrasive Base",
+        "value": "Heavy-cut aluminum oxide mineral"
+      },
+      {
+        "label": "Cut Level",
+        "value": "Heavy cutting / oxidation leveling"
+      },
+      {
+        "label": "Application Method",
+        "value": "Hand buffing cloth or rotary foam pad"
+      },
+      {
+        "label": "Primary Purpose",
+        "value": "Restoring weathered and oxidized vehicle finishes"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Wash Vehicle",
+        "description": "Wash vehicle thoroughly and ensure panel is completely dry and cool."
+      },
+      {
+        "step": 2,
+        "title": "Apply Paste",
+        "description": "Scoop a small amount onto a damp application cloth or foam pad."
+      },
+      {
+        "step": 3,
+        "title": "Work Section",
+        "description": "Rub with firm, even pressure in back-and-forth strokes across a 2x2 ft area."
+      },
+      {
+        "step": 4,
+        "title": "Buff & Refine",
+        "description": "Wipe away haze with microfiber and follow with 3M Machine Polish for gloss."
+      }
+    ],
+    "image": "/images/products/3m/3m-rubbing-compound-paste-39002.jpg",
+    "detailRoute": "/products/3m-rubbing-compound-paste-39002",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/928210J/3m-rubbing-compound-39002-16-fl-oz-6-per-case.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Rubbing Compound Paste PN 39002 | TMR Car Care",
+    "seoDescription": "Level severe oxidation and deep clear coat scratches with 3M\u2122 Rubbing Compound Paste PN 39002 at TMR Car Care.",
+    "seoH1": "3M\u2122 Rubbing Compound Paste PN 39002",
+    "faqs": [
+      {
+        "q": "Can this be applied by hand on localized scratches?",
+        "a": "Yes, its paste consistency makes it ideal for targeted hand defect correction around door handles and key scratches."
+      },
+      {
+        "q": "Does it require a finishing polish afterwards?",
+        "a": "Yes, following with 3M Machine Polish eliminates compound micro-marring and restores high gloss."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-perfect-it-ex-machine-polish",
+      "3m-compounding-pad"
+    ]
+  },
+  {
+    "id": "3m-yellow-masking-tape-06654",
+    "slug": "3m-yellow-masking-tape-06654",
+    "sku": "PN 06654",
+    "name": "3M\u2122 Automotive Refinish Masking Tape Yellow 06654",
+    "brand": "3M\u2122 Automotive",
+    "category": "TOOLS",
+    "shortDescription": "High-conformability yellow crepe masking tape designed to adhere instantly to automotive rubbers, moldings, and curved panels.",
+    "fullDescription": "3M\u2122 Automotive Refinish Masking Tape Yellow PN 06654 is a yellow crepe paper tape engineered for automotive refinish and detailing operations. It offers superior conformability around tight body curves, curves, and textured plastic trims. The proprietary adhesive resists heat, waterborne polishing fluids, and UV exposure while providing clean, sharp edge separation with no residue.",
+    "specs": [
+      {
+        "label": "Width & Length",
+        "value": "24 mm x 55 m"
+      },
+      {
+        "label": "Color & Backing",
+        "value": "High-visibility yellow conformable crepe"
+      },
+      {
+        "label": "Adhesive System",
+        "value": "Rubber-based high instant tack adhesive"
+      },
+      {
+        "label": "Temperature Rating",
+        "value": "Up to 110\u00b0C / 230\u00b0F bake cycles"
+      },
+      {
+        "label": "Fluid Resistance",
+        "value": "Waterborne and solvent polishing slurry resistant"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Clean Surface",
+        "description": "Ensure panel edges, weatherstrips, and moldings are degreased and dry."
+      },
+      {
+        "step": 2,
+        "title": "Tape Application",
+        "description": "Apply tape along trim contours, stretching slightly to navigate curves."
+      },
+      {
+        "step": 3,
+        "title": "Burnish Edges",
+        "description": "Press down firmly along edges to ensure complete seal against polish slurry."
+      },
+      {
+        "step": 4,
+        "title": "Removal",
+        "description": "Remove cleanly after polishing without leaving gummy residue."
+      }
+    ],
+    "image": "/images/products/3m/3m-yellow-masking-tape-06654.jpg",
+    "detailRoute": "/products/3m-yellow-masking-tape-06654",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/1315760J/3m-automotive-refinish-masking-tape-yellow-06654.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Automotive Refinish Masking Tape Yellow 06654 | TMR Car Care",
+    "seoDescription": "Conform tightly around curves and protect rubber trims with 3M\u2122 Automotive Yellow Masking Tape 06654 at TMR Car Care.",
+    "seoH1": "3M\u2122 Automotive Yellow Masking Tape 06654",
+    "faqs": [
+      {
+        "q": "How is Yellow 06654 different from Green 233+ tape?",
+        "a": "Yellow 06654 offers extreme conformability for complex curves and high-tack adhesion to rubber moldings during intensive correction."
+      },
+      {
+        "q": "Does it peel cleanly from plastic trims?",
+        "a": "Yes, its specialized adhesive formulation ensures clean 1-piece removal without adhesive residue."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-masking-tape",
+      "3m-precision-poly-masking-tape-06525"
+    ]
+  },
+  {
+    "id": "3m-clean-and-shine-spray-06084",
+    "slug": "3m-clean-and-shine-spray-06084",
+    "sku": "PN 06084",
+    "name": "3M\u2122 Perfect-It\u2122 Clean and Shine Spray",
+    "brand": "3M\u2122 Automotive",
+    "category": "CLEANING",
+    "shortDescription": "Silicone-free inspection detailer spray that rapidly cleans compound dust, fingerprints, and smudges without smearing or filling defects.",
+    "fullDescription": "3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084 is a body-shop safe, silicone-free final inspection and detailing spray. Engineered for professional paint correction environments, it easily lifts compound residue, polishing sling, and fingerprints from painted surfaces without filling micro-scratches. It allows detailers to inspect true paint correction results under studio lighting.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "16 fl oz / 473 mL Spray"
+      },
+      {
+        "label": "Silicone Safety",
+        "value": "100% silicone-free (body shop safe)"
+      },
+      {
+        "label": "Function",
+        "value": "Lifts compound dust, polish oils, and fingerprints"
+      },
+      {
+        "label": "Residue Profile",
+        "value": "Zero gloss enhancers / true inspection finish"
+      },
+      {
+        "label": "Compatibility",
+        "value": "Safe on fresh paint, cured clear coats, and glass"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Mist Surface",
+        "description": "Spray a light, fine mist over the corrected vehicle panel."
+      },
+      {
+        "step": 2,
+        "title": "Spread & Lift",
+        "description": "Gently wipe with a folded 3M Perfect-It Microfiber Detail Cloth."
+      },
+      {
+        "step": 3,
+        "title": "Inspect Paint",
+        "description": "Examine the surface under swirl finder lights to verify defect removal."
+      },
+      {
+        "step": 4,
+        "title": "Final Wipe",
+        "description": "Buff dry with a clean cloth face for a streak-free clean surface."
+      }
+    ],
+    "image": "/images/products/3m/3m-clean-and-shine-spray-06084.jpg",
+    "detailRoute": "/products/3m-clean-and-shine-spray-06084",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/1091311J/3m-perfect-it-clean-and-shine-06084-16-fl-oz.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084 | TMR Car Care",
+    "seoDescription": "Inspect paint correction results accurately with silicone-free 3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084 at TMR Car Care.",
+    "seoH1": "3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084",
+    "faqs": [
+      {
+        "q": "Does this spray contain fillers or masking agents?",
+        "a": "No, it is 100% silicone-free and non-filling, ensuring you see the authentic clear coat finish during inspection."
+      },
+      {
+        "q": "Can it be used prior to ceramic coating application?",
+        "a": "Yes, it leaves no oily residue, making it ideal for final wipe-downs before panel wipe and coating."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-perfect-it-detail-cloth-06016",
+      "3m-ceramic-coating-kit"
+    ]
+  },
+  {
+    "id": "3m-high-power-brake-cleaner-08880",
+    "slug": "3m-high-power-brake-cleaner-08880",
+    "sku": "PN 08880",
+    "name": "3M\u2122 High Power Brake Cleaner Aerosol",
+    "brand": "3M\u2122 Automotive",
+    "category": "CLEANING",
+    "shortDescription": "High-pressure flushing aerosol cleaner that instantly dissolves baked-on brake dust, oil, grease, and road grime from calipers and rotors.",
+    "fullDescription": "3M\u2122 High Power Brake Cleaner PN 08880 is an industrial-strength non-chlorinated aerosol degreaser. Delivering a high-velocity spray pattern, it penetrates and flushes away stubborn brake pad dust, grease, road grime, and fluid residues from brake calipers, rotors, drums, and suspension hardware. It dries rapidly without leaving any oily residue.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "14 oz / 397 g Aerosol"
+      },
+      {
+        "label": "Chlorine Status",
+        "value": "Non-chlorinated fast-acting formula"
+      },
+      {
+        "label": "Spray Pattern",
+        "value": "High-power directional pinpoint blasting jet"
+      },
+      {
+        "label": "Evaporation Rate",
+        "value": "Ultra-fast drying / leaves surface dry"
+      },
+      {
+        "label": "Target Contaminants",
+        "value": "Brake dust, road film, grease, hydraulic fluids"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Position",
+        "description": "Ensure brakes are cool. Position nozzle 6\u20138 inches from brake assembly."
+      },
+      {
+        "step": 2,
+        "title": "Spray Jet",
+        "description": "Spray generously starting at the top of the caliper, working downwards."
+      },
+      {
+        "step": 3,
+        "title": "Flush Debris",
+        "description": "Allow high-pressure jet to flush contaminants into a drain basin."
+      },
+      {
+        "step": 4,
+        "title": "Air Dry",
+        "description": "Allow assembly to air dry completely in seconds before proceeding."
+      }
+    ],
+    "image": "/images/products/3m/3m-high-power-brake-cleaner-08880.jpg",
+    "detailRoute": "/products/3m-high-power-brake-cleaner-08880",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/928211J/3m-high-power-brake-cleaner-08880-14-fl-oz.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 High Power Brake Cleaner Aerosol PN 08880 | TMR Car Care",
+    "seoDescription": "Flush stubborn brake dust and grease rapidly with high-pressure 3M\u2122 High Power Brake Cleaner PN 08880 at TMR Car Care.",
+    "seoH1": "3M\u2122 High Power Brake Cleaner PN 08880",
+    "faqs": [
+      {
+        "q": "Is this cleaner safe for powder-coated or painted brake calipers?",
+        "a": "Test on an inconspicuous area first. Wipe off quickly from delicate custom finishes to prevent surface dulling."
+      },
+      {
+        "q": "Does it leave a residue that interferes with braking?",
+        "a": "No, it evaporates 100% cleanly, restoring clean friction surfaces."
+      }
+    ],
+    "relatedProductIds": [
+      "wurth-brake-cleaner-plus",
+      "meguiars-hot-rims-wheel-tire-cleaner"
+    ]
+  },
+  {
+    "id": "3m-famous-finish-compound-51677",
+    "slug": "3m-famous-finish-compound-51677",
+    "sku": "PN 51677",
+    "name": "3M\u2122 Perfect-It\u2122 Famous Finish 1-Step Compound",
+    "brand": "3M\u2122 Automotive",
+    "category": "POLISHING",
+    "shortDescription": "Next-generation single-step finishing compound engineered to eliminate P3000 sand scratches and deliver brilliant high-gloss in one pass.",
+    "fullDescription": "3M\u2122 Perfect-It\u2122 Famous Finish PN 51677 is an advanced single-step polishing compound developed for modern OEM clear coats. Operating with engineered abrasive minerals, it removes P3000 Trizact scratch patterns rapidly while simultaneously polishing the surface to an ultra-deep gloss finish without haze or holograms. It drastically cuts workshop turnaround times while maintaining pristine clarity.",
+    "specs": [
+      {
+        "label": "Volume",
+        "value": "1 kg / 1000 mL Bottle"
+      },
+      {
+        "label": "Technology",
+        "value": "Engineered 1-Step diminishing mineral system"
+      },
+      {
+        "label": "Scratch Removal",
+        "value": "Permanently eliminates P3000 Trizact scratches"
+      },
+      {
+        "label": "Splatter Level",
+        "value": "Low splatter / easy wipe-off formulation"
+      },
+      {
+        "label": "Finish Quality",
+        "value": "Hologram-free deep optical reflection"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Prep Panel",
+        "description": "Refine defects with 3M Trizact P3000 foam disc before compounding."
+      },
+      {
+        "step": 2,
+        "title": "Pad Priming",
+        "description": "Apply 3\u20134 drops of Famous Finish compound to a purple foam finishing pad."
+      },
+      {
+        "step": 3,
+        "title": "Machine Pass",
+        "description": "Work at 1200\u20131500 RPM with moderate pressure, reducing pressure as gloss emerges."
+      },
+      {
+        "step": 4,
+        "title": "Buff Off",
+        "description": "Wipe away compound residue with a 3M Microfiber Cloth for a finished gloss."
+      }
+    ],
+    "image": "/images/products/3m/3m-famous-finish-compound-51677.jpg",
+    "detailRoute": "/products/3m-famous-finish-compound-51677",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/1655732J/3m-perfect-it-famous-finish-51677-1-kg.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Famous Finish 1-Step Compound PN 51677 | TMR Car Care",
+    "seoDescription": "Remove P3000 scratches and achieve flawless high gloss in one step with 3M\u2122 Famous Finish PN 51677 at TMR Car Care.",
+    "seoH1": "3M\u2122 Perfect-It\u2122 Famous Finish Compound PN 51677",
+    "faqs": [
+      {
+        "q": "Can this compound replace a 3-stage polishing process?",
+        "a": "On vehicles sanded with Trizact 3000/5000 or with light-to-medium swirl marks, Famous Finish delivers full correction and gloss in a single pass."
+      },
+      {
+        "q": "What machine is recommended for Famous Finish?",
+        "a": "It performs excellently on both rotary polishers and high-throw dual-action polishers."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-perfect-it-1-step-finishing-material",
+      "3m-trizact-5000",
+      "3m-perfect-it-ex-rubbing-compound"
+    ]
+  },
+  {
+    "id": "3m-trizact-3000-sheet-02077",
+    "slug": "3m-trizact-3000-sheet-02077",
+    "sku": "PN 02077",
+    "name": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000",
+    "brand": "3M\u2122 Automotive",
+    "category": "ABRASIVES",
+    "shortDescription": "Precision rectangular micro-abrasive foam sheet engineered for hand damp-sanding tight curves, recesses, and edge contours.",
+    "fullDescription": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet PN 02077 features 3M's micro-replication technology in a rectangular 70 mm x 140 mm sheet format. Formulated with P3000 pyramidal aluminum oxide structures that wear evenly to expose fresh mineral, it delivers an ultra-consistent scratch pattern on door edges, pillar recesses, and complex curves where rotary sanders cannot reach.",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "70 mm x 140 mm (2.75 in x 5.5 in)"
+      },
+      {
+        "label": "Abrasive Grade",
+        "value": "P3000 Pyramidal Micro-Replicated Mineral"
+      },
+      {
+        "label": "Attachment System",
+        "value": "3M Hookit\u2122 Hook-and-Loop"
+      },
+      {
+        "label": "Usage Method",
+        "value": "Damp hand sanding with soft backing block"
+      },
+      {
+        "label": "Target Areas",
+        "value": "Swage lines, panel edges, door handle cups, recesses"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Mount to Block",
+        "description": "Attach the Trizact sheet to a 3M Hookit foam hand sanding pad."
+      },
+      {
+        "step": 2,
+        "title": "Dampen Surface",
+        "description": "Lightly mist the sheet and panel with clean water."
+      },
+      {
+        "step": 3,
+        "title": "Hand Sand",
+        "description": "Sand panel recesses with light back-and-forth strokes until texture is uniform."
+      },
+      {
+        "step": 4,
+        "title": "Inspect & Wipe",
+        "description": "Squeegee water off and inspect for uniform micro-fine matte finish."
+      }
+    ],
+    "image": "/images/products/3m/3m-trizact-3000-sheet-02077.jpg",
+    "detailRoute": "/products/3m-trizact-3000-sheet-02077",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/1066868J/3m-trizact-hookit-foam-sheet-02077-p3000-70-mm-x-140-mm.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077 | TMR Car Care",
+    "seoDescription": "Refine scratches on intricate body lines and recesses with 3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077 at TMR Car Care.",
+    "seoH1": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077",
+    "faqs": [
+      {
+        "q": "Should Trizact sheets be used wet or dry?",
+        "a": "Trizact sheets must always be used damp with a light mist of water to prevent loading and ensure consistent scratch refinement."
+      },
+      {
+        "q": "How long does each sheet last?",
+        "a": "Because the mineral structures expose fresh abrasive as they wear, a single sheet lasts several full panels."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-trizact-abrasives",
+      "3m-trizact-5000",
+      "3m-flexible-foam-abrasive-disc-33540"
+    ]
+  },
+  {
+    "id": "3m-automotive-attachment-tape-06382",
+    "slug": "3m-automotive-attachment-tape-06382",
+    "sku": "PN 06382",
+    "name": "3M\u2122 Automotive Acrylic Plus Attachment Tape",
+    "brand": "3M\u2122 Automotive",
+    "category": "TOOLS",
+    "shortDescription": "OEM-approved high-strength acrylic foam attachment tape for permanent mounting of automotive emblems, trims, moldings, and spoilers.",
+    "fullDescription": "3M\u2122 Automotive Acrylic Plus Attachment Tape PN 06382 is an OEM-specified mounting tape designed for permanent exterior attachment. Featuring a black viscoelastic acrylic foam core with high-performance adhesive on both sides, it absorbs thermal expansion stress, resists vibrations, road salt, and harsh weather. It provides robust bond strength on automotive clear coats, plastics, and chrome.",
+    "specs": [
+      {
+        "label": "Dimensions",
+        "value": "1/2 in x 20 yds (12.7 mm x 18.2 m)"
+      },
+      {
+        "label": "Tape Thickness",
+        "value": "45 mil (1.14 mm) viscoelastic acrylic core"
+      },
+      {
+        "label": "Color",
+        "value": "Black foam with red release liner"
+      },
+      {
+        "label": "Weather Resistance",
+        "value": "100% UV, moisture, thermal, and solvent proof"
+      },
+      {
+        "label": "Applications",
+        "value": "Emblems, nameplates, side moldings, rocker trims, spoilers"
+      }
+    ],
+    "applicationSteps": [
+      {
+        "step": 1,
+        "title": "Surface Degrease",
+        "description": "Clean both the emblem and body panel with isopropyl alcohol and wipe dry."
+      },
+      {
+        "step": 2,
+        "title": "Apply Tape",
+        "description": "Apply tape firmly to the back of the trim and trim excess with a blade."
+      },
+      {
+        "step": 3,
+        "title": "Peel Liner",
+        "description": "Peel off the red release liner and position emblem accurately."
+      },
+      {
+        "step": 4,
+        "title": "Firm Pressure",
+        "description": "Apply firm pressure (minimum 15 PSI) across the emblem to ensure 100% bond wet-out."
+      }
+    ],
+    "image": "/images/products/3m/3m-automotive-attachment-tape-06382.jpg",
+    "detailRoute": "/products/3m-automotive-attachment-tape-06382",
+    "sourceUrl": "https://multimedia.3m.com/mws/media/866455J/3m-automotive-acrylic-plus-attachment-tape-06382.jpg",
+    "isVerified": true,
+    "seoTitle": "3M\u2122 Automotive Acrylic Plus Attachment Tape PN 06382 | TMR Car Care",
+    "seoDescription": "Mount emblems, spoilers, and trims permanently with OEM-grade 3M\u2122 Automotive Attachment Tape PN 06382 at TMR Car Care.",
+    "seoH1": "3M\u2122 Automotive Acrylic Plus Attachment Tape PN 06382",
+    "faqs": [
+      {
+        "q": "How soon after application is the bond fully cured?",
+        "a": "Initial tack is instant. Maximum bond strength is reached within 72 hours at room temperature."
+      },
+      {
+        "q": "Will pressure washing lift the tape?",
+        "a": "No, once fully bonded, 3M Acrylic Plus tape is 100% waterproof and withstands commercial automatic and high-pressure washes."
+      }
+    ],
+    "relatedProductIds": [
+      "3m-specialty-adhesive-remover-38987",
+      "3m-masking-tape"
     ]
   }
 ];

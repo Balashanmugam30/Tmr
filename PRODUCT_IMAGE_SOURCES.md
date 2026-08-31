@@ -1,5 +1,5 @@
 # TMR CAR CARE — PRODUCT IMAGE SOURCES & PROVENANCE AUDIT
-**Provenance Audit & Classification for All 48 Product Image Assets**
+**Provenance Audit & Classification for All 63 Product Image Assets**
 *Classification Standard: Tier 1 (First-Party Manufacturer DAM) / Tier 2 (Authorized Distributor Channel)*
 
 ---
@@ -8,8 +8,8 @@
 
 | Tier Classification | Description | Status in TMR Repository |
 | :--- | :--- | :--- |
-| **Tier 1 (Preferred)** | Direct First-Party Manufacturer CDN / DAM (`multimedia.3m.com`, `meguiarsdirect.com`, `media.witglobal.net` / `wuerth.in`) | **46 Products (95.8%)** |
-| **Tier 2 (Authorized)** | Official Authorized Distributor / Importer Product Media | **2 Products (4.2%)** |
+| **Tier 1 (Preferred)** | Direct First-Party Manufacturer CDN / DAM (`multimedia.3m.com`, `meguiarsdirect.com`, `media.witglobal.net` / `wuerth.in`) | **61 Products (96.8%)** |
+| **Tier 2 (Authorized)** | Official Authorized Distributor / Importer Product Media | **2 Products (3.2%)** |
 | **Tier 3 (Unverified)** | Generic Retailers (Amazon, eBay, Alibaba, AI Placeholders) | **0 Products (0.0% - Strictly Eliminated)** |
 
 ---
@@ -66,25 +66,67 @@
 | 46 | **Würth Tyre Foam Conditioning & Shine** | Würth | `Art. 0890121` | `/images/products/wurth/wurth-tyre-foam-spray.jpg` | 576 x 576 px | **Tier 1 (First-Party DAM)** | Würth First-Party Media DAM (`media.witglobal.net`) |
 | 47 | **Würth Ultra Microfibre Polishing Towel** | Würth | `Art. 0899900131` | `/images/products/wurth/wurth-microfibre-polishing-cloth.jpg` | 576 x 576 px | **Tier 1 (First-Party DAM)** | Würth First-Party Media DAM (`media.witglobal.net`) |
 | 48 | **Würth Rost-Off Max Penetrating Lubricant** | Würth | `Art. 08902` | `/images/products/wurth/wurth-rost-off-penetrant.jpg` | 576 x 576 px | **Tier 1 (First-Party DAM)** | Würth First-Party Media DAM (`media.witglobal.net`) |
+| 49 | **3M™ Headlight Lens Restoration System** | 3M™ Automotive | `PN 39008` | `/images/products/3m/3m-headlight-lens-restoration-kit-39008.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 50 | **3M™ Plastic Cleaner** | 3M™ Automotive | `PN 39017` | `/images/products/3m/3m-plastic-cleaner-39017.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 51 | **3M™ Plastic Polish** | 3M™ Automotive | `PN 39010` | `/images/products/3m/3m-plastic-polish-39010.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 52 | **3M™ Specialty Adhesive Remover** | 3M™ Automotive | `PN 38987` | `/images/products/3m/3m-specialty-adhesive-remover-38987.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 53 | **3M™ Chrome and Metal Polish** | 3M™ Automotive | `PN 39527` | `/images/products/3m/3m-chrome-and-metal-polish-39527.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 54 | **3M™ Flexible Foam Abrasive Disc P1500** | 3M™ Automotive | `PN 33540` | `/images/products/3m/3m-flexible-foam-abrasive-disc-33540.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 55 | **3M™ Precision Poly Masking Tape** | 3M™ Automotive | `PN 06525` | `/images/products/3m/3m-precision-poly-masking-tape-06525.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 56 | **3M™ Perfect-It™ Clean and Shine Microfiber Cloth** | 3M™ Automotive | `PN 06016` | `/images/products/3m/3m-perfect-it-detail-cloth-06016.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 57 | **3M™ Rubbing Compound Paste** | 3M™ Automotive | `PN 39002` | `/images/products/3m/3m-rubbing-compound-paste-39002.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 58 | **3M™ Automotive Refinish Masking Tape Yellow 06654** | 3M™ Automotive | `PN 06654` | `/images/products/3m/3m-yellow-masking-tape-06654.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 59 | **3M™ Perfect-It™ Clean and Shine Spray** | 3M™ Automotive | `PN 06084` | `/images/products/3m/3m-clean-and-shine-spray-06084.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 60 | **3M™ High Power Brake Cleaner Aerosol** | 3M™ Automotive | `PN 08880` | `/images/products/3m/3m-high-power-brake-cleaner-08880.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 61 | **3M™ Perfect-It™ Famous Finish 1-Step Compound** | 3M™ Automotive | `PN 51677` | `/images/products/3m/3m-famous-finish-compound-51677.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 62 | **3M™ Trizact™ Hookit™ Foam Sheet P3000** | 3M™ Automotive | `PN 02077` | `/images/products/3m/3m-trizact-3000-sheet-02077.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
+| 63 | **3M™ Automotive Acrylic Plus Attachment Tape** | 3M™ Automotive | `PN 06382` | `/images/products/3m/3m-automotive-attachment-tape-06382.jpg` | 1200 x 1200 px | **Tier 1 (First-Party DAM)** | 3M Global Digital Asset Management (`multimedia.3m.com`) |
 
 ---
 
-## 3. Specific Product Card Fixes & Quality Audits
+## 3. Three Editorial / Featured Image Corrections on Products Page
 
-### 1. 3M™ Perfect-It™ Foam Compounding Pad (PN 05706)
-- **Previous Issue**: Displayed a composite image containing marine/boat/vehicle graphics rather than a clean product packshot.
-- **Correction**: Replaced with 100% Tier 1 clean high-resolution (1200x1200px) packshot of the single white waffle foam pad on pure white background (`/images/products/3m/3m-compounding-pad.jpg`).
-- **Source**: `https://multimedia.3m.com/mws/media/819638J/3m-tm-perfect-it-tm-foam-compound-pad-05706.jpg?width=1200`.
+### 1. Products Hero / Featured Image Carousel
+- **Previous Issue**: Displayed old cropped/promotional `-v2.jpg` assets.
+- **Correction**: Replaced with exact verified first-party packshots from 3M and Meguiar's DAM:
+  - `3M™ Perfect-It™ EX AC Rubbing Compound` -> `/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg`
+  - `3M™ Trizact™ Hookit™ Foam Disc P3000` -> `/images/products/3m/3m-trizact-abrasives.jpg`
+  - `Meguiar's Mirror Glaze M210 Ultra Finishing Polish` -> `/images/products/meguiars/meguiars-m210-finishing-polish.jpg`
+  - `3M™ Quick Wax Spray Sealant` -> `/images/products/3m/3m-quick-wax-spray.jpg`
+  - `3M™ Perfect-It™ EX Machine Polish` -> `/images/products/3m/3m-perfect-it-ex-machine-polish.jpg`
 
-### 2. 3M™ Scotchgard™ Paint Protection Film Pro Series 200 (Pro Series 200)
-- **Previous Issue**: Displayed an installation/action shot rather than an exact product packshot.
-- **Correction**: Replaced with 100% Tier 1 clean high-resolution (1200x1200px) packshot of the genuine 3M Scotchgard Pro Series 200 film roll & official factory box packaging on pure white background (`/images/products/3m/3m-scotchgard-ppf-pro.jpg`).
-- **Source**: `https://multimedia.3m.com/mws/media/2409689J/scotchgard-paint-protection-film-pro-series-sgh6pro-94904-without-cap-sheet-4-in-x-100-ft.jpg?width=1200`.
+### 2. "ONE object. ONE purpose." Product Visual (Section 03)
+- **Previous Issue**: Reused an unverified graphic.
+- **Correction**: Replaced with the exact official 3M Tier 1 packshot of `3M™ Perfect-It™ EX AC Rubbing Compound PN 36060` (`/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg`).
+
+### 3. "THE OBJECT, closer." Technical Specimen Visual (Section 05)
+- **Previous Issue**: Used a generic cropped graphic.
+- **Correction**: Replaced with the exact official 3M Tier 1 packshot of `3M™ Perfect-It™ EX AC Rubbing Compound PN 36060` (`/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg`).
 
 ---
 
-## 4. Verification & Integrity Checklist
-- [x] All 48 physical image files exist on disk in `public/images/products/`.
+## 4. 3M Expansion Log (15 New Distinct Verified Products)
+
+1. **3M™ Headlight Lens Restoration System** (`PN 39008`) -> `/images/products/3m/3m-headlight-lens-restoration-kit-39008.jpg` (Tier 1 DAM)
+2. **3M™ Plastic Cleaner** (`PN 39017`) -> `/images/products/3m/3m-plastic-cleaner-39017.jpg` (Tier 1 DAM)
+3. **3M™ Plastic Polish** (`PN 39010`) -> `/images/products/3m/3m-plastic-polish-39010.jpg` (Tier 1 DAM)
+4. **3M™ Specialty Adhesive Remover** (`PN 38987`) -> `/images/products/3m/3m-specialty-adhesive-remover-38987.jpg` (Tier 1 DAM)
+5. **3M™ Chrome and Metal Polish** (`PN 39527`) -> `/images/products/3m/3m-chrome-and-metal-polish-39527.jpg` (Tier 1 DAM)
+6. **3M™ Flexible Foam Abrasive Disc P1500** (`PN 33540`) -> `/images/products/3m/3m-flexible-foam-abrasive-disc-33540.jpg` (Tier 1 DAM)
+7. **3M™ Precision Poly Masking Tape** (`PN 06525`) -> `/images/products/3m/3m-precision-poly-masking-tape-06525.jpg` (Tier 1 DAM)
+8. **3M™ Perfect-It™ Clean and Shine Microfiber Cloth** (`PN 06016`) -> `/images/products/3m/3m-perfect-it-detail-cloth-06016.jpg` (Tier 1 DAM)
+9. **3M™ Rubbing Compound Paste** (`PN 39002`) -> `/images/products/3m/3m-rubbing-compound-paste-39002.jpg` (Tier 1 DAM)
+10. **3M™ Automotive Refinish Masking Tape Yellow 06654** (`PN 06654`) -> `/images/products/3m/3m-yellow-masking-tape-06654.jpg` (Tier 1 DAM)
+11. **3M™ Perfect-It™ Clean and Shine Spray** (`PN 06084`) -> `/images/products/3m/3m-clean-and-shine-spray-06084.jpg` (Tier 1 DAM)
+12. **3M™ High Power Brake Cleaner Aerosol** (`PN 08880`) -> `/images/products/3m/3m-high-power-brake-cleaner-08880.jpg` (Tier 1 DAM)
+13. **3M™ Perfect-It™ Famous Finish 1-Step Compound** (`PN 51677`) -> `/images/products/3m/3m-famous-finish-compound-51677.jpg` (Tier 1 DAM)
+14. **3M™ Trizact™ Hookit™ Foam Sheet P3000** (`PN 02077`) -> `/images/products/3m/3m-trizact-3000-sheet-02077.jpg` (Tier 1 DAM)
+15. **3M™ Automotive Acrylic Plus Attachment Tape** (`PN 06382`) -> `/images/products/3m/3m-automotive-attachment-tape-06382.jpg` (Tier 1 DAM)
+
+---
+
+## 5. Verification & Integrity Checklist
+- [x] All 63 physical image files exist on disk in `public/images/products/`.
 - [x] Zero AI-generated images, watermarked stock photos, or mismatched products.
 - [x] All non-product assets (hero backgrounds, service graphics, logos) left 100% untouched.
 - [x] Full build test (`npx tsc --noEmit` and `npm run build`) passed with zero errors.

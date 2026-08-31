@@ -1,26 +1,27 @@
 # TMR CAR CARE — MASTER PRODUCT CATALOGUE
 **Official Multi-Brand Automotive Detailing & Surface Protection Catalogue**
-*Version: 2.0 (48 Verified Products across 3M Automotive, Meguiar's, and Würth)*
+*Version: 3.0 (63 Verified Products across 3M Automotive [33], Meguiar's [20], and Würth [10])*
 
 ---
 
 ## 1. Executive Summary & Brand Overview
 
-TMR Car Care operates an advanced professional detailing and surface protection studio in Tiruppur, India. This master product catalogue organizes **48 genuine, manufacturer-verified products** utilized across TMR's core service divisions:
+TMR Car Care operates an advanced professional detailing and surface protection studio in Tiruppur, India. This master product catalogue organizes **63 genuine, manufacturer-verified products** utilized across TMR's core service divisions:
 - **Car Wash & Deep Cleaning**
 - **Detailing & Multi-Stage Paint Care**
 - **Ceramic Coating & Surface Protection**
 - **PPF / Paint Protection Film Installation**
+- **Headlight Restoration & Lens Clarification**
 - **Sun Control & Architectural Window Films**
 - **Interior & Specialty Vehicle Care**
 
 ### Brand Distribution
 | Manufacturer Brand | Product Count | Key Category Focus | Primary Distribution / Source |
 | :--- | :---: | :--- | :--- |
-| **3M™ Automotive** | **18 Products** | Abrasives, Compounding, Polishing, PPF, Ceramic, Tools | 3M Global Automotive DAM (`multimedia.3m.com`) |
-| **Meguiar's** | **20 Products** | Mirror Glaze, Ultimate Compound/Polish, Ceramic Wax, Shampoos | Meguiar's Official Store DAM (`meguiarsdirect.com`) |
+| **3M™ Automotive** | **33 Products** *(18 Existing + 15 New)* | Abrasives, Compounds, Finishing Materials, PPF, Ceramic, Masking, Cleaners, Metal Polish, Headlight Kits | 3M Global Automotive DAM (`multimedia.3m.com`) |
+| **Meguiar's** | **20 Products** | Mirror Glaze, Ultimate Compound/Polish, Ceramic Wax, Shampoos, Wheel Care | Meguiar's Official Store DAM (`meguiarsdirect.com`) |
 | **Würth** | **10 Products** | Active Chemicals, Degreasers, Interior Care, Shampoos, Microfibres | Würth First-Party Media DAM (`media.witglobal.net`) |
-| **TOTAL** | **48 Products** | **100% Genuine First-Party Packshots & Full Technical Metadata** | **Verified Active Inventory** |
+| **TOTAL** | **63 Products** | **100% Genuine First-Party Packshots & Full Technical Metadata** | **Verified Active Inventory** |
 
 ---
 
@@ -76,12 +77,27 @@ TMR Car Care operates an advanced professional detailing and surface protection 
 | 46 | Würth | **Würth Tyre Foam Conditioning & Shine** | `Art. 0890121` | `PROTECTION` | Ceramic Coating / Paint Protection | `/images/products/wurth/wurth-tyre-foam-spray.jpg` |
 | 47 | Würth | **Würth Ultra Microfibre Polishing Towel** | `Art. 0899900131` | `ACCESSORIES` | Specialty Vehicle Care | `/images/products/wurth/wurth-microfibre-polishing-cloth.jpg` |
 | 48 | Würth | **Würth Rost-Off Max Penetrating Lubricant** | `Art. 08902` | `ACCESSORIES` | Specialty Vehicle Care | `/images/products/wurth/wurth-rost-off-penetrant.jpg` |
+| 49 | 3M™ Automotive | **3M™ Headlight Lens Restoration System** | `PN 39008` | `CLEANING` | Car Wash & Deep Cleaning | `/images/products/3m/3m-headlight-lens-restoration-kit-39008.jpg` |
+| 50 | 3M™ Automotive | **3M™ Plastic Cleaner** | `PN 39017` | `CLEANING` | Car Wash & Deep Cleaning | `/images/products/3m/3m-plastic-cleaner-39017.jpg` |
+| 51 | 3M™ Automotive | **3M™ Plastic Polish** | `PN 39010` | `POLISHING` | Detailing & Paint Care | `/images/products/3m/3m-plastic-polish-39010.jpg` |
+| 52 | 3M™ Automotive | **3M™ Specialty Adhesive Remover** | `PN 38987` | `CLEANING` | Car Wash & Deep Cleaning | `/images/products/3m/3m-specialty-adhesive-remover-38987.jpg` |
+| 53 | 3M™ Automotive | **3M™ Chrome and Metal Polish** | `PN 39527` | `POLISHING` | Detailing & Paint Care | `/images/products/3m/3m-chrome-and-metal-polish-39527.jpg` |
+| 54 | 3M™ Automotive | **3M™ Flexible Foam Abrasive Disc P1500** | `PN 33540` | `ABRASIVES` | Detailing & Paint Care | `/images/products/3m/3m-flexible-foam-abrasive-disc-33540.jpg` |
+| 55 | 3M™ Automotive | **3M™ Precision Poly Masking Tape** | `PN 06525` | `TOOLS` | Detailing / Workshop Tools | `/images/products/3m/3m-precision-poly-masking-tape-06525.jpg` |
+| 56 | 3M™ Automotive | **3M™ Perfect-It™ Clean and Shine Microfiber Cloth** | `PN 06016` | `ACCESSORIES` | Specialty Vehicle Care | `/images/products/3m/3m-perfect-it-detail-cloth-06016.jpg` |
+| 57 | 3M™ Automotive | **3M™ Rubbing Compound Paste** | `PN 39002` | `POLISHING` | Detailing & Paint Care | `/images/products/3m/3m-rubbing-compound-paste-39002.jpg` |
+| 58 | 3M™ Automotive | **3M™ Automotive Refinish Masking Tape Yellow 06654** | `PN 06654` | `TOOLS` | Detailing / Workshop Tools | `/images/products/3m/3m-yellow-masking-tape-06654.jpg` |
+| 59 | 3M™ Automotive | **3M™ Perfect-It™ Clean and Shine Spray** | `PN 06084` | `CLEANING` | Car Wash & Deep Cleaning | `/images/products/3m/3m-clean-and-shine-spray-06084.jpg` |
+| 60 | 3M™ Automotive | **3M™ High Power Brake Cleaner Aerosol** | `PN 08880` | `CLEANING` | Car Wash & Deep Cleaning | `/images/products/3m/3m-high-power-brake-cleaner-08880.jpg` |
+| 61 | 3M™ Automotive | **3M™ Perfect-It™ Famous Finish 1-Step Compound** | `PN 51677` | `POLISHING` | Detailing & Paint Care | `/images/products/3m/3m-famous-finish-compound-51677.jpg` |
+| 62 | 3M™ Automotive | **3M™ Trizact™ Hookit™ Foam Sheet P3000** | `PN 02077` | `ABRASIVES` | Detailing & Paint Care | `/images/products/3m/3m-trizact-3000-sheet-02077.jpg` |
+| 63 | 3M™ Automotive | **3M™ Automotive Acrylic Plus Attachment Tape** | `PN 06382` | `TOOLS` | Detailing / Workshop Tools | `/images/products/3m/3m-automotive-attachment-tape-06382.jpg` |
 
 ---
 
 ## 3. Product Details by Brand Division
 
-### A. 3M™ Automotive Division (18 Products)
+### A. 3M™ Automotive Division (33 Products)
 
 #### 3M™ Perfect-It™ EX AC Rubbing Compound
 - **SKU / MPN**: `PN 36060`
@@ -316,6 +332,201 @@ TMR Car Care operates an advanced professional detailing and surface protection 
   - **Origin**: 3M USA
 - **Image Asset**: `/images/products/3m/3m-tire-restorer.jpg`
 - **Route**: `http://localhost:5173/products/3m-tire-restorer-39042`
+
+#### 3M™ Headlight Lens Restoration System
+- **SKU / MPN**: `PN 39008`
+- **Category**: `CLEANING`
+- **Description**: Complete mechanical multi-stage restoration system engineered to eliminate severe cloudiness, yellowing, and oxidation from polycarbonate automotive headlight lenses.
+- **Technical Specifications**:
+  - **Process Type**: Multi-stage mechanical sanding & compounding
+  - **System Contents**: P500/P800 discs, P3000 Trizact disc, compound, pad, drill arbor
+  - **Recommended RPM**: 1200 - 1600 RPM with standard rotary/drill
+  - **Surface Compatibility**: Polycarbonate, acrylic, and composite headlights
+  - **Optical Result**: Crystal-clear optical transparency & beam restoration
+- **Image Asset**: `/images/products/3m/3m-headlight-lens-restoration-kit-39008.jpg`
+- **Route**: `http://localhost:5173/products/3m-headlight-lens-restoration-kit-39008`
+
+#### 3M™ Plastic Cleaner
+- **SKU / MPN**: `PN 39017`
+- **Category**: `CLEANING`
+- **Description**: Precision liquid cleaner formulated to safely remove fine scratches, stains, and light hazing from clear automotive interior and exterior plastics.
+- **Technical Specifications**:
+  - **Volume**: 8 fl oz / 236 mL
+  - **Formulation**: Micro-cleaning mineral suspension
+  - **Application Method**: Hand microfiber or dual-action machine
+  - **Substrates**: Clear plastics, acrylic, polycarbonate, rigid PVC
+  - **Primary Function**: Removes light scratches, haze, and oxidation
+- **Image Asset**: `/images/products/3m/3m-plastic-cleaner-39017.jpg`
+- **Route**: `http://localhost:5173/products/3m-plastic-cleaner-39017`
+
+#### 3M™ Plastic Polish
+- **SKU / MPN**: `PN 39010`
+- **Category**: `POLISHING`
+- **Description**: High-clarity finishing polish that restores optical gloss and deep transparency to clear automotive plastics and light covers.
+- **Technical Specifications**:
+  - **Volume**: 8 fl oz / 236 mL
+  - **Formulation**: Ultra-fine clarifying polymer emulsion
+  - **Application Method**: Hand buffing or soft foam finishing pad
+  - **Compatible Surfaces**: Headlights, tail lamps, gauge lenses, helmets
+  - **Finish Profile**: High-gloss optical transparency & water repellency
+- **Image Asset**: `/images/products/3m/3m-plastic-polish-39010.jpg`
+- **Route**: `http://localhost:5173/products/3m-plastic-polish-39010`
+
+#### 3M™ Specialty Adhesive Remover
+- **SKU / MPN**: `PN 38987`
+- **Category**: `CLEANING`
+- **Description**: Industrial-grade aerosol solvent designed to quickly dissolve tough adhesive residue, PPF glue, road tar, tree sap, and silicone oils.
+- **Technical Specifications**:
+  - **Volume**: 15 fl oz / 443 mL Aerosol
+  - **Active Base**: High-solvency specialized hydrocarbon blend
+  - **Paint Safety**: Safe on fully cured automotive OEM clear coats
+  - **Penetration Time**: 30 to 60 seconds rapid softening
+  - **Primary Target**: PPF adhesives, emblem tape, road tar, silicone
+- **Image Asset**: `/images/products/3m/3m-specialty-adhesive-remover-38987.jpg`
+- **Route**: `http://localhost:5173/products/3m-specialty-adhesive-remover-38987`
+
+#### 3M™ Chrome and Metal Polish
+- **SKU / MPN**: `PN 39527`
+- **Category**: `POLISHING`
+- **Description**: Premium metal polish that safely eliminates oxidation, pitting, and corrosion from chrome, stainless steel, aluminum, and brass trims.
+- **Technical Specifications**:
+  - **Volume**: 10 fl oz / 295 mL
+  - **Substrates**: Chrome, stainless steel, aluminum, brass, copper
+  - **Abrasive Grade**: Micro-fine brightening mineral particles
+  - **Protection**: Corrosion-inhibiting polymer barrier
+  - **Finish**: Mirror-like brilliant reflection
+- **Image Asset**: `/images/products/3m/3m-chrome-and-metal-polish-39527.jpg`
+- **Route**: `http://localhost:5173/products/3m-chrome-and-metal-polish-39527`
+
+#### 3M™ Flexible Foam Abrasive Disc P1500
+- **SKU / MPN**: `PN 33540`
+- **Category**: `ABRASIVES`
+- **Description**: Ultra-conformable foam-backed abrasive disc engineered for sanding complex curved automotive body panels and blend areas.
+- **Technical Specifications**:
+  - **Diameter**: 6 in / 152 mm
+  - **Grit Grade**: P1500 Flexible Micro-Mineral
+  - **Attachment**: 3M Hookit™ Hook-and-Loop System
+  - **Usage Mode**: Wet or dry sanding versatility
+  - **Backing**: High-density flexible conformable foam
+- **Image Asset**: `/images/products/3m/3m-flexible-foam-abrasive-disc-33540.jpg`
+- **Route**: `http://localhost:5173/products/3m-flexible-foam-abrasive-disc-33540`
+
+#### 3M™ Precision Poly Masking Tape
+- **SKU / MPN**: `PN 06525`
+- **Category**: `TOOLS`
+- **Description**: Ultra-thin polymer film masking tape for ultra-sharp paint lines, trim separation, and solvent barrier protection during detailing.
+- **Technical Specifications**:
+  - **Width & Length**: 24 mm x 50 m
+  - **Backing Material**: Ultra-thin polymeric film backing
+  - **Adhesive Type**: High-performance clean-removal acrylic
+  - **Thermal Rating**: Withstands up to 121°C / 250°F
+  - **Solvent Resistance**: Impervious to water, compound slurries, and solvents
+- **Image Asset**: `/images/products/3m/3m-precision-poly-masking-tape-06525.jpg`
+- **Route**: `http://localhost:5173/products/3m-precision-poly-masking-tape-06525`
+
+#### 3M™ Perfect-It™ Clean and Shine Microfiber Cloth
+- **SKU / MPN**: `PN 06016`
+- **Category**: `ACCESSORIES`
+- **Description**: High-density non-scratch microfiber detailing cloth designed for safe, streak-free compound, polish, and wax residue removal.
+- **Technical Specifications**:
+  - **Dimensions**: 32 cm x 36 cm (12.5 in x 14 in)
+  - **Fiber Composition**: 80% Polyester / 20% Polyamide blend
+  - **Edge Construction**: Ultrasonic non-scratch sealed edge
+  - **Lint Properties**: 100% lint-free and silicone-free
+  - **Care**: Machine washable without fabric softener
+- **Image Asset**: `/images/products/3m/3m-perfect-it-detail-cloth-06016.jpg`
+- **Route**: `http://localhost:5173/products/3m-perfect-it-detail-cloth-06016`
+
+#### 3M™ Rubbing Compound Paste
+- **SKU / MPN**: `PN 39002`
+- **Category**: `POLISHING`
+- **Description**: Heavy-duty paste compound designed to aggressively remove heavy oxidation, chalking, deep scratches, and coarse surface defects.
+- **Technical Specifications**:
+  - **Volume**: 16 fl oz / 473 mL Paste
+  - **Abrasive Base**: Heavy-cut aluminum oxide mineral
+  - **Cut Level**: Heavy cutting / oxidation leveling
+  - **Application Method**: Hand buffing cloth or rotary foam pad
+  - **Primary Purpose**: Restoring weathered and oxidized vehicle finishes
+- **Image Asset**: `/images/products/3m/3m-rubbing-compound-paste-39002.jpg`
+- **Route**: `http://localhost:5173/products/3m-rubbing-compound-paste-39002`
+
+#### 3M™ Automotive Refinish Masking Tape Yellow 06654
+- **SKU / MPN**: `PN 06654`
+- **Category**: `TOOLS`
+- **Description**: High-conformability yellow crepe masking tape designed to adhere instantly to automotive rubbers, moldings, and curved panels.
+- **Technical Specifications**:
+  - **Width & Length**: 24 mm x 55 m
+  - **Color & Backing**: High-visibility yellow conformable crepe
+  - **Adhesive System**: Rubber-based high instant tack adhesive
+  - **Temperature Rating**: Up to 110°C / 230°F bake cycles
+  - **Fluid Resistance**: Waterborne and solvent polishing slurry resistant
+- **Image Asset**: `/images/products/3m/3m-yellow-masking-tape-06654.jpg`
+- **Route**: `http://localhost:5173/products/3m-yellow-masking-tape-06654`
+
+#### 3M™ Perfect-It™ Clean and Shine Spray
+- **SKU / MPN**: `PN 06084`
+- **Category**: `CLEANING`
+- **Description**: Silicone-free inspection detailer spray that rapidly cleans compound dust, fingerprints, and smudges without smearing or filling defects.
+- **Technical Specifications**:
+  - **Volume**: 16 fl oz / 473 mL Spray
+  - **Silicone Safety**: 100% silicone-free (body shop safe)
+  - **Function**: Lifts compound dust, polish oils, and fingerprints
+  - **Residue Profile**: Zero gloss enhancers / true inspection finish
+  - **Compatibility**: Safe on fresh paint, cured clear coats, and glass
+- **Image Asset**: `/images/products/3m/3m-clean-and-shine-spray-06084.jpg`
+- **Route**: `http://localhost:5173/products/3m-clean-and-shine-spray-06084`
+
+#### 3M™ High Power Brake Cleaner Aerosol
+- **SKU / MPN**: `PN 08880`
+- **Category**: `CLEANING`
+- **Description**: High-pressure flushing aerosol cleaner that instantly dissolves baked-on brake dust, oil, grease, and road grime from calipers and rotors.
+- **Technical Specifications**:
+  - **Volume**: 14 oz / 397 g Aerosol
+  - **Chlorine Status**: Non-chlorinated fast-acting formula
+  - **Spray Pattern**: High-power directional pinpoint blasting jet
+  - **Evaporation Rate**: Ultra-fast drying / leaves surface dry
+  - **Target Contaminants**: Brake dust, road film, grease, hydraulic fluids
+- **Image Asset**: `/images/products/3m/3m-high-power-brake-cleaner-08880.jpg`
+- **Route**: `http://localhost:5173/products/3m-high-power-brake-cleaner-08880`
+
+#### 3M™ Perfect-It™ Famous Finish 1-Step Compound
+- **SKU / MPN**: `PN 51677`
+- **Category**: `POLISHING`
+- **Description**: Next-generation single-step finishing compound engineered to eliminate P3000 sand scratches and deliver brilliant high-gloss in one pass.
+- **Technical Specifications**:
+  - **Volume**: 1 kg / 1000 mL Bottle
+  - **Technology**: Engineered 1-Step diminishing mineral system
+  - **Scratch Removal**: Permanently eliminates P3000 Trizact scratches
+  - **Splatter Level**: Low splatter / easy wipe-off formulation
+  - **Finish Quality**: Hologram-free deep optical reflection
+- **Image Asset**: `/images/products/3m/3m-famous-finish-compound-51677.jpg`
+- **Route**: `http://localhost:5173/products/3m-famous-finish-compound-51677`
+
+#### 3M™ Trizact™ Hookit™ Foam Sheet P3000
+- **SKU / MPN**: `PN 02077`
+- **Category**: `ABRASIVES`
+- **Description**: Precision rectangular micro-abrasive foam sheet engineered for hand damp-sanding tight curves, recesses, and edge contours.
+- **Technical Specifications**:
+  - **Dimensions**: 70 mm x 140 mm (2.75 in x 5.5 in)
+  - **Abrasive Grade**: P3000 Pyramidal Micro-Replicated Mineral
+  - **Attachment System**: 3M Hookit™ Hook-and-Loop
+  - **Usage Method**: Damp hand sanding with soft backing block
+  - **Target Areas**: Swage lines, panel edges, door handle cups, recesses
+- **Image Asset**: `/images/products/3m/3m-trizact-3000-sheet-02077.jpg`
+- **Route**: `http://localhost:5173/products/3m-trizact-3000-sheet-02077`
+
+#### 3M™ Automotive Acrylic Plus Attachment Tape
+- **SKU / MPN**: `PN 06382`
+- **Category**: `TOOLS`
+- **Description**: OEM-approved high-strength acrylic foam attachment tape for permanent mounting of automotive emblems, trims, moldings, and spoilers.
+- **Technical Specifications**:
+  - **Dimensions**: 1/2 in x 20 yds (12.7 mm x 18.2 m)
+  - **Tape Thickness**: 45 mil (1.14 mm) viscoelastic acrylic core
+  - **Color**: Black foam with red release liner
+  - **Weather Resistance**: 100% UV, moisture, thermal, and solvent proof
+  - **Applications**: Emblems, nameplates, side moldings, rocker trims, spoilers
+- **Image Asset**: `/images/products/3m/3m-automotive-attachment-tape-06382.jpg`
+- **Route**: `http://localhost:5173/products/3m-automotive-attachment-tape-06382`
 
 ### B. Meguiar's Professional & Consumer Detailing (20 Products)
 

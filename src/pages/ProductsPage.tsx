@@ -303,36 +303,36 @@ export const ProductsPage: React.FC = () => {
       id: '3m-rubbing-compound',
       name: '3M™ Perfect-It™ EX AC Rubbing Compound',
       category: 'Compounds & Polishes',
-      image: '/images/products/3m/3m-hero-rubbing-compound-v2.jpg',
+      image: '/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg',
       slug: '3m-perfect-it-ex-ac-rubbing-compound',
     },
     {
       id: '3m-trizact',
-      name: '3M™ Trizact™ Performance Abrasives',
+      name: '3M™ Trizact™ Hookit™ Foam Disc P3000',
       category: 'Abrasives & Leveling',
-      image: '/images/products/3m/3m-hero-trizact-v2.jpg',
-      slug: '3m-trizact-performance-abrasives',
+      image: '/images/products/3m/3m-trizact-abrasives.jpg',
+      slug: '3m-trizact-hookit-foam-disc-p3000',
     },
     {
       id: 'meguiars-m210',
       name: "Meguiar's Mirror Glaze M210 Ultra Finishing Polish",
       category: 'Finishing Compounds',
-      image: '/images/products/3m/meguiars-hero-m210-v2.jpg',
-      slug: 'meguiars-m210-ultra-finishing-polish',
+      image: '/images/products/meguiars/meguiars-m210-finishing-polish.jpg',
+      slug: 'meguiars-mirror-glaze-m210-ultra-finishing-polish',
     },
     {
       id: '3m-quick-wax',
       name: '3M™ Quick Wax Spray Sealant',
       category: 'Protection & Shine',
-      image: '/images/products/3m/3m-hero-quick-wax-v2.jpg',
-      slug: '3m-quick-wax-spray',
+      image: '/images/products/3m/3m-quick-wax-spray.jpg',
+      slug: '3m-quick-wax-spray-39034',
     },
     {
       id: '3m-machine-polish',
-      name: '3M™ Perfect-It™ Machine Polish',
+      name: '3M™ Perfect-It™ EX Machine Polish',
       category: 'Finish Polishes',
-      image: '/images/products/3m/3m-hero-machine-polish-v2.jpg',
-      slug: '3m-perfect-it-machine-polish',
+      image: '/images/products/3m/3m-perfect-it-ex-machine-polish.jpg',
+      slug: '3m-perfect-it-ex-machine-polish',
     },
   ];
 
@@ -341,15 +341,15 @@ export const ProductsPage: React.FC = () => {
       id: 0,
       title: "Cleaning",
       desc: "Professional vehicle-cleaning products for wash and maintenance applications.",
-      image: "/images/products/3m/3m-cat-cleaning-v2.jpg",
-      alt: "3M professional vehicle cleaning shampoo and quick wax spray",
-      link: "/products/3m-quick-wax-spray",
+      image: "/images/products/3m/3m-synthetic-detail-clay-bar.jpg",
+      alt: "3M Synthetic Detail Clay Bar",
+      link: "/products/3m-synthetic-detail-clay-bar",
     },
     {
       id: 1,
       title: "Polishing",
       desc: "High-performance compounds, polishes, and pads for paint correction.",
-      image: "/images/products/3m/3m-cat-polishing-v2.jpg",
+      image: "/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg",
       alt: "3M Perfect-It EX AC Rubbing Compound bottle",
       link: "/products/3m-perfect-it-ex-ac-rubbing-compound",
     },
@@ -357,7 +357,7 @@ export const ProductsPage: React.FC = () => {
       id: 2,
       title: "Protection",
       desc: "Nanoceramic, wax, and sealant protection treatments.",
-      image: "/images/products/3m/3m-cat-protection-v2.jpg",
+      image: "/images/products/3m/3m-ceramic-coating-kit.jpg",
       alt: "3M Ceramic Coating paint protection kit",
       link: "/services/ceramic-coating",
     },
@@ -365,7 +365,7 @@ export const ProductsPage: React.FC = () => {
       id: 3,
       title: "Films",
       desc: "Self-healing paint protection films and sun-control solar films.",
-      image: "/images/products/3m/3m-cat-films-v2.jpg",
+      image: "/images/products/3m/3m-scotchgard-ppf-pro.jpg",
       alt: "3M Scotchgard Paint Protection Film Pro box and roll",
       link: "/services/ppf-paint-protection",
     },
@@ -373,7 +373,7 @@ export const ProductsPage: React.FC = () => {
       id: 4,
       title: "Tools",
       desc: "Dual-action polishers, inspection lights, and precision detailing equipment.",
-      image: "/images/products/3m/3m-cat-tools-v2.jpg",
+      image: "/images/products/3m/3m-compounding-pad.jpg",
       alt: "3M compounding and polishing foam pad tools",
       link: "/products/3m-perfect-it-foam-compounding-pad",
     },
@@ -381,9 +381,9 @@ export const ProductsPage: React.FC = () => {
       id: 5,
       title: "Accessories",
       desc: "Microfiber towels, applicators, and premium vehicle cabin accessories.",
-      image: "/images/products/3m/3m-cat-accessories-v2.jpg",
-      alt: "Premium 3M microfiber detailing accessories",
-      link: "/products/3m-automotive-performance-masking-tape-233",
+      image: "/images/products/wurth/wurth-microfibre-polishing-cloth.jpg",
+      alt: "Würth Ultra Microfibre Polishing Towel",
+      link: "/products/wurth-ultra-microfibre-polishing-towel",
     },
   ];
 
@@ -577,9 +577,9 @@ export const ProductsPage: React.FC = () => {
           {/* Left 50%: TRUE FULL-BLEED MEDIA - NO GAP, NO MARGIN, NO BORDER, NO CONTAINED CARD */}
           <div className="col-span-12 md:col-span-6 relative bg-[#141414] overflow-hidden min-h-[350px] md:min-h-full flex items-center justify-center">
             <img
-              src="/images/products/3m/3m-featured-rubbing-compound-v2.jpg"
+              src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
               alt="3M™ Perfect-It™ EX AC Rubbing Compound"
-              className="w-full h-full object-cover md:object-contain p-6 md:p-12 drop-shadow-2xl transition-transform duration-700 hover:scale-[1.03]"
+              className="w-full h-full object-contain p-6 md:p-12 drop-shadow-2xl transition-transform duration-700 hover:scale-[1.03]"
             />
             <div className="absolute top-6 left-6 z-10 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
               <div className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
@@ -688,7 +688,7 @@ export const ProductsPage: React.FC = () => {
               className="relative aspect-square md:aspect-[16/10] bg-white border border-[#D8D8D5] flex items-center justify-center p-8 overflow-hidden cursor-crosshair group shadow-sm rounded-lg"
             >
               <img
-                src="/images/products/3m/3m-specimen-rubbing-compound-v2.jpg"
+                src="/images/products/3m/3m-perfect-it-ex-rubbing-compound.jpg"
                 alt="3M™ Perfect-It™ EX AC Rubbing Compound technical specimen view"
                 className="w-3/5 h-3/5 object-contain transition-transform duration-300 ease-out"
                 style={{
