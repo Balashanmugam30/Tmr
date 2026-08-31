@@ -85,8 +85,8 @@ export const processStages: ProcessStage[] = [
     id: 'stage-reveal',
     number: '05',
     title: 'REVEAL',
-    subtitle: '10H CERAMIC PROTECTION & FINAL STANDARDS',
-    description: 'Application of nano-ceramic coating cured under IR thermal lamps, unlocking a deep specular mirror glass finish.',
+    subtitle: 'SURFACE PROTECTION & FINAL HANDOVER',
+    description: 'Every vehicle moves through a measured process built around inspection, preparation, refinement and protection.',
     technicalDetails: [
       '10H Hardness Nano-Ceramic Layer',
       'IR Thermal Curing Cycle',

@@ -18,13 +18,13 @@ const faqData: FaqItem[] = [
     id: 'faq-1',
     number: '01',
     question: 'How long does a ceramic coating last?',
-    answer: 'Depending on the specific protocol selected, our multi-stage nano-ceramic coatings provide 3 to 5+ years of verified hydrophobic protection, UV resistance, and mirror clearcoat depth under proper maintenance.',
+    answer: 'Depending on the specific protocol selected, our multi-stage nano-ceramic coatings provide durable hydrophobic protection, UV resistance, and mirror clearcoat depth under proper maintenance.',
   },
   {
     id: 'faq-2',
     number: '02',
     question: 'Do you need to keep my car overnight?',
-    answer: 'Yes. Precision paint correction, clearcoat decontamination, and molecular ceramic curing require 24 to 48 hours in our temperature-controlled Tiruppur studio bay to guarantee optimal surface bonding.',
+    answer: 'Yes. Precision paint correction, clearcoat decontamination, and ceramic curing require adequate time in our Tiruppur studio bay to ensure optimal surface bonding.',
   },
   {
     id: 'faq-3',
@@ -36,7 +36,7 @@ const faqData: FaqItem[] = [
     id: 'faq-4',
     number: '04',
     question: 'Do you offer pick-up and drop services?',
-    answer: 'Yes. We offer covered flatbed vehicle transport for client vehicles across Tiruppur, Coimbatore, Erode, and surrounding Tamil Nadu regions upon advance booking.',
+    answer: 'Yes. We offer vehicle pick-up and drop arrangements for client vehicles across Tiruppur and surrounding regions upon advance booking.',
   },
 ];
 

@@ -102,16 +102,16 @@ export const CeramicSection: React.FC = () => {
             {/* MICRO METRICS ROW */}
             <div className="prot-editorial-item pt-6 border-t border-white/10 grid grid-cols-3 gap-4 font-intertight text-xs uppercase tracking-wider">
               <div>
-                <span className="block text-[10px] text-white/40 font-bold">GLOSS LEVEL</span>
-                <span className="font-extrabold text-white text-sm">+95%</span>
+                <span className="block text-[10px] text-white/40 font-bold">FINISH</span>
+                <span className="font-extrabold text-white text-sm">HIGH-GLOSS</span>
               </div>
               <div>
                 <span className="block text-[10px] text-white/40 font-bold">HYDROPHOBIC</span>
                 <span className="font-extrabold text-[#FF4B00] text-sm">ACTIVE</span>
               </div>
               <div>
-                <span className="block text-[10px] text-white/40 font-bold">DURABILITY</span>
-                <span className="font-extrabold text-white text-sm">5 YEARS</span>
+                <span className="block text-[10px] text-white/40 font-bold">PROTECTION</span>
+                <span className="font-extrabold text-white text-sm">LONG-TERM</span>
               </div>
             </div>
 
