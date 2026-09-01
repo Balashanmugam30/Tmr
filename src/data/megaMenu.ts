@@ -30,14 +30,14 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
     eyebrow: 'TMR CAR CARE',
     headline: 'THE ART OF CAR CARE.',
     description: "Tiruppur's premium automotive detailing studio.",
-    targetWidth: 560,
+    targetWidth: 520,
     columns: [
       {
         items: [
           {
             title: 'FLAGSHIP STUDIO',
-            description: 'Avinashi Road, Tiruppur, Tamil Nadu.',
-            href: '/',
+            description: 'Avinashi Road, Near Hope College, Tiruppur, Tamil Nadu — 641602.',
+            href: '/contact',
           },
         ],
       },
@@ -49,7 +49,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
     eyebrow: 'SERVICES',
     headline: 'PREMIUM AUTOMOTIVE CARE.',
     description: 'Precision detailing, protection and finishing for demanding vehicles.',
-    targetWidth: 1080,
+    targetWidth: 980,
     columns: [
       {
         heading: 'CLEANING & DETAILING',
@@ -108,7 +108,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
     eyebrow: 'PRODUCTS',
     headline: 'THE PROFESSIONAL STANDARD.',
     description: 'Professional automotive-care products selected for finish, protection and precision work.',
-    targetWidth: 1020,
+    targetWidth: 980,
     columns: [
       {
         heading: 'CLEANING & POLISHING',
@@ -167,7 +167,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
     eyebrow: 'THE WORK',
     headline: 'SEE THE DIFFERENCE.',
     description: "A visual archive of TMR's detailing, restoration and protection work.",
-    targetWidth: 860,
+    targetWidth: 720,
     columns: [
       {
         items: [
@@ -181,6 +181,10 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
             description: 'Surface correction and gloss reflections.',
             href: '/gallery',
           },
+        ],
+      },
+      {
+        items: [
           {
             title: 'PROTECTION',
             description: 'Ceramic coating and PPF installations.',
@@ -205,7 +209,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
     eyebrow: 'ABOUT TMR',
     headline: 'BUILT AROUND THE DETAIL.',
     description: 'Our story, philosophy and studio standards.',
-    targetWidth: 840,
+    targetWidth: 720,
     columns: [
       {
         items: [
@@ -219,6 +223,10 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
             description: 'The philosophy behind our craftsmanship.',
             href: '/about',
           },
+        ],
+      },
+      {
+        items: [
           {
             title: 'OUR WORKSHOP',
             description: 'Inside the Tiruppur studio facility.',
@@ -243,7 +251,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
     eyebrow: 'CONTACT',
     headline: 'THE DOOR IS OPEN.',
     description: 'Direct location & workshop hours.',
-    targetWidth: 720,
+    targetWidth: 680,
     columns: [
       {
         items: [
@@ -252,6 +260,10 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
             description: 'Avinashi Road, Tiruppur, Tamil Nadu.',
             href: '/contact',
           },
+        ],
+      },
+      {
+        items: [
           {
             title: 'WORKSHOP HOURS',
             description: 'Mon–Sat: 9:00 AM – 8:00 PM | Sun: 10:00 AM – 5:00 PM (By Appt)',

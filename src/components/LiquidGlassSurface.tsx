@@ -3,6 +3,7 @@ import React, { useMemo } from 'react';
 interface LiquidGlassSurfaceProps {
   children: React.ReactNode;
   className?: string;
+  contentClassName?: string;
   filterId?: string;
   tint?: string;
   blur?: number;
@@ -22,6 +23,7 @@ function supportsBackdropSvgFilter(): boolean {
 export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
   children,
   className = '',
+  contentClassName = 'relative z-10 h-full flex items-center justify-center',
   filterId = 'lg-nav-filter',
   tint = 'rgba(18, 18, 22, 0.35)',
   blur = 20,
@@ -73,7 +75,7 @@ export const LiquidGlassSurface: React.FC<LiquidGlassSurfaceProps> = ({
       )}
 
       {/* LAYER 3: CONTENT */}
-      <div className="relative z-10 h-full flex items-center justify-center">{children}</div>
+      <div className={contentClassName}>{children}</div>
     </div>
   );
 };

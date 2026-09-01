@@ -89,17 +89,18 @@ export const MegaMenuPanel: React.FC<MegaMenuPanelProps> = ({
         roundedClassName="rounded-[28px]"
         tint="rgba(12, 12, 16, 0.55)"
         blur={20}
-        className="p-6 md:p-8 border border-white/20 text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white"
+        className="p-5 md:p-6 lg:p-7 border border-white/20 text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white"
+        contentClassName="relative z-10 w-full"
       >
-        <div ref={contentRef} className="space-y-6 w-full relative z-10">
+        <div ref={contentRef} className="space-y-5 w-full relative z-10">
           
           {/* EDITORIAL HEADER SECTION */}
-          <div className="border-b border-white/12 pb-4 flex items-center justify-between">
+          <div className="border-b border-white/12 pb-3.5 flex items-start justify-between gap-4">
             <div className="space-y-1">
               <span className="stagger-item block text-[10px] font-black uppercase tracking-[0.25em] text-[#FF4B00]">
                 {config.eyebrow}
               </span>
-              <h3 className="stagger-item text-lg md:text-xl font-black uppercase tracking-tight text-white">
+              <h3 className="stagger-item text-lg md:text-xl font-black uppercase tracking-tight text-white leading-tight">
                 {config.headline}
               </h3>
               <p className="stagger-item text-xs text-[#F5F4EF]/65 max-w-xl leading-relaxed">
@@ -110,7 +111,7 @@ export const MegaMenuPanel: React.FC<MegaMenuPanelProps> = ({
             {config.cta && (
               <Link
                 to={config.cta.href}
-                className="stagger-item shrink-0 text-xs font-extrabold text-white hover:text-[#FF4B00] flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 border border-white/20 hover:bg-white hover:text-black transition-all uppercase tracking-wider"
+                className="stagger-item shrink-0 text-xs font-extrabold text-white hover:text-[#FF4B00] flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 border border-white/20 hover:bg-white hover:text-black transition-all uppercase tracking-wider self-start mt-0.5"
               >
                 <span>{config.cta.label}</span>
               </Link>
@@ -119,9 +120,9 @@ export const MegaMenuPanel: React.FC<MegaMenuPanelProps> = ({
 
           {/* EDITORIAL COLUMNS GRID SECTION */}
           <div
-            className={`grid gap-6 ${
+            className={`grid gap-6 pt-0.5 ${
               config.columns.length === 1
-                ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
+                ? 'grid-cols-1'
                 : config.columns.length === 2
                 ? 'grid-cols-1 md:grid-cols-2'
                 : 'grid-cols-1 md:grid-cols-3'
@@ -130,7 +131,7 @@ export const MegaMenuPanel: React.FC<MegaMenuPanelProps> = ({
             {config.columns.map((col, colIdx) => (
               <div
                 key={colIdx}
-                className={`space-y-3.5 ${
+                className={`space-y-3 ${
                   colIdx > 0 && config.columns.length > 1
                     ? 'md:border-l md:border-white/10 md:pl-6'
                     : ''
@@ -141,7 +142,7 @@ export const MegaMenuPanel: React.FC<MegaMenuPanelProps> = ({
                     {col.heading}
                   </span>
                 )}
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   {col.items.map((item, itemIdx) => (
                     <Link
                       key={itemIdx}
@@ -152,7 +153,7 @@ export const MegaMenuPanel: React.FC<MegaMenuPanelProps> = ({
                         <span>{item.title}</span>
                         <ChevronRight className="w-3.5 h-3.5 text-[#FF4B00] group-hover:translate-x-1 transition-transform" />
                       </span>
-                      <p className="text-[11px] text-[#F5F4EF]/60 mt-1 leading-relaxed">
+                      <p className="text-[11px] text-[#F5F4EF]/60 mt-0.5 leading-relaxed">
                         {item.description}
                       </p>
                     </Link>
