@@ -54,7 +54,7 @@ export const AboutPage: React.FC = () => {
           "@id": "https://tmrcarcare.com/about/#organization",
           "name": "TMR AI Car Care",
           "url": "https://tmrcarcare.com/about",
-          "logo": "https://tmrcarcare.com/images/tmr-logo-nav.png",
+          "logo": "https://tmrcarcare.com/images/tmr-ai-car-care-logo.png",
           "image": "https://tmrcarcare.com/images/about/about-hero-static.jpg",
           "description": "TMR AI Car Care is Tiruppur's premier automotive detailing studio established in 2009 by Chandramohan Kandha Velu. Specialized in professional car care, paint correction, ceramic coating, and PPF protection.",
           "foundingDate": "2009",
