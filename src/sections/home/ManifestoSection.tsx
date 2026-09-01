@@ -230,7 +230,7 @@ export const ManifestoSection: React.FC = () => {
             >
               <img
                 src="/images/manifesto/manifesto-editorial.webp"
-                alt="TMR Car Care studio detailing craftsmanship"
+                alt="TMR AI Car Care studio detailing craftsmanship"
                 className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:brightness-[1.03]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />

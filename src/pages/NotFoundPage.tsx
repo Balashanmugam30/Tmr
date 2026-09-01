@@ -6,7 +6,7 @@ export const NotFoundPage: React.FC = () => {
 
   useEffect(() => {
     // 404 Page Robots Meta (NOINDEX)
-    document.title = "404 — Page Not Found | TMR Car Care";
+    document.title = "404 — Page Not Found | TMR AI Car Care";
 
     let robotsMeta = document.querySelector('meta[name="robots"]');
     if (!robotsMeta) {
@@ -50,7 +50,7 @@ export const NotFoundPage: React.FC = () => {
         
         {/* SMALL STUDIO BADGE */}
         <div className="inline-flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#FF4B00]">
-          <span>TMR CAR CARE</span>
+          <span>TMR AI CAR CARE</span>
           <span>•</span>
           <span>LOCATION ERROR</span>
         </div>

@@ -220,7 +220,7 @@ export const ProductsPage: React.FC = () => {
   };
 
   useEffect(() => {
-    document.title = "3M Car Care & Detailing Products in Tiruppur | TMR Car Care";
+    document.title = "3M Car Care & Detailing Products in Tiruppur | TMR AI Car Care";
 
     // Meta Description
     let metaDescription = document.querySelector('meta[name="description"]');
@@ -231,7 +231,7 @@ export const ProductsPage: React.FC = () => {
     }
     metaDescription.setAttribute(
       'content',
-      'Explore 3M car care and professional detailing products in Tiruppur at TMR Car Care. High-performance compounds, abrasives, polishes, and surface protection.'
+      'Explore 3M car care and professional detailing products in Tiruppur at TMR AI Car Care. High-performance compounds, abrasives, polishes, and surface protection.'
     );
 
     // Canonical Link
@@ -250,7 +250,7 @@ export const ProductsPage: React.FC = () => {
       ogTitle.setAttribute('property', 'og:title');
       document.head.appendChild(ogTitle);
     }
-    ogTitle.setAttribute('content', '3M Car Care & Detailing Products in Tiruppur | TMR Car Care');
+    ogTitle.setAttribute('content', '3M Car Care & Detailing Products in Tiruppur | TMR AI Car Care');
 
     let ogDesc = document.querySelector('meta[property="og:description"]');
     if (!ogDesc) {
@@ -260,7 +260,7 @@ export const ProductsPage: React.FC = () => {
     }
     ogDesc.setAttribute(
       'content',
-      'Explore 3M car care and professional detailing products in Tiruppur at TMR Car Care. High-performance compounds, abrasives, polishes, and surface protection.'
+      'Explore 3M car care and professional detailing products in Tiruppur at TMR AI Car Care. High-performance compounds, abrasives, polishes, and surface protection.'
     );
 
     // ItemList JSON-LD Schema
@@ -275,7 +275,7 @@ export const ProductsPage: React.FC = () => {
       "@context": "https://schema.org",
       "@type": "ItemList",
       "name": "3M Car Care & Professional Detailing Products in Tiruppur",
-      "description": "Curated professional 3M automotive detailing compounds, abrasives, polishes, and surface protection products at TMR Car Care Tiruppur.",
+      "description": "Curated professional 3M automotive detailing compounds, abrasives, polishes, and surface protection products at TMR AI Car Care Tiruppur.",
       "url": "https://tmrcarcare.com/products",
       "itemListElement": productsData.map((prod, index) => ({
         "@type": "ListItem",
@@ -403,7 +403,7 @@ export const ProductsPage: React.FC = () => {
     },
     {
       q: "ARE YOUR CERAMIC COATINGS CERTIFIED?",
-      a: "All ceramic and PPF products applied at TMR Car Care are 100% authentic, verified by manufacturer serial numbers, and applied in a climate-controlled studio environment.",
+      a: "All ceramic and PPF products applied at TMR AI Car Care are 100% authentic, verified by manufacturer serial numbers, and applied in a climate-controlled studio environment.",
     },
     {
       q: "HOW DO I MAINTAIN THE FINISH AFTER A SERVICE?",
@@ -982,7 +982,7 @@ export const ProductsPage: React.FC = () => {
             EXPERIENCE THE PRODUCT MATRIX.
           </h2>
           <p className="text-base text-[#D8D8D5] max-w-lg mx-auto leading-relaxed">
-            Elevate your vehicle's clear coat protection with professional 3M formulations at TMR Car Care in Tiruppur.
+            Elevate your vehicle's clear coat protection with professional 3M formulations at TMR AI Car Care in Tiruppur.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
             <a

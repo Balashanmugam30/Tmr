@@ -1,4 +1,4 @@
-# TMR Car Care — About Page Final SEO Keyword Coverage & Strategy Matrix
+# TMR AI Car Care — About Page Final SEO Keyword Coverage & Strategy Matrix
 
 * **Target Route**: `/about` ([`src/pages/AboutPage.tsx`](file:///c:/Users/balashanmugam/OneDrive/Desktop/Freelance/TMR/src/pages/AboutPage.tsx))
 * **Primary Objective**: Human-grade editorial tone, strong local entity signals, zero keyword stuffing, zero cannibalization with service pages.
@@ -9,7 +9,7 @@
 
 | Keyword / Concept | Exact vs. Semantic Usage | Section Placement | Search Intent | Intentionally Excluded? |
 | :--- | :--- | :--- | :--- | :--- |
-| `TMR Car Care` | Exact & Entity Signal | Title, Meta, Hero, Story, Tiruppur | Primary Brand Entity | No |
+| `TMR AI Car Care` | Exact & Entity Signal | Title, Meta, Hero, Story, Tiruppur | Primary Brand Entity | No |
 | `Tiruppur` / `Tiruppur Tamil Nadu` | Exact Local Signal | Title, Story, Location, Schema | Primary Local Entity | No |
 | `car care Tiruppur` | Semantic & Natural Copy | Story ("quality automotive care in Tiruppur") | Local Service Search | No |
 | `car detailing Tiruppur` / `car detailing in Tiruppur` | Exact & Semantic | Title, Meta, Story, Standard | Local Category Search | No |
@@ -32,13 +32,13 @@
 ## 2. Refined Human-Grade Editorial Copy Highlights
 
 * **Removed Mechanical SEO Phrases**: Eliminated `"professional car care center standards"` and awkward concatenated location strings.
-* **Streamlined Brand Repetitions**: Reduced redundant usage of `"TMR Car Care"` and `"Tiruppur"` across adjacent paragraphs.
+* **Streamlined Brand Repetitions**: Reduced redundant usage of `"TMR AI Car Care"` and `"Tiruppur"` across adjacent paragraphs.
 * **Refined Alt Text**: Factual, concise image descriptions without keyword chains:
-  - `alt="TMR Car Care detailing studio in Tiruppur"`
-  - `alt="Vehicle surface inspection during professional automotive detailing at TMR Car Care"`
-  - `alt="Machine polishing and paint refinement inside TMR Car Care studio"`
-  - `alt="TMR Car Care studio facility on Avinashi Road Tiruppur"`
-  - `alt="Detailed vehicle with mirror finish inside TMR Car Care studio"`
+  - `alt="TMR AI Car Care detailing studio in Tiruppur"`
+  - `alt="Vehicle surface inspection during professional automotive detailing at TMR AI Car Care"`
+  - `alt="Machine polishing and paint refinement inside TMR AI Car Care studio"`
+  - `alt="TMR AI Car Care studio facility on Avinashi Road Tiruppur"`
+  - `alt="Detailed vehicle with mirror finish inside TMR AI Car Care studio"`
 
 ---
 
@@ -57,8 +57,8 @@
 
 ## 4. Technical SEO Verification
 
-* **Title**: `About TMR Car Care | Automotive Detailing in Tiruppur | Established 2009`
-* **Meta Description**: `Learn about TMR Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF.`
+* **Title**: `About TMR AI Car Care | Automotive Detailing in Tiruppur | Established 2009`
+* **Meta Description**: `Learn about TMR AI Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF.`
 * **Canonical URL**: `https://tmrcarcare.com/about`
 * **JSON-LD Schema**: `AutoRepair` + `LocalBusiness` + `BreadcrumbList` valid graph.
 * **TypeScript Check (`npx tsc --noEmit`)**: **PASS (0 errors)**

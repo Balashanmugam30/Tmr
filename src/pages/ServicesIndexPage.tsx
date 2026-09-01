@@ -9,7 +9,7 @@ import { ConsultationCtaSection } from '@/sections/services/ConsultationCtaSecti
 export const ServicesIndexPage: React.FC = () => {
   // Page SEO Metadata & Title
   useEffect(() => {
-    document.title = "Car Detailing & Protection Services in Tiruppur | TMR Car Care";
+    document.title = "Car Detailing & Protection Services in Tiruppur | TMR AI Car Care";
     
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
@@ -19,7 +19,7 @@ export const ServicesIndexPage: React.FC = () => {
     }
     metaDesc.setAttribute(
       'content',
-      'Explore premium automotive detailing, ceramic coating, paint protection film (PPF), sun control films, and car cleaning services at TMR Car Care in Tiruppur.'
+      'Explore premium automotive detailing, ceramic coating, paint protection film (PPF), sun control films, and car cleaning services at TMR AI Car Care in Tiruppur.'
     );
 
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -37,7 +37,7 @@ export const ServicesIndexPage: React.FC = () => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
-    "name": "TMR Car Care Studio Tiruppur",
+    "name": "TMR AI Car Care Studio Tiruppur",
     "url": "https://tmrcarcare.com/services",
     "telephone": "+919944335520",
     "address": {

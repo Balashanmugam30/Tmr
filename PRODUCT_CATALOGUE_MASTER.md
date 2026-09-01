@@ -1,4 +1,4 @@
-# TMR CAR CARE — MASTER PRODUCT CATALOGUE
+# TMR AI CAR CARE — MASTER PRODUCT CATALOGUE
 **Official Multi-Brand Automotive Detailing & Surface Protection Catalogue**
 *Version: 3.0 (63 Verified Products across 3M Automotive [33], Meguiar's [20], and Würth [10])*
 
@@ -6,7 +6,7 @@
 
 ## 1. Executive Summary & Brand Overview
 
-TMR Car Care operates an advanced professional detailing and surface protection studio in Tiruppur, India. This master product catalogue organizes **63 genuine, manufacturer-verified products** utilized across TMR's core service divisions:
+TMR AI Car Care operates an advanced professional detailing and surface protection studio in Tiruppur, India. This master product catalogue organizes **63 genuine, manufacturer-verified products** utilized across TMR's core service divisions:
 - **Car Wash & Deep Cleaning**
 - **Detailing & Multi-Stage Paint Care**
 - **Ceramic Coating & Surface Protection**

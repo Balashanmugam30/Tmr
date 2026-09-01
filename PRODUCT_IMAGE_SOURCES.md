@@ -1,4 +1,4 @@
-# TMR CAR CARE — PRODUCT IMAGE SOURCES & PROVENANCE AUDIT
+# TMR AI CAR CARE — PRODUCT IMAGE SOURCES & PROVENANCE AUDIT
 **Provenance Audit & Classification for All 63 Product Image Assets**
 *Classification Standard: Tier 1 (First-Party Manufacturer DAM) / Tier 2 (Authorized Distributor Channel)*
 

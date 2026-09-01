@@ -45,7 +45,7 @@ export const ConsultationCtaSection: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="relative group inline-flex items-center justify-between gap-6 border border-white/30 px-8 py-5 text-xs font-bold uppercase tracking-widest text-white overflow-hidden transition-all duration-300 w-full sm:w-auto min-w-[260px]"
-              aria-label="Book a vehicle consultation on WhatsApp with TMR Car Care Studio"
+              aria-label="Book a vehicle consultation on WhatsApp with TMR AI Car Care Studio"
             >
               <span className="absolute inset-0 bg-[#FF4B00] w-0 group-hover:w-full transition-all duration-500 ease-out z-0" />
               <span className="relative z-10 group-hover:text-[#111111] transition-colors duration-300">

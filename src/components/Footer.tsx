@@ -9,7 +9,7 @@ import { Logo } from './Logo';
 
 export const Footer: React.FC = () => {
   const whatsappUrl = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(
-    'Hello TMR Car Care! I would like to book an appointment or request a detailing quote.'
+    'Hello TMR AI Car Care! I would like to book an appointment or request a detailing quote.'
   )}`;
 
   const scrollToTop = () => {
@@ -232,13 +232,13 @@ export const Footer: React.FC = () => {
         {/* SECTION C — SMALL REFINED TMR BRAND SIGNATURE */}
         <div className="pt-8 pb-2 border-t border-white/10 text-center select-none pointer-events-none">
           <span className="font-intertight font-black text-2xl sm:text-3xl tracking-[0.25em] text-white/10 uppercase block">
-            TMR / CAR CARE
+            TMR AI / CAR CARE
           </span>
         </div>
 
         {/* SECTION D — LEGAL ROW & BACK TO TOP */}
         <div className="pt-4 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs text-[#F5F4EF]/50 font-semibold gap-4">
-          <p>© {new Date().getFullYear()} TMR CAR CARE. ALL RIGHTS RESERVED.</p>
+          <p>© {new Date().getFullYear()} TMR AI CAR CARE. ALL RIGHTS RESERVED.</p>
 
           <div className="flex items-center gap-6">
             <Link to="/privacy-policy" className="hover:text-white transition-colors">

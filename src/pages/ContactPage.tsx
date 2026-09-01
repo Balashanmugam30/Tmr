@@ -14,14 +14,14 @@ export const ContactPage: React.FC = () => {
   });
 
   useEffect(() => {
-    document.title = "Contact TMR Car Care | Detailing Studio in Tiruppur";
+    document.title = "Contact TMR AI Car Care | Detailing Studio in Tiruppur";
     window.scrollTo(0, 0);
   }, []);
 
   const faqs = [
     {
       id: "faq-location",
-      q: "Where is TMR Car Care located in Tiruppur?",
+      q: "Where is TMR AI Car Care located in Tiruppur?",
       a: (
         <>
           Our studio is located on Avinashi Road, Near Hope College Junction, Tiruppur, Tamil Nadu — 641602. You can view our live studio location or get directions via{' '}
@@ -34,7 +34,7 @@ export const ContactPage: React.FC = () => {
     },
     {
       id: "faq-services",
-      q: "What car detailing services does TMR Car Care offer in Tiruppur?",
+      q: "What car detailing services does TMR AI Car Care offer in Tiruppur?",
       a: (
         <>
           We specialize in comprehensive automotive care including{' '}
@@ -56,7 +56,7 @@ export const ContactPage: React.FC = () => {
     },
     {
       id: "faq-paint-correction",
-      q: "What does TMR Car Care's paint correction service include?",
+      q: "What does TMR AI Car Care's paint correction service include?",
       a: (
         <>
           Our paint correction process uses multi-stage machine polishing to eliminate swirl marks, light scratches, oxidation, and water spots, restoring deep clarity and reflection before applying protective ceramic or PPF coatings.{' '}
@@ -95,7 +95,7 @@ export const ContactPage: React.FC = () => {
     },
     {
       id: "faq-ppf",
-      q: "Does TMR Car Care offer Paint Protection Film (PPF) installation?",
+      q: "Does TMR AI Car Care offer Paint Protection Film (PPF) installation?",
       a: (
         <>
           Yes, we provide computer-cut TPU Paint Protection Film (PPF) installation for full-body coverage or high-impact areas like bonnets, bumpers, side mirrors, and door edges at our Tiruppur studio.{' '}
@@ -120,13 +120,13 @@ export const ContactPage: React.FC = () => {
     },
     {
       id: "faq-hours",
-      q: "What are TMR Car Care's studio working hours?",
+      q: "What are TMR AI Car Care's studio working hours?",
       a: "Our Tiruppur studio is open Monday through Saturday from 9:00 AM to 8:00 PM, and Sunday from 10:00 AM to 5:00 PM (by appointment only).",
       plainAnswer: "Our Tiruppur studio is open Monday through Saturday from 9:00 AM to 8:00 PM, and Sunday from 10:00 AM to 5:00 PM (by appointment only).",
     },
     {
       id: "faq-contact",
-      q: "How can I contact TMR Car Care for a detailing enquiry?",
+      q: "How can I contact TMR AI Car Care for a detailing enquiry?",
       a: "You can reach our team via WhatsApp at +91 98765 43210, call our studio at +91 98765 43210, email enquiry@tmrcarcare.com, or submit the direct consultation form above.",
       plainAnswer: "You can reach our team via WhatsApp at +91 98765 43210, call our studio at +91 98765 43210, email enquiry@tmrcarcare.com, or submit the direct consultation form above.",
     },
@@ -164,7 +164,7 @@ export const ContactPage: React.FC = () => {
     }
 
     try {
-      const text = `Hello TMR Car Care!\n\nName: ${formData.name}\nPhone: ${formData.phone}\nVehicle: ${formData.vehicle}\nService Interest: ${formData.service}\nNotes: ${formData.message}`;
+      const text = `Hello TMR AI Car Care!\n\nName: ${formData.name}\nPhone: ${formData.phone}\nVehicle: ${formData.vehicle}\nService Interest: ${formData.service}\nNotes: ${formData.message}`;
       const url = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(text)}`;
       setGeneratedWhatsappUrl(url);
       setSubmitStatus('success');
@@ -506,7 +506,7 @@ export const ContactPage: React.FC = () => {
           {/* Real Google Maps Embed Container */}
           <div className="w-full h-[400px] sm:h-[480px] rounded-2xl border border-white/15 overflow-hidden shadow-2xl relative">
             <iframe
-              title="TMR Car Care Studio Location Map"
+              title="TMR AI Car Care Studio Location Map"
               src={`https://maps.google.com/maps?q=${encodeURIComponent(companyData.address.fullText)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
               className="w-full h-full border-0 filter contrast-125 brightness-90 hover:filter-none transition-all duration-700"
               allowFullScreen
@@ -546,7 +546,7 @@ export const ContactPage: React.FC = () => {
               </h2>
 
               <p className="font-manrope text-base sm:text-lg text-[#5F5E5E] leading-relaxed max-w-md">
-                Find practical answers about TMR Car Care services, appointments, vehicle care, paint correction, ceramic coating, PPF, and visiting our Tiruppur studio.
+                Find practical answers about TMR AI Car Care services, appointments, vehicle care, paint correction, ceramic coating, PPF, and visiting our Tiruppur studio.
               </p>
 
               <div className="pt-4">

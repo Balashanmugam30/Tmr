@@ -204,7 +204,7 @@ export const ApproachSection: React.FC = () => {
               <div className="approach-text-item pt-2">
                 <Link
                   to="/services"
-                  aria-label="Discover the TMR car care detailing method and process"
+                  aria-label="Discover the TMR AI car care detailing method and process"
                   className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
                 >
                   <span className="inline-flex items-center gap-2">

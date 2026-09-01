@@ -18,28 +18,28 @@ export const StudioProcessTimeline: React.FC = () => {
       title: "CHOOSE",
       desc: "Find the service that matches your vehicle's needs.",
       image: "/images/services/journey/journey-choose.jpg",
-      altText: "Customer consultation for automotive detailing at TMR Car Care in Tiruppur",
+      altText: "Customer consultation for automotive detailing at TMR AI Car Care in Tiruppur",
     },
     {
       number: "02",
       title: "ENQUIRE",
       desc: "Reach TMR through WhatsApp or phone.",
       image: "/images/services/journey/journey-enquire.jpg",
-      altText: "Professional automotive service consultation at TMR Car Care in Tiruppur",
+      altText: "Professional automotive service consultation at TMR AI Car Care in Tiruppur",
     },
     {
       number: "03",
       title: "CONFIRM",
       desc: "Discuss the vehicle, treatment and appointment with our team.",
       image: "/images/services/journey/journey-confirm.jpg",
-      altText: "Technician inspecting vehicle paint before detailing at TMR Car Care in Tiruppur",
+      altText: "Technician inspecting vehicle paint before detailing at TMR AI Car Care in Tiruppur",
     },
     {
       number: "04",
       title: "VISIT",
       desc: "Bring your vehicle to the TMR studio in Tiruppur.",
       image: "/images/services/journey/journey-visit.jpg",
-      altText: "Premium vehicle inside the TMR Car Care detailing studio in Tiruppur",
+      altText: "Premium vehicle inside the TMR AI Car Care detailing studio in Tiruppur",
     },
   ];
 

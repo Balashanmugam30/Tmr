@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { LiquidGlassSurface } from './LiquidGlassSurface';
 import { useNavbarTheme } from '@/context/NavbarThemeContext';
 
-export const LOGO_LIGHT_TRANSPARENT_SRC = '/images/tmr-logo-light-transparent.png';
-export const LOGO_DARK_TRANSPARENT_SRC = '/images/tmr-logo-dark-transparent.png';
+export const LOGO_LIGHT_TRANSPARENT_SRC = '/images/tmr-ai-car-care-logo-dark.svg';
+export const LOGO_DARK_TRANSPARENT_SRC = '/images/tmr-ai-car-care-logo-light.svg';
 
 interface LogoProps {
   className?: string;
@@ -26,7 +26,7 @@ export const Logo: React.FC<LogoProps> = ({
       {/* LIGHT LOGO VARIANT (White artwork for dark backgrounds) */}
       <img
         src={LOGO_LIGHT_TRANSPARENT_SRC}
-        alt="TMR Car Care"
+        alt="TMR AI Car Care"
         className={`absolute inset-0 w-full h-full object-contain shrink-0 transition-opacity duration-200 ease-out ${
           theme === 'dark' ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
@@ -48,7 +48,7 @@ export const Logo: React.FC<LogoProps> = ({
     <Link
       to="/"
       className={`inline-flex items-center group transition-transform duration-200 active:scale-95 ${className}`}
-      aria-label="TMR Car Care Homepage"
+      aria-label="TMR AI Car Care Homepage"
     >
       {useGlass ? (
         <LiquidGlassSurface

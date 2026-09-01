@@ -80,8 +80,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-ex-ac-rubbing-compound",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 EX AC Rubbing Compound PN 36060 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Perfect-It\u2122 EX AC Rubbing Compound (PN 36060) at TMR Car Care Tiruppur. Precision compound for removing P1200 or finer sand scratches while leaving high-gloss finish.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 EX AC Rubbing Compound PN 36060 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Perfect-It\u2122 EX AC Rubbing Compound (PN 36060) at TMR AI Car Care Tiruppur. Precision compound for removing P1200 or finer sand scratches while leaving high-gloss finish.",
     "seoH1": "3M\u2122 PERFECT-IT\u2122 EX AC RUBBING COMPOUND (PN 36060)",
     "relatedProductIds": [
       "3m-perfect-it-ex-machine-polish",
@@ -148,8 +148,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-ex-machine-polish",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 EX Machine Polish PN 06064 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Perfect-It\u2122 EX Machine Polish (PN 06064) at TMR Car Care. Removes compound swirls and produces deep gloss on automotive clear coats.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 EX Machine Polish PN 06064 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Perfect-It\u2122 EX Machine Polish (PN 06064) at TMR AI Car Care. Removes compound swirls and produces deep gloss on automotive clear coats.",
     "seoH1": "3M\u2122 PERFECT-IT\u2122 EX MACHINE POLISH (PN 06064)",
     "relatedProductIds": [
       "3m-perfect-it-ex-rubbing-compound",
@@ -216,8 +216,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-ex-ultrafine-machine-polish",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 EX Ultrafine Machine Polish PN 06068 | TMR Car Care Tiruppur",
-    "seoDescription": "Eliminate holograms and buffer trails with 3M\u2122 Perfect-It\u2122 EX Ultrafine Machine Polish PN 06068 at TMR Car Care Tiruppur.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 EX Ultrafine Machine Polish PN 06068 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Eliminate holograms and buffer trails with 3M\u2122 Perfect-It\u2122 EX Ultrafine Machine Polish PN 06068 at TMR AI Car Care Tiruppur.",
     "seoH1": "3M\u2122 PERFECT-IT\u2122 EX ULTRAFINE MACHINE POLISH (PN 06068)",
     "relatedProductIds": [
       "3m-perfect-it-ex-machine-polish",
@@ -284,8 +284,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-1-step-finishing-material",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 1-Step Finishing Material PN 33039 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Perfect-It\u2122 1-Step Finishing Material (PN 33039) at TMR Car Care. One-step cutting and gloss finishing formula.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 1-Step Finishing Material PN 33039 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Perfect-It\u2122 1-Step Finishing Material (PN 33039) at TMR AI Car Care. One-step cutting and gloss finishing formula.",
     "seoH1": "3M\u2122 PERFECT-IT\u2122 1-STEP FINISHING MATERIAL (PN 33039)",
     "relatedProductIds": [
       "3m-trizact-abrasives",
@@ -352,8 +352,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-foam-compounding-pad",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 Foam Compounding Pad PN 05706 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Perfect-It\u2122 Foam Compounding Pad (PN 05706) at TMR Car Care Tiruppur. Premium 8-inch waffle foam compounding pad.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Foam Compounding Pad PN 05706 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Perfect-It\u2122 Foam Compounding Pad (PN 05706) at TMR AI Car Care Tiruppur. Premium 8-inch waffle foam compounding pad.",
     "seoH1": "3M\u2122 PERFECT-IT\u2122 FOAM COMPOUNDING PAD (PN 05706)",
     "relatedProductIds": [
       "3m-perfect-it-ex-rubbing-compound",
@@ -420,8 +420,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-foam-polishing-pad-05707",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 Foam Polishing Pad PN 05707 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Perfect-It\u2122 Black Foam Polishing Pad (PN 05707) at TMR Car Care. Step 2 machine polishing pad for flawless finish.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Foam Polishing Pad PN 05707 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Perfect-It\u2122 Black Foam Polishing Pad (PN 05707) at TMR AI Car Care. Step 2 machine polishing pad for flawless finish.",
     "seoH1": "3M\u2122 PERFECT-IT\u2122 FOAM POLISHING PAD (PN 05707)",
     "relatedProductIds": [
       "3m-perfect-it-ex-machine-polish",
@@ -488,8 +488,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-ultrafine-foam-polishing-pad-05708",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 Ultrafine Foam Polishing Pad PN 05708 | TMR Car Care",
-    "seoDescription": "3M\u2122 Perfect-It\u2122 Blue Ultrafine Foam Polishing Pad (PN 05708) at TMR Car Care Tiruppur. The ultimate hologram removal pad.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Ultrafine Foam Polishing Pad PN 05708 | TMR AI Car Care",
+    "seoDescription": "3M\u2122 Perfect-It\u2122 Blue Ultrafine Foam Polishing Pad (PN 05708) at TMR AI Car Care Tiruppur. The ultimate hologram removal pad.",
     "seoH1": "3M\u2122 PERFECT-IT\u2122 ULTRAFINE FOAM POLISHING PAD (PN 05708)",
     "relatedProductIds": [
       "3m-perfect-it-ex-ultrafine-polish",
@@ -556,8 +556,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-trizact-hookit-foam-disc-p1500",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P1500 PN 02088 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P1500 (PN 02088) at TMR Car Care. Precision clear coat texture leveling abrasive disc.",
+    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P1500 PN 02088 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P1500 (PN 02088) at TMR AI Car Care. Precision clear coat texture leveling abrasive disc.",
     "seoH1": "3M\u2122 TRIZACT\u2122 HOOKIT\u2122 FOAM DISC P1500 (PN 02088)",
     "relatedProductIds": [
       "3m-trizact-abrasives",
@@ -624,8 +624,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-trizact-hookit-foam-disc-p3000",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P3000 PN 02085 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P3000 (PN 02085) at TMR Car Care. The benchmark in paint scratch refinement.",
+    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P3000 PN 02085 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P3000 (PN 02085) at TMR AI Car Care. The benchmark in paint scratch refinement.",
     "seoH1": "3M\u2122 TRIZACT\u2122 HOOKIT\u2122 FOAM DISC P3000 (PN 02085)",
     "relatedProductIds": [
       "3m-trizact-1500",
@@ -692,8 +692,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-trizact-hookit-foam-disc-p5000",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P5000 PN 30662 | TMR Car Care",
-    "seoDescription": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P5000 (PN 30662) at TMR Car Care Tiruppur. Ultra-fine micro-abrasive disc for paint perfection.",
+    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P5000 PN 30662 | TMR AI Car Care",
+    "seoDescription": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Disc P5000 (PN 30662) at TMR AI Car Care Tiruppur. Ultra-fine micro-abrasive disc for paint perfection.",
     "seoH1": "3M\u2122 TRIZACT\u2122 HOOKIT\u2122 FOAM DISC P5000 (PN 30662)",
     "relatedProductIds": [
       "3m-trizact-abrasives",
@@ -760,8 +760,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-automotive-performance-masking-tape-233-plus",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Automotive Performance Masking Tape 233+ PN 26338 | TMR Car Care",
-    "seoDescription": "3M\u2122 Performance Masking Tape 233+ (PN 26338) at TMR Car Care Tiruppur. Premium green automotive masking tape.",
+    "seoTitle": "3M\u2122 Automotive Performance Masking Tape 233+ PN 26338 | TMR AI Car Care",
+    "seoDescription": "3M\u2122 Performance Masking Tape 233+ (PN 26338) at TMR AI Car Care Tiruppur. Premium green automotive masking tape.",
     "seoH1": "3M\u2122 AUTOMOTIVE PERFORMANCE MASKING TAPE 233+ (PN 26338)",
     "relatedProductIds": [
       "3m-perfect-it-ex-rubbing-compound",
@@ -828,8 +828,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-synthetic-detail-clay-bar",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Synthetic Detail Clay Bar PN 38070 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Synthetic Detail Clay Bar (PN 38070) at TMR Car Care. Remove overspray, rail dust, and industrial fallout for glass-smooth paint.",
+    "seoTitle": "3M\u2122 Synthetic Detail Clay Bar PN 38070 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Synthetic Detail Clay Bar (PN 38070) at TMR AI Car Care. Remove overspray, rail dust, and industrial fallout for glass-smooth paint.",
     "seoH1": "3M\u2122 SYNTHETIC DETAIL CLAY BAR (PN 38070)",
     "relatedProductIds": [
       "3m-perfect-it-ex-rubbing-compound",
@@ -895,8 +895,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-quick-wax-spray-39034",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Quick Wax Spray PN 39034 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Quick Wax Spray (PN 39034) at TMR Car Care. Carnauba spray wax for instant gloss and water beading.",
+    "seoTitle": "3M\u2122 Quick Wax Spray PN 39034 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Quick Wax Spray (PN 39034) at TMR AI Car Care. Carnauba spray wax for instant gloss and water beading.",
     "seoH1": "3M\u2122 QUICK WAX SPRAY (PN 39034)",
     "relatedProductIds": [
       "3m-synthetic-detail-clay-bar",
@@ -963,8 +963,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-ceramic-coating-paint-protection-kit",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Ceramic Coating Paint Protection Kit PN 39901 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Ceramic Coating (PN 39901) at TMR Car Care Tiruppur. 9H hardness multi-year ceramic paint protection.",
+    "seoTitle": "3M\u2122 Ceramic Coating Paint Protection Kit PN 39901 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Ceramic Coating (PN 39901) at TMR AI Car Care Tiruppur. 9H hardness multi-year ceramic paint protection.",
     "seoH1": "3M\u2122 CERAMIC COATING PAINT PROTECTION KIT (PN 39901)",
     "relatedProductIds": [
       "3m-perfect-it-ex-ultrafine-polish",
@@ -1031,8 +1031,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-scotchgard-paint-protection-film-pro-series-200",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Scotchgard\u2122 Paint Protection Film Pro 200 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Scotchgard\u2122 PPF Pro Series 200 at TMR Car Care Tiruppur. 8 mil self-healing TPU stone chip protection film.",
+    "seoTitle": "3M\u2122 Scotchgard\u2122 Paint Protection Film Pro 200 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Scotchgard\u2122 PPF Pro Series 200 at TMR AI Car Care Tiruppur. 8 mil self-healing TPU stone chip protection film.",
     "seoH1": "3M\u2122 SCOTCHGARD\u2122 PAINT PROTECTION FILM PRO SERIES 200",
     "relatedProductIds": [
       "3m-ceramic-coating-kit",
@@ -1099,8 +1099,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-glass-cleaner-professional-08888",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Glass Cleaner Professional Formula PN 08888 | TMR Car Care",
-    "seoDescription": "3M\u2122 Professional Glass Cleaner (PN 08888) at TMR Car Care. Ammonia-free streak-free automotive foaming glass cleaner.",
+    "seoTitle": "3M\u2122 Glass Cleaner Professional Formula PN 08888 | TMR AI Car Care",
+    "seoDescription": "3M\u2122 Professional Glass Cleaner (PN 08888) at TMR AI Car Care. Ammonia-free streak-free automotive foaming glass cleaner.",
     "seoH1": "3M\u2122 GLASS CLEANER PROFESSIONAL FORMULA (PN 08888)",
     "relatedProductIds": [
       "3m-quick-wax-spray",
@@ -1167,8 +1167,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-leather-and-vinyl-restorer-39040",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Leather and Vinyl Restorer PN 39040 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Leather and Vinyl Restorer (PN 39040) at TMR Car Care. Premium interior leather conditioner and UV protectant.",
+    "seoTitle": "3M\u2122 Leather and Vinyl Restorer PN 39040 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Leather and Vinyl Restorer (PN 39040) at TMR AI Car Care. Premium interior leather conditioner and UV protectant.",
     "seoH1": "3M\u2122 LEATHER AND VINYL RESTORER (PN 39040)",
     "relatedProductIds": [
       "3m-glass-cleaner-professional",
@@ -1235,8 +1235,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-tire-restorer-39042",
     "sourceUrl": "https://www.3m.com/",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Tire Restorer PN 39042 | TMR Car Care Tiruppur",
-    "seoDescription": "3M\u2122 Tire Restorer (PN 39042) at TMR Car Care. Restores deep black tire sidewall appearance with zero sling.",
+    "seoTitle": "3M\u2122 Tire Restorer PN 39042 | TMR AI Car Care Tiruppur",
+    "seoDescription": "3M\u2122 Tire Restorer (PN 39042) at TMR AI Car Care. Restores deep black tire sidewall appearance with zero sling.",
     "seoH1": "3M\u2122 TIRE RESTORER (PN 39042)",
     "relatedProductIds": [
       "3m-leather-and-vinyl-restorer",
@@ -1303,8 +1303,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-mirror-glaze-m210-ultra-finishing-polish",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Mirror Glaze M210 Ultra Pro Finishing Polish | TMR Car Care",
-    "seoDescription": "Meguiar's M210 Ultra Pro Finishing Polish at TMR Car Care Tiruppur. Flawless reflection and haze-free clarity on soft paints.",
+    "seoTitle": "Meguiar's Mirror Glaze M210 Ultra Pro Finishing Polish | TMR AI Car Care",
+    "seoDescription": "Meguiar's M210 Ultra Pro Finishing Polish at TMR AI Car Care Tiruppur. Flawless reflection and haze-free clarity on soft paints.",
     "seoH1": "MEGUIAR'S MIRROR GLAZE M210 ULTRA PRO FINISHING POLISH",
     "relatedProductIds": [
       "meguiars-m110-pro-speed-compound",
@@ -1371,8 +1371,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-mirror-glaze-m110-ultra-pro-speed-compound",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Mirror Glaze M110 Ultra Pro Speed Compound | TMR Car Care",
-    "seoDescription": "Meguiar's M110 Ultra Pro Speed Compound at TMR Car Care. Professional heavy-cut compound with ultra-low dust.",
+    "seoTitle": "Meguiar's Mirror Glaze M110 Ultra Pro Speed Compound | TMR AI Car Care",
+    "seoDescription": "Meguiar's M110 Ultra Pro Speed Compound at TMR AI Car Care. Professional heavy-cut compound with ultra-low dust.",
     "seoH1": "MEGUIAR'S MIRROR GLAZE M110 ULTRA PRO SPEED COMPOUND",
     "relatedProductIds": [
       "meguiars-m210-finishing-polish",
@@ -1438,8 +1438,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-mirror-glaze-m105-ultra-cut-compound",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Mirror Glaze M105 Ultra-Cut Compound | TMR Car Care",
-    "seoDescription": "Meguiar's M105 Ultra-Cut Compound at TMR Car Care. Legendary SMAT compounding power for fast paint leveling.",
+    "seoTitle": "Meguiar's Mirror Glaze M105 Ultra-Cut Compound | TMR AI Car Care",
+    "seoDescription": "Meguiar's M105 Ultra-Cut Compound at TMR AI Car Care. Legendary SMAT compounding power for fast paint leveling.",
     "seoH1": "MEGUIAR'S MIRROR GLAZE M105 ULTRA-CUT COMPOUND",
     "relatedProductIds": [
       "meguiars-m205-ultra-finishing-polish",
@@ -1505,8 +1505,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-mirror-glaze-m205-ultra-finishing-polish",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Mirror Glaze M205 Ultra Finishing Polish | TMR Car Care",
-    "seoDescription": "Meguiar's M205 Ultra Finishing Polish at TMR Car Care. Precision swirl removal and deep mirror finish.",
+    "seoTitle": "Meguiar's Mirror Glaze M205 Ultra Finishing Polish | TMR AI Car Care",
+    "seoDescription": "Meguiar's M205 Ultra Finishing Polish at TMR AI Car Care. Precision swirl removal and deep mirror finish.",
     "seoH1": "MEGUIAR'S MIRROR GLAZE M205 ULTRA FINISHING POLISH",
     "relatedProductIds": [
       "meguiars-m105-ultra-cut-compound",
@@ -1573,8 +1573,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-ultimate-compound-g17216",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Ultimate Compound G17216 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's Ultimate Compound (G17216) at TMR Car Care. Remove scratches and oxidation safely by hand or machine.",
+    "seoTitle": "Meguiar's Ultimate Compound G17216 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's Ultimate Compound (G17216) at TMR AI Car Care. Remove scratches and oxidation safely by hand or machine.",
     "seoH1": "MEGUIAR'S ULTIMATE COMPOUND (G17216)",
     "relatedProductIds": [
       "meguiars-ultimate-polish",
@@ -1640,8 +1640,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-ultimate-polish-g19216",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Ultimate Polish G19216 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's Ultimate Polish (G19216) at TMR Car Care. Rich polishing oils for maximum wet-look gloss on dark paint.",
+    "seoTitle": "Meguiar's Ultimate Polish G19216 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's Ultimate Polish (G19216) at TMR AI Car Care. Rich polishing oils for maximum wet-look gloss on dark paint.",
     "seoH1": "MEGUIAR'S ULTIMATE POLISH (G19216)",
     "relatedProductIds": [
       "meguiars-ultimate-compound",
@@ -1708,8 +1708,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-gold-class-car-wash-shampoo-conditioner",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Gold Class Car Wash Shampoo & Conditioner | TMR Car Care",
-    "seoDescription": "Meguiar's Gold Class Car Wash (G7164) at TMR Car Care Tiruppur. Premium pH-neutral foaming car wash shampoo.",
+    "seoTitle": "Meguiar's Gold Class Car Wash Shampoo & Conditioner | TMR AI Car Care",
+    "seoDescription": "Meguiar's Gold Class Car Wash (G7164) at TMR AI Car Care Tiruppur. Premium pH-neutral foaming car wash shampoo.",
     "seoH1": "MEGUIAR'S GOLD CLASS CAR WASH SHAMPOO & CONDITIONER",
     "relatedProductIds": [
       "meguiars-ultimate-wash-and-wax",
@@ -1776,8 +1776,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-ultimate-wash-and-wax-g17748",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Ultimate Wash & Wax G17748 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's Ultimate Wash & Wax (G17748) at TMR Car Care. Hybrid carnauba and polymer foaming car wash shampoo.",
+    "seoTitle": "Meguiar's Ultimate Wash & Wax G17748 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's Ultimate Wash & Wax (G17748) at TMR AI Car Care. Hybrid carnauba and polymer foaming car wash shampoo.",
     "seoH1": "MEGUIAR'S ULTIMATE WASH & WAX (G17748)",
     "relatedProductIds": [
       "meguiars-gold-class-car-wash",
@@ -1844,8 +1844,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-ultimate-quik-wax-g200916",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Ultimate Quik Wax G200916 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's Ultimate Quik Wax (G200916) at TMR Car Care. Hydrophobic polymer spray wax for deep shine and protection.",
+    "seoTitle": "Meguiar's Ultimate Quik Wax G200916 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's Ultimate Quik Wax (G200916) at TMR AI Car Care. Hydrophobic polymer spray wax for deep shine and protection.",
     "seoH1": "MEGUIAR'S ULTIMATE QUIK WAX (G200916)",
     "relatedProductIds": [
       "meguiars-ultimate-polish",
@@ -1912,8 +1912,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-hybrid-ceramic-spray-wax-g190526",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Hybrid Ceramic Spray Wax G190526 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's Hybrid Ceramic Spray Wax (G190526) at TMR Car Care. SiO2 ceramic protection with simple spray-and-rinse application.",
+    "seoTitle": "Meguiar's Hybrid Ceramic Spray Wax G190526 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's Hybrid Ceramic Spray Wax (G190526) at TMR AI Car Care. SiO2 ceramic protection with simple spray-and-rinse application.",
     "seoH1": "MEGUIAR'S HYBRID CERAMIC SPRAY WAX (G190526)",
     "relatedProductIds": [
       "meguiars-ultimate-wash-and-wax",
@@ -1980,8 +1980,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-gold-class-carnauba-plus-premium-paste-wax",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Gold Class Carnauba Plus Paste Wax | TMR Car Care",
-    "seoDescription": "Meguiar's Gold Class Carnauba Plus Paste Wax (G7014J) at TMR Car Care. Premium warm carnauba shine for luxury cars.",
+    "seoTitle": "Meguiar's Gold Class Carnauba Plus Paste Wax | TMR AI Car Care",
+    "seoDescription": "Meguiar's Gold Class Carnauba Plus Paste Wax (G7014J) at TMR AI Car Care. Premium warm carnauba shine for luxury cars.",
     "seoH1": "MEGUIAR'S GOLD CLASS CARNAUBA PLUS PREMIUM PASTE WAX",
     "relatedProductIds": [
       "meguiars-gold-class-car-wash",
@@ -2048,8 +2048,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-hot-rims-wheel-tire-cleaner-g9524",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Hot Rims Wheel & Tire Cleaner G9524 | TMR Car Care",
-    "seoDescription": "Meguiar's Hot Rims Wheel & Tire Cleaner (G9524) at TMR Car Care. Clinging foam to dissolve baked brake dust and road grime.",
+    "seoTitle": "Meguiar's Hot Rims Wheel & Tire Cleaner G9524 | TMR AI Car Care",
+    "seoDescription": "Meguiar's Hot Rims Wheel & Tire Cleaner (G9524) at TMR AI Car Care. Clinging foam to dissolve baked brake dust and road grime.",
     "seoH1": "MEGUIAR'S HOT RIMS ALL WHEEL & TIRE CLEANER (G9524)",
     "relatedProductIds": [
       "meguiars-hot-shine-tire-spray",
@@ -2116,8 +2116,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-hot-shine-high-gloss-tire-spray-g12024",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Hot Shine High Gloss Tire Spray G12024 | TMR Car Care",
-    "seoDescription": "Meguiar's Hot Shine Tire Spray (G12024) at TMR Car Care. High-gloss wet tire shine with anti-browning protection.",
+    "seoTitle": "Meguiar's Hot Shine High Gloss Tire Spray G12024 | TMR AI Car Care",
+    "seoDescription": "Meguiar's Hot Shine Tire Spray (G12024) at TMR AI Car Care. High-gloss wet tire shine with anti-browning protection.",
     "seoH1": "MEGUIAR'S HOT SHINE HIGH GLOSS TIRE SPRAY (G12024)",
     "relatedProductIds": [
       "meguiars-hot-rims-wheel-tire-cleaner",
@@ -2183,8 +2183,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-quik-interior-detailer-g13616",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Quik Interior Detailer Cleaner G13616 | TMR Car Care",
-    "seoDescription": "Meguiar's Quik Interior Detailer (G13616) at TMR Car Care. OEM matte interior cleaner safe on touchscreens and leather.",
+    "seoTitle": "Meguiar's Quik Interior Detailer Cleaner G13616 | TMR AI Car Care",
+    "seoDescription": "Meguiar's Quik Interior Detailer (G13616) at TMR AI Car Care. OEM matte interior cleaner safe on touchscreens and leather.",
     "seoH1": "MEGUIAR'S QUIK INTERIOR DETAILER CLEANER (G13616)",
     "relatedProductIds": [
       "meguiars-gold-class-leather-spray",
@@ -2251,8 +2251,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-gold-class-rich-leather-3-in-1-spray",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Gold Class Rich Leather 3-in-1 Spray G10916 | TMR Car Care",
-    "seoDescription": "Meguiar's Gold Class Rich Leather Spray (G10916) at TMR Car Care. Premium leather cleaner, conditioner, and UV protector.",
+    "seoTitle": "Meguiar's Gold Class Rich Leather 3-in-1 Spray G10916 | TMR AI Car Care",
+    "seoDescription": "Meguiar's Gold Class Rich Leather Spray (G10916) at TMR AI Car Care. Premium leather cleaner, conditioner, and UV protector.",
     "seoH1": "MEGUIAR'S GOLD CLASS RICH LEATHER 3-IN-1 SPRAY",
     "relatedProductIds": [
       "meguiars-quik-interior-detailer",
@@ -2318,8 +2318,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-perfect-clarity-glass-cleaner-g8224",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Perfect Clarity Glass Cleaner G8224 | TMR Car Care",
-    "seoDescription": "Meguiar's Perfect Clarity Glass Cleaner (G8224) at TMR Car Care. Professional streak-free glass cleaner.",
+    "seoTitle": "Meguiar's Perfect Clarity Glass Cleaner G8224 | TMR AI Car Care",
+    "seoDescription": "Meguiar's Perfect Clarity Glass Cleaner (G8224) at TMR AI Car Care. Professional streak-free glass cleaner.",
     "seoH1": "MEGUIAR'S PERFECT CLARITY GLASS CLEANER (G8224)",
     "relatedProductIds": [
       "meguiars-quik-interior-detailer",
@@ -2386,8 +2386,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-professional-hyper-wash-d110",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Professional Hyper Wash D110 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's Professional Hyper Wash D110 at TMR Car Care. 400:1 high-foaming pH neutral wash shampoo.",
+    "seoTitle": "Meguiar's Professional Hyper Wash D110 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's Professional Hyper Wash D110 at TMR AI Car Care. 400:1 high-foaming pH neutral wash shampoo.",
     "seoH1": "MEGUIAR'S PROFESSIONAL HYPER WASH D110",
     "relatedProductIds": [
       "meguiars-non-acid-wheel-cleaner-d143",
@@ -2454,8 +2454,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-professional-non-acid-wheel-and-tire-cleaner-d143",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Professional Non-Acid Wheel Cleaner D143 | TMR Car Care",
-    "seoDescription": "Meguiar's D143 Non-Acid Wheel Cleaner at TMR Car Care. Professional wheel and tire cleaner safe on clear coat.",
+    "seoTitle": "Meguiar's Professional Non-Acid Wheel Cleaner D143 | TMR AI Car Care",
+    "seoDescription": "Meguiar's D143 Non-Acid Wheel Cleaner at TMR AI Car Care. Professional wheel and tire cleaner safe on clear coat.",
     "seoH1": "MEGUIAR'S PROFESSIONAL NON-ACID WHEEL CLEANER D143",
     "relatedProductIds": [
       "meguiars-hyper-dressing-d170",
@@ -2521,8 +2521,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-professional-hyper-dressing-d170",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Professional Hyper Dressing D170 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's D170 Hyper Dressing at TMR Car Care. Water-based engine, tire, and trim dressing with customizable gloss.",
+    "seoTitle": "Meguiar's Professional Hyper Dressing D170 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's D170 Hyper Dressing at TMR AI Car Care. Water-based engine, tire, and trim dressing with customizable gloss.",
     "seoH1": "MEGUIAR'S PROFESSIONAL HYPER DRESSING D170",
     "relatedProductIds": [
       "meguiars-non-acid-wheel-cleaner-d143",
@@ -2589,8 +2589,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/meguiars-professional-wheel-and-paint-iron-decon-d1801",
     "sourceUrl": "https://meguiarsdirect.com/",
     "isVerified": true,
-    "seoTitle": "Meguiar's Professional Iron Decon D1801 | TMR Car Care Tiruppur",
-    "seoDescription": "Meguiar's D1801 Iron Decon at TMR Car Care. Color-changing pH neutral iron fallout remover for paint and wheels.",
+    "seoTitle": "Meguiar's Professional Iron Decon D1801 | TMR AI Car Care Tiruppur",
+    "seoDescription": "Meguiar's D1801 Iron Decon at TMR AI Car Care. Color-changing pH neutral iron fallout remover for paint and wheels.",
     "seoH1": "MEGUIAR'S PROFESSIONAL WHEEL & PAINT IRON DECON D1801",
     "relatedProductIds": [
       "meguiars-non-acid-wheel-cleaner-d143",
@@ -2657,8 +2657,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-active-glass-foam-cleaner",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Active Glass Foam Cleaner Art. 089025 | TMR Car Care Tiruppur",
-    "seoDescription": "W\u00fcrth Active Glass Cleaner (Art. 089025) at TMR Car Care Tiruppur. German high-cling foaming streak-free glass cleaner.",
+    "seoTitle": "W\u00fcrth Active Glass Foam Cleaner Art. 089025 | TMR AI Car Care Tiruppur",
+    "seoDescription": "W\u00fcrth Active Glass Cleaner (Art. 089025) at TMR AI Car Care Tiruppur. German high-cling foaming streak-free glass cleaner.",
     "seoH1": "W\u00dcRTH ACTIVE GLASS FOAM CLEANER (ART. 089025)",
     "relatedProductIds": [
       "wurth-cockpit-spray",
@@ -2724,8 +2724,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-brake-and-parts-cleaner-plus",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Brake & Parts Cleaner Plus Art. 08901087 | TMR Car Care",
-    "seoDescription": "W\u00fcrth Brake Cleaner Plus (Art. 08901087) at TMR Car Care. Professional acetone-free fast-drying degreaser.",
+    "seoTitle": "W\u00fcrth Brake & Parts Cleaner Plus Art. 08901087 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth Brake Cleaner Plus (Art. 08901087) at TMR AI Car Care. Professional acetone-free fast-drying degreaser.",
     "seoH1": "W\u00dcRTH BRAKE & PARTS CLEANER PLUS (ART. 08901087)",
     "relatedProductIds": [
       "wurth-rost-off-penetrant",
@@ -2791,8 +2791,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-cockpit-cleaning-and-care-spray",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Cockpit Cleaning & Care Spray Art. 08902221 | TMR Car Care",
-    "seoDescription": "W\u00fcrth Cockpit Care Spray (Art. 08902221) at TMR Car Care. Anti-static dashboard and plastic interior detailer.",
+    "seoTitle": "W\u00fcrth Cockpit Cleaning & Care Spray Art. 08902221 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth Cockpit Care Spray (Art. 08902221) at TMR AI Car Care. Anti-static dashboard and plastic interior detailer.",
     "seoH1": "W\u00dcRTH COCKPIT CLEANING & CARE SPRAY (ART. 08902221)",
     "relatedProductIds": [
       "wurth-active-glass-cleaner",
@@ -2858,8 +2858,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-rubber-care-silicone-free-spray",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Rubber Care Spray Art. 0890110 | TMR Car Care Tiruppur",
-    "seoDescription": "W\u00fcrth Rubber Care Spray (Art. 0890110) at TMR Car Care. Protects door seals, sunroof gaskets, and weatherstrips.",
+    "seoTitle": "W\u00fcrth Rubber Care Spray Art. 0890110 | TMR AI Car Care Tiruppur",
+    "seoDescription": "W\u00fcrth Rubber Care Spray (Art. 0890110) at TMR AI Car Care. Protects door seals, sunroof gaskets, and weatherstrips.",
     "seoH1": "W\u00dcRTH RUBBER CARE SILICONE-FREE SPRAY (ART. 0890110)",
     "relatedProductIds": [
       "wurth-cockpit-spray",
@@ -2926,8 +2926,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-auto-shampoo-concentrated-wash",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Auto Shampoo Concentrated Wash Art. 0893012 | TMR Car Care",
-    "seoDescription": "W\u00fcrth Auto Shampoo (Art. 0893012) at TMR Car Care. High-lubricity pH-neutral car wash shampoo.",
+    "seoTitle": "W\u00fcrth Auto Shampoo Concentrated Wash Art. 0893012 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth Auto Shampoo (Art. 0893012) at TMR AI Car Care. High-lubricity pH-neutral car wash shampoo.",
     "seoH1": "W\u00dcRTH AUTO SHAMPOO CONCENTRATED WASH (ART. 0893012)",
     "relatedProductIds": [
       "wurth-high-gloss-wax",
@@ -2994,8 +2994,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-high-gloss-liquid-polymer-wax",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth High-Gloss Liquid Polymer Wax Art. 08930111 | TMR Car Care",
-    "seoDescription": "W\u00fcrth High-Gloss Liquid Wax (Art. 08930111) at TMR Car Care. Synthetic polymer paint sealant for mirror reflection.",
+    "seoTitle": "W\u00fcrth High-Gloss Liquid Polymer Wax Art. 08930111 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth High-Gloss Liquid Wax (Art. 08930111) at TMR AI Car Care. Synthetic polymer paint sealant for mirror reflection.",
     "seoH1": "W\u00dcRTH HIGH-GLOSS LIQUID POLYMER WAX (ART. 08930111)",
     "relatedProductIds": [
       "wurth-auto-shampoo",
@@ -3062,8 +3062,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-premium-leather-care-treatment",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Premium Leather Care Treatment Art. 08930129 | TMR Car Care",
-    "seoDescription": "W\u00fcrth Leather Care (Art. 08930129) at TMR Car Care. Solvent-free beeswax leather lotion for luxury car interiors.",
+    "seoTitle": "W\u00fcrth Premium Leather Care Treatment Art. 08930129 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth Leather Care (Art. 08930129) at TMR AI Car Care. Solvent-free beeswax leather lotion for luxury car interiors.",
     "seoH1": "W\u00dcRTH PREMIUM LEATHER CARE TREATMENT (ART. 08930129)",
     "relatedProductIds": [
       "wurth-cockpit-spray",
@@ -3130,8 +3130,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-tyre-foam-conditioning-and-shine",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Tyre Foam Conditioning & Shine Art. 0890121 | TMR Car Care",
-    "seoDescription": "W\u00fcrth Tyre Foam (Art. 0890121) at TMR Car Care. One-step foaming tire cleaner and UV protectant.",
+    "seoTitle": "W\u00fcrth Tyre Foam Conditioning & Shine Art. 0890121 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth Tyre Foam (Art. 0890121) at TMR AI Car Care. One-step foaming tire cleaner and UV protectant.",
     "seoH1": "W\u00dcRTH TYRE FOAM CONDITIONING & SHINE (ART. 0890121)",
     "relatedProductIds": [
       "wurth-brake-cleaner-plus",
@@ -3197,8 +3197,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-ultra-microfibre-polishing-towel",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Ultra Microfibre Polishing Towel Art. 0899900131 | TMR Car Care",
-    "seoDescription": "W\u00fcrth Edgeless Microfibre Towel (Art. 0899900131) at TMR Car Care. Professional scratch-free detailing cloth.",
+    "seoTitle": "W\u00fcrth Ultra Microfibre Polishing Towel Art. 0899900131 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth Edgeless Microfibre Towel (Art. 0899900131) at TMR AI Car Care. Professional scratch-free detailing cloth.",
     "seoH1": "W\u00dcRTH ULTRA MICROFIBRE POLISHING TOWEL (ART. 0899900131)",
     "relatedProductIds": [
       "wurth-high-gloss-wax",
@@ -3265,8 +3265,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/wurth-rost-off-max-penetrating-lubricant",
     "sourceUrl": "https://www.wuerth.in/",
     "isVerified": true,
-    "seoTitle": "W\u00fcrth Rost-Off Max Penetrating Lubricant Art. 08902 | TMR Car Care",
-    "seoDescription": "W\u00fcrth Rost-Off Max (Art. 08902) at TMR Car Care. Professional OMC2 rust penetrant and anti-corrosion lubricant.",
+    "seoTitle": "W\u00fcrth Rost-Off Max Penetrating Lubricant Art. 08902 | TMR AI Car Care",
+    "seoDescription": "W\u00fcrth Rost-Off Max (Art. 08902) at TMR AI Car Care. Professional OMC2 rust penetrant and anti-corrosion lubricant.",
     "seoH1": "W\u00dcRTH ROST-OFF MAX PENETRATING LUBRICANT (ART. 08902)",
     "relatedProductIds": [
       "wurth-brake-cleaner-plus",
@@ -3349,8 +3349,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-headlight-lens-restoration-kit-39008",
     "sourceUrl": "https://multimedia.3m.com/mws/media/592397J/3m-headlight-lens-restoration-system-39008.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Headlight Lens Restoration System PN 39008 | TMR Car Care",
-    "seoDescription": "Restore yellowed and hazy polycarbonate headlights to optical clarity with the genuine 3M\u2122 Headlight Lens Restoration System PN 39008 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Headlight Lens Restoration System PN 39008 | TMR AI Car Care",
+    "seoDescription": "Restore yellowed and hazy polycarbonate headlights to optical clarity with the genuine 3M\u2122 Headlight Lens Restoration System PN 39008 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Headlight Lens Restoration System PN 39008",
     "faqs": [
       {
@@ -3429,8 +3429,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-plastic-cleaner-39017",
     "sourceUrl": "https://multimedia.3m.com/mws/media/928220J/3m-plastic-cleaner-39017-8-fl-oz-6-per-case.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Plastic Cleaner PN 39017 | TMR Car Care",
-    "seoDescription": "Remove fine scratches and haze from instrument clusters and clear automotive plastics with 3M\u2122 Plastic Cleaner PN 39017 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Plastic Cleaner PN 39017 | TMR AI Car Care",
+    "seoDescription": "Remove fine scratches and haze from instrument clusters and clear automotive plastics with 3M\u2122 Plastic Cleaner PN 39017 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Plastic Cleaner PN 39017",
     "faqs": [
       {
@@ -3504,8 +3504,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-plastic-polish-39010",
     "sourceUrl": "https://multimedia.3m.com/mws/media/928222J/3m-plastic-polish-39010-8-fl-oz-6-per-case.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Plastic Polish PN 39010 | TMR Car Care",
-    "seoDescription": "Achieve crystal optical clarity and high gloss on vehicle light covers and clear plastics with 3M\u2122 Plastic Polish PN 39010 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Plastic Polish PN 39010 | TMR AI Car Care",
+    "seoDescription": "Achieve crystal optical clarity and high gloss on vehicle light covers and clear plastics with 3M\u2122 Plastic Polish PN 39010 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Plastic Polish PN 39010",
     "faqs": [
       {
@@ -3579,8 +3579,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-specialty-adhesive-remover-38987",
     "sourceUrl": "https://multimedia.3m.com/mws/media/928224J/3m-specialty-adhesive-remover-38987-15-fl-oz-can-6-per-case.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Specialty Adhesive Remover PN 38987 | TMR Car Care",
-    "seoDescription": "Quickly dissolve PPF glue, emblem tape, and stubborn road tar with professional 3M\u2122 Specialty Adhesive Remover PN 38987 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Specialty Adhesive Remover PN 38987 | TMR AI Car Care",
+    "seoDescription": "Quickly dissolve PPF glue, emblem tape, and stubborn road tar with professional 3M\u2122 Specialty Adhesive Remover PN 38987 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Specialty Adhesive Remover PN 38987",
     "faqs": [
       {
@@ -3654,8 +3654,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-chrome-and-metal-polish-39527",
     "sourceUrl": "https://multimedia.3m.com/mws/media/928226J/3m-chrome-and-metal-polish-39527-10-fl-oz-6-per-case.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Chrome and Metal Polish PN 39527 | TMR Car Care",
-    "seoDescription": "Eliminate corrosion and restore mirror shine to chrome exhaust tips and wheels with 3M\u2122 Chrome and Metal Polish PN 39527 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Chrome and Metal Polish PN 39527 | TMR AI Car Care",
+    "seoDescription": "Eliminate corrosion and restore mirror shine to chrome exhaust tips and wheels with 3M\u2122 Chrome and Metal Polish PN 39527 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Chrome and Metal Polish PN 39527",
     "faqs": [
       {
@@ -3729,8 +3729,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-flexible-foam-abrasive-disc-33540",
     "sourceUrl": "https://multimedia.3m.com/mws/media/1655738J/3m-flexible-foam-abrasive-disc-p1500-33540.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540 | TMR Car Care",
-    "seoDescription": "Level paint defects on complex curved automotive panels with 3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540 | TMR AI Car Care",
+    "seoDescription": "Level paint defects on complex curved automotive panels with 3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Flexible Foam Abrasive Disc P1500 PN 33540",
     "faqs": [
       {
@@ -3805,8 +3805,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-precision-poly-masking-tape-06525",
     "sourceUrl": "https://multimedia.3m.com/mws/media/1315758J/3m-precision-poly-masking-tape-06525.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Precision Poly Masking Tape PN 06525 | TMR Car Care",
-    "seoDescription": "Protect rubber trim and create razor-sharp edges with 3M\u2122 Precision Poly Masking Tape PN 06525 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Precision Poly Masking Tape PN 06525 | TMR AI Car Care",
+    "seoDescription": "Protect rubber trim and create razor-sharp edges with 3M\u2122 Precision Poly Masking Tape PN 06525 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Precision Poly Masking Tape PN 06525",
     "faqs": [
       {
@@ -3880,8 +3880,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-perfect-it-detail-cloth-06016",
     "sourceUrl": "https://multimedia.3m.com/mws/media/1091307J/3m-perfect-it-clean-and-shine-cloth-06016.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 Clean and Shine Cloth PN 06016 | TMR Car Care",
-    "seoDescription": "Remove polish residue safely without marring with 3M\u2122 Perfect-It\u2122 Clean and Shine Microfiber Cloth PN 06016 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Clean and Shine Cloth PN 06016 | TMR AI Car Care",
+    "seoDescription": "Remove polish residue safely without marring with 3M\u2122 Perfect-It\u2122 Clean and Shine Microfiber Cloth PN 06016 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Perfect-It\u2122 Clean and Shine Cloth PN 06016",
     "faqs": [
       {
@@ -3955,8 +3955,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-rubbing-compound-paste-39002",
     "sourceUrl": "https://multimedia.3m.com/mws/media/928210J/3m-rubbing-compound-39002-16-fl-oz-6-per-case.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Rubbing Compound Paste PN 39002 | TMR Car Care",
-    "seoDescription": "Level severe oxidation and deep clear coat scratches with 3M\u2122 Rubbing Compound Paste PN 39002 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Rubbing Compound Paste PN 39002 | TMR AI Car Care",
+    "seoDescription": "Level severe oxidation and deep clear coat scratches with 3M\u2122 Rubbing Compound Paste PN 39002 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Rubbing Compound Paste PN 39002",
     "faqs": [
       {
@@ -4030,8 +4030,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-yellow-masking-tape-06654",
     "sourceUrl": "https://multimedia.3m.com/mws/media/1315760J/3m-automotive-refinish-masking-tape-yellow-06654.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Automotive Refinish Masking Tape Yellow 06654 | TMR Car Care",
-    "seoDescription": "Conform tightly around curves and protect rubber trims with 3M\u2122 Automotive Yellow Masking Tape 06654 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Automotive Refinish Masking Tape Yellow 06654 | TMR AI Car Care",
+    "seoDescription": "Conform tightly around curves and protect rubber trims with 3M\u2122 Automotive Yellow Masking Tape 06654 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Automotive Yellow Masking Tape 06654",
     "faqs": [
       {
@@ -4105,8 +4105,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-clean-and-shine-spray-06084",
     "sourceUrl": "https://multimedia.3m.com/mws/media/1091311J/3m-perfect-it-clean-and-shine-06084-16-fl-oz.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084 | TMR Car Care",
-    "seoDescription": "Inspect paint correction results accurately with silicone-free 3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084 | TMR AI Car Care",
+    "seoDescription": "Inspect paint correction results accurately with silicone-free 3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Perfect-It\u2122 Clean and Shine Spray PN 06084",
     "faqs": [
       {
@@ -4180,8 +4180,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-high-power-brake-cleaner-08880",
     "sourceUrl": "https://multimedia.3m.com/mws/media/928211J/3m-high-power-brake-cleaner-08880-14-fl-oz.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 High Power Brake Cleaner Aerosol PN 08880 | TMR Car Care",
-    "seoDescription": "Flush stubborn brake dust and grease rapidly with high-pressure 3M\u2122 High Power Brake Cleaner PN 08880 at TMR Car Care.",
+    "seoTitle": "3M\u2122 High Power Brake Cleaner Aerosol PN 08880 | TMR AI Car Care",
+    "seoDescription": "Flush stubborn brake dust and grease rapidly with high-pressure 3M\u2122 High Power Brake Cleaner PN 08880 at TMR AI Car Care.",
     "seoH1": "3M\u2122 High Power Brake Cleaner PN 08880",
     "faqs": [
       {
@@ -4255,8 +4255,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-famous-finish-compound-51677",
     "sourceUrl": "https://multimedia.3m.com/mws/media/1655732J/3m-perfect-it-famous-finish-51677-1-kg.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Perfect-It\u2122 Famous Finish 1-Step Compound PN 51677 | TMR Car Care",
-    "seoDescription": "Remove P3000 scratches and achieve flawless high gloss in one step with 3M\u2122 Famous Finish PN 51677 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Perfect-It\u2122 Famous Finish 1-Step Compound PN 51677 | TMR AI Car Care",
+    "seoDescription": "Remove P3000 scratches and achieve flawless high gloss in one step with 3M\u2122 Famous Finish PN 51677 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Perfect-It\u2122 Famous Finish Compound PN 51677",
     "faqs": [
       {
@@ -4331,8 +4331,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-trizact-3000-sheet-02077",
     "sourceUrl": "https://multimedia.3m.com/mws/media/1066868J/3m-trizact-hookit-foam-sheet-02077-p3000-70-mm-x-140-mm.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077 | TMR Car Care",
-    "seoDescription": "Refine scratches on intricate body lines and recesses with 3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077 | TMR AI Car Care",
+    "seoDescription": "Refine scratches on intricate body lines and recesses with 3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Trizact\u2122 Hookit\u2122 Foam Sheet P3000 PN 02077",
     "faqs": [
       {
@@ -4407,8 +4407,8 @@ export const productsData: Product[] = [
     "detailRoute": "/products/3m-automotive-attachment-tape-06382",
     "sourceUrl": "https://multimedia.3m.com/mws/media/866455J/3m-automotive-acrylic-plus-attachment-tape-06382.jpg",
     "isVerified": true,
-    "seoTitle": "3M\u2122 Automotive Acrylic Plus Attachment Tape PN 06382 | TMR Car Care",
-    "seoDescription": "Mount emblems, spoilers, and trims permanently with OEM-grade 3M\u2122 Automotive Attachment Tape PN 06382 at TMR Car Care.",
+    "seoTitle": "3M\u2122 Automotive Acrylic Plus Attachment Tape PN 06382 | TMR AI Car Care",
+    "seoDescription": "Mount emblems, spoilers, and trims permanently with OEM-grade 3M\u2122 Automotive Attachment Tape PN 06382 at TMR AI Car Care.",
     "seoH1": "3M\u2122 Automotive Acrylic Plus Attachment Tape PN 06382",
     "faqs": [
       {

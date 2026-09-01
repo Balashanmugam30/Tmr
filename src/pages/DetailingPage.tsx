@@ -6,14 +6,14 @@ export const DetailingPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
-    document.title = "Professional Car Detailing & Paint Care in Tiruppur | TMR Car Care";
+    document.title = "Professional Car Detailing & Paint Care in Tiruppur | TMR AI Car Care";
     window.scrollTo(0, 0);
   }, []);
 
   const faqs = [
     {
       id: "faq-included",
-      q: "What does a full car detailing service include at TMR Car Care?",
+      q: "What does a full car detailing service include at TMR AI Car Care?",
       a: (
         <>
           A full detail includes safe multi-stage exterior washing, paint decontamination, multi-stage machine polishing, interior vacuuming and conditioning, glass clarification, and trim restoration. Explore our{' '}

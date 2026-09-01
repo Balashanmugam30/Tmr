@@ -6,7 +6,7 @@ export const SunControlFilmsPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
-    document.title = "Sun-Control & Car Window Film in Tiruppur | TMR Car Care";
+    document.title = "Sun-Control & Car Window Film in Tiruppur | TMR AI Car Care";
     window.scrollTo(0, 0);
   }, []);
 
@@ -20,8 +20,8 @@ export const SunControlFilmsPage: React.FC = () => {
     {
       id: "faq-availability-tiruppur",
       q: "Is sun-control film service available in Tiruppur?",
-      a: "Yes. TMR Car Care offers professional automotive sun-control and window film installation services at our facility on Avinashi Road, Tiruppur, suited for the demanding solar heat of Tamil Nadu.",
-      plainAnswer: "Yes. TMR Car Care offers professional automotive sun-control and window film installation services at our facility on Avinashi Road, Tiruppur.",
+      a: "Yes. TMR AI Car Care offers professional automotive sun-control and window film installation services at our facility on Avinashi Road, Tiruppur, suited for the demanding solar heat of Tamil Nadu.",
+      plainAnswer: "Yes. TMR AI Car Care offers professional automotive sun-control and window film installation services at our facility on Avinashi Road, Tiruppur.",
     },
     {
       id: "faq-heat-reduction",
@@ -62,8 +62,8 @@ export const SunControlFilmsPage: React.FC = () => {
     {
       id: "faq-cost-factors",
       q: "How much does sun-control film cost in Tiruppur?",
-      a: "Sun-control film installation cost varies based on vehicle type, glass area, film optical technology, and heat rejection specifications. Contact TMR Car Care for a vehicle-specific quotation.",
-      plainAnswer: "Sun-control film installation cost varies based on vehicle type, glass area, film technology, and specifications. Contact TMR Car Care for a customized quote.",
+      a: "Sun-control film installation cost varies based on vehicle type, glass area, film optical technology, and heat rejection specifications. Contact TMR AI Car Care for a vehicle-specific quotation.",
+      plainAnswer: "Sun-control film installation cost varies based on vehicle type, glass area, film technology, and specifications. Contact TMR AI Car Care for a customized quote.",
     },
     {
       id: "faq-vs-ceramic",
@@ -151,7 +151,7 @@ export const SunControlFilmsPage: React.FC = () => {
         <div className="mt-12 sm:mt-16 w-full h-[360px] sm:h-[520px] md:h-[640px] relative overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-2xl bg-[#0A0A0A] group">
           <img
             src="/images/services/sun-control/sun-control-hero.jpg"
-            alt="Professional automotive sun-control film installation on a car window at TMR Car Care in Tiruppur"
+            alt="Professional automotive sun-control film installation on a car window at TMR AI Car Care in Tiruppur"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
         </div>
@@ -390,7 +390,7 @@ export const SunControlFilmsPage: React.FC = () => {
           <div className="lg:col-span-7 h-[380px] sm:h-[500px] bg-[#0A0A0A] overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-xl relative group">
             <img
               src="/images/services/sun-control/sun-control-detail.jpg"
-              alt="Technician fitting window film to a vehicle side glass during professional installation at TMR Car Care"
+              alt="Technician fitting window film to a vehicle side glass during professional installation at TMR AI Car Care"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             />
           </div>

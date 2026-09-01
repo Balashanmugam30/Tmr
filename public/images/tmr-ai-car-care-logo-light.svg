@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 70" width="320" height="70" fill="none">
+  <!-- TMR AI CAR CARE LOGO — LIGHT BACKGROUND VARIANT -->
+  <g transform="translate(5, 5)">
+    <!-- TMR BOLD MONUMENAL TEXT -->
+    <text x="0" y="38" font-family="'Manrope', 'Inter', 'Helvetica', 'Arial', sans-serif" font-weight="900" font-size="34" letter-spacing="0.04em" fill="#111111">TMR</text>
+    
+    <!-- AI PILL BADGE ACCENT -->
+    <g transform="translate(108, 12)">
+      <rect width="36" height="28" rx="6" fill="#FF4B00" />
+      <text x="18" y="19" font-family="'Manrope', 'Inter', sans-serif" font-weight="900" font-size="14" fill="#FFFFFF" text-anchor="middle" dominant-baseline="middle" letter-spacing="0.05em">AI</text>
+    </g>
+
+    <!-- CAR CARE SUBTITLE -->
+    <text x="2" y="56" font-family="'Manrope', 'Inter', sans-serif" font-weight="800" font-size="11" letter-spacing="0.32em" fill="#222222">CAR CARE</text>
+    
+    <!-- ACCENT SPEED LINE -->
+    <rect x="110" y="53" width="34" height="2.5" rx="1" fill="#FF4B00" />
+  </g>
+</svg>

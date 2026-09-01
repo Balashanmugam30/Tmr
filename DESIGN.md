@@ -1,4 +1,4 @@
-# TMR Car Care Digital Flagship — Design & Implementation Specification
+# TMR AI Car Care Digital Flagship — Design & Implementation Specification
 
 > **Authoritative Specification Document**
 > Extracted directly from Stitch MCP Project `projects/5044491746975371058` and official `designMd` / `designTheme` definitions.
@@ -7,7 +7,7 @@
 ---
 
 ## 1. Executive Summary & Brand Identity
-* **Brand Name**: TMR Car Care
+* **Brand Name**: TMR AI Car Care
 * **Location**: Tiruppur, Tamil Nadu, India
 * **Website Type**: Premium Automotive Care & Detailing Digital Flagship
 * **Core Design Direction**: Brutalist Editorial + Premium Automotive + Cinematic Motion
@@ -94,7 +94,7 @@ The color palette balances structural contrast with signature brand accents.
 * Floating bottom-anchored WhatsApp action button.
 
 ### 3.3 Navigation Structure
-* **Brand Logo**: TMR Car Care (Brutalist Manrope 800)
+* **Brand Logo**: TMR AI Car Care (Brutalist Manrope 800)
 * **Desktop Links**: TMR (Home), Services, Products, Gallery, About, Contact
 * **Primary Action Trigger**: Call Now (`tel:`) + WhatsApp Enquiry (`https://wa.me/`)
 * **Navbar States**: Transparent overlay on top hero; solid `#050505` or `#F5F4EF` with subtle blur when scrolled.

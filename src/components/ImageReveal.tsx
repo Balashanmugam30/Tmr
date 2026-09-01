@@ -83,7 +83,7 @@ export const ImageReveal: React.FC<ImageRevealProps> = ({
         onError={(e) => {
           // Graceful fallback SVG placeholder matching TMR dark theme
           const target = e.target as HTMLImageElement;
-          target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450"><rect width="800" height="450" fill="%23050505"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="%23FF4B00">TMR CAR CARE — PHOTOGRAPHY PLACEHOLDER</text></svg>`;
+          target.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450"><rect width="800" height="450" fill="%23050505"/><text x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="bold" font-size="20" fill="%23FF4B00">TMR AI CAR CARE — PHOTOGRAPHY PLACEHOLDER</text></svg>`;
         }}
       />
     </div>

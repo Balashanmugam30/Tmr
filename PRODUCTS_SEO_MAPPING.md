@@ -1,4 +1,4 @@
-# TMR CAR CARE — PRODUCTS PAGE SEO MAPPING & STRATEGY
+# TMR AI CAR CARE — PRODUCTS PAGE SEO MAPPING & STRATEGY
 
 **Target Page**: `/products` (`https://tmrcarcare.com/products`)  
 **Date**: August 23, 2026  
@@ -12,8 +12,8 @@
 * **Primary Target Keyword**: `3M Car Care & Professional Detailing Products in Tiruppur`
 * **Target Route**: `/products`
 * **H1 Placement**: `3M CAR CARE & PROFESSIONAL DETAILING PRODUCTS IN TIRUPPUR`
-* **Title Tag**: `3M Car Care & Detailing Products in Tiruppur | TMR Car Care`
-* **Meta Description**: `Explore 3M car care and professional detailing products in Tiruppur at TMR Car Care. High-performance compounds, abrasives, polishes, and surface protection.`
+* **Title Tag**: `3M Car Care & Detailing Products in Tiruppur | TMR AI Car Care`
+* **Meta Description**: `Explore 3M car care and professional detailing products in Tiruppur at TMR AI Car Care. High-performance compounds, abrasives, polishes, and surface protection.`
 
 ---
 
@@ -46,8 +46,8 @@
 1. **Canonical Link**:
    `https://tmrcarcare.com/products`
 2. **OpenGraph & Twitter Cards**:
-   * `og:title`: `3M Car Care & Detailing Products in Tiruppur | TMR Car Care`
-   * `og:description`: `Explore 3M car care and professional detailing products in Tiruppur at TMR Car Care. High-performance compounds, abrasives, polishes, and surface protection.`
+   * `og:title`: `3M Car Care & Detailing Products in Tiruppur | TMR AI Car Care`
+   * `og:description`: `Explore 3M car care and professional detailing products in Tiruppur at TMR AI Car Care. High-performance compounds, abrasives, polishes, and surface protection.`
    * `og:url`: `https://tmrcarcare.com/products`
 3. **Structured Data (JSON-LD)**:
    Factual `ItemList` + `Product` JSON-LD schema injected into `<head>`. Zero unverified prices, fake ratings, or false stock claims.

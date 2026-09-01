@@ -7,15 +7,15 @@ export const CarWashPage: React.FC = () => {
   const [pinnedFaqs, setPinnedFaqs] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    document.title = "Car Wash & Cleaning in Tiruppur | TMR Car Care";
+    document.title = "Car Wash & Cleaning in Tiruppur | TMR AI Car Care";
     
     let metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute('content', 'Professional car wash and cleaning in Tiruppur with water wash, foam wash, hand wash, interior cleaning and exterior vehicle care at TMR Car Care.');
+      metaDesc.setAttribute('content', 'Professional car wash and cleaning in Tiruppur with water wash, foam wash, hand wash, interior cleaning and exterior vehicle care at TMR AI Car Care.');
     } else {
       const meta = document.createElement('meta');
       meta.name = 'description';
-      meta.content = 'Professional car wash and cleaning in Tiruppur with water wash, foam wash, hand wash, interior cleaning and exterior vehicle care at TMR Car Care.';
+      meta.content = 'Professional car wash and cleaning in Tiruppur with water wash, foam wash, hand wash, interior cleaning and exterior vehicle care at TMR AI Car Care.';
       document.head.appendChild(meta);
     }
 
@@ -40,8 +40,8 @@ export const CarWashPage: React.FC = () => {
   const faqs = [
     {
       id: 'faq-01',
-      q: 'What type of car wash does TMR Car Care offer in Tiruppur?',
-      a: 'TMR Car Care in Tiruppur offers three primary wash options — water wash, foam wash, and hand wash — along with comprehensive exterior body cleaning, wheel and tyre care, glass cleaning, and interior cabin vacuuming and maintenance.',
+      q: 'What type of car wash does TMR AI Car Care offer in Tiruppur?',
+      a: 'TMR AI Car Care in Tiruppur offers three primary wash options — water wash, foam wash, and hand wash — along with comprehensive exterior body cleaning, wheel and tyre care, glass cleaning, and interior cabin vacuuming and maintenance.',
     },
     {
       id: 'faq-02',
@@ -76,16 +76,16 @@ export const CarWashPage: React.FC = () => {
     {
       id: 'faq-08',
       q: 'Can I book a car wash through WhatsApp?',
-      a: 'Yes. You can contact TMR Car Care directly through WhatsApp or phone to check availability and arrange your visit.',
+      a: 'Yes. You can contact TMR AI Car Care directly through WhatsApp or phone to check availability and arrange your visit.',
     },
     {
       id: 'faq-09',
       q: 'How much does a car wash cost?',
-      a: 'Pricing depends on the vehicle and the cleaning requirements. Contact TMR Car Care for the current service quote.',
+      a: 'Pricing depends on the vehicle and the cleaning requirements. Contact TMR AI Car Care for the current service quote.',
     },
     {
       id: 'faq-10',
-      q: 'Can I request a quote before visiting TMR Car Care?',
+      q: 'Can I request a quote before visiting TMR AI Car Care?',
       a: 'Yes. Simply send us a message on WhatsApp or give us a call with your vehicle model and required cleaning service, and we will provide you with a quote prior to your appointment.',
     },
   ];
@@ -122,7 +122,7 @@ export const CarWashPage: React.FC = () => {
     "name": "Car Wash & Cleaning",
     "provider": {
       "@type": "LocalBusiness",
-      "name": "TMR Car Care",
+      "name": "TMR AI Car Care",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": companyData.address.street,
@@ -137,7 +137,7 @@ export const CarWashPage: React.FC = () => {
       "@type": "City",
       "name": "Tiruppur",
     },
-    "description": "Professional car wash and cleaning in Tiruppur with water wash, foam wash, hand wash, interior cleaning and exterior vehicle care at TMR Car Care.",
+    "description": "Professional car wash and cleaning in Tiruppur with water wash, foam wash, hand wash, interior cleaning and exterior vehicle care at TMR AI Car Care.",
   };
 
   const breadcrumbSchema = {
@@ -206,13 +206,13 @@ export const CarWashPage: React.FC = () => {
         <div className="mt-12 sm:mt-16 w-full h-[360px] sm:h-[520px] md:h-[600px] relative overflow-hidden rounded-xl border border-[#D8D8D5] bg-[#0A0A0A] group">
           <img
             src="/images/services/car-wash/car-wash-stitch-01.jpg"
-            alt="Professional foam wash at TMR Car Care"
+            alt="Professional foam wash at TMR AI Car Care"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 text-white pointer-events-none">
             <p className="font-manrope font-bold text-sm text-white">
-              Professional foam wash at TMR Car Care studio, Avinashi Road, Tiruppur
+              Professional foam wash at TMR AI Car Care studio, Avinashi Road, Tiruppur
             </p>
           </div>
         </div>
@@ -269,7 +269,7 @@ export const CarWashPage: React.FC = () => {
         <div className="mt-16 w-full h-[260px] sm:h-[380px] relative overflow-hidden rounded-xl border border-[#D8D8D5] group">
           <img
             src="/images/services/car-wash/car-wash-stitch-05.jpg"
-            alt="Foam wash pre-cleaning process at TMR Car Care"
+            alt="Foam wash pre-cleaning process at TMR AI Car Care"
             className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
@@ -328,7 +328,7 @@ export const CarWashPage: React.FC = () => {
           <div className="h-[240px] sm:h-[320px] relative overflow-hidden rounded-xl border border-[#D8D8D5] group">
             <img
               src="/images/services/car-wash/car-wash-stitch-06.jpg"
-              alt="Vehicle exterior cleaning at TMR Car Care"
+              alt="Vehicle exterior cleaning at TMR AI Car Care"
               className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />

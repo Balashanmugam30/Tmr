@@ -10,8 +10,8 @@ export const ProductDetailPage: React.FC = () => {
   // Find target product from data store or default to first record
   const product: Product = productsData.find((p) => p.slug === slug) || productsData[0];
 
-  const titleText = product.seoTitle || `${product.name} (${product.sku}) | TMR Car Care Tiruppur`;
-  const descText = product.seoDescription || `${product.name} (${product.sku}) at TMR Car Care Tiruppur. ${product.shortDescription}`;
+  const titleText = product.seoTitle || `${product.name} (${product.sku}) | TMR AI Car Care Tiruppur`;
+  const descText = product.seoDescription || `${product.name} (${product.sku}) at TMR AI Car Care Tiruppur. ${product.shortDescription}`;
 
   useEffect(() => {
     // Page Title Target
@@ -123,8 +123,8 @@ export const ProductDetailPage: React.FC = () => {
       a: `Yes, ${product.name} is engineered to perform safely across modern OEM clear coats, single-stage finishes, and fresh refinish paintwork when used by trained detailing specialists.`,
     },
     {
-      q: `How does TMR Car Care utilize ${product.name} in Tiruppur?`,
-      a: `TMR Car Care integrates ${product.name} into our surface correction and preparation workflows in Tiruppur according to paint condition and required refinement grade.`,
+      q: `How does TMR AI Car Care utilize ${product.name} in Tiruppur?`,
+      a: `TMR AI Car Care integrates ${product.name} into our surface correction and preparation workflows in Tiruppur according to paint condition and required refinement grade.`,
     },
   ];
 
@@ -349,7 +349,7 @@ export const ProductDetailPage: React.FC = () => {
                 USED WITHIN THE TMR PROCESS.
               </h3>
               <p className="font-manrope text-sm sm:text-base text-[#D8D8D5]/80 leading-relaxed max-w-2xl">
-                This product is used as part of controlled paint correction and surface preparation at TMR Car Care in Tiruppur, selected according to paint condition, defect severity, and required refinement stage.
+                This product is used as part of controlled paint correction and surface preparation at TMR AI Car Care in Tiruppur, selected according to paint condition, defect severity, and required refinement stage.
               </p>
               <div className="pt-2">
                 <Link
@@ -479,7 +479,7 @@ export const ProductDetailPage: React.FC = () => {
             NEED THIS PRODUCT FOR YOUR VEHICLE?
           </h3>
           <p className="font-manrope text-sm sm:text-base text-[#D8D8D5]/80 max-w-lg mx-auto leading-relaxed">
-            Talk to TMR Car Care about product availability or application for your vehicle in Tiruppur.
+            Talk to TMR AI Car Care about product availability or application for your vehicle in Tiruppur.
           </p>
 
           <div className="flex flex-wrap justify-center gap-8 pt-4">
@@ -496,7 +496,7 @@ export const ProductDetailPage: React.FC = () => {
               href={`tel:${companyData.contact.phone}`}
               className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#A0A0A0] border-b-2 border-white/20 pb-1 hover:text-white hover:border-white transition-colors"
             >
-              <span>CALL TMR CAR CARE</span>
+              <span>CALL TMR AI CAR CARE</span>
               <span className="text-sm">→</span>
             </a>
           </div>

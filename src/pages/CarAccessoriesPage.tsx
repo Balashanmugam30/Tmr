@@ -6,20 +6,20 @@ export const CarAccessoriesPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
-    document.title = "Automotive Car Accessories in Tiruppur | TMR Car Care";
+    document.title = "Automotive Car Accessories in Tiruppur | TMR AI Car Care";
     window.scrollTo(0, 0);
   }, []);
 
   const faqs = [
     {
       id: "faq-accessories-offered",
-      q: "What car accessories does TMR Car Care offer in Tiruppur?",
-      a: "TMR Car Care assists vehicle owners with selecting and fitting practical interior and exterior accessories—including precision-fit floor mats, boot liners, cabin organizers, utility storage, and selected lighting upgrades depending on vehicle compatibility.",
-      plainAnswer: "TMR Car Care assists vehicle owners with selecting and fitting practical interior and exterior accessories—including precision-fit floor mats, boot liners, cabin organizers, utility storage, and selected lighting upgrades.",
+      q: "What car accessories does TMR AI Car Care offer in Tiruppur?",
+      a: "TMR AI Car Care assists vehicle owners with selecting and fitting practical interior and exterior accessories—including precision-fit floor mats, boot liners, cabin organizers, utility storage, and selected lighting upgrades depending on vehicle compatibility.",
+      plainAnswer: "TMR AI Car Care assists vehicle owners with selecting and fitting practical interior and exterior accessories—including precision-fit floor mats, boot liners, cabin organizers, utility storage, and selected lighting upgrades.",
     },
     {
       id: "faq-installation",
-      q: "Does TMR Car Care install car accessories?",
+      q: "Does TMR AI Car Care install car accessories?",
       a: "Yes. For suitable accessories sourced through TMR, our technicians provide professional fitment to ensure accessories integrate cleanly with your vehicle's interior trim, seating, and existing electrical systems.",
       plainAnswer: "Yes. For suitable accessories sourced through TMR, our technicians provide professional fitment to ensure clean integration with your vehicle.",
     },
@@ -56,8 +56,8 @@ export const CarAccessoriesPage: React.FC = () => {
     {
       id: "faq-prices-availability",
       q: "How do I ask about car accessory prices and availability?",
-      a: "Reach out to TMR Car Care via WhatsApp or call our studio with your vehicle make, model, and the accessory type you need. Our team will verify compatibility, current stock, and fitment details.",
-      plainAnswer: "Reach out to TMR Car Care via WhatsApp or call our studio with your vehicle make and model to verify compatibility, current stock, and pricing.",
+      a: "Reach out to TMR AI Car Care via WhatsApp or call our studio with your vehicle make, model, and the accessory type you need. Our team will verify compatibility, current stock, and fitment details.",
+      plainAnswer: "Reach out to TMR AI Car Care via WhatsApp or call our studio with your vehicle make and model to verify compatibility, current stock, and pricing.",
     },
   ];
 
@@ -102,7 +102,7 @@ export const CarAccessoriesPage: React.FC = () => {
               AUTOMOTIVE ACCESSORIES &amp; FITMENT IN TIRUPPUR.
             </h2>
             <p className="font-manrope text-base sm:text-lg text-[#5F5E5E] leading-relaxed max-w-2xl">
-              TMR Car Care helps vehicle owners select, source, and professionally fit practical automotive accessories based on vehicle compatibility, interior protection goals, and actual product availability.
+              TMR AI Car Care helps vehicle owners select, source, and professionally fit practical automotive accessories based on vehicle compatibility, interior protection goals, and actual product availability.
             </p>
             
             {/* Minimal Editorial Text Link CTAs — NO Box / Rectangle */}
@@ -131,7 +131,7 @@ export const CarAccessoriesPage: React.FC = () => {
         <div className="mt-12 sm:mt-16 w-full h-[360px] sm:h-[520px] md:h-[640px] relative overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-2xl bg-[#0A0A0A] group">
           <img
             src="/images/services/accessories/accessories-hero.jpg"
-            alt="Professional automotive accessory fitment inside a vehicle at TMR Car Care in Tiruppur"
+            alt="Professional automotive accessory fitment inside a vehicle at TMR AI Car Care in Tiruppur"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
         </div>
@@ -263,7 +263,7 @@ export const CarAccessoriesPage: React.FC = () => {
               Proper fitment ensures accessories integrate seamlessly with your vehicle's existing components without causing rattles, seat obstruction, or wiring interference.
             </p>
             <p className="font-manrope text-sm text-[#5F5E5E] leading-relaxed pt-2 border-t border-[#D8D8D5]">
-              For suitable accessories sourced through TMR Car Care, our studio technicians handle installation so everything is fitted cleanly according to vehicle specifications.
+              For suitable accessories sourced through TMR AI Car Care, our studio technicians handle installation so everything is fitted cleanly according to vehicle specifications.
             </p>
           </div>
 
@@ -271,7 +271,7 @@ export const CarAccessoriesPage: React.FC = () => {
           <div className="lg:col-span-7 h-[380px] sm:h-[500px] bg-[#0A0A0A] overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-xl relative group">
             <img
               src="/images/services/accessories/accessories-detail.jpg"
-              alt="Precision-fit automotive floor mat installed inside an Indian-market vehicle at TMR Car Care"
+              alt="Precision-fit automotive floor mat installed inside an Indian-market vehicle at TMR AI Car Care"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             />
           </div>

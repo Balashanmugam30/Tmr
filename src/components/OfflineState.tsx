@@ -65,7 +65,7 @@ export const OfflineState: React.FC = () => {
 
         {/* CALM STATEMENT */}
         <p className="text-xs text-[#D8D8D5]/80 leading-relaxed font-normal">
-          The connection appears to be unavailable. Cached TMR Car Care content remains viewable, but some updates may not be available until you are back online.
+          The connection appears to be unavailable. Cached TMR AI Car Care content remains viewable, but some updates may not be available until you are back online.
         </p>
 
         {/* RETRY ACTION LINK */}

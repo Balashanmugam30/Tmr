@@ -67,7 +67,7 @@ export const ShowroomSection: React.FC = () => {
       <img
         ref={imageRef}
         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrGobyku5YJCXyB2Rc0aowUUYUcvOsUHhFFYxg9qCACu7gFr-kFiwSKAx0hYp8qMGzf_D70GQMVNwX_SjbhsUI5NF9dEQPxxVHoUUsrqWESfHMzjz6XchhOZAAsG__azrHGdukeQWWcGpC7yfuCkaJ1GXFeOgV5pJMK2CLlynLo_QnKbd6Hp1BqYHhfwoeYoxHWhDlv-0pLT1VzFIAKoy1Kf8vooQeryIOsNaeWKFpFBZVQZO8MTA3"
-        alt="TMR Car Care studio exterior in Tiruppur"
+        alt="TMR AI Car Care studio exterior in Tiruppur"
         className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-1000 ease-out pointer-events-none"
         onError={(e) => {
           const target = e.target as HTMLImageElement;
@@ -105,7 +105,7 @@ export const ShowroomSection: React.FC = () => {
               href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Get Google Maps driving directions to TMR Car Care studio in Tiruppur"
+              aria-label="Get Google Maps driving directions to TMR AI Car Care studio in Tiruppur"
               className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
             >
               <span className="inline-flex items-center gap-2">

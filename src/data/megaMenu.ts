@@ -27,7 +27,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
   HOME: {
     id: 'home',
     label: 'HOME',
-    eyebrow: 'TMR CAR CARE',
+    eyebrow: 'TMR AI CAR CARE',
     headline: 'THE ART OF CAR CARE.',
     description: "Tiruppur's premium automotive detailing studio.",
     targetWidth: 520,

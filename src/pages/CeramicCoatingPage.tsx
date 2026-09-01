@@ -6,7 +6,7 @@ export const CeramicCoatingPage: React.FC = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   useEffect(() => {
-    document.title = "Professional Ceramic Coating in Tiruppur | TMR Car Care";
+    document.title = "Professional Ceramic Coating in Tiruppur | TMR AI Car Care";
     window.scrollTo(0, 0);
   }, []);
 
@@ -112,7 +112,7 @@ export const CeramicCoatingPage: React.FC = () => {
               CERAMIC COATING IN TIRUPPUR.
             </h2>
             <p className="font-manrope text-base sm:text-lg text-[#5F5E5E] leading-relaxed max-w-2xl">
-              Professional automotive ceramic coating services at TMR Car Care in Tiruppur. We deliver multi-stage paint preparation, surface refinement, hydrophobic water-repellency, and long-term gloss protection designed for vehicle enthusiasts.
+              Professional automotive ceramic coating services at TMR AI Car Care in Tiruppur. We deliver multi-stage paint preparation, surface refinement, hydrophobic water-repellency, and long-term gloss protection designed for vehicle enthusiasts.
             </p>
             
             {/* Minimal Editorial Text Link CTAs — NO Box / Rectangle */}
@@ -143,7 +143,7 @@ export const CeramicCoatingPage: React.FC = () => {
         <div className="mt-12 sm:mt-16 w-full h-[360px] sm:h-[520px] md:h-[640px] relative overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-2xl bg-[#0A0A0A] group">
           <img
             src="/images/services/ceramic/ceramic-hero.jpg"
-            alt="Professional ceramic coating application on a dark vehicle at TMR Car Care in Tiruppur"
+            alt="Professional ceramic coating application on a dark vehicle at TMR AI Car Care in Tiruppur"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
         </div>
@@ -319,7 +319,7 @@ export const CeramicCoatingPage: React.FC = () => {
           <div className="lg:col-span-7 h-[380px] sm:h-[500px] bg-[#0A0A0A] overflow-hidden rounded-2xl border border-[#D8D8D5] shadow-xl relative group">
             <img
               src="/images/services/ceramic/ceramic-detail.jpg"
-              alt="Hydrophobic water beading on ceramic-coated automotive paint at TMR Car Care"
+              alt="Hydrophobic water beading on ceramic-coated automotive paint at TMR AI Car Care"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             />
           </div>
@@ -463,7 +463,7 @@ export const CeramicCoatingPage: React.FC = () => {
           </h2>
 
           <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-xl mx-auto leading-relaxed">
-            Talk to TMR Car Care about ceramic coating for your vehicle and the preparation required before application.
+            Talk to TMR AI Car Care about ceramic coating for your vehicle and the preparation required before application.
           </p>
 
           {/* Minimal Editorial Text Link CTAs — NO Box / Rectangle */}

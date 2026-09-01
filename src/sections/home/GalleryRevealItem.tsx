@@ -112,7 +112,7 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
         <img
           ref={imgRef}
           src={image}
-          alt={`${title} - ${service} by TMR Car Care`}
+          alt={`${title} - ${service} by TMR AI Car Care`}
           className={`w-full h-full object-cover transition-transform duration-700 ease-out ${
             isHovered ? 'scale-[1.025] -translate-y-0.5' : ''
           }`}

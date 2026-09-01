@@ -28,8 +28,8 @@ export const TermsPage: React.FC = () => {
 
   useEffect(() => {
     // Dynamic SEO Metadata
-    const titleText = `Terms & Conditions | TMR Car Care Tiruppur`;
-    const descText = `Read the official website terms, enquiry rules, quote policies, and service interaction conditions for TMR Car Care in Tiruppur.`;
+    const titleText = `Terms & Conditions | TMR AI Car Care Tiruppur`;
+    const descText = `Read the official website terms, enquiry rules, quote policies, and service interaction conditions for TMR AI Car Care in Tiruppur.`;
     const canonicalUrl = `https://tmrcarcare.com/terms`;
 
     document.title = titleText;
@@ -95,7 +95,7 @@ export const TermsPage: React.FC = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-[#D8D8D5]/80 max-w-2xl leading-relaxed mb-6 font-medium">
-            Terms governing your use of the TMR Car Care website, enquiries and digital interactions.
+            Terms governing your use of the TMR AI Car Care website, enquiries and digital interactions.
           </p>
 
           <div className="flex flex-wrap items-center gap-6 text-xs font-bold text-[#888885] tracking-wider uppercase font-mono">
@@ -178,10 +178,10 @@ export const TermsPage: React.FC = () => {
                 </h2>
               </div>
               <p>
-                By accessing or browsing the TMR Car Care website (<strong className="text-white">tmrcarcare.com</strong>), you agree to comply with these Terms &amp; Conditions. This website is provided to communicate detailing, ceramic coating, paint protection film (PPF), and car care service information for our facility located in Tiruppur, Tamil Nadu.
+                By accessing or browsing the TMR AI Car Care website (<strong className="text-white">tmrcarcare.com</strong>), you agree to comply with these Terms &amp; Conditions. This website is provided to communicate detailing, ceramic coating, paint protection film (PPF), and car care service information for our facility located in Tiruppur, Tamil Nadu.
               </p>
               <p>
-                Access to the website is permitted on a temporary basis. TMR Car Care reserves the right to modify, suspend, or discontinue any aspect of the digital platform at any time without prior notice.
+                Access to the website is permitted on a temporary basis. TMR AI Car Care reserves the right to modify, suspend, or discontinue any aspect of the digital platform at any time without prior notice.
               </p>
             </section>
 
@@ -245,7 +245,7 @@ export const TermsPage: React.FC = () => {
                 Products displayed in our online catalogue (including professional compounds, polishes, performance abrasives, and detailing accessories from brand partners like 3M™ and Meguiar&apos;s®) are listed for technical informational purposes regarding tools and materials used within TMR studio processes.
               </p>
               <p>
-                Product availability for direct supply or studio application is verified upon request. TMR Car Care makes no unauthorized distributor or manufacturer claims beyond professional studio application standards.
+                Product availability for direct supply or studio application is verified upon request. TMR AI Car Care makes no unauthorized distributor or manufacturer claims beyond professional studio application standards.
               </p>
             </section>
 
@@ -258,10 +258,10 @@ export const TermsPage: React.FC = () => {
                 </h2>
               </div>
               <p>
-                All website design elements, studio photography, video showcases, branding marks, editorial typography, and software components are the intellectual property of TMR Car Care or used under licence.
+                All website design elements, studio photography, video showcases, branding marks, editorial typography, and software components are the intellectual property of TMR AI Car Care or used under licence.
               </p>
               <p>
-                Reproduction, redistribution, or commercial copying of website media, text, or visual design assets without prior written consent from TMR Car Care is strictly prohibited.
+                Reproduction, redistribution, or commercial copying of website media, text, or visual design assets without prior written consent from TMR AI Car Care is strictly prohibited.
               </p>
             </section>
 
@@ -290,7 +290,7 @@ export const TermsPage: React.FC = () => {
                 While we strive to maintain accurate service information, technical specifications, and studio schedules on this website, digital content is provided &quot;as is&quot; without warranties of uninterrupted availability.
               </p>
               <p>
-                TMR Car Care is not liable for indirect, incidental, or consequential damages resulting from website downtime, communication delays, or reliance on unverified third-party internet connections.
+                TMR AI Car Care is not liable for indirect, incidental, or consequential damages resulting from website downtime, communication delays, or reliance on unverified third-party internet connections.
               </p>
             </section>
 
@@ -303,7 +303,7 @@ export const TermsPage: React.FC = () => {
                 </h2>
               </div>
               <p>
-                This website contains direct links to external services including WhatsApp, Google Maps, and social media platforms. TMR Car Care is not responsible for the privacy practices, content, or availability of external third-party websites.
+                This website contains direct links to external services including WhatsApp, Google Maps, and social media platforms. TMR AI Car Care is not responsible for the privacy practices, content, or availability of external third-party websites.
               </p>
             </section>
 

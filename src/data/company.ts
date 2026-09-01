@@ -30,7 +30,7 @@ export interface CompanyInfo {
 }
 
 export const companyData: CompanyInfo = {
-  name: "TMR Car Care",
+  name: "TMR AI Car Care",
   tagline: "Premium Automotive Care & Detailing Flagship",
   subtitle: "Brutalist Editorial Detail Studio in Tiruppur, Tamil Nadu",
   address: {

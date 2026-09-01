@@ -122,7 +122,7 @@ export const GalleryPage: React.FC = () => {
   const heroVisuals = [
     {
       src: '/images/gallery/gallery-hero-01.jpg',
-      alt: 'Sleek dark vehicle inside TMR Car Care professional car detailing studio in Tiruppur',
+      alt: 'Sleek dark vehicle inside TMR AI Car Care professional car detailing studio in Tiruppur',
       tag: 'FLAGSHIP STUDIO // TIRUPPUR',
     },
     {
@@ -132,7 +132,7 @@ export const GalleryPage: React.FC = () => {
     },
     {
       src: '/images/gallery/gallery-hero-03.jpg',
-      alt: 'Dual-action machine polishing clear coat for swirl mark removal at TMR Car Care',
+      alt: 'Dual-action machine polishing clear coat for swirl mark removal at TMR AI Car Care',
       tag: 'MULTI-STAGE PAINT CORRECTION',
     },
     {
@@ -150,7 +150,7 @@ export const GalleryPage: React.FC = () => {
         title: 'PAINT REFINEMENT',
         description: 'Multi-stage paint correction, swirl mark removal & deep reflection paint refinement',
         img: '/images/gallery/gallery-motion-01.jpg',
-        alt: 'Paint correction and ceramic prep on dark vehicle panel at TMR Car Care in Tiruppur',
+        alt: 'Paint correction and ceramic prep on dark vehicle panel at TMR AI Car Care in Tiruppur',
         link: '/services/detailing-paint-care',
       },
       right: {
@@ -158,7 +158,7 @@ export const GalleryPage: React.FC = () => {
         title: 'CERAMIC COATING',
         description: '9H nano-ceramic surface protection, ceramic coating application & hydrophobic barrier',
         img: '/images/gallery/gallery-motion-02.jpg',
-        alt: 'Ceramic coating application on luxury vehicle surface at TMR Car Care Tiruppur studio',
+        alt: 'Ceramic coating application on luxury vehicle surface at TMR AI Car Care Tiruppur studio',
         link: '/services/ceramic-coating',
       },
     },
@@ -168,7 +168,7 @@ export const GalleryPage: React.FC = () => {
         title: 'INTERIOR DETAILING',
         description: 'Interior car detailing, leather conditioning, cabin decontamination & deep car wash cleaning',
         img: '/images/gallery/gallery-motion-03.jpg',
-        alt: 'Interior car detailing and cabin cleaning on luxury vehicle leather seats at TMR Car Care',
+        alt: 'Interior car detailing and cabin cleaning on luxury vehicle leather seats at TMR AI Car Care',
         link: '/services/car-wash-cleaning',
       },
       right: {
@@ -176,7 +176,7 @@ export const GalleryPage: React.FC = () => {
         title: 'PPF INSTALLATION',
         description: 'Self-healing Paint Protection Film armor & PPF installation against stone chips',
         img: '/images/gallery/gallery-motion-04.jpg',
-        alt: 'Paint protection film PPF installation with squeegee at TMR Car Care in Tiruppur',
+        alt: 'Paint protection film PPF installation with squeegee at TMR AI Car Care in Tiruppur',
         link: '/services/ppf-paint-protection',
       },
     },
@@ -186,15 +186,15 @@ export const GalleryPage: React.FC = () => {
         title: 'PAINT FINISH',
         description: 'Flawless mirror gloss finish after professional machine polishing & clear coat care',
         img: '/images/gallery/gallery-motion-05.jpg',
-        alt: 'Flawless mirror gloss finish on dark sports car bonnet post detailing at TMR Car Care',
+        alt: 'Flawless mirror gloss finish on dark sports car bonnet post detailing at TMR AI Car Care',
         link: '/services/detailing-paint-care',
       },
       right: {
         id: '06',
         title: 'STUDIO CRAFT',
-        description: 'Precision automotive detailing craftsmanship inside TMR Car Care Tiruppur studio',
+        description: 'Precision automotive detailing craftsmanship inside TMR AI Car Care Tiruppur studio',
         img: '/images/gallery/gallery-motion-06.jpg',
-        alt: 'High-end vehicle detailing work inside TMR Car Care Tiruppur studio bay',
+        alt: 'High-end vehicle detailing work inside TMR AI Car Care Tiruppur studio bay',
         link: '/services/ceramic-coating',
       },
     },
@@ -204,11 +204,11 @@ export const GalleryPage: React.FC = () => {
   const sigVisuals = [
     {
       src: '/images/gallery/gallery-sig-xuv700.webp',
-      alt: 'Professional paint correction and car detailing on Mahindra XUV700 SUV at TMR Car Care Tiruppur',
+      alt: 'Professional paint correction and car detailing on Mahindra XUV700 SUV at TMR AI Car Care Tiruppur',
     },
     {
       src: '/images/gallery/gallery-sig-polishing.webp',
-      alt: 'Machine polishing automotive clear coat at TMR Car Care detailing studio in Tiruppur',
+      alt: 'Machine polishing automotive clear coat at TMR AI Car Care detailing studio in Tiruppur',
     },
     {
       src: '/images/gallery/gallery-sig-ceramic.webp',
@@ -224,11 +224,11 @@ export const GalleryPage: React.FC = () => {
   const detailVisuals = [
     {
       src: '/images/gallery/gallery-detail-inspection.webp',
-      alt: 'Paint defect inspection and swirl mark audit under professional detailing lights at TMR Car Care',
+      alt: 'Paint defect inspection and swirl mark audit under professional detailing lights at TMR AI Car Care',
     },
     {
       src: '/images/gallery/gallery-detail-polishing.webp',
-      alt: 'Multi-stage machine polishing clear coat refinement at TMR Car Care Tiruppur',
+      alt: 'Multi-stage machine polishing clear coat refinement at TMR AI Car Care Tiruppur',
     },
     {
       src: '/images/gallery/gallery-detail-macro.webp',
@@ -241,7 +241,7 @@ export const GalleryPage: React.FC = () => {
   ];
 
   useEffect(() => {
-    document.title = "Car Detailing Tiruppur | Detailing Studio & Paint Correction Gallery | TMR Car Care";
+    document.title = "Car Detailing Tiruppur | Detailing Studio & Paint Correction Gallery | TMR AI Car Care";
 
     // Meta Description Injection
     let metaDescription = document.querySelector('meta[name="description"]');
@@ -252,7 +252,7 @@ export const GalleryPage: React.FC = () => {
     }
     metaDescription.setAttribute(
       'content',
-      "Explore TMR Car Care's professional car detailing studio gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, PPF installation, interior car cleaning, and before-after results."
+      "Explore TMR AI Car Care's professional car detailing studio gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, PPF installation, interior car cleaning, and before-after results."
     );
 
     // Canonical Link Injection
@@ -271,7 +271,7 @@ export const GalleryPage: React.FC = () => {
       ogTitle.setAttribute('property', 'og:title');
       document.head.appendChild(ogTitle);
     }
-    ogTitle.setAttribute('content', 'Car Detailing Tiruppur | Detailing Studio & Paint Correction Gallery | TMR Car Care');
+    ogTitle.setAttribute('content', 'Car Detailing Tiruppur | Detailing Studio & Paint Correction Gallery | TMR AI Car Care');
 
     // OpenGraph Description Injection
     let ogDesc = document.querySelector('meta[property="og:description"]');
@@ -282,7 +282,7 @@ export const GalleryPage: React.FC = () => {
     }
     ogDesc.setAttribute(
       'content',
-      "Explore TMR Car Care's professional car detailing studio gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, PPF installation, interior car cleaning, and before-after results."
+      "Explore TMR AI Car Care's professional car detailing studio gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, PPF installation, interior car cleaning, and before-after results."
     );
 
     // OpenGraph URL Injection
@@ -334,20 +334,20 @@ export const GalleryPage: React.FC = () => {
         },
         {
           "@type": "ImageGallery",
-          "name": "TMR Car Care Detailing Studio & Paint Correction Gallery",
+          "name": "TMR AI Car Care Detailing Studio & Paint Correction Gallery",
           "description": "Visual archive of professional automotive paint correction, 9H ceramic coating, self-healing PPF installation, interior car cleaning, and before & after results in Tiruppur.",
           "url": "https://tmrcarcare.com/gallery",
           "provider": {
             "@type": "AutoRepair",
-            "name": "TMR Car Care",
+            "name": "TMR AI Car Care",
             "url": "https://tmrcarcare.com/"
           },
           "image": [
             {
               "@type": "ImageObject",
-              "name": "TMR Car Care Professional Detailing Studio Bay Tiruppur",
+              "name": "TMR AI Car Care Professional Detailing Studio Bay Tiruppur",
               "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-01.jpg",
-              "caption": "Sleek dark vehicle inside TMR Car Care professional car detailing studio in Tiruppur"
+              "caption": "Sleek dark vehicle inside TMR AI Car Care professional car detailing studio in Tiruppur"
             },
             {
               "@type": "ImageObject",
@@ -359,7 +359,7 @@ export const GalleryPage: React.FC = () => {
               "@type": "ImageObject",
               "name": "Multi-Stage Paint Correction",
               "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-03.jpg",
-              "caption": "Dual-action machine polishing clear coat for swirl mark removal at TMR Car Care"
+              "caption": "Dual-action machine polishing clear coat for swirl mark removal at TMR AI Car Care"
             },
             {
               "@type": "ImageObject",
@@ -371,7 +371,7 @@ export const GalleryPage: React.FC = () => {
               "@type": "ImageObject",
               "name": "Mahindra XUV700 Paint Refinement",
               "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-sig-xuv700.webp",
-              "caption": "Professional paint correction and car detailing on Mahindra XUV700 SUV at TMR Car Care Tiruppur"
+              "caption": "Professional paint correction and car detailing on Mahindra XUV700 SUV at TMR AI Car Care Tiruppur"
             },
             {
               "@type": "ImageObject",
@@ -584,7 +584,7 @@ export const GalleryPage: React.FC = () => {
             </h1>
 
             <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-md border-l pl-4 border-white/20 leading-relaxed font-normal">
-              A visual archive of TMR Car Care's professional car detailing studio, multi-stage paint correction, 9H ceramic coating, and paint protection film (PPF) craftsmanship in Tiruppur, Tamil Nadu.
+              A visual archive of TMR AI Car Care's professional car detailing studio, multi-stage paint correction, 9H ceramic coating, and paint protection film (PPF) craftsmanship in Tiruppur, Tamil Nadu.
             </p>
 
             <div className="pt-4 flex items-center gap-6">
@@ -710,7 +710,7 @@ export const GalleryPage: React.FC = () => {
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">automotive</span> WORK.
               </h2>
               <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-xl border-l pl-4 border-white/20 leading-relaxed font-normal">
-                A curated visual portfolio of full car detailing, multi-stage paint correction, 9H ceramic coating, and paint protection film (PPF) work completed at TMR Car Care in Tiruppur.
+                A curated visual portfolio of full car detailing, multi-stage paint correction, 9H ceramic coating, and paint protection film (PPF) work completed at TMR AI Car Care in Tiruppur.
               </p>
             </div>
 
@@ -757,7 +757,7 @@ export const GalleryPage: React.FC = () => {
               </h2>
 
               <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] leading-relaxed border-l pl-4 border-white/20">
-                Close-up automotive detailing work showing paint defect inspection, swirl mark removal, multi-stage machine polishing, and clear coat surface refinement at TMR Car Care in Tiruppur.
+                Close-up automotive detailing work showing paint defect inspection, swirl mark removal, multi-stage machine polishing, and clear coat surface refinement at TMR AI Car Care in Tiruppur.
               </p>
 
               <div className="pt-4">
@@ -815,7 +815,7 @@ export const GalleryPage: React.FC = () => {
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">finish.</span>
             </h2>
             <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l pl-4 border-[#111111]/20">
-              A true car detailing before and after view of professional automotive paint correction, swirl mark removal, and clear coat refinement at TMR Car Care, Tiruppur.
+              A true car detailing before and after view of professional automotive paint correction, swirl mark removal, and clear coat refinement at TMR AI Car Care, Tiruppur.
             </p>
           </div>
 
@@ -829,7 +829,7 @@ export const GalleryPage: React.FC = () => {
             {/* After Image (Full background base) */}
             <img
               src="/images/gallery/gallery-transformation-after-final.jpg"
-              alt="After car detailing showing flawless mirror gloss finish and paint correction results at TMR Car Care Tiruppur"
+              alt="After car detailing showing flawless mirror gloss finish and paint correction results at TMR AI Car Care Tiruppur"
               className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             />
 
@@ -961,7 +961,7 @@ export const GalleryPage: React.FC = () => {
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
             src="/images/gallery/gallery-final-cta.jpg"
-            alt="Freshly detailed vehicle inside TMR Car Care flagship studio bay in Tiruppur"
+            alt="Freshly detailed vehicle inside TMR AI Car Care flagship studio bay in Tiruppur"
             className="w-full h-full object-cover object-center scale-[1.02] transition-transform duration-[10000ms] ease-out hover:scale-105"
           />
         </div>
@@ -1006,7 +1006,7 @@ export const GalleryPage: React.FC = () => {
             {/* Location Line */}
             <div className="pt-6 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-              <span>Tiruppur, Tamil Nadu • Avinashi Road • TMR Car Care Detailing Studio</span>
+              <span>Tiruppur, Tamil Nadu • Avinashi Road • TMR AI Car Care Detailing Studio</span>
             </div>
           </div>
         </div>

@@ -25,8 +25,8 @@ export const PrivacyPolicyPage: React.FC = () => {
 
   useEffect(() => {
     // Dynamic SEO Metadata
-    const titleText = `Privacy Policy | TMR Car Care Tiruppur`;
-    const descText = `Learn how TMR Car Care collects, uses, and protects personal information provided through our website, contact forms, and WhatsApp enquiries in Tiruppur.`;
+    const titleText = `Privacy Policy | TMR AI Car Care Tiruppur`;
+    const descText = `Learn how TMR AI Car Care collects, uses, and protects personal information provided through our website, contact forms, and WhatsApp enquiries in Tiruppur.`;
     const canonicalUrl = `https://tmrcarcare.com/privacy-policy`;
 
     document.title = titleText;
@@ -92,7 +92,7 @@ export const PrivacyPolicyPage: React.FC = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-[#555450] max-w-2xl leading-relaxed mb-6 font-medium">
-            How TMR Car Care collects, uses and protects information provided through this website and related enquiries.
+            How TMR AI Car Care collects, uses and protects information provided through this website and related enquiries.
           </p>
 
           <div className="flex flex-wrap items-center gap-6 text-xs font-bold text-[#777570] tracking-wider uppercase font-mono">
@@ -173,7 +173,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                 Overview & Scope
               </h2>
               <p>
-                TMR Car Care (&quot;TMR&quot;, &quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) operates the website located at{' '}
+                TMR AI Car Care (&quot;TMR&quot;, &quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) operates the website located at{' '}
                 <strong className="text-[#141414]">tmrcarcare.com</strong> and provides automotive detailing, ceramic coating, paint protection film (PPF), sun control film, and car care services in Tiruppur, Tamil Nadu.
               </p>
               <p>
@@ -210,7 +210,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                 How We Use Information
               </h2>
               <p>
-                Information submitted to TMR Car Care is strictly used to fulfill your requested automotive services and maintain high studio service standards.
+                Information submitted to TMR AI Car Care is strictly used to fulfill your requested automotive services and maintain high studio service standards.
               </p>
               <div className="space-y-3 pt-2">
                 <p><strong className="text-[#141414]">Primary Business Purposes:</strong></p>
@@ -234,7 +234,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                 Our website offers direct click-to-chat links for WhatsApp (<span className="font-mono text-xs text-[#141414] font-bold">wa.me</span>) and phone dialling (<span className="font-mono text-xs text-[#141414] font-bold">tel:</span>).
               </p>
               <p>
-                When you initiate a WhatsApp conversation, WhatsApp/Meta processes your message according to WhatsApp&apos;s Privacy Policy. TMR Car Care receives your phone number, profile name, and message content solely to answer your automotive query and manage your studio appointment. We do not transmit unsolicited commercial broadcasts or share your number with third-party telemarketers.
+                When you initiate a WhatsApp conversation, WhatsApp/Meta processes your message according to WhatsApp&apos;s Privacy Policy. TMR AI Car Care receives your phone number, profile name, and message content solely to answer your automotive query and manage your studio appointment. We do not transmit unsolicited commercial broadcasts or share your number with third-party telemarketers.
               </p>
             </section>
 
@@ -259,7 +259,7 @@ export const PrivacyPolicyPage: React.FC = () => {
                 Data Sharing & Third Parties
               </h2>
               <p className="font-bold text-[#141414]">
-                TMR Car Care does NOT sell, rent, trade, or monetize personal customer information to advertising networks, data brokers, or third parties.
+                TMR AI Car Care does NOT sell, rent, trade, or monetize personal customer information to advertising networks, data brokers, or third parties.
               </p>
               <p>
                 Personal information is disclosed only under the following limited operational circumstances:

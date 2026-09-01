@@ -26,7 +26,7 @@ export const faqsData: FAQItem[] = [
     category: "Sun-Control",
   },
   {
-    question: "How can I book a detailing or consultation slot with TMR Car Care?",
+    question: "How can I book a detailing or consultation slot with TMR AI Car Care?",
     answer: "You can book directly by tapping our WhatsApp enquiry button or calling us at +91 98765 43210. We recommend booking 1-2 days in advance for Ceramic and PPF services.",
     category: "Booking",
   }

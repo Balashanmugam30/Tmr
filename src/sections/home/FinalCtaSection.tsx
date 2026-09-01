@@ -12,7 +12,7 @@ export const FinalCtaSection: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
 
   const whatsappUrl = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(
-    'Hello TMR Car Care! I would like to book a consultation or request a detailing quote.'
+    'Hello TMR AI Car Care! I would like to book a consultation or request a detailing quote.'
   )}`;
 
   useEffect(() => {
@@ -111,7 +111,7 @@ export const FinalCtaSection: React.FC = () => {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Book a car detailing consultation with TMR Car Care via WhatsApp"
+              aria-label="Book a car detailing consultation with TMR AI Car Care via WhatsApp"
               className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 h-[54px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.35)] hover:-translate-y-0.5"
             >
               <span>BOOK A CONSULTATION</span>

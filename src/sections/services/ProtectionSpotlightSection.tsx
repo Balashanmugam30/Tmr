@@ -51,7 +51,7 @@ export const ProtectionSpotlightSection: React.FC = () => {
             <div className="aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111] relative group shadow-2xl">
               <img
                 src="/images/services/feature/ceramic-feature.jpg"
-                alt="Hydrophobic ceramic coating water beading on a dark vehicle surface at TMR Car Care in Tiruppur"
+                alt="Hydrophobic ceramic coating water beading on a dark vehicle surface at TMR AI Car Care in Tiruppur"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
@@ -73,7 +73,7 @@ export const ProtectionSpotlightSection: React.FC = () => {
             <div className="aspect-[16/9] w-full overflow-hidden border border-white/10 bg-[#111111] relative group shadow-2xl">
               <img
                 src="/images/services/feature/ppf-feature.jpg"
-                alt="Paint Protection Film installation on a dark vehicle panel at TMR Car Care in Tiruppur"
+                alt="Paint Protection Film installation on a dark vehicle panel at TMR AI Car Care in Tiruppur"
                 className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />

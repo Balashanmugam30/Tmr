@@ -22,7 +22,7 @@ export const DiagnosticsSection: React.FC = () => {
       serviceTitle: "CAR WASH & CLEANING",
       slug: "car-wash-cleaning",
       previewImage: "/images/services/diagnostic/diagnostic-clean-finish.jpg",
-      altText: "Professional car cleaning and paint care at TMR Car Care",
+      altText: "Professional car cleaning and paint care at TMR AI Car Care",
     },
     {
       id: "detailing",
@@ -31,7 +31,7 @@ export const DiagnosticsSection: React.FC = () => {
       serviceTitle: "DETAILING & PAINT CARE",
       slug: "detailing-paint-care",
       previewImage: "/images/services/diagnostic/diagnostic-paint-correction.jpg",
-      altText: "Paint correction polishing on a premium vehicle at TMR Car Care",
+      altText: "Paint correction polishing on a premium vehicle at TMR AI Car Care",
     },
     {
       id: "ppf",
@@ -40,7 +40,7 @@ export const DiagnosticsSection: React.FC = () => {
       serviceTitle: "PPF & PAINT PROTECTION",
       slug: "ppf-paint-protection",
       previewImage: "/images/services/diagnostic/diagnostic-ppf.jpg",
-      altText: "Paint Protection Film installation at TMR Car Care",
+      altText: "Paint Protection Film installation at TMR AI Car Care",
     },
     {
       id: "accessories",
@@ -49,7 +49,7 @@ export const DiagnosticsSection: React.FC = () => {
       serviceTitle: "CAR ACCESSORIES",
       slug: "car-accessories",
       previewImage: "/images/services/diagnostic/diagnostic-interior.jpg",
-      altText: "Premium automotive interior detailing at TMR Car Care",
+      altText: "Premium automotive interior detailing at TMR AI Car Care",
     },
   ];
 

@@ -5,7 +5,7 @@ import { companyData } from '@/data/company';
 export const AboutPage: React.FC = () => {
   useEffect(() => {
     // Primary Page Title — Brand + Local Identity Intent
-    document.title = "About TMR Car Care | Automotive Detailing in Tiruppur | Established 2009";
+    document.title = "About TMR AI Car Care | Automotive Detailing in Tiruppur | Established 2009";
     window.scrollTo(0, 0);
 
     // Dynamic Meta Description for SEO Intent
@@ -13,21 +13,21 @@ export const AboutPage: React.FC = () => {
     if (metaDesc) {
       metaDesc.setAttribute(
         'content',
-        "Learn about TMR Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF."
+        "Learn about TMR AI Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF."
       );
     }
 
     // Dynamic Open Graph Metadata
     const ogTitle = document.querySelector('meta[property="og:title"]');
     if (ogTitle) {
-      ogTitle.setAttribute('content', 'About TMR Car Care | Automotive Detailing in Tiruppur | Established 2009');
+      ogTitle.setAttribute('content', 'About TMR AI Car Care | Automotive Detailing in Tiruppur | Established 2009');
     }
 
     const ogDesc = document.querySelector('meta[property="og:description"]');
     if (ogDesc) {
       ogDesc.setAttribute(
         'content',
-        "Learn about TMR Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF."
+        "Learn about TMR AI Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF."
       );
     }
 
@@ -52,11 +52,11 @@ export const AboutPage: React.FC = () => {
         {
           "@type": ["AutoRepair", "LocalBusiness"],
           "@id": "https://tmrcarcare.com/about/#organization",
-          "name": "TMR Car Care",
+          "name": "TMR AI Car Care",
           "url": "https://tmrcarcare.com/about",
           "logo": "https://tmrcarcare.com/images/tmr-logo-nav.png",
           "image": "https://tmrcarcare.com/images/about/about-hero-static.jpg",
-          "description": "TMR Car Care is Tiruppur's premier automotive detailing studio established in 2009 by Chandramohan Kandha Velu. Specialized in professional car care, paint correction, ceramic coating, and PPF protection.",
+          "description": "TMR AI Car Care is Tiruppur's premier automotive detailing studio established in 2009 by Chandramohan Kandha Velu. Specialized in professional car care, paint correction, ceramic coating, and PPF protection.",
           "foundingDate": "2009",
           "founder": {
             "@type": "Person",
@@ -106,7 +106,7 @@ export const AboutPage: React.FC = () => {
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "About TMR Car Care",
+              "name": "About TMR AI Car Care",
               "item": "https://tmrcarcare.com/about"
             }
           ]
@@ -132,7 +132,7 @@ export const AboutPage: React.FC = () => {
         {/* Layer 1: Dedicated Static Cinematic Automotive Hero Photo */}
         <img
           src="/images/about/about-hero-static.jpg"
-          alt="TMR Car Care detailing studio in Tiruppur"
+          alt="TMR AI Car Care detailing studio in Tiruppur"
           className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
         />
 
@@ -198,7 +198,7 @@ export const AboutPage: React.FC = () => {
 
               <div className="space-y-6 font-manrope text-base sm:text-lg text-[#5f5e5e] leading-relaxed max-w-2xl border-l-2 border-[#FF4B00] pl-6">
                 <p>
-                  TMR Car Care began in Tiruppur in 2009 with a simple, singular purpose: to provide quality automotive care with greater attention to the vehicle, the process, and the final result.
+                  TMR AI Car Care began in Tiruppur in 2009 with a simple, singular purpose: to provide quality automotive care with greater attention to the vehicle, the process, and the final result.
                 </p>
                 <p>
                   Founded by Chandramohan Kandha Velu, the business grew from a dedication to precision paintwork into an established automotive detailing studio in Tiruppur, backed by a specialized team with over 20 years of collective industry experience.
@@ -223,7 +223,7 @@ export const AboutPage: React.FC = () => {
             <div className="lg:col-span-5 relative border border-[#D8D8D5] rounded-xl overflow-hidden shadow-2xl bg-[#111111] group">
               <img
                 src="/images/about/about-story.jpg"
-                alt="Vehicle surface inspection during professional automotive detailing at TMR Car Care"
+                alt="Vehicle surface inspection during professional automotive detailing at TMR AI Car Care"
                 className="w-full h-[380px] sm:h-[500px] object-cover scale-100 group-hover:scale-105 transition-transform duration-700 ease-out"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
@@ -290,12 +290,12 @@ export const AboutPage: React.FC = () => {
             preload="metadata"
             poster="/images/about/about-belief-video-poster.jpg"
             className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none z-0"
-            aria-label="Machine polishing and paint refinement inside TMR Car Care studio"
+            aria-label="Machine polishing and paint refinement inside TMR AI Car Care studio"
           >
             <source src="/videos/about/about-belief-cinematic.mp4" type="video/mp4" />
             <img
               src="/images/about/about-belief-video-poster.jpg"
-              alt="Machine polishing and paint refinement inside TMR Car Care studio"
+              alt="Machine polishing and paint refinement inside TMR AI Car Care studio"
               className="w-full h-full object-cover"
             />
           </video>
@@ -319,7 +319,7 @@ export const AboutPage: React.FC = () => {
 
             {/* Supporting Paragraph */}
             <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#D8D8D5] leading-relaxed max-w-[480px] font-normal pt-1">
-              At TMR Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its clear-coat condition, and choose the right paint correction and surface refinement process for the finish.
+              At TMR AI Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its clear-coat condition, and choose the right paint correction and surface refinement process for the finish.
             </p>
 
             {/* Single Minimal CTA Link */}
@@ -473,7 +473,7 @@ export const AboutPage: React.FC = () => {
               </h2>
 
               <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
-                Established on Avinashi Road in 2009, TMR Car Care serves discerning vehicle owners across Tiruppur and Tamil Nadu with meticulous detailing, paint correction, and long-term surface protection.
+                Established on Avinashi Road in 2009, TMR AI Car Care serves discerning vehicle owners across Tiruppur and Tamil Nadu with meticulous detailing, paint correction, and long-term surface protection.
               </p>
 
               <div id="location" className="pt-2 flex flex-col space-y-2 text-xs font-mono text-[#707070] uppercase tracking-widest scroll-mt-24">
@@ -498,7 +498,7 @@ export const AboutPage: React.FC = () => {
             <div className="lg:col-span-7 relative h-[340px] sm:h-[460px] border border-[#D8D8D5] rounded-xl overflow-hidden bg-[#111111] shadow-2xl">
               <img
                 src="/images/about/about-tiruppur-studio.jpg"
-                alt="TMR Car Care studio facility on Avinashi Road Tiruppur"
+                alt="TMR AI Car Care studio facility on Avinashi Road Tiruppur"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
             </div>
@@ -514,7 +514,7 @@ export const AboutPage: React.FC = () => {
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
             src="/images/about/about-final-cta.jpg"
-            alt="Detailed vehicle with mirror finish inside TMR Car Care studio"
+            alt="Detailed vehicle with mirror finish inside TMR AI Car Care studio"
             className="w-full h-full object-cover object-center scale-[1.02] transition-transform duration-[10000ms] ease-out hover:scale-105"
           />
         </div>
@@ -569,7 +569,7 @@ export const AboutPage: React.FC = () => {
             <div className="pt-6 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex flex-wrap items-center gap-4">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>Tiruppur, Tamil Nadu • Avinashi Road • TMR Car Care Studio</span>
+                <span>Tiruppur, Tamil Nadu • Avinashi Road • TMR AI Car Care Studio</span>
               </div>
               <span className="text-white/30">•</span>
               <Link to="/gallery" className="text-[#FF4B00] hover:underline flex items-center gap-1">
