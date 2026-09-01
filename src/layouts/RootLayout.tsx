@@ -7,6 +7,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { PageTransition } from '@/components/PageTransition';
 import { OfflineState } from '@/components/OfflineState';
+import { ScrollToHash } from '@/components/ScrollToHash';
 import { NavbarThemeProvider } from '@/context/NavbarThemeContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -45,6 +46,7 @@ export const RootLayout: React.FC = () => {
 
   return (
     <NavbarThemeProvider>
+      <ScrollToHash />
       <div className="min-h-screen flex flex-col bg-tmr-black text-tmr-softblack font-sans selection:bg-tmr-orange selection:text-white">
         <Navbar />
         <main className="flex-grow w-full overflow-x-clip">

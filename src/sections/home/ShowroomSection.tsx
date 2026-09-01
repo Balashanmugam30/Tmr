@@ -59,8 +59,8 @@ export const ShowroomSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      id="showroom-location"
-      className="relative w-full min-h-[90svh] h-[90svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-center isolate font-intertight"
+      id="flagship-studio"
+      className="relative w-full min-h-[90svh] h-[90svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-center isolate font-intertight scroll-mt-24"
       style={{ backgroundColor: '#070809' }}
     >
       {/* 1. REAL STOREFRONT PHOTOGRAPHY AS FULL-BLEED BACKGROUND */}

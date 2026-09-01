@@ -37,7 +37,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'FLAGSHIP STUDIO',
             description: 'Avinashi Road, Near Hope College, Tiruppur, Tamil Nadu — 641602.',
-            href: '/contact',
+            href: '/#flagship-studio',
           },
         ],
       },
@@ -174,12 +174,12 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'TRANSFORMATION',
             description: 'Before & after paint correction work.',
-            href: '/gallery',
+            href: '/gallery#transformation',
           },
           {
             title: 'DETAILING',
             description: 'Surface correction and gloss reflections.',
-            href: '/gallery',
+            href: '/gallery#detailing',
           },
         ],
       },
@@ -188,12 +188,12 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'PROTECTION',
             description: 'Ceramic coating and PPF installations.',
-            href: '/gallery',
+            href: '/gallery#protection',
           },
           {
             title: 'WORKSHOP',
             description: 'The TMR studio environment & bays.',
-            href: '/gallery',
+            href: '/gallery#workshop',
           },
         ],
       },
@@ -216,12 +216,12 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'OUR STORY',
             description: 'How TMR began and what we stand for.',
-            href: '/about',
+            href: '/about#story',
           },
           {
             title: 'OUR STANDARD',
             description: 'The philosophy behind our craftsmanship.',
-            href: '/about',
+            href: '/about#standard',
           },
         ],
       },
@@ -230,12 +230,12 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'OUR WORKSHOP',
             description: 'Inside the Tiruppur studio facility.',
-            href: '/about',
+            href: '/about#workshop',
           },
           {
             title: 'LOCATION',
             description: 'Tiruppur, Tamil Nadu studio.',
-            href: '/about',
+            href: '/about#location',
           },
         ],
       },
@@ -258,7 +258,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'TIRUPPUR WORKSHOP',
             description: 'Avinashi Road, Tiruppur, Tamil Nadu.',
-            href: '/contact',
+            href: '/contact#tiruppur-workshop',
           },
         ],
       },
@@ -267,7 +267,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'WORKSHOP HOURS',
             description: 'Mon–Sat: 9:00 AM – 8:00 PM | Sun: 10:00 AM – 5:00 PM (By Appt)',
-            href: '/contact',
+            href: '/contact#workshop-hours',
           },
         ],
       },

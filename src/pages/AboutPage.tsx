@@ -392,7 +392,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* 05 / THE TMR STANDARD — BRAND DIFFERENTIATION */}
-      <section className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10">
+      <section id="standard" className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10 scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
           
           <div className="max-w-3xl space-y-6">
@@ -461,7 +461,7 @@ export const AboutPage: React.FC = () => {
       </section>
 
       {/* 06 / ROOTED IN TIRUPPUR — LOCAL STUDIO IDENTITY */}
-      <section className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]">
+      <section id="workshop" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5] scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -476,7 +476,7 @@ export const AboutPage: React.FC = () => {
                 Established on Avinashi Road in 2009, TMR Car Care serves discerning vehicle owners across Tiruppur and Tamil Nadu with meticulous detailing, paint correction, and long-term surface protection.
               </p>
 
-              <div className="pt-2 flex flex-col space-y-2 text-xs font-mono text-[#707070] uppercase tracking-widest">
+              <div id="location" className="pt-2 flex flex-col space-y-2 text-xs font-mono text-[#707070] uppercase tracking-widest scroll-mt-24">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
                   <span>AVINASHI ROAD • NEAR HOPE COLLEGE JUNCTION</span>

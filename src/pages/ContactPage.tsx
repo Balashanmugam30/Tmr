@@ -321,7 +321,7 @@ export const ContactPage: React.FC = () => {
               {/* Factual Information Strip */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4 border-t border-[#D8D8D5]">
                 {/* Location Block */}
-                <div className="space-y-2">
+                <div id="tiruppur-workshop" className="space-y-2 scroll-mt-24">
                   <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block">
                     STUDIO
                   </span>
@@ -342,7 +342,7 @@ export const ContactPage: React.FC = () => {
                 </div>
 
                 {/* Hours Block */}
-                <div className="space-y-2">
+                <div id="workshop-hours" className="space-y-2 scroll-mt-24">
                   <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block">
                     HOURS
                   </span>

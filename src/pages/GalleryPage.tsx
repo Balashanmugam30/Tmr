@@ -699,7 +699,7 @@ export const GalleryPage: React.FC = () => {
       </section>
 
       {/* SECTION 03 — SIGNATURE WORK (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
-      <section className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 font-intertight">
+      <section id="protection" className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 font-intertight scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-8">
           
           {/* EDITORIAL HEADER GROUP (OUTSIDE THE IMAGE STAGE) */}
@@ -745,7 +745,7 @@ export const GalleryPage: React.FC = () => {
       </section>
 
       {/* SECTION 04 — DETAIL (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
-      <section className="relative bg-[#070809] py-20 sm:py-32 overflow-hidden text-[#F5F4EF] border-b border-white/10 font-intertight">
+      <section id="detailing" className="relative bg-[#070809] py-20 sm:py-32 overflow-hidden text-[#F5F4EF] border-b border-white/10 font-intertight scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
@@ -861,9 +861,9 @@ export const GalleryPage: React.FC = () => {
 
       {/* SECTION 06 — PROCESS (WARM IVORY RHYTHM & EDITORIAL HORIZONTAL TIMELINE) */}
       <section
-        id="process"
+        id="workshop"
         ref={processSectionRef}
-        className="relative bg-[#F5F4EF] text-[#111111] py-20 sm:py-32 overflow-hidden border-b border-[#D8D8D5] font-intertight"
+        className="relative bg-[#F5F4EF] text-[#111111] py-20 sm:py-32 overflow-hidden border-b border-[#D8D8D5] font-intertight scroll-mt-24"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-12">
           {/* Editorial Header */}
