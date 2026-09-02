@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
 import { companyData } from '@/data/company';
 import { productsData, Product } from '@/data/products';
+import { EXTERNAL_STORE_URL } from '@/sections/products/ExternalProductSalesSection';
 
 export const ProductDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -410,6 +412,36 @@ export const ProductDetailPage: React.FC = () => {
           </div>
         </section>
       )}
+
+      {/* SECTION F2 — CONTEXTUAL PRODUCT PURCHASE PATHWAY */}
+      <section className="w-full py-12 sm:py-16 bg-[#111110] text-[#F5F4EF] border-b border-white/10 font-manrope">
+        <div className="w-full max-w-none px-5 sm:px-10 lg:px-16">
+          <div className="p-6 sm:p-8 rounded-lg bg-[#181816] border border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-2xl">
+              <span className="font-mono text-[10px] font-bold text-[#FF4B00] uppercase tracking-[0.25em] block">
+                SHOP THIS PRODUCT
+              </span>
+              <h3 className="font-extrabold text-xl sm:text-2xl text-white uppercase tracking-tight">
+                LOOKING TO PURCHASE THIS PRODUCT?
+              </h3>
+              <p className="text-xs sm:text-sm text-[#D8D8D5]/90 leading-relaxed">
+                Browse the available product range through our external product sales website.
+              </p>
+            </div>
+
+            <a
+              href={EXTERNAL_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Shop automotive care products — opens external store"
+              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-all rounded shrink-0 shadow group cursor-pointer"
+            >
+              <span>SHOP PRODUCTS</span>
+              <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* SECTION G — PRODUCT FAQ (EXPAND ON HOVER / FOCUS / CLICK) */}
       <section className="w-full py-16 sm:py-24 border-b border-white/10 bg-gradient-to-b from-[#181816] via-[#141412] to-[#0E0E0D]">

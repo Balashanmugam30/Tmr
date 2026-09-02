@@ -4,6 +4,7 @@ import { companyData } from '@/data/company';
 import { productsData } from '@/data/products';
 import { ProductHeroCarousel, ProductItem } from '@/components/ProductHeroCarousel';
 import { EmptySearchState } from '@/components/EmptySearchState';
+import { ExternalProductSalesSection } from '@/sections/products/ExternalProductSalesSection';
 
 export const ProductsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -390,8 +391,8 @@ export const ProductsPage: React.FC = () => {
 
   const faqs = [
     {
-      q: "ARE THESE PRODUCTS FOR SALE?",
-      a: "We use these professional-grade products exclusively in our detailing services. Select maintenance products may be available for purchase to our service clients upon request.",
+      q: "WHERE CAN I BUY THE FEATURED CAR CARE PRODUCTS?",
+      a: "Selected products showcased by TMR AI Car Care can be browsed and purchased through our external product sales website (3mtamilmani.com). Availability may vary by product.",
     },
     {
       q: "DO YOU USE ONLY 3M PRODUCTS?",
@@ -906,6 +907,9 @@ export const ProductsPage: React.FC = () => {
           </div>
         )}
       </section>
+
+      {/* 07.5 / EXTERNAL PRODUCT SALES SECTION */}
+      <ExternalProductSalesSection />
 
       {/* 08 / FAQ */}
       <section className="w-full py-20 sm:py-32 bg-[#050505] text-[#F5F4EF] border-t border-white/10">
