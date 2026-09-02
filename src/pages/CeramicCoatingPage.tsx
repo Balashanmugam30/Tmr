@@ -7,6 +7,26 @@ export const CeramicCoatingPage: React.FC = () => {
 
   useEffect(() => {
     document.title = "Professional Ceramic Coating in Tiruppur | TMR AI Car Care";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      '10H ceramic coating application studio in Tiruppur providing hydrophobic protection, intense gloss, and paint surface seal for cars.'
+    );
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://tmrcarcare.com/services/ceramic-coating');
+
     window.scrollTo(0, 0);
   }, []);
 

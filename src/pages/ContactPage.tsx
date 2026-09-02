@@ -15,6 +15,56 @@ export const ContactPage: React.FC = () => {
 
   useEffect(() => {
     document.title = "Contact TMR AI Car Care | Detailing Studio in Tiruppur";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'Contact TMR AI Car Care detailing studio in Tiruppur on Avinashi Road. Book detailing, ceramic coating, or PPF consultations today.'
+    );
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://tmrcarcare.com/contact');
+
+    // Contact & LocalBusiness JSON-LD Schema
+    let schemaScript = document.getElementById('contact-local-business-schema');
+    if (!schemaScript) {
+      schemaScript = document.createElement('script');
+      schemaScript.id = 'contact-local-business-schema';
+      schemaScript.setAttribute('type', 'application/ld+json');
+      document.head.appendChild(schemaScript);
+    }
+    const contactLd = {
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "name": "Contact TMR AI Car Care Studio Tiruppur",
+      "url": "https://tmrcarcare.com/contact",
+      "mainEntity": {
+        "@type": "AutomotiveBusiness",
+        "name": "TMR AI Car Care Studio Tiruppur",
+        "url": "https://tmrcarcare.com/",
+        "telephone": "+919944335520",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Avinashi Road, Near Hope College Junction",
+          "addressLocality": "Tiruppur",
+          "addressRegion": "Tamil Nadu",
+          "postalCode": "641602",
+          "addressCountry": "IN"
+        }
+      }
+    };
+    schemaScript.textContent = JSON.stringify(contactLd);
+
     window.scrollTo(0, 0);
   }, []);
 

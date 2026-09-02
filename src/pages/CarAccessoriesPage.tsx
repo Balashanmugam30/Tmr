@@ -7,6 +7,26 @@ export const CarAccessoriesPage: React.FC = () => {
 
   useEffect(() => {
     document.title = "Automotive Car Accessories in Tiruppur | TMR AI Car Care";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'Premium car accessories, 7D custom floor mats, boot liners, and interior utility upgrades fitted at TMR AI Car Care in Tiruppur.'
+    );
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://tmrcarcare.com/services/car-accessories');
+
     window.scrollTo(0, 0);
   }, []);
 

@@ -7,6 +7,26 @@ export const DetailingPage: React.FC = () => {
 
   useEffect(() => {
     document.title = "Professional Car Detailing & Paint Care in Tiruppur | TMR AI Car Care";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'Professional car detailing, machine paint correction, swirl mark removal, and paint restoration studio in Tiruppur at TMR AI Car Care.'
+    );
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://tmrcarcare.com/services/detailing-paint-care');
+
     window.scrollTo(0, 0);
   }, []);
 

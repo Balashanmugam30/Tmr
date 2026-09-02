@@ -7,6 +7,26 @@ export const PpfPage: React.FC = () => {
 
   useEffect(() => {
     document.title = "Paint Protection Film (PPF) in Tiruppur | TMR AI Car Care";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'Self-healing TPU Paint Protection Film (PPF) installation in Tiruppur. Protect your car from stone chips, scratches, and road debris.'
+    );
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://tmrcarcare.com/services/ppf-paint-protection');
+
     window.scrollTo(0, 0);
   }, []);
 

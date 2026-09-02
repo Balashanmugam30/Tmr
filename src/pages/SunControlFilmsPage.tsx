@@ -7,6 +7,26 @@ export const SunControlFilmsPage: React.FC = () => {
 
   useEffect(() => {
     document.title = "Sun-Control & Car Window Film in Tiruppur | TMR AI Car Care";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      'High heat rejection nano-ceramic sun control window films for cars in Tiruppur. UV protection, glare reduction, and cabin thermal management.'
+    );
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://tmrcarcare.com/services/sun-control-films');
+
     window.scrollTo(0, 0);
   }, []);
 

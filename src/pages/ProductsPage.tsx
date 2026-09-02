@@ -28,6 +28,29 @@ export const ProductsPage: React.FC = () => {
   const startScrollLeftRef = useRef<number>(0);
   const isInitializingRef = useRef<boolean>(false);
 
+  useEffect(() => {
+    document.title = "3M Car Care & Detailing Products in Tiruppur | TMR AI Car Care";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      'content',
+      "Explore 3M, Meguiar's, and professional automotive detailing products used by TMR AI Car Care in Tiruppur, including compounds and polishes."
+    );
+
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', 'https://tmrcarcare.com/products');
+  }, []);
+
   // Sync category filter from URL query parameter ?category=
   useEffect(() => {
     const VALID_CATEGORIES = [
