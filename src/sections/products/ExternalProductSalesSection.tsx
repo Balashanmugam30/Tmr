@@ -24,11 +24,7 @@ export const ExternalProductSalesSection: React.FC = () => {
           </h2>
 
           <p className="text-base sm:text-lg text-[#D8D8D5] leading-relaxed max-w-2xl border-l-2 border-[#FF4B00] pl-5">
-            Explore and purchase selected automotive-care and professional detailing products showcased by TMR AI Car Care through our product sales website.
-          </p>
-
-          <p className="text-xs sm:text-sm text-[#A0A0A0] leading-relaxed max-w-xl">
-            Browse 3M™, Meguiar's®, Würth and other professional car-care products available through the external product store.
+            Browse professional car-care and detailing products through our external product store.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -42,10 +38,6 @@ export const ExternalProductSalesSection: React.FC = () => {
               <span>SHOP PRODUCTS</span>
               <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
-
-            <span className="text-[11px] font-mono text-[#A0A0A0] tracking-wide">
-              You will be redirected to the external product sales website.
-            </span>
           </div>
         </div>
       </div>
