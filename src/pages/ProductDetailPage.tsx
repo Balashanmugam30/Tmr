@@ -112,7 +112,7 @@ export const ProductDetailPage: React.FC = () => {
     breadcrumbSchema.textContent = JSON.stringify(breadcrumbLd);
 
     window.scrollTo(0, 0);
-  }, [slug, product, titleText, descText]);
+  }, [slug, product.slug, product.id, titleText, descText]);
 
   // Product-specific FAQs from productsData or fallback
   const faqs = product.faqs || [
