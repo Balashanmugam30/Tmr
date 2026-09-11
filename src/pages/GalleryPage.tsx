@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
+import { X, Maximize2 } from 'lucide-react';
 import { companyData } from '@/data/company';
 
 // --- REUSABLE HOME-PAGE GSAP REVEAL STAGE COMPONENT ---
@@ -94,6 +95,156 @@ const HomeStyleGalleryStage: React.FC<HomeStyleGalleryStageProps> = ({
   );
 };
 
+// --- AUTHENTIC FIRST-PARTY PHOTO CARD WITH GSAP INTERSECTIONOBSERVER REVEAL ---
+// Reuses the signature GSAP clipPath reveal and hover lift from GalleryRevealItem.tsx
+interface AuthenticPhotoCardProps {
+  photo: {
+    id: string;
+    src: string;
+    alt: string;
+    title: string;
+    category: 'STUDIO' | 'TEAM' | 'WORKSHOP' | 'SHOWROOM';
+    categoryLabel: string;
+    caption: string;
+    colSpanDesktop: string;
+    aspectDesktop: string;
+    objectPosition: string;
+  };
+  onClick: () => void;
+}
+
+const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const card = cardRef.current;
+    const img = imgRef.current;
+    if (!container || !card || !img) return;
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion) {
+      card.style.clipPath = 'inset(0 0% 0 0)';
+      card.style.opacity = '1';
+      return;
+    }
+
+    // Individual item IntersectionObserver with enter & leave lifecycle replay
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.to(card, {
+              clipPath: 'inset(0 0% 0 0)',
+              opacity: 1,
+              duration: 0.85,
+              ease: 'power3.out',
+              overwrite: 'auto',
+            });
+            gsap.to(img, {
+              x: 0,
+              scale: 1.0,
+              duration: 0.85,
+              ease: 'power3.out',
+              overwrite: 'auto',
+            });
+          } else {
+            gsap.to(card, {
+              clipPath: 'inset(0 100% 0 0)',
+              opacity: 0,
+              duration: 0.35,
+              ease: 'power2.in',
+              overwrite: 'auto',
+            });
+            gsap.to(img, {
+              x: -24,
+              scale: 1.025,
+              duration: 0.35,
+              ease: 'power2.in',
+              overwrite: 'auto',
+            });
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -5% 0px',
+      }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [photo.src]);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`${photo.colSpanDesktop} w-full relative`}
+    >
+      <div
+        ref={cardRef}
+        onClick={onClick}
+        tabIndex={0}
+        role="button"
+        aria-label={`View full resolution: ${photo.title}`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onClick();
+          }
+        }}
+        className={`w-full ${photo.aspectDesktop} relative block overflow-hidden rounded-xl border border-white/10 hover:border-[#FF4B00]/60 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group transition-colors duration-300 focus:outline-none focus:border-[#FF4B00]`}
+        style={{
+          clipPath: 'inset(0 100% 0 0)',
+          opacity: 0,
+        }}
+      >
+        <img
+          ref={imgRef}
+          src={photo.src}
+          alt={photo.alt}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          style={{
+            transform: 'translateX(-24px) scale(1.025)',
+            objectPosition: photo.objectPosition,
+          }}
+        />
+
+        {/* Subtle Vignette Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-75 group-hover:opacity-85 transition-opacity duration-500 pointer-events-none" />
+
+        {/* Category Pill Top-Left */}
+        <div className="absolute top-4 left-4 z-10 pointer-events-none">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold tracking-wider text-white uppercase shadow-lg">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00]" />
+            <span>{photo.categoryLabel}</span>
+          </span>
+        </div>
+
+        {/* Maximize / Lightbox Icon Top-Right */}
+        <div className="absolute top-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <div className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white flex items-center justify-center shadow-lg">
+            <Maximize2 className="w-3.5 h-3.5 text-white" />
+          </div>
+        </div>
+
+        {/* Title & Caption Bottom Overlay */}
+        <div className="absolute bottom-0 inset-x-0 p-5 sm:p-6 z-10 flex flex-col space-y-1.5 pointer-events-none">
+          <h3 className="font-manrope font-extrabold text-base sm:text-lg text-white uppercase tracking-tight group-hover:text-[#FF4B00] transition-colors duration-300 drop-shadow-md">
+            {photo.title}
+          </h3>
+          <p className="font-manrope text-xs sm:text-sm text-[#D8D8D5]/95 leading-relaxed line-clamp-2 drop-shadow-sm font-normal">
+            {photo.caption}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const GalleryPage: React.FC = () => {
   // Existing state for Section 05 slider
   const [sliderPos, setSliderPos] = useState<number>(50);
@@ -102,6 +253,18 @@ export const GalleryPage: React.FC = () => {
   const [heroIndex, setHeroIndex] = useState<number>(0);
   const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isReducedMotion, setIsReducedMotion] = useState<boolean>(false);
+
+  // --- REAL PHOTOGRAPHY SHOWCASE STATE & LIGHTBOX ---
+  const [photoCategory, setPhotoCategory] = useState<'ALL' | 'STUDIO' | 'TEAM' | 'WORKSHOP' | 'SHOWROOM'>('ALL');
+  const [activeLightboxPhoto, setActiveLightboxPhoto] = useState<{
+    id: string;
+    src: string;
+    alt: string;
+    title: string;
+    category: 'STUDIO' | 'TEAM' | 'WORKSHOP' | 'SHOWROOM';
+    categoryLabel: string;
+    caption: string;
+  } | null>(null);
 
   // --- SECTION 02: THE WORK IN MOTION AUTOPLAY STATE ---
   const [motionIndex, setMotionIndex] = useState<number>(0);
@@ -118,31 +281,231 @@ export const GalleryPage: React.FC = () => {
   const processLineRef = useRef<HTMLDivElement>(null);
   const hasTransRevealedRef = useRef<boolean>(false);
 
-  // Hero dedicated local assets (Natural keyword-enriched descriptive alt text)
-  const heroVisuals = [
+  // Real TMR AI Car Care First-Party Studio, Team & Workshop Photographs (15 Authentic Real Photos)
+  // Non-negotiable: 100% authentic, zero hallucinated text/pixels, one placement per photo
+  const realStudioPhotos = [
+    // 01 — STUDIO (Wide establishing)
     {
-      src: '/images/gallery/gallery-hero-01.jpg',
-      alt: 'Sleek dark vehicle inside TMR AI Car Care professional car detailing studio in Tiruppur',
-      tag: 'FLAGSHIP STUDIO // TIRUPPUR',
+      id: 'studio-overview',
+      src: '/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg',
+      alt: 'Wide establishing panoramic view of the TMR AI Car Care detailing facility, roadside totem sign, forecourt, and studio building in Tiruppur',
+      title: 'FACILITY OVERVIEW & GROUNDS',
+      category: 'STUDIO' as const,
+      categoryLabel: '01 — STUDIO // GROUNDS',
+      caption: 'Establishing panoramic view of the TMR AI Car Care property on Avinashi Road, Tiruppur, showing roadside entrance totem, driveway, and white studio building.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 60%',
     },
+    // 02 — STUDIO (Storefront elevation)
     {
-      src: '/images/gallery/gallery-hero-02.jpg',
-      alt: 'Automotive detailing technician performing clear coat paint inspection under studio lights in Tiruppur',
-      tag: 'CLEAR COAT INSPECTION AUDIT',
+      id: 'studio-facade',
+      src: '/images/gallery/studio/tmr-ai-car-care-studio-facade.jpg',
+      alt: 'TMR AI Car Care glass showroom facade with customer vehicle inside, illuminated 3D branding, and service badges in Tiruppur',
+      title: 'SHOWROOM ELEVATION & DETAILING BAY',
+      category: 'STUDIO' as const,
+      categoryLabel: '01 — STUDIO // ELEVATION',
+      caption: 'Front elevation displaying floor-to-ceiling glass showroom with customer vehicle inside, illuminated 3D branding, and service menu.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 25%',
     },
+    // 03 — WORKSHOP (Innova Hycross & XUV700 dual bay)
     {
-      src: '/images/gallery/gallery-hero-03.jpg',
-      alt: 'Dual-action machine polishing clear coat for swirl mark removal at TMR AI Car Care',
-      tag: 'MULTI-STAGE PAINT CORRECTION',
+      id: 'workshop-innova-xuv700-bay',
+      src: '/images/gallery/workshop/tmr-ai-car-care-workshop-innova-xuv700-bay.jpg',
+      alt: 'TMR AI Car Care detailing technician working between a Toyota Innova Hycross and Mahindra XUV700 inside the workshop bay in Tiruppur',
+      title: 'INNOVA HYCROSS & XUV700 DETAILING BAY',
+      category: 'WORKSHOP' as const,
+      categoryLabel: '03 — WORKSHOP // DUAL BAY',
+      caption: 'TMR AI Car Care technician in uniform working between two customer vehicles, a Toyota Innova Hycross and Mahindra XUV700, inside the detailing bay.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
     },
+    // 04 — WORKSHOP (3M mobile trolley supplies)
     {
-      src: '/images/gallery/gallery-hero-04.jpg',
-      alt: 'High-gloss mirror paint reflection after multi-stage car detailing service in Tiruppur',
-      tag: 'HIGH-GLOSS REFLECTION FINISH',
+      id: 'detailing-trolley-supplies',
+      src: '/images/gallery/workshop/tmr-ai-car-care-detailing-trolley-supplies.jpg',
+      alt: 'Professional 3M mobile detailing cart loaded with cleaning chemicals, spray bottles, and tools at TMR AI Car Care in Tiruppur',
+      title: '3M MOBILE DETAILING TROLLEY & SUPPLIES',
+      category: 'WORKSHOP' as const,
+      categoryLabel: '03 — WORKSHOP // TOOLS',
+      caption: 'Mobile detailing trolley loaded with professional 3M spray compounds, cleaners, detailing brushes, and microfiber cloths against the workshop wall.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 40%',
+    },
+    // 05 — TEAM (Team in workshop bay)
+    {
+      id: 'team-workshop',
+      src: '/images/gallery/team/tmr-ai-car-care-team-workshop.jpg',
+      alt: 'TMR AI Car Care detailing team and technicians standing inside the workshop bay alongside customer vehicle in Tiruppur',
+      title: 'WORKSHOP BAY & DETAILING TEAM',
+      category: 'TEAM' as const,
+      categoryLabel: '02 — TEAM // CRAFT',
+      caption: 'Real TMR AI Car Care detailing technicians at work inside the studio bay alongside customer vehicle, showcasing the workshop environment.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 35%',
+    },
+    // 06 — TEAM (Technician masking wheel arch)
+    {
+      id: 'technician-masking',
+      src: '/images/gallery/team/tmr-ai-car-care-technician-masking.png',
+      alt: 'TMR AI Car Care detailing technician applying protective surface masking tape to white SUV wheel arch and rear fender in Tiruppur',
+      title: 'SURFACE MASKING & PAINT PREP',
+      category: 'TEAM' as const,
+      categoryLabel: '02 — TEAM // SURFACE PREP',
+      caption: 'Detailing technician carefully applying protective masking tape to body lines and wheel arches prior to machine polishing.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 65%',
+    },
+    // 07 — WORKSHOP (Orbital polisher & 3M compound)
+    {
+      id: 'polisher-compound',
+      src: '/images/gallery/workshop/tmr-ai-car-care-polisher-compound.jpg',
+      alt: 'Professional dual-action orbital machine polisher with wool pad laid beside a bottle of 3M Perfect-It compound on TMR workshop floor in Tiruppur',
+      title: 'ORBITAL POLISHER & 3M COMPOUND',
+      category: 'WORKSHOP' as const,
+      categoryLabel: '03 — WORKSHOP // POLISHER',
+      caption: 'Professional rotary and orbital polishing machine equipped with wool cutting pad alongside 3M Perfect-It compound on the studio bay floor.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 08 — SHOWROOM (Panoramic retail inventory wall)
+    {
+      id: 'retail-showroom-inventory-wall',
+      src: '/images/gallery/studio/tmr-ai-car-care-retail-showroom-inventory-wall.png',
+      alt: 'Panoramic view of customer reception showroom with retail display shelves and car care inventory at TMR AI Car Care Tiruppur',
+      title: 'SHOWROOM INVENTORY & CLIENT LOUNGE',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // SHOWROOM',
+      caption: 'Wide panoramic view of customer reception showroom featuring glass shelving stocked with car care products, window films, and client seating.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 09 — SHOWROOM (Product & film shelving)
+    {
+      id: 'product-display-shelves',
+      src: '/images/gallery/studio/tmr-ai-car-care-product-display-shelves.jpg',
+      alt: 'Showroom retail display shelving with 3M Sun Control Window Film boxes and detailing supplies at TMR AI Car Care in Tiruppur',
+      title: 'SHOWROOM PRODUCT & FILM DISPLAY',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // INVENTORY',
+      caption: 'Showroom retail shelving stocked with authentic 3M Sun Control Window Film boxes, waxes, and rubbing compound bottles.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 35%',
+    },
+    // 10 — WORKSHOP (Wash bay hydraulic lift ramp)
+    {
+      id: 'wash-bay-ramp',
+      src: '/images/gallery/workshop/tmr-ai-car-care-wash-bay-ramp.jpg',
+      alt: 'Silver Maruti Suzuki Swift customer vehicle on the hydraulic lift ramp inside the dedicated car wash bay at TMR AI Car Care Tiruppur',
+      title: 'CAR WASH HYDRAULIC RAMP BAY',
+      category: 'WORKSHOP' as const,
+      categoryLabel: '03 — WORKSHOP // WASH BAY',
+      caption: 'Dedicated foam wash and underbody wash bay featuring hydraulic lift ramp, tiled waterproof walls, and pressure spray lines.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 40%',
+    },
+    // 11 — WORKSHOP (3M chemicals & 5L cleaner jugs cart)
+    {
+      id: '3m-cleaner-chemicals-cart',
+      src: '/images/gallery/workshop/tmr-ai-car-care-3m-cleaner-chemicals-cart.jpg',
+      alt: 'Close-up of official 3M car care cleaning compounds, 5L auto parts cleaner jugs, and detailing products in TMR workshop',
+      title: '3M CAR CARE CHEMICALS & BULK CLEANERS',
+      category: 'WORKSHOP' as const,
+      categoryLabel: '03 — WORKSHOP // CHEMICALS',
+      caption: 'Official 3M auto parts cleaner jugs, air conditioner treatment canisters, and professional detailing chemicals on the mobile cart.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 40%',
+    },
+    // 12 — STUDIO (Roadside landmark totem sign)
+    {
+      id: 'roadside-totem',
+      src: '/images/gallery/studio/tmr-ai-car-care-roadside-totem.jpg',
+      alt: 'Roadside landmark totem sign for TMR AI Car Care displaying foam wash, ceramic, PPF, germ interiors, and exterior treatments in Tiruppur',
+      title: 'ROADSIDE ENTRANCE TOTEM',
+      category: 'STUDIO' as const,
+      categoryLabel: '01 — STUDIO // LANDMARK',
+      caption: 'Official roadside entrance pylon totem with illuminated logo and service capsules along the approach road in Tiruppur.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 25%',
+    },
+    // 13 — SHOWROOM (Interior & treatment standees)
+    {
+      id: 'showroom-displays',
+      src: '/images/gallery/studio/tmr-ai-car-care-showroom-displays.jpg',
+      alt: 'TMR AI Car Care showroom interior view showing 3M Protection Treatments and Exterior Accentuation Program banner standees and product display shelves',
+      title: 'SHOWROOM INTERIOR & DISPLAYS',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // RECEPTION',
+      caption: 'Customer showroom viewing area featuring official 3M treatment informational standees, product displays, and ceiling illumination.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 45%',
+    },
+    // 14 — SHOWROOM (Anti-rust display standee)
+    {
+      id: 'anti-rust-display',
+      src: '/images/gallery/studio/tmr-ai-car-care-anti-rust-display.png',
+      alt: '3M Car Care Anti-Rust Coating banner standee inside the glass showroom bay at TMR AI Car Care in Tiruppur',
+      title: 'ANTI-RUST & UNDERBODY DISPLAY',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // STANDARDS',
+      caption: 'Informational display for 3M Underbody Anti-Corrosion Treatment inside the front showroom overlooking the entrance forecourt.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 45%',
+    },
+    // 15 — STUDIO (Architectural 3D facade header)
+    {
+      id: 'brand-signage',
+      src: '/images/gallery/studio/tmr-ai-car-care-brand-signage.png',
+      alt: 'Architectural close-up of the official 3D illuminated TMR AI Car Care facade signage header and service badges against blue sky',
+      title: 'ARCHITECTURAL FACADE SIGNAGE',
+      category: 'STUDIO' as const,
+      categoryLabel: '01 — STUDIO // BRANDING',
+      caption: 'Close-up architectural detail of the 3D illuminated storefront header with service badges (Graphene, Ceramic, PPF, Sun Film, Underseal, Germ Kleening).',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
     },
   ];
 
-  // Motion Section 02 dedicated 2-column paired visual datasets (Natural keyword-enriched titles & alts)
+  // Hero dedicated unique photographic assets (100% unique, non-duplicated)
+  const heroVisuals = [
+    {
+      src: '/images/gallery/gallery-hero-01.jpg',
+      alt: 'Luxury performance sedan undergoing 9H ceramic coating application at TMR AI Car Care in Tiruppur',
+      tag: 'CERAMIC COATING // 9H ARMOR',
+    },
+    {
+      src: '/images/gallery/gallery-hero-02.jpg',
+      alt: 'Multi-stage paint correction and machine polishing on deep black clear coat at TMR AI Car Care in Tiruppur',
+      tag: 'MULTI-STAGE CORRECTION',
+    },
+    {
+      src: '/images/gallery/gallery-hero-03.jpg',
+      alt: 'High-gloss hydrophobic paint protection film (PPF) installation at TMR AI Car Care in Tiruppur',
+      tag: 'SELF-HEALING PPF ARMOR',
+    },
+    {
+      src: '/images/gallery/gallery-hero-04.jpg',
+      alt: 'Finished high-gloss reflection on dark luxury SUV at TMR AI Car Care detailing studio in Tiruppur',
+      tag: 'REFLECTIVE CLARITY',
+    },
+  ];
+
+  // Motion Section 02 dedicated 2-column paired visual datasets (100% unique, non-duplicated)
   const motionPairs = [
     {
       left: {
@@ -191,10 +554,10 @@ export const GalleryPage: React.FC = () => {
       },
       right: {
         id: '06',
-        title: 'STUDIO CRAFT',
-        description: 'Precision automotive detailing craftsmanship inside TMR AI Car Care Tiruppur studio',
+        title: 'MIRROR GLOSS FINISH',
+        description: 'Deep mirror gloss and paint depth after multi-stage ceramic coating application in Tiruppur',
         img: '/images/gallery/gallery-motion-06.jpg',
-        alt: 'High-end vehicle detailing work inside TMR AI Car Care Tiruppur studio bay',
+        alt: 'Finished high-gloss reflection on dark luxury vehicle after professional detailing at TMR AI Car Care',
         link: '/services/ceramic-coating',
       },
     },
@@ -231,61 +594,67 @@ export const GalleryPage: React.FC = () => {
       alt: 'Multi-stage machine polishing clear coat refinement at TMR AI Car Care Tiruppur',
     },
     {
-      src: '/images/gallery/gallery-detail-macro.webp',
-      alt: 'Macro photograph of refined clear coat mirror gloss finish after automotive paint correction',
+      src: '/images/gallery/gallery-detail-coating.webp',
+      alt: 'Applying hydrophobic 9H ceramic coating layer on vehicle door panel at TMR AI Car Care',
     },
     {
-      src: '/images/gallery/gallery-detail-coating.webp',
-      alt: 'Hydrophobic ceramic coating water bead reflection after professional car detailing',
+      src: '/images/gallery/gallery-detail-macro.webp',
+      alt: 'Macro reflection and mirror gloss clarity on vehicle paint after detailing at TMR AI Car Care',
     },
   ];
 
-  useEffect(() => {
-    document.title = "Car Detailing Tiruppur | Detailing Studio & Paint Correction Gallery | TMR AI Car Care";
+  // Hero Section Parallax MouseMove Handler (Restricted to max +/- 12px for subtleness)
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isReducedMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 24;
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 24;
+    setHeroParallax({ x, y });
+  };
 
-    // Meta Description Injection
-    let metaDescription = document.querySelector('meta[name="description"]');
-    if (!metaDescription) {
-      metaDescription = document.createElement('meta');
-      metaDescription.setAttribute('name', 'description');
-      document.head.appendChild(metaDescription);
+  const handleHeroMouseLeave = () => {
+    setHeroParallax({ x: 0, y: 0 });
+  };
+
+  // SEO Metadata Injection: Document Title, Meta Tags, Canonical Link & JSON-LD ImageGallery Schema
+  useEffect(() => {
+    document.title = "Car Detailing Gallery Tiruppur | Ceramic Coating, PPF & Real Studio Photos | TMR AI Car Care";
+
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
     }
-    metaDescription.setAttribute(
+    metaDesc.setAttribute(
       'content',
-      "Explore TMR AI Car Care's professional car detailing studio gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, PPF installation, interior car cleaning, and before-after results."
+      'Explore authentic photographs of TMR AI Car Care studio in Tiruppur. Real workshop bays, ceramic coating, paint correction, wash ramps, 3M products & detailing team.'
     );
 
-    // Canonical Link Injection
-    let canonicalLink = document.querySelector('link[rel="canonical"]');
-    if (!canonicalLink) {
-      canonicalLink = document.createElement('link');
-      canonicalLink.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonicalLink);
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
     }
-    canonicalLink.setAttribute('href', 'https://tmrcarcare.com/gallery');
+    canonical.setAttribute('href', 'https://tmrcarcare.com/gallery');
 
-    // OpenGraph Title Injection
     let ogTitle = document.querySelector('meta[property="og:title"]');
     if (!ogTitle) {
       ogTitle = document.createElement('meta');
       ogTitle.setAttribute('property', 'og:title');
       document.head.appendChild(ogTitle);
     }
-    ogTitle.setAttribute('content', 'Car Detailing Tiruppur | Detailing Studio & Paint Correction Gallery | TMR AI Car Care');
+    ogTitle.setAttribute('content', 'Car Detailing Gallery Tiruppur | Real Studio & Detailing Archive | TMR AI Car Care');
 
-    // OpenGraph Description Injection
     let ogDesc = document.querySelector('meta[property="og:description"]');
     if (!ogDesc) {
       ogDesc = document.createElement('meta');
       ogDesc.setAttribute('property', 'og:description');
       document.head.appendChild(ogDesc);
     }
-    ogDesc.setAttribute(
-      'content',
-      "Explore TMR AI Car Care's professional car detailing studio gallery in Tiruppur. Visual portfolio of multi-stage paint correction, ceramic coating, PPF installation, interior car cleaning, and before-after results."
-    );
+    ogDesc.setAttribute('content', 'Visual portfolio of authentic car detailing, ceramic coating, paint protection film (PPF), wash bays, and workshop team at TMR AI Car Care in Tiruppur.');
 
-    // OpenGraph URL Injection
     let ogUrl = document.querySelector('meta[property="og:url"]');
     if (!ogUrl) {
       ogUrl = document.createElement('meta');
@@ -294,20 +663,18 @@ export const GalleryPage: React.FC = () => {
     }
     ogUrl.setAttribute('content', 'https://tmrcarcare.com/gallery');
 
-    // OpenGraph Image Injection
     let ogImage = document.querySelector('meta[property="og:image"]');
     if (!ogImage) {
       ogImage = document.createElement('meta');
       ogImage.setAttribute('property', 'og:image');
       document.head.appendChild(ogImage);
     }
-    ogImage.setAttribute('content', 'https://tmrcarcare.com/images/gallery/gallery-hero-01.jpg');
+    ogImage.setAttribute('content', 'https://tmrcarcare.com/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg');
 
-    // JSON-LD Schema Injection (ImageGallery + BreadcrumbList)
-    let schemaScript = document.getElementById('gallery-jsonld');
+    let schemaScript = document.getElementById('gallery-schema-script');
     if (!schemaScript) {
       schemaScript = document.createElement('script');
-      schemaScript.id = 'gallery-jsonld';
+      schemaScript.id = 'gallery-schema-script';
       schemaScript.setAttribute('type', 'application/ld+json');
       document.head.appendChild(schemaScript);
     }
@@ -335,63 +702,19 @@ export const GalleryPage: React.FC = () => {
         {
           "@type": "ImageGallery",
           "name": "TMR AI Car Care Detailing Studio & Paint Correction Gallery",
-          "description": "Visual archive of professional automotive paint correction, 9H ceramic coating, self-healing PPF installation, interior car cleaning, and before & after results in Tiruppur.",
+          "description": "Authentic visual archive of the TMR AI Car Care studio, workshop bays, detailing technicians, and real customer vehicles in Tiruppur, Tamil Nadu.",
           "url": "https://tmrcarcare.com/gallery",
           "provider": {
             "@type": "AutoRepair",
             "name": "TMR AI Car Care",
             "url": "https://tmrcarcare.com/"
           },
-          "image": [
-            {
-              "@type": "ImageObject",
-              "name": "TMR AI Car Care Professional Detailing Studio Bay Tiruppur",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-01.jpg",
-              "caption": "Sleek dark vehicle inside TMR AI Car Care professional car detailing studio in Tiruppur"
-            },
-            {
-              "@type": "ImageObject",
-              "name": "Clear Coat Paint Inspection Audit",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-02.jpg",
-              "caption": "Automotive detailing technician performing clear coat paint inspection under studio lights in Tiruppur"
-            },
-            {
-              "@type": "ImageObject",
-              "name": "Multi-Stage Paint Correction",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-03.jpg",
-              "caption": "Dual-action machine polishing clear coat for swirl mark removal at TMR AI Car Care"
-            },
-            {
-              "@type": "ImageObject",
-              "name": "High-Gloss Mirror Reflection",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-hero-04.jpg",
-              "caption": "High-gloss mirror paint reflection after multi-stage car detailing service in Tiruppur"
-            },
-            {
-              "@type": "ImageObject",
-              "name": "Mahindra XUV700 Paint Refinement",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-sig-xuv700.webp",
-              "caption": "Professional paint correction and car detailing on Mahindra XUV700 SUV at TMR AI Car Care Tiruppur"
-            },
-            {
-              "@type": "ImageObject",
-              "name": "Tata Safari High Gloss Finish",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-sig-safari.webp",
-              "caption": "High-gloss paint finish on Tata Safari after professional car detailing service in Tiruppur"
-            },
-            {
-              "@type": "ImageObject",
-              "name": "Before Paint Correction Defects",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-transformation-before-final.jpg",
-              "caption": "Before car detailing showing paint defects, swirl marks, and micro-marring on vehicle panel"
-            },
-            {
-              "@type": "ImageObject",
-              "name": "After Paint Correction Mirror Finish",
-              "contentUrl": "https://tmrcarcare.com/images/gallery/gallery-transformation-after-final.jpg",
-              "caption": "After car detailing showing flawless mirror gloss finish and paint correction results"
-            }
-          ]
+          "image": realStudioPhotos.map((photo) => ({
+            "@type": "ImageObject",
+            "name": photo.title,
+            "contentUrl": `https://tmrcarcare.com${photo.src}`,
+            "caption": photo.caption,
+          }))
         }
       ]
     };
@@ -399,15 +722,24 @@ export const GalleryPage: React.FC = () => {
 
     window.scrollTo(0, 0);
 
-    // Check prefers-reduced-motion accessibility preference
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setIsReducedMotion(motionQuery.matches);
-
     const handleMotionChange = (e: MediaQueryListEvent) => {
       setIsReducedMotion(e.matches);
     };
     motionQuery.addEventListener('change', handleMotionChange);
     return () => motionQuery.removeEventListener('change', handleMotionChange);
+  }, []);
+
+  // Escape key listener for lightbox modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveLightboxPhoto(null);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // IntersectionObserver for Section 05 Transformation & Section 06 Process Entry Animations
@@ -469,46 +801,37 @@ export const GalleryPage: React.FC = () => {
     return () => clearInterval(heroTimer);
   }, [isReducedMotion, heroVisuals.length]);
 
-  // Section 02 Motion Autoplay Timer (3.5s sequence, continuous autoplay independent of cursor position)
+  // Motion Section 02 Autoplay Timer (4.5s sequence)
   useEffect(() => {
     if (isReducedMotion) return;
     const motionTimer = setInterval(() => {
       setMotionIndex((prev) => (prev + 1) % motionPairs.length);
-    }, 3500);
+    }, 4500);
     return () => clearInterval(motionTimer);
   }, [isReducedMotion, motionPairs.length]);
 
-  // Section 03 Signature Work Autoplay Timer (3.0s sequence, continuous autoplay independent of cursor position)
+  // Section 03 Signature Work Autoplay Timer (4.5s sequence)
   useEffect(() => {
     if (isReducedMotion) return;
     const sigTimer = setInterval(() => {
       setSigIndex((prev) => (prev + 1) % sigVisuals.length);
-    }, 3000);
+    }, 4500);
     return () => clearInterval(sigTimer);
   }, [isReducedMotion, sigVisuals.length]);
 
-  // Section 04 Detail Transformation Autoplay Timer (3.0s sequence, continuous autoplay independent of cursor position)
+  // Section 04 Technical Detail Autoplay Timer (4.5s sequence)
   useEffect(() => {
     if (isReducedMotion) return;
     const detailTimer = setInterval(() => {
       setDetailIndex((prev) => (prev + 1) % detailVisuals.length);
-    }, 3000);
+    }, 4500);
     return () => clearInterval(detailTimer);
   }, [isReducedMotion, detailVisuals.length]);
 
-  // Hero Micro-Parallax Mouse Shift (Constrained X: ±6px, Y: ±4px offset)
-  const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isReducedMotion) return;
-    if (window.matchMedia('(pointer: coarse)').matches) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12; // -6px to +6px
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 8;  // -4px to +4px
-    setHeroParallax({ x, y });
-  };
-
-  const handleHeroMouseLeave = () => {
-    setHeroParallax({ x: 0, y: 0 });
-  };
+  // Filter real photos by selected category
+  const filteredPhotos = photoCategory === 'ALL'
+    ? realStudioPhotos
+    : realStudioPhotos.filter((p) => p.category === photoCategory);
 
   // Section 05 Instant Pointer & Touch Comparison Control Logic
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -528,7 +851,7 @@ export const GalleryPage: React.FC = () => {
 
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
-      
+
       {/* SECTION 01 — GALLERY HERO (FULL-BLEED VIEWPORT HERO WITH SAFE OVERSCAN PARALLAX) */}
       <section
         onMouseMove={handleHeroMouseMove}
@@ -589,10 +912,10 @@ export const GalleryPage: React.FC = () => {
 
             <div className="pt-4 flex items-center gap-6">
               <a
-                href="#motion"
+                href="#studio-archive"
                 className="inline-flex items-center font-bold text-xs text-white tracking-widest uppercase group hover:text-[#FF4B00] transition-colors"
               >
-                <span>EXPLORE DETAILING WORK</span>
+                <span>VIEW AUTHENTIC FACILITY ARCHIVE</span>
                 <span className="ml-2 text-base group-hover:translate-x-2 transition-transform">→</span>
               </a>
 
@@ -614,7 +937,78 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 02 — THE WORK IN MOTION (AUTOMATIC HORIZONTAL REVEAL SLIDER) */}
+      {/* SECTION 02 — AUTHENTIC STUDIO, WORKSHOP & TEAM ARCHIVE */}
+      <section
+        id="studio-archive"
+        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 font-manrope scroll-mt-24"
+      >
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-12">
+
+          {/* Header & Filter Controls */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="flex flex-col space-y-4 max-w-2xl">
+              <div className="inline-flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF4B00]">
+                  AUTHENTIC PHOTOGRAPHY // TIRUPPUR STUDIO
+                </span>
+              </div>
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-[0.95]">
+                REAL STUDIO, WORKSHOP &amp; <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">team</span> ARCHIVE.
+              </h2>
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] border-l pl-4 border-white/20 leading-relaxed font-normal">
+                Authentic first-party photographs of the physical TMR AI Car Care studio, detailing technicians, customer vehicles, and workshop facility on Avinashi Road, Tiruppur.
+              </p>
+            </div>
+
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              {(['ALL', 'STUDIO', 'TEAM', 'WORKSHOP', 'SHOWROOM'] as const).map((cat) => {
+                const label =
+                  cat === 'ALL'
+                    ? 'ALL PHOTOS (15)'
+                    : cat === 'STUDIO'
+                    ? 'STUDIO & FACILITY (4)'
+                    : cat === 'TEAM'
+                    ? 'TEAM & CRAFT (2)'
+                    : cat === 'WORKSHOP'
+                    ? 'WORKSHOP & TOOLS (5)'
+                    : 'SHOWROOM INTERIOR (4)';
+                const isActive = photoCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setPhotoCategory(cat)}
+                    type="button"
+                    className={`px-4 py-2 rounded-md font-bold text-xs uppercase tracking-widest transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-[#FF4B00] text-white shadow-[0_0_15px_rgba(255,75,0,0.4)]'
+                        : 'bg-white/5 border border-white/15 text-white/70 hover:text-white hover:border-white/40'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Balanced Editorial Grid with GSAP Reveal & Preserved Focal Framings */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {filteredPhotos.map((photo) => (
+              <AuthenticPhotoCard
+                key={photo.id}
+                photo={photo}
+                onClick={() => setActiveLightboxPhoto(photo)}
+              />
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* SECTION 03 — THE WORK IN MOTION (AUTOMATIC HORIZONTAL REVEAL SLIDER) */}
       <section
         className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
         id="motion"
@@ -698,10 +1092,10 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 03 — SIGNATURE WORK (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
+      {/* SECTION 04 — SIGNATURE WORK (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
       <section id="protection" className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 font-intertight scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-8">
-          
+
           {/* EDITORIAL HEADER GROUP (OUTSIDE THE IMAGE STAGE) */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="flex flex-col space-y-4">
@@ -744,11 +1138,11 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 04 — DETAIL (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
+      {/* SECTION 05 — DETAIL (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
       <section id="detailing" className="relative bg-[#070809] py-20 sm:py-32 overflow-hidden text-[#F5F4EF] border-b border-white/10 font-intertight scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            
+
             {/* LEFT SIDE TECHNICAL EDITORIAL GROUP */}
             <div className="lg:col-span-5 space-y-6">
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-[0.95]">
@@ -801,57 +1195,65 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 05 — TRANSFORMATION (WARM IVORY RHYTHM & INSTANT POINTER-CONTROLLED BEFORE/AFTER COMPARISON) */}
+      {/* SECTION 06 — TRANSFORMATION (INTERACTIVE BEFORE / AFTER SLIDER) */}
       <section
-        id="transformation"
         ref={transSectionRef}
-        className="relative bg-[#F5F4EF] text-[#111111] py-20 sm:py-32 overflow-hidden border-b border-[#D8D8D5] font-intertight"
+        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
       >
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-10">
-          {/* Editorial Header */}
-          <div className="flex flex-col space-y-4 max-w-3xl">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.95] tracking-tight">
-              FROM CONDITION TO <br />
-              <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">finish.</span>
-            </h2>
-            <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l pl-4 border-[#111111]/20">
-              A true car detailing before and after view of professional automotive paint correction, swirl mark removal, and clear coat refinement at TMR AI Car Care, Tiruppur.
-            </p>
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+            <div className="space-y-4">
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight">
+                THE TRANSFORMATION <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">before &amp; after.</span>
+              </h2>
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-md border-l pl-4 border-white/20">
+                Move or drag across the frame to inspect the profound difference multi-stage paint correction makes on swirled clear coat at TMR AI Car Care.
+              </p>
+            </div>
+            <div className="text-xs font-mono text-[#FF4B00] tracking-widest uppercase bg-[#FF4B00]/10 border border-[#FF4B00]/20 px-4 py-2 rounded-full w-fit">
+              LIVE COMPARISON STAGE
+            </div>
           </div>
 
-          {/* Dominant Large Before/After Pointer-Controlled Comparison Viewer */}
+          {/* Instant Responsive Touch & Mouse Split-Screen Slider */}
           <div
-            className="relative max-w-[1280px] mx-auto h-[400px] sm:h-[600px] rounded-xl border border-[#D8D8D5] shadow-2xl overflow-hidden select-none cursor-ew-resize bg-[#000] touch-none"
+            className="relative w-full aspect-[16/10] sm:aspect-[21/9] rounded-xl overflow-hidden cursor-ew-resize select-none border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
             onPointerMove={handlePointerMove}
-            onPointerDown={handlePointerMove}
             onTouchMove={handleTouchMove}
           >
-            {/* After Image (Full background base) */}
+            {/* Background: AFTER Image (Corrected Deep Gloss) */}
             <img
               src="/images/gallery/gallery-transformation-after-final.jpg"
-              alt="After car detailing showing flawless mirror gloss finish and paint correction results at TMR AI Car Care Tiruppur"
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              alt="Mirror finish on car paint after multi-stage paint correction at TMR AI Car Care in Tiruppur"
+              className="absolute inset-0 w-full h-full object-cover scale-100"
             />
+            <div className="absolute top-6 right-6 z-10 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-xs font-bold tracking-widest text-[#FF4B00] uppercase pointer-events-none">
+              AFTER CORRECTION
+            </div>
 
-            {/* Before Image (Clipped overlay controlled by sliderPos) */}
+            {/* Foreground: BEFORE Image (Swirled & Scratched) clipped to slider position */}
             <div
-              className="absolute inset-0 overflow-hidden pointer-events-none"
+              className="absolute inset-y-0 left-0 overflow-hidden"
               style={{ width: `${sliderPos}%` }}
             >
               <img
                 src="/images/gallery/gallery-transformation-before-final.jpg"
-                alt="Before car detailing showing paint defects, swirl marks, and micro-marring on vehicle panel"
-                className="absolute inset-0 w-full h-full object-cover max-w-none pointer-events-none"
-                style={{ width: '100%', height: '100%' }}
+                alt="Swirl marks and clear coat micro-scratches before paint correction at TMR AI Car Care"
+                className="absolute inset-0 w-full h-full object-cover max-w-none"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
+              <div className="absolute top-6 left-6 z-10 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-xs font-bold tracking-widest text-white/80 uppercase pointer-events-none">
+                BEFORE CORRECTION
+              </div>
             </div>
 
-            {/* TMR Orange Divider Line & Circular Control Handle */}
+            {/* Divider Line & Draggable Handle */}
             <div
-              className="absolute top-0 bottom-0 w-[2px] bg-[#FF4B00] z-30 pointer-events-none"
+              className="absolute inset-y-0 w-0.5 bg-white pointer-events-none shadow-[0_0_10px_rgba(255,255,255,0.8)]"
               style={{ left: `${sliderPos}%` }}
             >
-              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-[#FF4B00] text-white flex items-center justify-center shadow-xl font-extrabold text-xs border-2 border-white">
+              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#FF4B00] border-2 border-white flex items-center justify-center shadow-2xl text-white text-xs font-bold">
                 ↔
               </div>
             </div>
@@ -859,26 +1261,29 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 06 — PROCESS (WARM IVORY RHYTHM & EDITORIAL HORIZONTAL TIMELINE) */}
+      {/* SECTION 07 — THE PROCESS (WARM IVORY EDITORIAL HORIZONTAL TIMELINE) */}
       <section
-        id="workshop"
         ref={processSectionRef}
-        className="relative bg-[#F5F4EF] text-[#111111] py-20 sm:py-32 overflow-hidden border-b border-[#D8D8D5] font-intertight scroll-mt-24"
+        className="relative bg-[#FBFBFA] py-20 sm:py-32 overflow-hidden border-b border-[#E5E5E0] text-[#111111]"
       >
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-12">
-          {/* Editorial Header */}
-          <div className="flex flex-col space-y-4 max-w-3xl">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.95] tracking-tight">
-              THE CRAFT OF <br />
-              <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-2">detail.</span>
-            </h2>
-            <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l pl-4 border-[#111111]/20">
-              A three-stage professional car detailing workflow from surface decontamination through multi-stage paint correction and ceramic protection.
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5E5E0] pb-8">
+            <div className="space-y-4">
+              <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#FF4B00] uppercase">
+                METHODOLOGY &amp; STANDARDS
+              </span>
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tight">
+                THE 3-STAGE <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">refinement</span> PROCESS.
+              </h2>
+            </div>
+            <p className="font-manrope text-sm text-[#5f5e5e] max-w-sm border-l pl-4 border-[#D8D8D5] leading-relaxed">
+              Every vehicle undergoes our structured 3-phase decontamination, precision compounding, and surface sealing protocol in Tiruppur.
             </p>
           </div>
 
-          {/* Full-width Horizontal Timeline System */}
-          <div className="relative pt-4">
+          {/* 3-Step Horizontal Timeline Cards */}
+          <div className="relative">
             {/* Animated Horizontal Connecting Line */}
             <div className="hidden md:block absolute top-[52px] left-0 right-0 h-[1.5px] bg-[#D8D8D5] z-0">
               <div
@@ -955,9 +1360,9 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 07 — GALLERY FINAL CTA (CINEMATIC AUTOMOTIVE END FRAME) */}
+      {/* SECTION 08 — GALLERY FINAL CTA (CINEMATIC AUTOMOTIVE END FRAME) */}
       <section className="relative w-full min-h-[75vh] md:min-h-[85vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-32 font-intertight border-t border-white/10">
-        {/* Layer 1: Full-Bleed Cinematic Background Image */}
+        {/* Layer 1: Full-Bleed Cinematic Background Image (Unique Dedicated Asset) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
             src="/images/gallery/gallery-final-cta.jpg"
@@ -1011,6 +1416,66 @@ export const GalleryPage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* FULLSCREEN REAL PHOTO LIGHTBOX MODAL */}
+      {activeLightboxPhoto && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeLightboxPhoto.title}
+          onClick={() => setActiveLightboxPhoto(null)}
+          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col justify-between p-4 sm:p-8 select-none"
+        >
+          {/* Modal Header */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-6xl mx-auto flex items-center justify-between py-3 border-b border-white/15"
+          >
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
+              <span className="font-mono text-xs font-bold text-white uppercase tracking-widest">
+                {activeLightboxPhoto.categoryLabel}
+              </span>
+              <span className="hidden sm:inline text-white/30">•</span>
+              <span className="hidden sm:inline font-manrope font-bold text-sm text-white uppercase tracking-tight">
+                {activeLightboxPhoto.title}
+              </span>
+            </div>
+
+            <button
+              onClick={() => setActiveLightboxPhoto(null)}
+              type="button"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-white/10 hover:bg-[#FF4B00] text-white text-xs font-bold uppercase tracking-widest transition-colors cursor-pointer"
+              aria-label="Close modal"
+            >
+              <span>CLOSE</span>
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Modal Main Image Container */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="flex-1 flex items-center justify-center p-2 sm:p-6 my-auto overflow-hidden"
+          >
+            <img
+              src={activeLightboxPhoto.src}
+              alt={activeLightboxPhoto.alt}
+              className="max-h-[72vh] max-w-[92vw] object-contain rounded-lg shadow-[0_25px_60px_rgba(0,0,0,0.95)] border border-white/15"
+            />
+          </div>
+
+          {/* Modal Footer Caption */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-4xl mx-auto text-center py-3"
+          >
+            <p className="font-manrope text-xs sm:text-sm text-[#D8D8D5] leading-relaxed max-w-2xl mx-auto">
+              {activeLightboxPhoto.caption}
+            </p>
+          </div>
+        </div>
+      )}
 
     </div>
   );
