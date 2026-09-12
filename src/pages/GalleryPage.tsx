@@ -17,8 +17,8 @@ interface PhotoItem {
   objectPosition: string;
 }
 
-// --- AUTHENTIC PHOTO CARD WITH RESTORED GSAP ENTRANCE & HOVER MICRO-INTERACTIONS ---
-// Staggered subtle opacity, upward translation, and scale settling on entry; restrained hover zoom with expand icon shift
+// --- AUTHENTIC PHOTO CARD WITH EXACT CENTER-OUT 0% -> 100% IMAGE REVEAL ANIMATION ---
+// Expands outward simultaneously (LEFT <- CENTER -> RIGHT) with subtle stagger, power3.out easing, no layout shifts, no CLS
 const AuthenticPhotoCard = React.memo<{
   photo: PhotoItem;
   index: number;
@@ -26,37 +26,93 @@ const AuthenticPhotoCard = React.memo<{
   onClick: () => void;
 }>(({ photo, index, photoCategory, onClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const revealRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const hasAnimatedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const card = cardRef.current;
-    if (!card) return;
+    const revealEl = revealRef.current;
+    if (!card || !revealEl) return;
+
+    hasAnimatedRef.current = false;
 
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) {
-      gsap.set(card, { opacity: 1, y: 0, scale: 1 });
+      gsap.set(revealEl, {
+        clipPath: 'inset(0 0% 0 0%)',
+        opacity: 1,
+        scale: 1,
+        clearProps: 'transform',
+      });
+      hasAnimatedRef.current = true;
       return;
     }
 
-    gsap.fromTo(
-      card,
-      { opacity: 0, y: 24, scale: 0.985 },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.75,
-        ease: 'power3.out',
-        delay: (index % 4) * 0.06,
-        overwrite: 'auto',
-      }
+    // Initialize to narrow vertical center strip (instant, no black flash)
+    gsap.set(revealEl, {
+      clipPath: 'inset(0 49.5% 0 49.5%)',
+      scale: 0.985,
+      opacity: 0.75,
+    });
+
+    const triggerReveal = () => {
+      if (hasAnimatedRef.current) return;
+      hasAnimatedRef.current = true;
+
+      gsap.fromTo(
+        revealEl,
+        {
+          clipPath: 'inset(0 49.5% 0 49.5%)',
+          scale: 0.985,
+          opacity: 0.75,
+        },
+        {
+          clipPath: 'inset(0 0% 0 0%)',
+          scale: 1,
+          opacity: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          delay: (index % 4) * 0.08,
+          overwrite: 'auto',
+        }
+      );
+    };
+
+    // Check if card is already within the viewport on mount or filter switch
+    const rect = card.getBoundingClientRect();
+    if (rect.top < window.innerHeight + 80 && rect.bottom > -80) {
+      triggerReveal();
+      return () => {
+        gsap.killTweensOf(revealEl);
+      };
+    }
+
+    // If not in viewport yet, trigger on scroll via IntersectionObserver
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+            triggerReveal();
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0, rootMargin: '80px 0px 80px 0px' }
     );
+
+    observer.observe(card);
+
+    return () => {
+      gsap.killTweensOf(revealEl);
+      observer.disconnect();
+    };
   }, [photo.id, photoCategory, index]);
 
   return (
     <div
       ref={cardRef}
-      className="break-inside-avoid mb-6 w-full will-change-transform"
+      className="break-inside-avoid mb-6 w-full"
     >
       <div
         onClick={onClick}
@@ -71,15 +127,27 @@ const AuthenticPhotoCard = React.memo<{
         }}
         className="w-full relative block overflow-hidden rounded-xl border border-white/10 hover:border-[#FF4B00]/60 shadow-[0_12px_36px_rgba(0,0,0,0.6)] bg-[#0d0d0d] cursor-pointer group focus:outline-none focus:ring-2 focus:ring-[#FF4B00] transition-colors duration-300"
       >
-        <div className={`w-full ${photo.aspectRatio} relative overflow-hidden bg-black/40`}>
-          <img
-            ref={imgRef}
-            src={photo.src}
-            alt={photo.alt}
-            decoding="async"
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            style={{ objectPosition: photo.objectPosition }}
-          />
+        {/* Layout container reserving exact aspect ratio space to prevent CLS */}
+        <div className={`w-full ${photo.aspectRatio} relative overflow-hidden bg-[#0d0d0d]`}>
+          {/* Center-out curtain reveal container */}
+          <div
+            ref={revealRef}
+            className="w-full h-full relative overflow-hidden will-change-[clip-path,transform,opacity]"
+            style={{
+              clipPath: 'inset(0 49.5% 0 49.5%)',
+              opacity: 0.75,
+              transform: 'scale(0.985)',
+            }}
+          >
+            <img
+              ref={imgRef}
+              src={photo.src}
+              alt={photo.alt}
+              decoding="async"
+              className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.035]"
+              style={{ objectPosition: photo.objectPosition }}
+            />
+          </div>
         </div>
 
         {/* Minimalist Hover Overlay - Clean title & expand icon only */}
