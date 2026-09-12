@@ -85,3 +85,12 @@ html.lenis, html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* Lightbox immersive modal rules: Hide site navbar header completely and lock background scroll */
+body.lightbox-open header {
+  display: none !important;
+}
+
+body.lightbox-open {
+  overflow: hidden !important;
+}
