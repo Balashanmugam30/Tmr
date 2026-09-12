@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import gsap from 'gsap';
 import { X, Maximize2, Phone, MessageSquare, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
 import { companyData } from '@/data/company';
 
 // --- PHOTO CARD INTERFACE ---
@@ -20,10 +21,46 @@ interface PhotoItem {
 // Clean editorial presentation: unobstructed authentic image, no permanent dark gradient, hover overlay with clean title and expand icon
 const AuthenticPhotoCard = React.memo<{
   photo: PhotoItem;
+  index: number;
   onClick: () => void;
-}>(({ photo, onClick }) => {
+}>(({ photo, index, onClick }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const isReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReduced) {
+      setIsVisible(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [photo.id]);
+
   return (
-    <div className="break-inside-avoid mb-6 w-full">
+    <div
+      ref={cardRef}
+      className={`break-inside-avoid mb-6 w-full transition-all duration-700 ease-out ${
+        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-6 scale-[0.98]'
+      }`}
+      style={{
+        transitionDelay: `${(index % 3) * 60}ms`,
+      }}
+    >
       <div
         onClick={onClick}
         tabIndex={0}
@@ -35,14 +72,14 @@ const AuthenticPhotoCard = React.memo<{
             onClick();
           }
         }}
-        className="w-full relative block overflow-hidden rounded-xl border border-white/10 hover:border-[#FF4B00]/60 shadow-[0_12px_36px_rgba(0,0,0,0.6)] bg-[#0d0d0d] cursor-pointer group focus:outline-none focus:ring-2 focus:ring-[#FF4B00] transition-all duration-300"
+        className="w-full relative block overflow-hidden rounded-xl border border-white/10 hover:border-[#FF4B00]/60 shadow-[0_12px_36px_rgba(0,0,0,0.6)] bg-[#0d0d0d] cursor-pointer group focus:outline-none focus:ring-2 focus:ring-[#FF4B00] transition-colors duration-300"
       >
         <div className={`w-full ${photo.aspectRatio} relative overflow-hidden bg-black/40`}>
           <img
             src={photo.src}
             alt={photo.alt}
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             style={{ objectPosition: photo.objectPosition }}
           />
         </div>
@@ -53,7 +90,7 @@ const AuthenticPhotoCard = React.memo<{
             <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-black/75 backdrop-blur-md border border-white/15 text-white/90">
               {photo.categoryName}
             </span>
-            <div className="w-8 h-8 rounded-full bg-black/75 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 group-hover:text-[#FF4B00] shadow-md">
+            <div className="w-8 h-8 rounded-full bg-black/75 backdrop-blur-md border border-white/20 flex items-center justify-center text-white/90 group-hover:text-[#FF4B00] group-hover:scale-110 transition-all duration-300 shadow-md">
               <Maximize2 className="w-3.5 h-3.5" />
             </div>
           </div>
@@ -82,6 +119,7 @@ export const GalleryPage: React.FC = () => {
 
   // Hero Section Parallax state
   const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
   // DOM Refs
   const transSectionRef = useRef<HTMLElement>(null);
@@ -97,7 +135,7 @@ export const GalleryPage: React.FC = () => {
   const heroVisual = {
     src: '/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg',
     alt: 'Panoramic establishing view of TMR AI Car Care facility, entrance totem sign, and forecourt on Avinashi Road, Tiruppur',
-    tag: 'TIRUPPUR STUDIO & WORKSHOP',
+    tag: 'TIRUPPUR STUDIO',
     title: 'AUTOMOTIVE CRAFTSMANSHIP',
     caption: 'Establishing panoramic view of TMR AI Car Care on Avinashi Road, Tiruppur, showing the roadside entrance totem, customer driveway, and studio building.',
   };
@@ -423,11 +461,11 @@ export const GalleryPage: React.FC = () => {
   ];
 
   // SECTION 04: Dedicated Before & After Transformation Slider assets
-  // Clean, high-contrast paint correction transformation
+  // High-contrast surface restoration transformation
   const transformationVisuals = {
     before: {
       src: '/images/gallery/gallery-signature-before.webp',
-      alt: 'Automotive clear coat paint surface with swirl marks, spider webbing, and oxidation before paint correction at TMR AI Car Care',
+      alt: 'Automotive clear coat paint surface with swirl marks, spider webbing, and oxidation before machine compounding at TMR AI Car Care',
       label: 'BEFORE',
     },
     after: {
@@ -724,8 +762,25 @@ export const GalleryPage: React.FC = () => {
         </div>
 
         {/* Layer 2: Targeted Gradient — Soft transparent fade allowing the facility and sign to be clearly visible */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/85 via-black/35 to-transparent pointer-events-none" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/85 via-transparent to-black/15 pointer-events-none" />
+        {/* Targeted Smooth Multi-Stop Gradient: Dark text zone on left -> smooth transition -> clear facility on right */}
+        <div
+          className="absolute inset-0 z-10 pointer-events-none block md:hidden"
+          style={{
+            background: 'linear-gradient(0deg, rgba(5,5,5,0.95) 0%, rgba(5,5,5,0.75) 45%, rgba(5,5,5,0.2) 75%, transparent 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-0 z-10 pointer-events-none hidden md:block"
+          style={{
+            background: 'linear-gradient(90deg, rgba(5,5,5,0.92) 0%, rgba(5,5,5,0.85) 28%, rgba(5,5,5,0.45) 55%, rgba(5,5,5,0.12) 78%, rgba(5,5,5,0.0) 100%)',
+          }}
+        />
+        <div
+          className="absolute inset-0 z-10 pointer-events-none hidden md:block"
+          style={{
+            background: 'linear-gradient(0deg, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.2) 25%, transparent 50%)',
+          }}
+        />
 
         {/* Layer 3: Editorial Typography Content */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 pb-16 sm:pb-24 flex flex-col justify-end space-y-6">
@@ -743,7 +798,7 @@ export const GalleryPage: React.FC = () => {
             </h1>
 
             <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] max-w-md border-l pl-4 border-white/20 leading-relaxed font-normal">
-              An authentic visual archive of TMR AI Car Care's professional detailing studio, multi-stage paint correction, ceramic coating, and wash craftsmanship in Tiruppur, Tamil Nadu.
+              An authentic visual archive of TMR AI Car Care's professional detailing studio, multi-stage machine polishing, ceramic coating, and wash craftsmanship in Tiruppur, Tamil Nadu.
             </p>
 
             <div className="pt-4 flex items-center gap-6">
@@ -770,7 +825,7 @@ export const GalleryPage: React.FC = () => {
             <div className="space-y-4 max-w-2xl">
               <div className="inline-flex items-center gap-2">
                 <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#FF4B00] uppercase">
-                  TIRUPPUR STUDIO ARCHIVE
+                  STUDIO COLLECTION
                 </span>
               </div>
               <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05]">
@@ -824,6 +879,7 @@ export const GalleryPage: React.FC = () => {
               <AuthenticPhotoCard
                 key={photo.id}
                 photo={photo}
+                index={index}
                 onClick={() => setActiveLightboxIndex(index)}
               />
             ))}
@@ -840,7 +896,7 @@ export const GalleryPage: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5E5E0] pb-8">
             <div className="space-y-4">
               <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#FF4B00] uppercase">
-                DETAILING PROTOCOL // TIRUPPUR
+                THE 3-STAGE REFINEMENT
               </span>
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tight">
                 THE 3-STAGE <br />
@@ -939,7 +995,7 @@ export const GalleryPage: React.FC = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="space-y-4">
               <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#FF4B00] uppercase">
-                PAINT CORRECTION
+                SURFACE RESTORATION
               </span>
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight">
                 SURFACE REFINEMENT <br />
@@ -949,55 +1005,58 @@ export const GalleryPage: React.FC = () => {
                 Drag the interactive slider to inspect the removal of micro-marring, swirl marks, and compound haze followed by deep high-gloss ceramic paint sealing.
               </p>
             </div>
-            <div className="text-xs font-mono text-[#FF4B00] tracking-widest uppercase bg-[#FF4B00]/10 border border-[#FF4B00]/20 px-4 py-2 rounded-full w-fit">
-              STAGE 02 &amp; 03 REFLECTION
-            </div>
           </div>
 
-          {/* Instant Responsive Touch & Mouse Split-Screen Comparison Slider */}
-          <div
-            className="relative w-full aspect-[16/10] sm:aspect-[21/9] rounded-xl overflow-hidden cursor-ew-resize select-none border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
-            onPointerMove={handlePointerMove}
-            onPointerDown={handlePointerMove}
-            onClick={handlePointerMove}
-            onTouchMove={handleTouchMove}
-            onTouchStart={handleTouchMove}
-          >
-            {/* Background: AFTER Transformation Image */}
-            <img
-              src={transformationVisuals.after.src}
-              alt={transformationVisuals.after.alt}
-              className="absolute inset-0 w-full h-full object-cover scale-100"
+          {/* Mature ReactCompareSlider with custom polished handle & BEFORE/AFTER badges */}
+          <div className="w-full relative select-none">
+            <ReactCompareSlider
+              itemOne={
+                <div className="relative w-full h-full">
+                  <ReactCompareSliderImage
+                    src={transformationVisuals.before.src}
+                    alt={transformationVisuals.before.alt}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-10 px-3 sm:px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/90 uppercase pointer-events-none shadow-lg">
+                    {transformationVisuals.before.label}
+                  </div>
+                </div>
+              }
+              itemTwo={
+                <div className="relative w-full h-full">
+                  <ReactCompareSliderImage
+                    src={transformationVisuals.after.src}
+                    alt={transformationVisuals.after.alt}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-10 px-3 sm:px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#FF4B00] uppercase pointer-events-none shadow-lg">
+                    {transformationVisuals.after.label}
+                  </div>
+                </div>
+              }
+              handle={
+                <ReactCompareSliderHandle
+                  buttonStyle={{
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    backgroundColor: 'rgba(15, 15, 15, 0.92)',
+                    border: '1.5px solid rgba(255, 255, 255, 0.4)',
+                    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.7), 0 0 16px rgba(255, 75, 0, 0.4)',
+                    color: '#FF4B00',
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '9999px',
+                  }}
+                  linesStyle={{
+                    width: '2px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    boxShadow: '0 0 8px rgba(0, 0, 0, 0.8)',
+                  }}
+                />
+              }
+              defaultPosition={50}
+              className="w-full aspect-[16/10] sm:aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.85)]"
             />
-            <div className="absolute top-6 right-6 z-10 px-4 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-xs font-bold tracking-widest text-[#FF4B00] uppercase pointer-events-none shadow-md">
-              {transformationVisuals.after.label}
-            </div>
-
-            {/* Foreground: BEFORE Transformation Image clipped to slider position */}
-            <div
-              className="absolute inset-y-0 left-0 overflow-hidden"
-              style={{ width: `${sliderPos}%` }}
-            >
-              <img
-                src={transformationVisuals.before.src}
-                alt={transformationVisuals.before.alt}
-                className="absolute inset-0 w-full h-full object-cover max-w-none"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              <div className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-xs font-bold tracking-widest text-white/90 uppercase pointer-events-none shadow-md">
-                {transformationVisuals.before.label}
-              </div>
-            </div>
-
-            {/* Divider Line & Draggable Handle */}
-            <div
-              className="absolute inset-y-0 w-0.5 bg-white pointer-events-none shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-              style={{ left: `${sliderPos}%` }}
-            >
-              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-9 h-9 rounded-full bg-[#FF4B00] border-2 border-white flex items-center justify-center shadow-2xl text-white text-xs font-bold">
-                ↔
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -1023,7 +1082,7 @@ export const GalleryPage: React.FC = () => {
             <div className="inline-flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
               <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF4B00]">
-                TMR AI CAR CARE // APPOINTMENTS
+                STUDIO APPOINTMENTS
               </span>
             </div>
 
@@ -1058,26 +1117,38 @@ export const GalleryPage: React.FC = () => {
       </section>
 
       {/* FULLSCREEN IMMERSIVE LIGHTBOX MODAL */}
-      {/* Covers 100% of viewport, hides navbar (z-[99999]), locks scroll, previous/next buttons & circular navigation */}
+      {/* Covers 100% of viewport, hides navbar, locks scroll, near-black clean background (NO blurred duplicate), compact floating caption bubble */}
       {currentLightboxPhoto && activeLightboxIndex !== null && (
         <div
           role="dialog"
           aria-modal="true"
           aria-label="Image viewer"
           onClick={() => setActiveLightboxIndex(null)}
-          className="fixed inset-0 z-[99999] bg-black/98 backdrop-blur-2xl flex flex-col justify-between p-4 sm:p-6 select-none animate-in fade-in duration-200"
+          onTouchStart={(e) => setTouchStartX(e.touches[0].clientX)}
+          onTouchEnd={(e) => {
+            if (touchStartX !== null) {
+              const touchEndX = e.changedTouches[0].clientX;
+              const diff = touchStartX - touchEndX;
+              if (Math.abs(diff) > 50) {
+                if (diff > 0) handleNext();
+                else handlePrev();
+              }
+              setTouchStartX(null);
+            }
+          }}
+          className="fixed inset-0 z-[99999] bg-[#070707] bg-[radial-gradient(ellipse_at_center,_rgba(25,25,25,0.7)_0%,_rgba(7,7,7,0.98)_100%)] flex flex-col justify-between p-4 sm:p-6 select-none animate-in fade-in duration-200"
         >
-          {/* Top Bar: Counter & Title on Left, Close on Right */}
+          {/* Top Bar: Counter on Left, Clean Title in Center, Close on Right */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-7xl mx-auto flex items-center justify-between pb-3 border-b border-white/10"
+            className="w-full max-w-7xl mx-auto flex items-center justify-between pb-3 border-b border-white/10 z-10"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               <span className="font-mono text-xs sm:text-sm font-bold text-[#FF4B00] tracking-widest">
                 {activeLightboxIndex + 1} / {filteredPhotos.length}
               </span>
               <span className="h-4 w-px bg-white/20" />
-              <h3 className="font-manrope font-bold text-sm sm:text-base text-white tracking-tight">
+              <h3 className="font-manrope font-bold text-xs sm:text-sm md:text-base text-white/90 tracking-tight truncate max-w-[200px] sm:max-w-md">
                 {currentLightboxPhoto.title}
               </h3>
             </div>
@@ -1093,43 +1164,46 @@ export const GalleryPage: React.FC = () => {
           {/* Main Stage: Image with Previous / Next navigation controls */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full flex-1 flex items-center justify-between my-auto relative p-2"
+            className="w-full flex-1 flex items-center justify-between my-auto relative px-1 sm:px-4 py-2"
           >
             {/* Previous Button */}
             <button
               onClick={handlePrev}
-              aria-label="Previous image"
-              className="z-20 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/70 hover:bg-[#FF4B00] border border-white/20 hover:border-[#FF4B00] text-white flex items-center justify-center transition-all duration-200 shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#FF4B00] shrink-0 mr-2"
+              aria-label="Previous photograph"
+              className="z-20 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/75 hover:bg-[#FF4B00] border border-white/20 hover:border-[#FF4B00] text-white flex items-center justify-center transition-all duration-200 shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#FF4B00] shrink-0 mr-2 sm:mr-4"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
 
-            {/* Centered Image (object-contain — never cropped or stretched) */}
-            <div className="flex-1 flex items-center justify-center h-full max-h-[78vh] px-2 sm:px-6">
+            {/* Centered Image (object-contain — full visual preserved, clean subtle shadow) */}
+            <div className="flex-1 flex items-center justify-center h-full max-h-[70vh] sm:max-h-[74vh] px-1 sm:px-6">
               <img
-                key={currentLightboxPhoto.src}
+                key={currentLightboxPhoto.id}
                 src={currentLightboxPhoto.src}
                 alt={currentLightboxPhoto.alt}
-                className="max-h-[76vh] max-w-[86vw] object-contain rounded-lg shadow-[0_25px_60px_rgba(0,0,0,0.95)] border border-white/15 animate-in fade-in zoom-in-95 duration-200"
+                className="max-h-[68vh] sm:max-h-[72vh] max-w-[85vw] object-contain rounded-xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] border border-white/15 animate-in fade-in zoom-in-95 duration-200"
               />
             </div>
 
             {/* Next Button */}
             <button
               onClick={handleNext}
-              aria-label="Next image"
-              className="z-20 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/70 hover:bg-[#FF4B00] border border-white/20 hover:border-[#FF4B00] text-white flex items-center justify-center transition-all duration-200 shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#FF4B00] shrink-0 ml-2"
+              aria-label="Next photograph"
+              className="z-20 w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-black/75 hover:bg-[#FF4B00] border border-white/20 hover:border-[#FF4B00] text-white flex items-center justify-center transition-all duration-200 shadow-2xl focus:outline-none focus:ring-2 focus:ring-[#FF4B00] shrink-0 ml-2 sm:ml-4"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
           </div>
 
-          {/* Bottom Bar: Clean Human-Facing Caption */}
+          {/* Bottom Caption: Compact floating translucent matte-black bubble */}
           <div
             onClick={(e) => e.stopPropagation()}
-            className="w-full max-w-4xl mx-auto text-center pt-3 border-t border-white/10"
+            className="w-full max-w-xl mx-auto px-5 py-3 rounded-2xl bg-[#121212]/90 backdrop-blur-md border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.6)] text-center flex flex-col items-center gap-1 shrink-0 z-10"
           >
-            <p className="font-manrope text-xs sm:text-sm text-[#D8D8D5] leading-relaxed max-w-2xl mx-auto">
+            <h4 className="font-manrope font-bold text-xs sm:text-sm text-white tracking-wide">
+              {currentLightboxPhoto.title}
+            </h4>
+            <p className="font-manrope text-[11px] sm:text-xs text-[#A8A8A5] leading-relaxed max-w-lg">
               {currentLightboxPhoto.caption}
             </p>
           </div>
