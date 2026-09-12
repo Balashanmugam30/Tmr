@@ -113,10 +113,11 @@ interface AuthenticPhotoCardProps {
   onClick: () => void;
 }
 
-const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick }) => {
+const AuthenticPhotoCard = React.memo<AuthenticPhotoCardProps>(({ photo, onClick }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
+  const hasRevealedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -128,7 +129,14 @@ const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick 
     if (isReducedMotion) {
       card.style.clipPath = 'inset(0 0% 0 0)';
       card.style.opacity = '1';
+      hasRevealedRef.current = true;
       return;
+    }
+
+    // Set initial hidden state only once before reveal
+    if (!hasRevealedRef.current) {
+      gsap.set(card, { clipPath: 'inset(0 100% 0 0)', opacity: 0 });
+      gsap.set(img, { x: -24, scale: 1.025 });
     }
 
     // Individual item IntersectionObserver with enter & leave lifecycle replay
@@ -136,6 +144,7 @@ const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick 
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
+            hasRevealedRef.current = true;
             gsap.to(card, {
               clipPath: 'inset(0 0% 0 0)',
               opacity: 1,
@@ -150,7 +159,9 @@ const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick 
               ease: 'power3.out',
               overwrite: 'auto',
             });
-          } else {
+          } else if (entry.boundingClientRect.top > window.innerHeight) {
+            // Reset to masked hidden state when scrolled back up above viewport
+            hasRevealedRef.current = false;
             gsap.to(card, {
               clipPath: 'inset(0 100% 0 0)',
               opacity: 0,
@@ -169,8 +180,8 @@ const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick 
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: '0px 0px -5% 0px',
+        threshold: 0.1,
+        rootMargin: '0px 0px 40px 0px',
       }
     );
 
@@ -196,10 +207,6 @@ const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick 
           }
         }}
         className={`w-full ${photo.aspectDesktop} relative block overflow-hidden rounded-xl border border-white/10 hover:border-[#FF4B00]/60 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group transition-colors duration-300 focus:outline-none focus:border-[#FF4B00]`}
-        style={{
-          clipPath: 'inset(0 100% 0 0)',
-          opacity: 0,
-        }}
       >
         <img
           ref={imgRef}
@@ -208,7 +215,6 @@ const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick 
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
           style={{
-            transform: 'translateX(-24px) scale(1.025)',
             objectPosition: photo.objectPosition,
           }}
         />
@@ -243,7 +249,7 @@ const AuthenticPhotoCard: React.FC<AuthenticPhotoCardProps> = ({ photo, onClick 
       </div>
     </div>
   );
-};
+});
 
 export const GalleryPage: React.FC = () => {
   // Existing state for Section 05 slider
@@ -281,7 +287,7 @@ export const GalleryPage: React.FC = () => {
   const processLineRef = useRef<HTMLDivElement>(null);
   const hasTransRevealedRef = useRef<boolean>(false);
 
-  // Real TMR AI Car Care First-Party Studio, Team & Workshop Photographs (15 Authentic Real Photos)
+  // Real TMR AI Car Care First-Party Studio, Team & Workshop Photographs (20 Authentic Real Photos)
   // Non-negotiable: 100% authentic, zero hallucinated text/pixels, one placement per photo
   const realStudioPhotos = [
     // 01 — STUDIO (Wide establishing)
@@ -401,7 +407,72 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 35%',
     },
-    // 10 — WORKSHOP (Wash bay hydraulic lift ramp)
+    // 10 — SHOWROOM (Full retail inventory wall)
+    {
+      id: 'retail-inventory-wall',
+      src: '/images/gallery/studio/tmr-ai-car-care-retail-inventory-shelving-wall.png',
+      alt: 'Comprehensive showroom retail inventory wall stocked with Meguiar\'s clay bars, 3M aerosol cleaners, and detailing microfibers at TMR AI Car Care',
+      title: 'RETAIL DETAILING INVENTORY WALL',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // RETAIL STOCK',
+      caption: 'Multi-tier customer showroom shelving wall stocked with Meguiar\'s clay bar kits, 3M cleaners, microfiber towels, and detailing supplies.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 11 — SHOWROOM (3M Black Plastic Restorer demo display)
+    {
+      id: '3m-plastic-restorer-display',
+      src: '/images/gallery/studio/tmr-ai-car-care-3m-plastic-restorer-display.jpg',
+      alt: 'Official 3M Car Care Black Plastic Restorer before and after demonstration display counter at TMR AI Car Care in Tiruppur',
+      title: '3M PLASTIC RESTORER DEMO DISPLAY',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // DEMO DISPLAY',
+      caption: 'Official 3M Car Care demonstration counter display showcasing before-and-after plastic trim restoration alongside 3M glass cleaner aerosols.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 12 — SHOWROOM (3M UnderShield display shelves)
+    {
+      id: '3m-undershield-shelves',
+      src: '/images/gallery/studio/tmr-ai-car-care-3m-undershield-display-shelves.png',
+      alt: '3M UnderShield Rust free treatment bottles and car care products displayed on glass showroom shelves at TMR AI Car Care Tiruppur',
+      title: '3M UNDERSHIELD DISPLAY SHELVES',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // UNDERBODY CARE',
+      caption: 'Showroom glass display shelving showcasing 3M UnderShield Rust-Free treatment bottles and professional underbody protection products.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 13 — SHOWROOM (Ceramic coatings & shampoo shelves)
+    {
+      id: 'ceramic-coating-shampoo-shelves',
+      src: '/images/gallery/studio/tmr-ai-car-care-ceramic-coating-shampoo-shelves.jpg',
+      alt: 'Meguiar\'s Beyond Ceramic Paint Coating kits, 3M Car Wash Shampoo bottles, and detailing aerosols on showroom shelves at TMR AI Car Care',
+      title: 'CERAMIC COATINGS & CAR WASH SHAMPOO',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // CERAMIC & WASH',
+      caption: 'Retail display shelving featuring Meguiar\'s Professional Beyond Ceramic Paint Coating (M688), 3M Car Wash Shampoo, and air conditioning treatments.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 40%',
+    },
+    // 14 — SHOWROOM (3M microfibre cloth packet display)
+    {
+      id: '3m-microfibre-cloth-display',
+      src: '/images/gallery/studio/tmr-ai-car-care-3m-microfibre-cloth-display.jpg',
+      alt: '3M Auto Care Microfibre Cloth packet display hanging on retail showroom shelf beside Meguiar\'s NXT Top Coat at TMR AI Car Care',
+      title: '3M MICROFIBRE CLOTH RETAIL DISPLAY',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // ACCESSORIES',
+      caption: 'Showroom retail accessory display featuring hanging 3M Auto Care extra absorption microfiber cloths and Meguiar\'s NXT Generation Top Coat.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 45%',
+    },
+    // 15 — WORKSHOP (Wash bay hydraulic lift ramp)
     {
       id: 'wash-bay-ramp',
       src: '/images/gallery/workshop/tmr-ai-car-care-wash-bay-ramp.jpg',
@@ -414,7 +485,7 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 40%',
     },
-    // 11 — WORKSHOP (3M chemicals & 5L cleaner jugs cart)
+    // 16 — WORKSHOP (3M chemicals & 5L cleaner jugs cart)
     {
       id: '3m-cleaner-chemicals-cart',
       src: '/images/gallery/workshop/tmr-ai-car-care-3m-cleaner-chemicals-cart.jpg',
@@ -427,7 +498,7 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 40%',
     },
-    // 12 — STUDIO (Roadside landmark totem sign)
+    // 17 — STUDIO (Roadside landmark totem sign)
     {
       id: 'roadside-totem',
       src: '/images/gallery/studio/tmr-ai-car-care-roadside-totem.jpg',
@@ -440,7 +511,7 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 25%',
     },
-    // 13 — SHOWROOM (Interior & treatment standees)
+    // 18 — SHOWROOM (Interior & treatment standees)
     {
       id: 'showroom-displays',
       src: '/images/gallery/studio/tmr-ai-car-care-showroom-displays.jpg',
@@ -453,7 +524,7 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 45%',
     },
-    // 14 — SHOWROOM (Anti-rust display standee)
+    // 19 — SHOWROOM (Anti-rust display standee)
     {
       id: 'anti-rust-display',
       src: '/images/gallery/studio/tmr-ai-car-care-anti-rust-display.png',
@@ -466,7 +537,7 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 45%',
     },
-    // 15 — STUDIO (Architectural 3D facade header)
+    // 20 — STUDIO (Architectural 3D facade header)
     {
       id: 'brand-signage',
       src: '/images/gallery/studio/tmr-ai-car-care-brand-signage.png',
@@ -475,8 +546,8 @@ export const GalleryPage: React.FC = () => {
       category: 'STUDIO' as const,
       categoryLabel: '01 — STUDIO // BRANDING',
       caption: 'Close-up architectural detail of the 3D illuminated storefront header with service badges (Graphene, Ceramic, PPF, Sun Film, Underseal, Germ Kleening).',
-      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
-      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      colSpanDesktop: 'lg:col-span-3 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[2.5/1]',
       objectPosition: 'center 50%',
     },
   ];
@@ -851,7 +922,7 @@ export const GalleryPage: React.FC = () => {
 
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
-
+      
       {/* SECTION 01 — GALLERY HERO (FULL-BLEED VIEWPORT HERO WITH SAFE OVERSCAN PARALLAX) */}
       <section
         onMouseMove={handleHeroMouseMove}
@@ -943,7 +1014,7 @@ export const GalleryPage: React.FC = () => {
         className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 font-manrope scroll-mt-24"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-12">
-
+          
           {/* Header & Filter Controls */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="flex flex-col space-y-4 max-w-2xl">
@@ -967,14 +1038,14 @@ export const GalleryPage: React.FC = () => {
               {(['ALL', 'STUDIO', 'TEAM', 'WORKSHOP', 'SHOWROOM'] as const).map((cat) => {
                 const label =
                   cat === 'ALL'
-                    ? 'ALL PHOTOS (15)'
+                    ? 'ALL PHOTOS (20)'
                     : cat === 'STUDIO'
                     ? 'STUDIO & FACILITY (4)'
                     : cat === 'TEAM'
                     ? 'TEAM & CRAFT (2)'
                     : cat === 'WORKSHOP'
                     ? 'WORKSHOP & TOOLS (5)'
-                    : 'SHOWROOM INTERIOR (4)';
+                    : 'SHOWROOM INTERIOR (9)';
                 const isActive = photoCategory === cat;
                 return (
                   <button
@@ -1095,7 +1166,7 @@ export const GalleryPage: React.FC = () => {
       {/* SECTION 04 — SIGNATURE WORK (REUSING EXACT HOME PAGE GSAP REVEAL ANIMATION) */}
       <section id="protection" className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 font-intertight scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-8">
-
+          
           {/* EDITORIAL HEADER GROUP (OUTSIDE THE IMAGE STAGE) */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div className="flex flex-col space-y-4">
@@ -1142,7 +1213,7 @@ export const GalleryPage: React.FC = () => {
       <section id="detailing" className="relative bg-[#070809] py-20 sm:py-32 overflow-hidden text-[#F5F4EF] border-b border-white/10 font-intertight scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-
+            
             {/* LEFT SIDE TECHNICAL EDITORIAL GROUP */}
             <div className="lg:col-span-5 space-y-6">
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-[0.95]">
