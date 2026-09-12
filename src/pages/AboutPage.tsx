@@ -281,70 +281,7 @@ export const AboutPage: React.FC = () => {
 
 
       {/* ============================================================
-          SECTION 2 — WHAT TMR IS TODAY
-          Job: Explain what the company is now. Current studio, current focus.
-          ============================================================ */}
-      <section className="bg-[#0A0A0A] text-white relative w-full overflow-hidden py-20 sm:py-28 lg:py-32 border-b border-white/10" id="today">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-10">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            
-            {/* Left Content Column */}
-            <div className="lg:col-span-6 space-y-6">
-              <div className="space-y-3">
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
-                  CURRENT OPERATIONS
-                </span>
-                <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-6xl tracking-tighter uppercase text-white leading-[0.95]">
-                  WHAT TMR IS <br />
-                  <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">today.</span>
-                </h2>
-              </div>
-
-              <div className="space-y-5 font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed border-l-2 border-[#FF4B00] pl-6">
-                <p>
-                  TMR AI Car Care operates as a dedicated automotive detailing and surface protection studio on Avinashi Road in Tiruppur. The facility is equipped specifically for clean, contamination-free paint correction, climate-monitored coating application, and precision PPF installation.
-                </p>
-                <p>
-                  Our focus is narrow and deliberate. TMR does not operate as a mechanical repair shop or a general tyre dealer. The team works exclusively on vehicle surfaces—paint correction, ceramic coatings, paint protection film (PPF), and disciplined surface refinement.
-                </p>
-                <p className="text-sm pt-2 text-[#A0A0A0]">
-                  Explore our core services:{' '}
-                  <Link to="/services/detailing-paint-care" className="text-[#FF4B00] font-bold hover:underline">
-                    detailing &amp; paint correction
-                  </Link>,{' '}
-                  <Link to="/services/ceramic-coating" className="text-[#FF4B00] font-bold hover:underline">
-                    ceramic coating
-                  </Link>, and{' '}
-                  <Link to="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold hover:underline">
-                    PPF paint protection
-                  </Link>.
-                </p>
-              </div>
-            </div>
-
-            {/* Right Workshop Visual — Authentic Indian Detailing Craft */}
-            <div className="lg:col-span-6 relative border border-white/15 rounded-2xl overflow-hidden shadow-2xl bg-[#111111]">
-              <img
-                src="/images/about/tmr-ai-car-care-about-workshop-craft-tiruppur.jpg"
-                alt="Automotive detailing specialist machine-polishing vehicle finish at TMR AI Car Care studio"
-                className="w-full h-[360px] sm:h-[440px] object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 text-xs font-mono text-white/90 bg-black/60 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/10 flex items-center justify-between">
-                <span>Machine Correction Bay • Tiruppur</span>
-                <span className="text-[#FF4B00] font-semibold">TMR AI Car Care</span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-      {/* ============================================================
-          SECTION 3 — HOW WE WORK
+          SECTION 2 — HOW WE WORK
           Job: Practical working sequence. Inspect, Prepare, Finish.
           ============================================================ */}
       <section className="relative w-full overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]" id="method">
@@ -466,7 +403,7 @@ export const AboutPage: React.FC = () => {
 
 
       {/* ============================================================
-          SECTION 4 — REAL PROOF
+          SECTION 3 — REAL PROOF
           Job: Verified factual signals. Concise and restrained.
           ============================================================ */}
       <section className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-16 sm:py-24 border-b border-white/10" id="glance">
@@ -526,7 +463,7 @@ export const AboutPage: React.FC = () => {
 
 
       {/* ============================================================
-          SECTION 5 — VISIT THE STUDIO
+          SECTION 4 — VISIT THE STUDIO
           Job: Location and practical visit information. No history.
           ============================================================ */}
       <section id="studio" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-28 lg:py-32 border-b border-[#D8D8D5] scroll-mt-24">
@@ -588,7 +525,7 @@ export const AboutPage: React.FC = () => {
 
 
       {/* ============================================================
-          SECTION 6 — FINAL CTA
+          SECTION 5 — FINAL CTA
           Job: Conversion. Short. No repeated history or biography.
           ============================================================ */}
       <section className="relative w-full min-h-[70vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-28 font-manrope">
