@@ -19,9 +19,9 @@
 | `ceramic coating` | Exact & Semantic | Story, Standard, CTA Links | Core Protection Service | No |
 | `PPF` / `paint protection` | Exact & Semantic | Belief, Standard, CTA Links | Core Armor Service | No |
 | `Avinashi Road` / `Near Hope College Junction` | Exact Local Entity | Location Section & Schema | Physical Studio Address | No |
-| `Chandramohan Kandha Velu` | Factual Founder Entity | Story Section | Founder Trust Signal | No |
-| `Established 2009` | Factual Brand Signal | Title, Story, Statistics Row | Business History Signal | No |
-| `1,000+ vehicles cared for` | Factual Track Record | Story & Statistics Row | Social Proof Signal | No |
+| `Meenakshi Sundharam` | Factual Founder Entity | Story & Founder Section | Founder Trust Signal | No |
+| `Experience Since 2009` | Factual Experience Signal | Title, Meta, Story, Statistics Row | Business Heritage Signal | No |
+| `~500 vehicles/month operational scale` | Factual Track Record | Story, Founder & Statistics Row | Operational Scale Signal | No |
 | **Price / Cost / Cheap Queries** | N/A | Excluded | Transactional Intent | **YES** (Owned by Service pages) |
 | **Booking / WhatsApp Modifiers** | N/A | Excluded | Commercial Intent | **YES** (Owned by Contact/Service pages) |
 | **Near-Me Queries** | N/A | Excluded | Geo-location Intent | **YES** (Owned by Local Architecture) |
@@ -34,21 +34,22 @@
 * **Removed Mechanical SEO Phrases**: Eliminated `"professional car care center standards"` and awkward concatenated location strings.
 * **Streamlined Brand Repetitions**: Reduced redundant usage of `"TMR AI Car Care"` and `"Tiruppur"` across adjacent paragraphs.
 * **Refined Alt Text**: Factual, concise image descriptions without keyword chains:
-  - `alt="TMR AI Car Care detailing studio in Tiruppur"`
-  - `alt="Vehicle surface inspection during professional automotive detailing at TMR AI Car Care"`
+  - `alt="Meenakshi Sundharam, founder of TMR AI Car Care"`
+  - `alt="Automotive detailing specialist machine-polishing vehicle finish at TMR AI Car Care studio"`
   - `alt="Machine polishing and paint refinement inside TMR AI Car Care studio"`
-  - `alt="TMR AI Car Care studio facility on Avinashi Road Tiruppur"`
-  - `alt="Detailed vehicle with mirror finish inside TMR AI Car Care studio"`
+  - `alt="TMR AI Car Care studio facility on Avinashi Road, Tiruppur"`
+  - `alt="Ceramic-coated luxury vehicle with mirror gloss finish inside TMR AI Car Care studio"`
 
 ---
 
 ## 3. Heading Structure Audit
 
-* **`H1` Tag (1 per page)**: `BUILT AROUND THE craft.` (Hero)
+* **`H1` Tag (1 per page)**: `BUILT FROM YEARS OF REAL experience.` (Hero)
 * **`H2` Tags (Major Sections)**:
-  - `BUILT IN TIRUPPUR. built on care.` (Story)
-  - `GREAT CARE BEGINS LONG BEFORE THE POLISHER.` (Belief)
-  - `QUALITY IS IN THE process.` (Standard)
+  - `OUR STORY. built through experience.` (Story)
+  - `MEENAKSHI SUNDHARAM` (Founder)
+  - `GREAT CARE BEGINS LONG BEFORE THE POLISHER.` (Method & Belief)
+  - `WHAT SETS TMR apart.` (Differentiation)
   - `ROOTED IN tiruppur.` (Location)
   - `YOUR CAR DESERVES THE RIGHT care.` (CTA)
 * **Hidden / Decorative Headings**: **0**
@@ -57,9 +58,10 @@
 
 ## 4. Technical SEO Verification
 
-* **Title**: `About TMR AI Car Care | Automotive Detailing in Tiruppur | Established 2009`
-* **Meta Description**: `Learn about TMR AI Car Care, an established automotive detailing studio in Tiruppur since 2009. Specialized in precision vehicle care, paint refinement, ceramic coating, and PPF.`
+* **Title**: `About TMR AI Car Care | Automotive Detailing in Tiruppur | Experience Since 2009`
+* **Meta Description**: `Learn about TMR AI Car Care in Tiruppur. Automotive-care experience dating back to 2009, founded by Meenakshi Sundharam, specializing in detailing, ceramic coating, and PPF.`
 * **Canonical URL**: `https://tmrcarcare.com/about`
 * **JSON-LD Schema**: `AutoRepair` + `LocalBusiness` + `BreadcrumbList` valid graph.
 * **TypeScript Check (`npx tsc --noEmit`)**: **PASS (0 errors)**
 * **Vite Production Build (`npm run build`)**: **PASS**
+
