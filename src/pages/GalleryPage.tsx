@@ -17,8 +17,8 @@ interface PhotoItem {
   objectPosition: string;
 }
 
-// --- AUTHENTIC PHOTO CARD WITH EXACT CENTER-OUT 0% -> 100% IMAGE REVEAL ANIMATION ---
-// Expands outward simultaneously (LEFT <- CENTER -> RIGHT) with subtle stagger, power3.out easing, no layout shifts, no CLS
+// --- AUTHENTIC PHOTO CARD WITH REPEATABLE CENTER-OUT 0% -> 100% IMAGE REVEAL ANIMATION ---
+// Replays on every viewport entry; resets when leaving viewport; no layout shifts, no CLS
 const AuthenticPhotoCard = React.memo<{
   photo: PhotoItem;
   index: number;
@@ -28,14 +28,14 @@ const AuthenticPhotoCard = React.memo<{
   const cardRef = useRef<HTMLDivElement>(null);
   const revealRef = useRef<HTMLDivElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-  const hasAnimatedRef = useRef<boolean>(false);
+  const isInViewRef = useRef<boolean>(false);
 
   useEffect(() => {
     const card = cardRef.current;
     const revealEl = revealRef.current;
     if (!card || !revealEl) return;
 
-    hasAnimatedRef.current = false;
+    isInViewRef.current = false;
 
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) {
@@ -45,7 +45,6 @@ const AuthenticPhotoCard = React.memo<{
         scale: 1,
         clearProps: 'transform',
       });
-      hasAnimatedRef.current = true;
       return;
     }
 
@@ -56,49 +55,46 @@ const AuthenticPhotoCard = React.memo<{
       opacity: 0.75,
     });
 
-    const triggerReveal = () => {
-      if (hasAnimatedRef.current) return;
-      hasAnimatedRef.current = true;
-
-      gsap.fromTo(
-        revealEl,
-        {
-          clipPath: 'inset(0 49.5% 0 49.5%)',
-          scale: 0.985,
-          opacity: 0.75,
-        },
-        {
-          clipPath: 'inset(0 0% 0 0%)',
-          scale: 1,
-          opacity: 1,
-          duration: 0.9,
-          ease: 'power3.out',
-          delay: (index % 4) * 0.08,
-          overwrite: 'auto',
-        }
-      );
-    };
-
-    // Check if card is already within the viewport on mount or filter switch
-    const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight + 80 && rect.bottom > -80) {
-      triggerReveal();
-      return () => {
-        gsap.killTweensOf(revealEl);
-      };
-    }
-
-    // If not in viewport yet, trigger on scroll via IntersectionObserver
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting || entry.intersectionRatio > 0) {
-            triggerReveal();
-            observer.unobserve(entry.target);
+          // ENTER VIEWPORT: Trigger center-out reveal animation
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.12) {
+            if (!isInViewRef.current) {
+              isInViewRef.current = true;
+              gsap.fromTo(
+                revealEl,
+                {
+                  clipPath: 'inset(0 49.5% 0 49.5%)',
+                  scale: 0.985,
+                  opacity: 0.75,
+                },
+                {
+                  clipPath: 'inset(0 0% 0 0%)',
+                  scale: 1,
+                  opacity: 1,
+                  duration: 0.85,
+                  ease: 'power3.out',
+                  delay: (index % 4) * 0.08,
+                  overwrite: 'auto',
+                }
+              );
+            }
+          } else if (!entry.isIntersecting || entry.intersectionRatio === 0) {
+            // LEAVE VIEWPORT: Reset to narrow center strip state so it replays on next entry
+            if (isInViewRef.current) {
+              isInViewRef.current = false;
+              gsap.killTweensOf(revealEl);
+              gsap.set(revealEl, {
+                clipPath: 'inset(0 49.5% 0 49.5%)',
+                scale: 0.985,
+                opacity: 0.75,
+              });
+            }
           }
         });
       },
-      { threshold: 0, rootMargin: '80px 0px 80px 0px' }
+      { threshold: [0, 0.12] }
     );
 
     observer.observe(card);
