@@ -17,49 +17,46 @@ interface PhotoItem {
   objectPosition: string;
 }
 
-// --- PHOTO CARD COMPONENT ---
-// Clean editorial presentation: unobstructed authentic image, no permanent dark gradient, hover overlay with clean title and expand icon
+// --- AUTHENTIC PHOTO CARD WITH RESTORED GSAP ENTRANCE & HOVER MICRO-INTERACTIONS ---
+// Staggered subtle opacity, upward translation, and scale settling on entry; restrained hover zoom with expand icon shift
 const AuthenticPhotoCard = React.memo<{
   photo: PhotoItem;
   index: number;
+  photoCategory: string;
   onClick: () => void;
-}>(({ photo, index, onClick }) => {
+}>(({ photo, index, photoCategory, onClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    const isReduced = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (isReduced) {
-      setIsVisible(true);
+    const card = cardRef.current;
+    if (!card) return;
+
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (isReducedMotion) {
+      gsap.set(card, { opacity: 1, y: 0, scale: 1 });
       return;
     }
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -30px 0px' }
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 24, scale: 0.985 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.75,
+        ease: 'power3.out',
+        delay: (index % 4) * 0.06,
+        overwrite: 'auto',
+      }
     );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [photo.id]);
+  }, [photo.id, photoCategory, index]);
 
   return (
     <div
       ref={cardRef}
-      className={`break-inside-avoid mb-6 w-full transition-all duration-700 ease-out ${
-        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-6 scale-[0.98]'
-      }`}
-      style={{
-        transitionDelay: `${(index % 3) * 60}ms`,
-      }}
+      className="break-inside-avoid mb-6 w-full will-change-transform"
     >
       <div
         onClick={onClick}
@@ -76,9 +73,10 @@ const AuthenticPhotoCard = React.memo<{
       >
         <div className={`w-full ${photo.aspectRatio} relative overflow-hidden bg-black/40`}>
           <img
+            ref={imgRef}
             src={photo.src}
             alt={photo.alt}
-            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
             style={{ objectPosition: photo.objectPosition }}
           />
@@ -94,7 +92,7 @@ const AuthenticPhotoCard = React.memo<{
               <Maximize2 className="w-3.5 h-3.5" />
             </div>
           </div>
-          <div>
+          <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
             <h3 className="font-manrope font-extrabold text-xs sm:text-sm text-white tracking-tight drop-shadow-md">
               {photo.title}
             </h3>
@@ -114,9 +112,6 @@ export const GalleryPage: React.FC = () => {
   // Lightbox Modal state (active index in the filtered array, or null)
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
 
-  // Transformation Slider state (Percentage 0 - 100)
-  const [sliderPos, setSliderPos] = useState<number>(50);
-
   // Hero Section Parallax state
   const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
@@ -125,7 +120,6 @@ export const GalleryPage: React.FC = () => {
   const transSectionRef = useRef<HTMLElement>(null);
   const processSectionRef = useRef<HTMLElement>(null);
   const processLineRef = useRef<HTMLDivElement>(null);
-  const hasTransRevealedRef = useRef<boolean>(false);
 
   const isReducedMotion = typeof window !== 'undefined'
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -135,7 +129,6 @@ export const GalleryPage: React.FC = () => {
   const heroVisual = {
     src: '/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg',
     alt: 'Panoramic establishing view of TMR AI Car Care facility, entrance totem sign, and forecourt on Avinashi Road, Tiruppur',
-    tag: 'TIRUPPUR STUDIO',
     title: 'AUTOMOTIVE CRAFTSMANSHIP',
     caption: 'Establishing panoramic view of TMR AI Car Care on Avinashi Road, Tiruppur, showing the roadside entrance totem, customer driveway, and studio building.',
   };
@@ -461,16 +454,16 @@ export const GalleryPage: React.FC = () => {
   ];
 
   // SECTION 04: Dedicated Before & After Transformation Slider assets
-  // High-contrast surface restoration transformation
+  // Using matched real TMR AI Car Care vehicles (Innova Hycross & Mahindra XUV700) inside the Tiruppur workshop bay
   const transformationVisuals = {
     before: {
-      src: '/images/gallery/gallery-signature-before.webp',
-      alt: 'Automotive clear coat paint surface with swirl marks, spider webbing, and oxidation before machine compounding at TMR AI Car Care',
+      src: '/images/gallery/gallery-tmr-vehicle-before.jpg',
+      alt: 'Toyota Innova Hycross and Mahindra XUV700 with road dust, surface haze, and water spotting before detailing at TMR AI Car Care in Tiruppur',
       label: 'BEFORE',
     },
     after: {
-      src: '/images/gallery/gallery-signature-after.webp',
-      alt: 'Automotive clear coat paint surface after multi-stage machine compounding and ceramic coating at TMR AI Car Care',
+      src: '/images/gallery/gallery-tmr-vehicle-after.jpg',
+      alt: 'Toyota Innova Hycross and Mahindra XUV700 with deep gloss finish and ceramic coating at TMR AI Car Care in Tiruppur',
       label: 'AFTER',
     },
   };
@@ -506,7 +499,7 @@ export const GalleryPage: React.FC = () => {
     }
     metaDesc.setAttribute(
       'content',
-      'Explore authentic photographs of TMR AI Car Care studio in Tiruppur. Real workshop bays, ceramic coating, paint correction, wash ramps, 3M products & detailing team.'
+      'Explore authentic photographs of TMR AI Car Care studio in Tiruppur. Real workshop bays, ceramic coating, precision surface refinement, wash ramps, 3M products & detailing team.'
     );
 
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -607,40 +600,9 @@ export const GalleryPage: React.FC = () => {
     schemaScript.textContent = JSON.stringify(jsonLdData);
   }, []);
 
-  // Section 04 Transformation & Section 03 Process IntersectionObservers
+  // Section 03 Process IntersectionObserver for Connecting Line
   useEffect(() => {
     const isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Transformation Reveal Observer
-    const transSec = transSectionRef.current;
-    if (transSec) {
-      if (isReduced) {
-        setSliderPos(50);
-      } else {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && !hasTransRevealedRef.current) {
-                hasTransRevealedRef.current = true;
-                gsap.fromTo(
-                  { pos: 15 },
-                  { pos: 50 },
-                  {
-                    duration: 1.2,
-                    ease: 'power2.out',
-                    onUpdate: function () {
-                      setSliderPos(this.targets()[0].pos);
-                    },
-                  }
-                );
-              }
-            });
-          },
-          { threshold: 0.25 }
-        );
-        observer.observe(transSec);
-      }
-    }
 
     // Process Timeline Line Animation Observer
     const procSec = processSectionRef.current;
@@ -663,24 +625,6 @@ export const GalleryPage: React.FC = () => {
       }
     }
   }, []);
-
-  // Section 04 Touch & Mouse Handlers for Instant, Jitter-Free Comparison Slider
-  const updateSliderPosition = (clientX: number, currentTarget: HTMLElement) => {
-    const rect = currentTarget.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPos(percentage);
-  };
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    updateSliderPosition(e.clientX, e.currentTarget);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (e.touches.length > 0) {
-      updateSliderPosition(e.touches[0].clientX, e.currentTarget);
-    }
-  };
 
   // Filtered photography items based on selected category
   const filteredPhotos = useMemo(() => {
@@ -738,11 +682,11 @@ export const GalleryPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* SECTION 01 — GALLERY HERO (BRIGHT, VISIBLE FACILITY PHOTOGRAPH WITH SUBTLE EDITORIAL GRADIENT) */}
+      {/* SECTION 01 — GALLERY HERO (FULLSCREEN 100svh VIEWPORT WITH ZERO BOTTOM GAP) */}
       <section
         onMouseMove={handleHeroMouseMove}
         onMouseLeave={handleHeroMouseLeave}
-        className="relative w-full h-[88vh] sm:h-[94vh] flex flex-col justify-end overflow-hidden border-b border-white/10 bg-[#050505]"
+        className="relative w-full min-h-[100svh] h-[100svh] flex flex-col justify-end overflow-hidden border-b border-white/10 bg-[#050505]"
       >
         {/* Layer 1: Dedicated Authentic Establishing Photograph — Bright & Recognizable */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -761,7 +705,6 @@ export const GalleryPage: React.FC = () => {
           />
         </div>
 
-        {/* Layer 2: Targeted Gradient — Soft transparent fade allowing the facility and sign to be clearly visible */}
         {/* Targeted Smooth Multi-Stop Gradient: Dark text zone on left -> smooth transition -> clear facility on right */}
         <div
           className="absolute inset-0 z-10 pointer-events-none block md:hidden"
@@ -782,16 +725,9 @@ export const GalleryPage: React.FC = () => {
           }}
         />
 
-        {/* Layer 3: Editorial Typography Content */}
+        {/* Layer 3: Editorial Typography Content - Cleaned of legacy scaffolding tags */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 pb-16 sm:pb-24 flex flex-col justify-end space-y-6">
           <div className="flex flex-col space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF4B00]">
-                {heroVisual.tag}
-              </span>
-            </div>
-
             <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-white leading-[0.92] drop-shadow-2xl">
               AUTOMOTIVE <br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase tracking-normal">in</span> FOCUS.
@@ -814,7 +750,7 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 02 — MAIN PHOTO ARCHIVE (CLEAN MASONRY LAYOUT — NO DARK VOIDS, NO BAD CROPPING) */}
+      {/* SECTION 02 — MAIN PHOTO ARCHIVE (CLEAN MASONRY LAYOUT — STAGGERED GSAP ENTRANCE & HOVER ZOOM) */}
       <section
         id="studio-archive"
         className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
@@ -823,11 +759,6 @@ export const GalleryPage: React.FC = () => {
           {/* Header & Filter Controls Bar */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-white/10 pb-8">
             <div className="space-y-4 max-w-2xl">
-              <div className="inline-flex items-center gap-2">
-                <span className="text-xs font-mono font-bold tracking-[0.25em] text-[#FF4B00] uppercase">
-                  STUDIO COLLECTION
-                </span>
-              </div>
               <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05]">
                 STUDIO, WORKSHOP &amp; <br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">craft</span> GALLERY.
@@ -880,6 +811,7 @@ export const GalleryPage: React.FC = () => {
                 key={photo.id}
                 photo={photo}
                 index={index}
+                photoCategory={photoCategory}
                 onClick={() => setActiveLightboxIndex(index)}
               />
             ))}
@@ -895,9 +827,6 @@ export const GalleryPage: React.FC = () => {
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5E5E0] pb-8">
             <div className="space-y-4">
-              <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#FF4B00] uppercase">
-                THE 3-STAGE REFINEMENT
-              </span>
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-[#111111] uppercase tracking-tight">
                 THE 3-STAGE <br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">refinement</span> PROCESS.
@@ -986,23 +915,20 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 04 — TRANSFORMATION (BEFORE & AFTER COMPARISON SLIDER) */}
+      {/* SECTION 04 — TRANSFORMATION (BEFORE & AFTER COMPARISON ON REAL TMR VEHICLES) */}
       <section
         ref={transSectionRef}
         className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-            <div className="space-y-4">
-              <span className="text-xs font-mono font-bold tracking-[0.2em] text-[#FF4B00] uppercase">
-                SURFACE RESTORATION
-              </span>
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight">
-                SURFACE REFINEMENT <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">to mirror reflection.</span>
+            <div className="space-y-4 max-w-xl">
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl text-white uppercase tracking-tight leading-[1.05]">
+                FROM PREP <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">to mirror finish.</span>
               </h2>
-              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-md border-l pl-4 border-white/20">
-                Drag the interactive slider to inspect the removal of micro-marring, swirl marks, and compound haze followed by deep high-gloss ceramic paint sealing.
+              <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] max-w-md border-l pl-4 border-white/20 leading-relaxed">
+                Drag the interactive slider to inspect the removal of road film, surface haze, and swirl marks followed by high-gloss ceramic paint sealing on customer vehicles inside our Tiruppur workshop bay.
               </p>
             </div>
           </div>
@@ -1061,9 +987,9 @@ export const GalleryPage: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 05 — GALLERY FINAL CTA (STUDIO FACADE & APPOINTMENT BOOKING) */}
+      {/* SECTION 05 — GALLERY FINAL CTA (AUTHENTIC WORKSHOP VISUAL & CONSULTATION) */}
       <section className="relative w-full min-h-[75vh] md:min-h-[85vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-32 font-intertight border-t border-white/10">
-        {/* Layer 1: Dedicated Authentic Facility Photograph */}
+        {/* Layer 1: Dedicated Authentic Indian Detailing Bay Photograph */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
             src={finalCtaVisual.src}
@@ -1076,16 +1002,9 @@ export const GalleryPage: React.FC = () => {
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/95 via-black/80 to-black/40 pointer-events-none" />
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/50 pointer-events-none" />
 
-        {/* Layer 3: Editorial Content Box */}
+        {/* Layer 3: Editorial Content Box - Free of legacy editorial tags */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 flex flex-col justify-end space-y-8 my-auto">
           <div className="max-w-2xl space-y-6">
-            <div className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.25em] text-[#FF4B00]">
-                STUDIO APPOINTMENTS
-              </span>
-            </div>
-
             <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
               EXPERIENCE THE <br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">finish.</span>
