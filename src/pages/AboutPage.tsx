@@ -223,22 +223,6 @@ export const AboutPage: React.FC = () => {
                 </p>
               </div>
 
-              {/* Factual Signals Strip */}
-              <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-[#777777] uppercase tracking-wider">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-                  <span>Experience Roots: <strong className="text-[#111111]">2009</strong></span>
-                </div>
-                <span className="text-[#D8D8D5] hidden sm:inline">•</span>
-                <div className="flex items-center gap-2">
-                  <span>Operating Scale: <strong className="text-[#111111]">~500 Vehicles / Month</strong></span>
-                </div>
-                <span className="text-[#D8D8D5] hidden sm:inline">•</span>
-                <div className="flex items-center gap-2">
-                  <span>Location: <strong className="text-[#111111]">Avinashi Road, Tiruppur</strong></span>
-                </div>
-              </div>
-
             </div>
 
             {/* Right 45% — Prominent Real Founder Photograph */}
@@ -272,6 +256,47 @@ export const AboutPage: React.FC = () => {
                   <span className="text-[#FF4B00] font-bold">Avinashi Road</span>
                 </div>
               </div>
+            </div>
+
+          </div>
+
+          {/* Supporting Credibility Strip */}
+          <div className="pt-10 sm:pt-12 border-t border-[#D8D8D5] grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+            
+            <div className="flex flex-col space-y-1.5">
+              <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#111111] tracking-tight">
+                2009
+              </span>
+              <span className="font-manrope font-extrabold text-[11px] uppercase tracking-widest text-[#FF4B00]">
+                EXPERIENCE ROOTS
+              </span>
+              <p className="text-xs text-[#666666] leading-relaxed font-normal">
+                Automotive-care experience dating back to 2009.
+              </p>
+            </div>
+
+            <div className="flex flex-col space-y-1.5 border-t md:border-t-0 md:border-l border-[#D8D8D5] pt-4 md:pt-0 md:pl-8">
+              <span className="font-['Syncopate'] font-bold text-2xl sm:text-3xl text-[#111111] tracking-tight">
+                ~500 / MONTH
+              </span>
+              <span className="font-manrope font-extrabold text-[11px] uppercase tracking-widest text-[#FF4B00]">
+                TYPICAL OPERATING SCALE
+              </span>
+              <p className="text-xs text-[#666666] leading-relaxed font-normal">
+                Approximate vehicle volume handled during the long-running operation.
+              </p>
+            </div>
+
+            <div className="flex flex-col space-y-1.5 border-t md:border-t-0 md:border-l border-[#D8D8D5] pt-4 md:pt-0 md:pl-8">
+              <span className="font-['Syncopate'] font-bold text-xl sm:text-2xl text-[#111111] tracking-tight uppercase">
+                TIRUPPUR
+              </span>
+              <span className="font-manrope font-extrabold text-[11px] uppercase tracking-widest text-[#FF4B00]">
+                CURRENT STUDIO
+              </span>
+              <p className="text-xs text-[#666666] leading-relaxed font-normal">
+                Avinashi Road, near Hope College Junction.
+              </p>
             </div>
 
           </div>
@@ -403,67 +428,7 @@ export const AboutPage: React.FC = () => {
 
 
       {/* ============================================================
-          SECTION 3 — REAL PROOF
-          Job: Verified factual signals. Concise and restrained.
-          ============================================================ */}
-      <section className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-16 sm:py-24 border-b border-white/10" id="glance">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-8">
-          
-          <div className="space-y-2">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
-              AT A GLANCE
-            </span>
-            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl uppercase tracking-tighter text-white leading-[0.95]">
-              REAL <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">proof.</span>
-            </h2>
-          </div>
-
-          <div className="pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            <div className="flex flex-col space-y-2 p-2">
-              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-white tracking-tight">
-                2009
-              </span>
-              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
-                EXPERIENCE ROOTS
-              </span>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">
-                Automotive surface knowledge cultivated through hands-on vehicle care since 2009.
-              </p>
-            </div>
-
-            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-white/10 md:pl-8">
-              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-white tracking-tight">
-                ~500 / MO
-              </span>
-              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
-                TYPICAL OPERATING SCALE
-              </span>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">
-                Approximate vehicle volume handled across ongoing operations.
-              </p>
-            </div>
-
-            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-white/10 md:pl-8">
-              <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-white tracking-tight uppercase">
-                TIRUPPUR
-              </span>
-              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
-                CURRENT STUDIO
-              </span>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">
-                Avinashi Road, Near Hope College Junction, Tamil Nadu.
-              </p>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-      {/* ============================================================
-          SECTION 4 — VISIT THE STUDIO
+          SECTION 3 — VISIT THE STUDIO
           Job: Location and practical visit information. No history.
           ============================================================ */}
       <section id="studio" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-28 lg:py-32 border-b border-[#D8D8D5] scroll-mt-24">
@@ -525,7 +490,7 @@ export const AboutPage: React.FC = () => {
 
 
       {/* ============================================================
-          SECTION 5 — FINAL CTA
+          SECTION 4 — FINAL CTA
           Job: Conversion. Short. No repeated history or biography.
           ============================================================ */}
       <section className="relative w-full min-h-[70vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-28 font-manrope">

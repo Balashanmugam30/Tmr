@@ -1,7 +1,7 @@
 # TMR AI Car Care — About Page Final SEO Keyword Coverage & Strategy Matrix
 
 * **Target Route**: `/about` ([`src/pages/AboutPage.tsx`](file:///c:/Users/balashanmugam/OneDrive/Desktop/Freelance/TMR/src/pages/AboutPage.tsx))
-* **Primary Objective**: Human-grade editorial tone, strong local entity signals, zero keyword stuffing, zero cannibalization with service pages. Combined Story + Founder architecture with single continuous company narrative (redundant TMR Today section removed).
+* **Primary Objective**: Human-grade editorial tone, strong local entity signals, zero keyword stuffing, zero cannibalization with service pages. Combined Story + Founder architecture with integrated supporting credibility strip.
 
 ---
 
@@ -20,8 +20,8 @@
 | `PPF` / `paint protection` | Exact & Semantic | Method, CTA Links | Core Armor Service | No |
 | `Avinashi Road` / `Near Hope College Junction` | Exact Local Entity | Story, Studio & Schema | Physical Studio Address | No |
 | `Meenakshi Sundharam` | Factual Founder Entity | Combined Story & Schema | Founder Trust Signal | No |
-| `Experience Since 2009` | Factual Experience Signal | Title, Meta, Story, Real Proof | Business Heritage Signal | No |
-| `~500 vehicles/month operational scale` | Factual Track Record | Story & Real Proof | Operational Scale Signal | No |
+| `Experience Since 2009` | Factual Experience Signal | Title, Meta, Story, Credibility Strip | Business Heritage Signal | No |
+| `~500 vehicles/month operational scale` | Factual Track Record | Story & Credibility Strip | Operational Scale Signal | No |
 | **Price / Cost / Cheap Queries** | N/A | Excluded | Transactional Intent | **YES** (Owned by Service pages) |
 | **Booking / WhatsApp Modifiers** | N/A | Excluded | Commercial Intent | **YES** (Owned by Contact/Service pages) |
 | **Near-Me Queries** | N/A | Excluded | Geo-location Intent | **YES** (Owned by Local Architecture) |
@@ -34,10 +34,10 @@
 * **Combined Story + Founder**:
   - Integrated narrative: 2009 roots -> ~500 vehicles/mo volume -> Meenakshi Sundharam's shop-floor direction -> today's studio.
   - Large real founder photograph with clean identifier caption.
+  - Supporting 3-column credibility strip integrated directly into the section flow (2009, ~500 / Month, Tiruppur).
   - No separate duplicate founder biography section.
 * **Streamlined Section Progression**:
   - `HOW WE WORK`: Practical 3-step sequence (`01 INSPECT`, `02 PREPARE`, `03 FINISH`) over cinematic loop video.
-  - `REAL PROOF`: Restrained 3-item factual proof strip.
   - `VISIT THE STUDIO`: Practical location details and customer drop-off readiness.
   - `FINAL CTA`: Clean conversion action without repeated biography.
 * **Refined Alt Text**: Factual, concise image descriptions:
@@ -55,7 +55,6 @@
 * **`H2` Tags (Major Sections)**:
   - `FROM YEARS OF REAL VEHICLE CARE to TMR AI Car Care.` (Combined Story + Founder)
   - `HOW WE WORK.` (How We Work)
-  - `REAL proof.` (Real Proof / At a Glance)
   - `VISIT THE studio.` (Visit the Studio)
   - `READY FOR THE RIGHT next step?` (Final CTA)
 * **Hidden / Decorative Headings**: **0**
