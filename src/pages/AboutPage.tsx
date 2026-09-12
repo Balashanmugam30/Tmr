@@ -125,7 +125,9 @@ export const AboutPage: React.FC = () => {
   return (
     <div className="w-full bg-[#050505] text-[#F5F4EF] font-manrope selection:bg-[#FF4B00] selection:text-white">
       
-      {/* 01 / EDITORIAL AUTOMOTIVE HERO — STATIC PHOTOGRAPHIC BACKGROUND */}
+      {/* ============================================================
+          HERO — COMPLETELY LOCKED — DO NOT MODIFY
+          ============================================================ */}
       <section data-navbar-theme="dark" className="relative w-full min-h-[90vh] lg:min-h-screen flex flex-col justify-start pt-28 sm:pt-36 pb-16 px-6 md:px-16 overflow-hidden border-b border-white/10 bg-[#050505] text-white selection:bg-[#FF4B00]">
         
         {/* Layer 1: Dedicated Static Cinematic Automotive Hero Photo */}
@@ -181,45 +183,67 @@ export const AboutPage: React.FC = () => {
         </div>
 
       </section>
+      {/* ============================================================
+          END HERO — LOCKED
+          ============================================================ */}
 
-      {/* 02 / OUR STORY — BRAND ORIGIN & FOUNDER STATEMENT */}
+
+      {/* ============================================================
+          SECTION 1 — OUR STORY
+          Job: Tell the business history once. Where did the experience come from?
+          ============================================================ */}
       <section data-navbar-theme="light" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]" id="story">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-8">
+          
+          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[0.92] tracking-tighter uppercase text-[#111111]">
+            OUR <br />
+            <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-4">story.</span>
+          </h2>
+
+          <div className="space-y-6 font-manrope text-base sm:text-lg text-[#5f5e5e] leading-relaxed max-w-3xl border-l-2 border-[#FF4B00] pl-6">
+            <p>
+              The work behind TMR AI Car Care started long before the studio opened its doors. Beginning in 2009, the focus was straightforward — learn how vehicles respond to different surface treatments, understand clear-coat behaviour across Indian climate conditions, and develop the discipline to do the job properly every time.
+            </p>
+            <p>
+              Over the years, that hands-on work grew into a steady operation handling approximately 500 vehicles in a typical month. The practical knowledge built across those vehicles — sedans, SUVs, luxury imports, daily drivers — became the foundation for what TMR AI Car Care is today.
+            </p>
+            <p>
+              The current studio on Avinashi Road in Tiruppur is the result of that long-running experience brought together under one roof.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+
+      {/* ============================================================
+          SECTION 2 — FOUNDER
+          Job: Introduce the person behind the business.
+          ============================================================ */}
+      <section className="bg-[#050505] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10" id="founder">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
             
-            {/* Left Story Content Column */}
+            {/* Left — Founder Content */}
             <div className="lg:col-span-7 space-y-8">
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] leading-[0.92] tracking-tighter uppercase text-[#111111]">
-                BUILT IN TIRUPPUR. <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-4">built on care.</span>
+              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl leading-[0.92] tracking-tighter uppercase text-white">
+                MEENAKSHI <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-4">sundharam.</span>
               </h2>
 
-              <div className="space-y-6 font-manrope text-base sm:text-lg text-[#5f5e5e] leading-relaxed max-w-2xl border-l-2 border-[#FF4B00] pl-6">
+              <div className="space-y-6 font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed max-w-2xl border-l-2 border-[#FF4B00] pl-6">
                 <p>
-                  Long before TMR AI Car Care took its present form, the work behind it began with a simple commitment to looking after vehicles properly.
+                  Meenakshi Sundharam leads TMR AI Car Care from the shop floor. He is involved in day-to-day operations — reviewing surface conditions before work begins, supervising paint correction stages, and inspecting the final result before any vehicle leaves the studio.
                 </p>
                 <p>
-                  Founded by Meenakshi Sundharam, the operation brings automotive-care experience dating back to 2009, with a track record of caring for around 500 vehicles in a typical month across that operating journey.
-                </p>
-                <p>
-                  Today, the founder remains actively involved in daily studio operations on Avinashi Road, Tiruppur, ensuring that every vehicle receives the same disciplined preparation, clear-coat respect, and durable finish.
-                </p>
-                <p className="text-sm pt-2">
-                  Learn more about our specialized{' '}
-                  <Link to="/services/detailing-paint-care" className="text-[#FF4B00] font-bold hover:underline">
-                    automotive detailing services
-                  </Link>{' '}
-                  and protective{' '}
-                  <Link to="/services/ceramic-coating" className="text-[#FF4B00] font-bold hover:underline">
-                    ceramic coating solutions
-                  </Link>.
+                  His approach is practical rather than theoretical. The standards at TMR come directly from his insistence on doing the preparation work thoroughly, choosing the right compounds for each clear-coat type, and not cutting corners on curing time for coatings and films.
                 </p>
               </div>
             </div>
 
-            {/* Right Story Photographic Asset — Real Founder Photograph */}
-            <div className="lg:col-span-5 relative border border-[#D8D8D5] rounded-xl overflow-hidden shadow-2xl bg-[#111111] group">
+            {/* Right — Founder Photograph */}
+            <div className="lg:col-span-5 relative border border-white/10 rounded-xl overflow-hidden shadow-2xl bg-[#111111] group">
               <img
                 src="/images/about/tmr-ai-car-care-founder-meenakshi-sundharam-about.jpg"
                 alt="Meenakshi Sundharam, founder of TMR AI Car Care"
@@ -234,43 +258,52 @@ export const AboutPage: React.FC = () => {
 
           </div>
 
-          {/* Bottom Large Editorial Statistics Row */}
-          <div className="pt-12 border-t border-[#D8D8D5] grid grid-cols-1 md:grid-cols-3 gap-8">
+        </div>
+      </section>
+
+
+      {/* ============================================================
+          SECTION 3 — TMR TODAY
+          Job: Explain what the company is now. Current studio, current focus.
+          ============================================================ */}
+      <section data-navbar-theme="light" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5]" id="today">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-8">
+          
+          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl leading-[0.92] tracking-tighter uppercase text-[#111111]">
+            TMR <br />
+            <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-4">today.</span>
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
             
-            <div className="flex flex-col space-y-2 p-2">
-              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-[#111111] tracking-tight">
-                2009
-              </span>
-              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
-                EXPERIENCE ROOTS
-              </span>
-              <p className="text-xs text-[#707070] leading-relaxed">
-                Automotive-care knowledge and surface craft cultivated since 2009.
+            <div className="lg:col-span-7 space-y-6 font-manrope text-base sm:text-lg text-[#5f5e5e] leading-relaxed border-l-2 border-[#FF4B00] pl-6">
+              <p>
+                TMR AI Car Care operates from a dedicated facility on Avinashi Road in Tiruppur. The studio is equipped for the full range of automotive surface work — from basic exterior cleaning and interior conditioning through to multi-stage paint correction, ceramic coating application, and paint protection film installation.
+              </p>
+              <p>
+                The focus stays narrow and deliberate: detailing, paint correction, ceramic coatings, and PPF. TMR does not try to be a general garage or a tyre shop. The team works on vehicle surfaces, and that is it.
+              </p>
+              <p className="text-sm pt-2">
+                See the full range of{' '}
+                <Link to="/services/detailing-paint-care" className="text-[#FF4B00] font-bold hover:underline">
+                  detailing and paint correction
+                </Link>,{' '}
+                <Link to="/services/ceramic-coating" className="text-[#FF4B00] font-bold hover:underline">
+                  ceramic coating
+                </Link>, and{' '}
+                <Link to="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold hover:underline">
+                  PPF protection
+                </Link>{' '}
+                services.
               </p>
             </div>
 
-            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-[#D8D8D5] md:pl-8">
-              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-[#111111] tracking-tight">
-                ~500 / MO
-              </span>
-              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
-                TYPICAL MONTHLY SCALE
-              </span>
-              <p className="text-xs text-[#707070] leading-relaxed">
-                Hands-on volume managed across long-running vehicle-care operations.
-              </p>
-            </div>
-
-            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-[#D8D8D5] md:pl-8">
-              <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-[#111111] tracking-tight uppercase">
-                TIRUPPUR
-              </span>
-              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
-                TAMIL NADU, INDIA
-              </span>
-              <p className="text-xs text-[#707070] leading-relaxed">
-                Flagship studio on Avinashi Road, Near Hope College Junction.
-              </p>
+            <div className="lg:col-span-5 relative border border-[#D8D8D5] rounded-xl overflow-hidden shadow-2xl bg-[#111111]">
+              <img
+                src="/images/about/about-story.jpg"
+                alt="Vehicle surface inspection during automotive detailing at TMR AI Car Care"
+                className="w-full h-[340px] sm:h-[460px] object-cover"
+              />
             </div>
 
           </div>
@@ -278,8 +311,12 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 03 / THE BELIEF — FULL-WIDTH RECTANGULAR EDITORIAL VIDEO SECTION */}
-      <section className="relative w-full overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]" id="belief">
+
+      {/* ============================================================
+          SECTION 4 — HOW WE WORK
+          Job: Show the practical working approach. Three steps, concise.
+          ============================================================ */}
+      <section className="relative w-full overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]" id="method">
         
         {/* Full-Width Video Frame */}
         <div className="relative w-full h-[540px] sm:h-[620px] lg:h-[680px] overflow-hidden bg-black flex flex-col justify-between">
@@ -307,22 +344,19 @@ export const AboutPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/92 via-black/65 to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-black/50 z-10 pointer-events-none" />
 
-          {/* Layer 2: Floating Editorial UI Stack */}
+          {/* Layer 2: Section Content */}
           <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pt-10 sm:pt-14 md:pt-16 flex flex-col space-y-4 sm:space-y-5">
             
-            {/* 4-Line Refined Geometric Display Headline */}
             <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-3xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[78px] leading-[1.04] tracking-[-0.015em] uppercase text-white select-none max-w-[540px] xl:max-w-[620px]">
-              <span className="block font-normal text-white">GREAT CARE</span>
-              <span className="block font-normal text-white">BEGINS LONG</span>
-              <span className="block font-normal text-white">BEFORE THE</span>
+              <span className="block font-normal text-white">HOW</span>
+              <span className="block font-normal text-white">WE</span>
               <span className="block font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
-                POLISHER.
+                WORK.
               </span>
             </h2>
 
-            {/* Supporting Paragraph */}
             <p className="font-['Geist','Manrope',sans-serif] text-xs sm:text-sm text-[#D8D8D5] leading-relaxed max-w-[480px] font-normal pt-1">
-              At TMR AI Car Care, true quality starts before the machine touches the vehicle. We study the surface, understand its clear-coat condition, and choose the right paint correction and surface refinement process for the finish.
+              Every vehicle follows the same structured sequence — no shortcuts, no assumptions about the surface condition.
             </p>
 
             {/* Single Minimal CTA Link */}
@@ -331,59 +365,59 @@ export const AboutPage: React.FC = () => {
                 to="/services/detailing-paint-care"
                 className="inline-flex items-center gap-3 font-['Geist','Manrope',sans-serif] font-bold text-xs uppercase tracking-[0.2em] text-[#FF4B00] hover:text-white transition-colors group"
               >
-                <span>EXPLORE OUR PROCESS</span>
+                <span>EXPLORE OUR SERVICES</span>
                 <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
               </Link>
             </div>
 
           </div>
 
-          {/* Layer 3: Bottom Information Rail */}
+          {/* Layer 3: Bottom 3-Step Rail */}
           <div className="relative z-20 max-w-[1360px] w-full mx-auto px-6 md:px-16 pb-8 sm:pb-12 pt-6">
             <div className="pt-6 border-t border-white/15 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-10">
               
-              {/* Column 01 */}
+              {/* Step 01 — Inspect */}
               <div className="flex flex-col space-y-1">
                 <div className="flex items-center gap-3">
                   <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl sm:text-2xl text-[#FF4B00]">
                     01
                   </span>
                   <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-xs sm:text-sm uppercase tracking-wider text-white">
-                    UNDERSTAND
+                    INSPECT
                   </h3>
                 </div>
                 <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#A0A0A0] leading-relaxed">
-                  We inspect and study every detail of your vehicle's surface.
+                  Understand the vehicle — surface condition, clear-coat thickness, existing defects, and what the owner needs.
                 </p>
               </div>
 
-              {/* Column 02 */}
+              {/* Step 02 — Prepare */}
               <div className="flex flex-col space-y-1 border-t md:border-t-0 md:border-l border-white/15 pt-4 md:pt-0 md:pl-8">
                 <div className="flex items-center gap-3">
                   <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl sm:text-2xl text-[#FF4B00]">
                     02
                   </span>
                   <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-xs sm:text-sm uppercase tracking-wider text-white">
-                    REFINE
+                    PREPARE
                   </h3>
                 </div>
                 <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#A0A0A0] leading-relaxed">
-                  We choose the right paint correction method and perfect it.
+                  Decontaminate, correct, and refine the surface using the right compounds and methods for that specific paint.
                 </p>
               </div>
 
-              {/* Column 03 */}
+              {/* Step 03 — Finish */}
               <div className="flex flex-col space-y-1 border-t md:border-t-0 md:border-l border-white/15 pt-4 md:pt-0 md:pl-8">
                 <div className="flex items-center gap-3">
                   <span className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-semibold text-xl sm:text-2xl text-[#FF4B00]">
                     03
                   </span>
                   <h3 className="font-['Plus_Jakarta_Sans','Geist',sans-serif] font-bold text-xs sm:text-sm uppercase tracking-wider text-white">
-                    PRESERVE
+                    FINISH
                   </h3>
                 </div>
                 <p className="font-['Geist','Manrope',sans-serif] text-xs text-[#A0A0A0] leading-relaxed">
-                  We protect the finish with lasting ceramic coating or PPF shielding.
+                  Apply the appropriate coating, film, or sealant — and allow proper curing before the vehicle is returned.
                 </p>
               </div>
 
@@ -394,89 +428,80 @@ export const AboutPage: React.FC = () => {
 
       </section>
 
-      {/* 05 / THE TMR STANDARD — BRAND DIFFERENTIATION */}
-      <section id="standard" className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-20 sm:py-32 border-b border-white/10 scroll-mt-24">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
+
+      {/* ============================================================
+          SECTION 5 — AT A GLANCE
+          Job: Verified factual signals. Concise.
+          ============================================================ */}
+      <section className="bg-[#0D0D0D] text-white relative w-full overflow-hidden py-16 sm:py-24 border-b border-white/10" id="glance">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-10">
           
-          <div className="max-w-3xl space-y-6">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl uppercase tracking-tighter text-white leading-[0.92]">
-              QUALITY IS IN THE <br />
-              <span className="font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal inline-block transform -rotate-1">process.</span>
-            </h2>
-            <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed border-l-2 border-[#FF4B00] pl-5">
-              What sets TMR apart isn't marketing claims — it's the disciplined standard applied to every vehicle that enters our studio.
-            </p>
-          </div>
+          <h2 className="font-manrope font-extrabold text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter text-white leading-[0.92]">
+            AT A <br />
+            <span className="font-editorial italic font-normal text-[#FF4B00] lowercase pr-4">glance.</span>
+          </h2>
 
-          {/* 4 Editorial Differentiation Principles Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-4">
+          <div className="pt-4 border-t border-white/10 grid grid-cols-1 md:grid-cols-3 gap-8">
             
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">01</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  EXPERIENCE
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  Built on automotive-care experience dating back to 2009, with over a decade of hands-on detailing knowledge and clear-coat expertise.
-                </p>
-              </div>
+            <div className="flex flex-col space-y-2 p-2">
+              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-white tracking-tight">
+                2009
+              </span>
+              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                EXPERIENCE ROOTS
+              </span>
+              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                Automotive-care knowledge and hands-on surface work dating back to 2009.
+              </p>
             </div>
 
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">02</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  QUALITY
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  The focus is on doing the work properly, from initial surface inspection to final paint correction and ceramic application.
-                </p>
-              </div>
+            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-white/10 md:pl-8">
+              <span className="font-['Syncopate'] font-bold text-4xl sm:text-5xl text-white tracking-tight">
+                ~500 / MO
+              </span>
+              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                TYPICAL MONTHLY SCALE
+              </span>
+              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                Approximate vehicle volume handled across ongoing operations.
+              </p>
             </div>
 
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">03</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  SPECIALIZATION
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  TMR's team is focused specifically on car detailing, paint correction, ceramic coating, and PPF protection.
-                </p>
-              </div>
-            </div>
-
-            <div className="p-8 rounded-xl border border-white/10 bg-[#141414] flex flex-col justify-between space-y-6 hover:border-[#FF4B00] transition-colors group">
-              <span className="font-mono text-xs text-[#FF4B00] uppercase tracking-widest">04</span>
-              <div className="space-y-3">
-                <h3 className="font-manrope font-extrabold text-xl uppercase tracking-wide text-white group-hover:text-[#FF4B00] transition-colors">
-                  CONSISTENCY
-                </h3>
-                <p className="text-xs text-[#A0A0A0] leading-relaxed font-normal">
-                  The same attention to surface preparation, execution, and hydrophobic finish carries through every vehicle we care for.
-                </p>
-              </div>
+            <div className="flex flex-col space-y-2 p-2 border-t md:border-t-0 md:border-l border-white/10 md:pl-8">
+              <span className="font-['Syncopate'] font-bold text-3xl sm:text-4xl text-white tracking-tight uppercase">
+                TIRUPPUR
+              </span>
+              <span className="font-manrope font-extrabold text-xs uppercase tracking-widest text-[#FF4B00]">
+                CURRENT STUDIO
+              </span>
+              <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                Avinashi Road, Near Hope College Junction, Tamil Nadu.
+              </p>
             </div>
 
           </div>
+
         </div>
       </section>
 
-      {/* 06 / ROOTED IN TIRUPPUR — LOCAL STUDIO IDENTITY */}
-      <section id="workshop" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5] scroll-mt-24">
+
+      {/* ============================================================
+          SECTION 6 — VISIT THE STUDIO
+          Job: Location and practical visit information. No history.
+          ============================================================ */}
+      <section id="studio" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-32 border-b border-[#D8D8D5] scroll-mt-24">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <div className="lg:col-span-5 flex flex-col space-y-6">
               <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl tracking-tighter uppercase text-[#111111] leading-[0.95]">
-                ROOTED IN <br />
-                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">tiruppur.</span>
+                VISIT THE <br />
+                <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">studio.</span>
               </h2>
 
               <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
-                Located on Avinashi Road, TMR AI Car Care serves discerning vehicle owners across Tiruppur and Tamil Nadu with meticulous detailing, paint correction, and long-term surface protection.
+                The TMR AI Car Care studio is open for inspections, consultations, and vehicle drop-offs. Walk in or get in touch before your visit.
               </p>
 
               <div id="location" className="pt-2 flex flex-col space-y-2 text-xs font-mono text-[#707070] uppercase tracking-widest scroll-mt-24">
@@ -511,7 +536,11 @@ export const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 07 / FINAL CTA — START HERE */}
+
+      {/* ============================================================
+          SECTION 7 — FINAL CTA
+          Job: Conversion. Short. No repeated history or biography.
+          ============================================================ */}
       <section className="relative w-full min-h-[70vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-28 font-manrope">
         {/* Layer 1: Full-Bleed Background Visual */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
@@ -526,25 +555,26 @@ export const AboutPage: React.FC = () => {
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/95 via-black/80 to-black/40 pointer-events-none" />
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/50 pointer-events-none" />
 
-        {/* Layer 3: Editorial Content Box */}
+        {/* Layer 3: CTA Content */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 flex flex-col justify-end space-y-8 my-auto">
           <div className="max-w-2xl space-y-6">
             <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
-              YOUR CAR DESERVES <br />
-              THE RIGHT <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">care.</span>
+              READY FOR THE <br />
+              RIGHT <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">next step?</span>
             </h2>
 
             <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l pl-4 border-white/20 max-w-xl">
-              Talk to our team about the right next step for your vehicle. Explore our{' '}
+              Talk to the TMR AI Car Care team about{' '}
               <Link to="/services/detailing-paint-care" className="text-[#FF4B00] font-bold hover:underline">
-                paint correction and detailing
+                detailing
               </Link>,{' '}
               <Link to="/services/ceramic-coating" className="text-[#FF4B00] font-bold hover:underline">
                 ceramic coating
               </Link>, or{' '}
               <Link to="/services/ppf-paint-protection" className="text-[#FF4B00] font-bold hover:underline">
-                PPF paint protection
-              </Link>.
+                PPF protection
+              </Link>{' '}
+              for your vehicle.
             </p>
 
             {/* Action Buttons */}
@@ -563,7 +593,7 @@ export const AboutPage: React.FC = () => {
                 to="/contact"
                 className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-md font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors text-center inline-flex items-center justify-center gap-2"
               >
-                <span>CONTACT STUDIO</span>
+                <span>BOOK AN INSPECTION</span>
                 <span className="text-base">→</span>
               </Link>
             </div>
