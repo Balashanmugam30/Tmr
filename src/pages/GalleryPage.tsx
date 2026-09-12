@@ -287,9 +287,10 @@ export const GalleryPage: React.FC = () => {
   const processLineRef = useRef<HTMLDivElement>(null);
   const hasTransRevealedRef = useRef<boolean>(false);
 
-  // Real TMR AI Car Care First-Party Studio, Team & Workshop Photographs (20 Authentic Real Photos)
+  // Real TMR AI Car Care First-Party Studio, Team & Workshop Photographs (29 Authentic Real Photos)
   // Non-negotiable: 100% authentic, zero hallucinated text/pixels, one placement per photo
   const realStudioPhotos = [
+    // Row 1 (2 + 1 = 3 cols)
     // 01 — STUDIO (Wide establishing)
     {
       id: 'studio-overview',
@@ -316,6 +317,8 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 25%',
     },
+
+    // Row 2 (2 + 1 = 3 cols)
     // 03 — WORKSHOP (Innova Hycross & XUV700 dual bay)
     {
       id: 'workshop-innova-xuv700-bay',
@@ -342,7 +345,78 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 40%',
     },
-    // 05 — TEAM (Team in workshop bay)
+
+    // Row 3 (2 + 1 = 3 cols)
+    // 05 — WORKSHOP (Fortuner & Swift dual bay)
+    {
+      id: 'fortuner-swift-workshop-bay',
+      src: '/images/gallery/workshop/tmr-ai-car-care-fortuner-swift-workshop-bay.jpg',
+      alt: 'Two TMR AI Car Care technicians detailing a white Toyota Fortuner and silver Maruti Suzuki Swift inside the workshop bay in Tiruppur',
+      title: 'FORTUNER & SWIFT WORKSHOP BAY',
+      category: 'WORKSHOP' as const,
+      categoryLabel: '03 — WORKSHOP // DETAILING BAY',
+      caption: 'Two detailing technicians at work in the workshop bay between a white Toyota Fortuner and a silver Maruti Suzuki Swift.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 06 — TEAM (Technician microfibre prep)
+    {
+      id: 'technician-microfibre-prep',
+      src: '/images/gallery/team/tmr-ai-car-care-technician-microfibre-prep.jpg',
+      alt: 'TMR AI Car Care technician in uniform with microfiber cloth preparing car door and interior during detailing in Tiruppur',
+      title: 'TECHNICIAN PREPARATION',
+      category: 'TEAM' as const,
+      categoryLabel: '02 — TEAM // INTERIOR PREP',
+      caption: 'TMR AI Car Care technician in uniform holding a microfiber towel beside an open vehicle door, preparing the door jambs and interior trim.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 30%',
+    },
+
+    // Row 4 (2 + 1 = 3 cols)
+    // 07 — TEAM (Full detailing team 5-person group)
+    {
+      id: 'full-detailing-team',
+      src: '/images/gallery/team/tmr-ai-car-care-full-detailing-team.png',
+      alt: 'Full detailing team of TMR AI Car Care standing in the workshop bay giving thumbs-up gestures in Tiruppur',
+      title: 'FULL DETAILING TEAM & CREW',
+      category: 'TEAM' as const,
+      categoryLabel: '02 — TEAM // WORKSHOP CREW',
+      caption: 'The complete TMR AI Car Care detailing staff and technicians in uniform gathered inside the workshop facility.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 08 — TEAM (3M uniform embroidery logo macro)
+    {
+      id: 'uniform-embroidery',
+      src: '/images/gallery/team/tmr-ai-car-care-3m-uniform-embroidery.jpg',
+      alt: 'Official 3M Car Care embroidered insignia on black technician uniform polo at TMR AI Car Care Tiruppur',
+      title: '3M UNIFORM EMBROIDERY DETAIL',
+      category: 'TEAM' as const,
+      categoryLabel: '02 — TEAM // UNIFORM INSIGNIA',
+      caption: 'Close-up detail of the authentic 3M Car Care embroidered chest badge on the official detailing technician uniform.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+
+    // Row 5 (2 + 1 = 3 cols)
+    // 09 — TEAM (Technician cleaning door jamb)
+    {
+      id: 'technician-door-jamb-cleaning',
+      src: '/images/gallery/team/tmr-ai-car-care-technician-door-jamb-cleaning.png',
+      alt: 'TMR AI Car Care technician cleaning vehicle door jamb and latch with microfiber cloth in Tiruppur',
+      title: 'DOOR JAMB & LATCH DETAILING',
+      category: 'TEAM' as const,
+      categoryLabel: '02 — TEAM // DOOR JAMB CARE',
+      caption: 'Technician carefully detailing and degreasing vehicle door shuts, weatherstripping, and latch mechanisms using a microfiber cloth.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 10 — TEAM (Team in workshop bay)
     {
       id: 'team-workshop',
       src: '/images/gallery/team/tmr-ai-car-care-team-workshop.jpg',
@@ -355,7 +429,22 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 35%',
     },
-    // 06 — TEAM (Technician masking wheel arch)
+
+    // Row 6 (2 + 1 = 3 cols)
+    // 11 — TEAM (Detailing technicians trio thumbs up)
+    {
+      id: 'detailing-technicians-trio',
+      src: '/images/gallery/team/tmr-ai-car-care-detailing-technicians-thumbs-up.jpg',
+      alt: 'Three TMR AI Car Care detailing technicians giving thumbs up between vehicles in the workshop in Tiruppur',
+      title: 'DETAILING TECHNICIANS TRIO',
+      category: 'TEAM' as const,
+      categoryLabel: '02 — TEAM // CRAFTSMEN',
+      caption: 'Three professional detailing technicians in branded 3M uniform presenting finished vehicle projects inside the studio bay.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 40%',
+    },
+    // 12 — TEAM (Technician masking wheel arch)
     {
       id: 'technician-masking',
       src: '/images/gallery/team/tmr-ai-car-care-technician-masking.png',
@@ -368,7 +457,22 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 65%',
     },
-    // 07 — WORKSHOP (Orbital polisher & 3M compound)
+
+    // Row 7 (2 + 1 = 3 cols)
+    // 13 — STUDIO (Wide reception lounge & standees)
+    {
+      id: 'reception-lounge-standees',
+      src: '/images/gallery/studio/tmr-ai-car-care-reception-lounge-standees.png',
+      alt: 'TMR AI Car Care customer reception and consultation lounge with 3M PPF standees and customer vehicle in Tiruppur',
+      title: 'CLIENT RECEPTION & 3M STANDEES',
+      category: 'STUDIO' as const,
+      categoryLabel: '01 — STUDIO // RECEPTION',
+      caption: 'Wide view of the customer reception area featuring 3M Paint Protection Film and Exterior Car Care standees, wooden lounge seating, and glass partition overlooking the workshop.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+    // 14 — WORKSHOP (Orbital polisher & 3M compound)
     {
       id: 'polisher-compound',
       src: '/images/gallery/workshop/tmr-ai-car-care-polisher-compound.jpg',
@@ -381,7 +485,9 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 50%',
     },
-    // 08 — SHOWROOM (Panoramic retail inventory wall)
+
+    // Row 8 (2 + 1 = 3 cols)
+    // 15 — SHOWROOM (Panoramic retail inventory wall)
     {
       id: 'retail-showroom-inventory-wall',
       src: '/images/gallery/studio/tmr-ai-car-care-retail-showroom-inventory-wall.png',
@@ -394,7 +500,7 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 50%',
     },
-    // 09 — SHOWROOM (Product & film shelving)
+    // 16 — SHOWROOM (Product & film shelving)
     {
       id: 'product-display-shelves',
       src: '/images/gallery/studio/tmr-ai-car-care-product-display-shelves.jpg',
@@ -407,7 +513,9 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 35%',
     },
-    // 10 — SHOWROOM (Full retail inventory wall)
+
+    // Row 9 (2 + 1 = 3 cols)
+    // 17 — SHOWROOM (Full retail inventory wall)
     {
       id: 'retail-inventory-wall',
       src: '/images/gallery/studio/tmr-ai-car-care-retail-inventory-shelving-wall.png',
@@ -420,7 +528,35 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 50%',
     },
-    // 11 — SHOWROOM (3M Black Plastic Restorer demo display)
+    // 18 — SHOWROOM (Dashboard Dresser & ceramic display)
+    {
+      id: 'dashboard-dresser-ceramic-display',
+      src: '/images/gallery/studio/tmr-ai-car-care-dashboard-dresser-ceramic-display.png',
+      alt: '3M Dashboard Dresser bottles and Meguiar\'s M688 Beyond Ceramic Paint Coating kit displayed on glass shelves at TMR AI Car Care Tiruppur',
+      title: 'DASHBOARD DRESSER & CERAMIC DISPLAY',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // DASHBOARD CARE',
+      caption: 'Retail glass shelving displaying rows of 3M Dashboard Dresser spray bottles alongside Meguiar\'s M688 Beyond Ceramic Paint Coating kit.',
+      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 50%',
+    },
+
+    // Row 10 (2 + 1 = 3 cols)
+    // 19 — SHOWROOM (UnderShield protective coating shelf)
+    {
+      id: 'undershield-protective-coating-shelf',
+      src: '/images/gallery/studio/tmr-ai-car-care-undershield-protective-coating-shelf.png',
+      alt: 'Bottles of 3M UnderShield protective undercoating and underseal cans neatly arranged on showroom shelves at TMR AI Car Care',
+      title: '3M UNDERSHIELD & UNDERCOATING DISPLAY',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // UNDERBODY CARE',
+      caption: 'Showroom display shelves arranged with 3M UnderShield protective undercoating bottles, underseal aerosol cans, and microfiber cloths.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 45%',
+    },
+    // 20 — SHOWROOM (3M Black Plastic Restorer demo display)
     {
       id: '3m-plastic-restorer-display',
       src: '/images/gallery/studio/tmr-ai-car-care-3m-plastic-restorer-display.jpg',
@@ -433,20 +569,22 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 50%',
     },
-    // 12 — SHOWROOM (3M UnderShield display shelves)
+
+    // Row 11 (2 + 1 = 3 cols)
+    // 21 — SHOWROOM (3M UnderShield display shelves)
     {
       id: '3m-undershield-shelves',
       src: '/images/gallery/studio/tmr-ai-car-care-3m-undershield-display-shelves.png',
       alt: '3M UnderShield Rust free treatment bottles and car care products displayed on glass showroom shelves at TMR AI Car Care Tiruppur',
       title: '3M UNDERSHIELD DISPLAY SHELVES',
       category: 'SHOWROOM' as const,
-      categoryLabel: '06 — OFFICE // UNDERBODY CARE',
+      categoryLabel: '06 — OFFICE // RUST PROTECTION',
       caption: 'Showroom glass display shelving showcasing 3M UnderShield Rust-Free treatment bottles and professional underbody protection products.',
       colSpanDesktop: 'lg:col-span-2 md:col-span-2',
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 50%',
     },
-    // 13 — SHOWROOM (Ceramic coatings & shampoo shelves)
+    // 22 — SHOWROOM (Ceramic coatings & shampoo shelves)
     {
       id: 'ceramic-coating-shampoo-shelves',
       src: '/images/gallery/studio/tmr-ai-car-care-ceramic-coating-shampoo-shelves.jpg',
@@ -459,7 +597,22 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 40%',
     },
-    // 14 — SHOWROOM (3M microfibre cloth packet display)
+
+    // Row 12 (2 + 1 = 3 cols)
+    // 23 — SHOWROOM (Anti-rust display standee)
+    {
+      id: 'anti-rust-display',
+      src: '/images/gallery/studio/tmr-ai-car-care-anti-rust-display.png',
+      alt: '3M Car Care Anti-Rust Coating banner standee inside the glass showroom bay at TMR AI Car Care in Tiruppur',
+      title: 'ANTI-RUST & UNDERBODY DISPLAY',
+      category: 'SHOWROOM' as const,
+      categoryLabel: '06 — OFFICE // STANDARDS',
+      caption: 'Informational display for 3M Underbody Anti-Corrosion Treatment inside the front showroom overlooking the entrance forecourt.',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
+      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
+      objectPosition: 'center 45%',
+    },
+    // 24 — SHOWROOM (3M microfibre cloth packet display)
     {
       id: '3m-microfibre-cloth-display',
       src: '/images/gallery/studio/tmr-ai-car-care-3m-microfibre-cloth-display.jpg',
@@ -472,7 +625,9 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 45%',
     },
-    // 15 — WORKSHOP (Wash bay hydraulic lift ramp)
+
+    // Row 13 (2 + 1 = 3 cols)
+    // 25 — WORKSHOP (Wash bay hydraulic lift ramp)
     {
       id: 'wash-bay-ramp',
       src: '/images/gallery/workshop/tmr-ai-car-care-wash-bay-ramp.jpg',
@@ -481,11 +636,11 @@ export const GalleryPage: React.FC = () => {
       category: 'WORKSHOP' as const,
       categoryLabel: '03 — WORKSHOP // WASH BAY',
       caption: 'Dedicated foam wash and underbody wash bay featuring hydraulic lift ramp, tiled waterproof walls, and pressure spray lines.',
-      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 40%',
     },
-    // 16 — WORKSHOP (3M chemicals & 5L cleaner jugs cart)
+    // 26 — WORKSHOP (3M chemicals & 5L cleaner jugs cart)
     {
       id: '3m-cleaner-chemicals-cart',
       src: '/images/gallery/workshop/tmr-ai-car-care-3m-cleaner-chemicals-cart.jpg',
@@ -498,7 +653,9 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 40%',
     },
-    // 17 — STUDIO (Roadside landmark totem sign)
+
+    // Row 14 (2 + 1 = 3 cols)
+    // 27 — STUDIO (Roadside landmark totem sign)
     {
       id: 'roadside-totem',
       src: '/images/gallery/studio/tmr-ai-car-care-roadside-totem.jpg',
@@ -507,11 +664,11 @@ export const GalleryPage: React.FC = () => {
       category: 'STUDIO' as const,
       categoryLabel: '01 — STUDIO // LANDMARK',
       caption: 'Official roadside entrance pylon totem with illuminated logo and service capsules along the approach road in Tiruppur.',
-      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
+      colSpanDesktop: 'lg:col-span-2 md:col-span-2',
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 25%',
     },
-    // 18 — SHOWROOM (Interior & treatment standees)
+    // 28 — SHOWROOM (Interior & treatment standees)
     {
       id: 'showroom-displays',
       src: '/images/gallery/studio/tmr-ai-car-care-showroom-displays.jpg',
@@ -524,20 +681,9 @@ export const GalleryPage: React.FC = () => {
       aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
       objectPosition: 'center 45%',
     },
-    // 19 — SHOWROOM (Anti-rust display standee)
-    {
-      id: 'anti-rust-display',
-      src: '/images/gallery/studio/tmr-ai-car-care-anti-rust-display.png',
-      alt: '3M Car Care Anti-Rust Coating banner standee inside the glass showroom bay at TMR AI Car Care in Tiruppur',
-      title: 'ANTI-RUST & UNDERBODY DISPLAY',
-      category: 'SHOWROOM' as const,
-      categoryLabel: '06 — OFFICE // STANDARDS',
-      caption: 'Informational display for 3M Underbody Anti-Corrosion Treatment inside the front showroom overlooking the entrance forecourt.',
-      colSpanDesktop: 'lg:col-span-1 md:col-span-1',
-      aspectDesktop: 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[1.85/1]',
-      objectPosition: 'center 45%',
-    },
-    // 20 — STUDIO (Architectural 3D facade header)
+
+    // Row 15 (3 cols — Full width architectural marquee banner)
+    // 29 — STUDIO (Architectural 3D facade header)
     {
       id: 'brand-signage',
       src: '/images/gallery/studio/tmr-ai-car-care-brand-signage.png',
@@ -1036,16 +1182,20 @@ export const GalleryPage: React.FC = () => {
             {/* Category Filter Pills */}
             <div className="flex flex-wrap items-center gap-2 shrink-0">
               {(['ALL', 'STUDIO', 'TEAM', 'WORKSHOP', 'SHOWROOM'] as const).map((cat) => {
+                const count =
+                  cat === 'ALL'
+                    ? realStudioPhotos.length
+                    : realStudioPhotos.filter((p) => p.category === cat).length;
                 const label =
                   cat === 'ALL'
-                    ? 'ALL PHOTOS (20)'
+                    ? `ALL PHOTOS (${count})`
                     : cat === 'STUDIO'
-                    ? 'STUDIO & FACILITY (4)'
+                    ? `STUDIO & FACILITY (${count})`
                     : cat === 'TEAM'
-                    ? 'TEAM & CRAFT (2)'
+                    ? `TEAM & CRAFT (${count})`
                     : cat === 'WORKSHOP'
-                    ? 'WORKSHOP & TOOLS (5)'
-                    : 'SHOWROOM INTERIOR (9)';
+                    ? `WORKSHOP & TOOLS (${count})`
+                    : `SHOWROOM INTERIOR (${count})`;
                 const isActive = photoCategory === cat;
                 return (
                   <button
