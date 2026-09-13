@@ -45,7 +45,7 @@
   - `alt="Meenakshi Sundharam, founder of TMR AI Car Care"`
   - `alt="Machine polishing and paint refinement inside TMR AI Car Care studio"`
   - `alt="TMR AI Car Care detailing studio facility on Avinashi Road, Tiruppur"`
-  - `alt="Detailed vehicle with mirror finish inside TMR AI Car Care studio"`
+  - `alt="Professionally detailed vehicle inside a premium automotive detailing studio"`
 
 ---
 

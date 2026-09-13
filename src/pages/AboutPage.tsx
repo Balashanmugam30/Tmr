@@ -539,29 +539,33 @@ export const AboutPage: React.FC = () => {
           SECTION 4 — FINAL CTA
           Job: Conversion. Short. No repeated history or biography.
           ============================================================ */}
-      <section className="relative w-full min-h-[70vh] flex flex-col justify-end bg-[#050505] text-white overflow-hidden py-20 sm:py-28 font-manrope">
-        {/* Layer 1: Full-Bleed Background Visual */}
+      <section id="cta" className="relative w-full min-h-[520px] lg:min-h-[580px] flex flex-col justify-center bg-[#050505] text-white overflow-hidden py-16 sm:py-20 lg:py-24 font-manrope">
+        {/* Layer 1: Full-Bleed Authentic Indian Detailing Studio Visual */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <img
-            src="/images/about/about-final-cta.jpg"
-            alt="Detailed vehicle with mirror finish inside TMR AI Car Care studio"
-            className="w-full h-full object-cover object-center scale-[1.02] transition-transform duration-[10000ms] ease-out hover:scale-105"
+            src="/images/about/tmr-ai-car-care-about-cta-indian-detailing-studio.jpg"
+            alt="Professionally detailed vehicle inside a premium automotive detailing studio"
+            className="w-full h-full object-cover object-[75%_center] sm:object-center scale-[1.01] transition-transform duration-1000 ease-out"
           />
         </div>
 
-        {/* Layer 2: Fixed Dark Cinematic Overlay Gradient */}
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/95 via-black/80 to-black/40 pointer-events-none" />
-        <div className="absolute inset-0 z-10 bg-gradient-to-t from-black via-transparent to-black/50 pointer-events-none" />
+        {/* Layer 2: Localized Gradient Overlay — Dark Left Text-Safe Region, Clear Vehicle Right */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#050505]/95 via-[#050505]/75 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#050505]/90 via-transparent to-[#050505]/40 pointer-events-none" />
 
-        {/* Layer 3: CTA Content */}
-        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 flex flex-col justify-end space-y-8 my-auto">
-          <div className="max-w-2xl space-y-6">
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
+        {/* Layer 3: CTA Content Group */}
+        <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 flex flex-col justify-center">
+          <div className="max-w-xl space-y-6">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
+              TMR AI CAR CARE
+            </span>
+
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase text-white leading-[0.98] tracking-tighter">
               READY FOR THE <br />
               RIGHT <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">next step?</span>
             </h2>
 
-            <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed font-normal border-l pl-4 border-white/20 max-w-xl">
+            <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] leading-relaxed font-normal border-l-2 pl-4 border-[#FF4B00] max-w-lg">
               Talk to the TMR AI Car Care team about{' '}
               <Link to="/services/detailing-paint-care" className="text-[#FF4B00] font-bold hover:underline">
                 detailing
@@ -575,32 +579,32 @@ export const AboutPage: React.FC = () => {
               for your vehicle.
             </p>
 
-            {/* Action Buttons */}
-            <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            {/* Action Buttons: Primary (Book Inspection) + Secondary (WhatsApp) */}
+            <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <Link
+                to="/contact"
+                className="px-7 py-3.5 bg-[#FF4B00] text-white rounded-md font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors shadow-xl text-center inline-flex items-center justify-center gap-2 group"
+              >
+                <span>BOOK AN INSPECTION</span>
+                <span className="text-sm group-hover:translate-x-1 transition-transform">→</span>
+              </Link>
+
               <a
                 href={`https://wa.me/${companyData.contact.whatsapp}?text=About%20Page%20Enquiry`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 bg-[#FF4B00] text-white rounded-md font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors shadow-2xl text-center inline-flex items-center justify-center gap-2"
+                className="px-7 py-3.5 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-md font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors text-center inline-flex items-center justify-center gap-2 group"
               >
                 <span>WHATSAPP THE TEAM</span>
-                <span className="text-base">→</span>
+                <span className="text-sm group-hover:translate-x-1 transition-transform">→</span>
               </a>
-
-              <Link
-                to="/contact"
-                className="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-md font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors text-center inline-flex items-center justify-center gap-2"
-              >
-                <span>BOOK AN INSPECTION</span>
-                <span className="text-base">→</span>
-              </Link>
             </div>
 
             {/* Location & Gallery Links Line */}
-            <div className="pt-6 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex flex-wrap items-center gap-4">
+            <div className="pt-4 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>Tiruppur, Tamil Nadu • Avinashi Road • TMR AI Car Care Studio</span>
+                <span>Tiruppur, Tamil Nadu • Avinashi Road</span>
               </div>
               <span className="text-white/30">•</span>
               <Link to="/gallery" className="text-[#FF4B00] hover:underline flex items-center gap-1">
