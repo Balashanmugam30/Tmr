@@ -431,56 +431,102 @@ export const AboutPage: React.FC = () => {
           SECTION 3 — VISIT THE STUDIO
           Job: Location and practical visit information. No history.
           ============================================================ */}
-      <section id="studio" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-28 lg:py-32 border-b border-[#D8D8D5] scroll-mt-24">
-        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
+      {/* ============================================================
+          SECTION 3 — VISIT THE STUDIO
+          Job: Location and practical visit information. No history.
+          ============================================================ */}
+      <section data-navbar-theme="light" id="studio" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-[#D8D8D5] scroll-mt-24">
+        <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             
+            {/* Left Column — Editorial Heading, Details, Info Rail, Paired Actions */}
             <div className="lg:col-span-5 flex flex-col space-y-6">
               <div className="space-y-3">
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
                   FACILITY LOCATION
                 </span>
-                <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl tracking-tighter uppercase text-[#111111] leading-[0.95]">
-                  VISIT THE <br />
-                  <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">studio.</span>
+                <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-[52px] tracking-tight uppercase text-[#111111] leading-[1.02]">
+                  SEE WHERE THE WORK <br className="hidden sm:inline" />
+                  <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">happens.</span>
                 </h2>
               </div>
 
               <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
-                The TMR AI Car Care studio is open for paint inspections, protection consultations, and vehicle drop-offs. Walk in during studio hours or get in touch before your visit.
+                Our TMR AI Car Care studio is located on Avinashi Road, near Hope College Junction in Tiruppur. We welcome vehicle owners for paint assessments, protective film consultations, and scheduled detailing appointments.
               </p>
 
-              <div id="location" className="pt-2 flex flex-col space-y-2 text-xs font-mono text-[#707070] uppercase tracking-widest scroll-mt-24">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#FF4B00]" />
-                  <span>AVINASHI ROAD • NEAR HOPE COLLEGE JUNCTION</span>
+              {/* Compact Information Rail */}
+              <div id="location" className="pt-2 border-t border-[#D8D8D5] grid grid-cols-1 sm:grid-cols-3 gap-4 text-left scroll-mt-24">
+                <div className="space-y-1">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF4B00] block">
+                    LOCATION
+                  </span>
+                  <p className="font-manrope font-bold text-xs sm:text-sm text-[#111111] leading-snug">
+                    Avinashi Road
+                  </p>
+                  <p className="text-[11px] text-[#666666] leading-tight">
+                    Near Hope College Jxn, Tiruppur — 641602
+                  </p>
                 </div>
-                <span className="pl-4 text-[#111111] font-bold">TIRUPPUR, TAMIL NADU 641602</span>
+
+                <div className="space-y-1 sm:border-l sm:border-[#D8D8D5] sm:pl-4">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF4B00] block">
+                    OPERATING HOURS
+                  </span>
+                  <p className="font-manrope font-bold text-xs sm:text-sm text-[#111111] leading-snug">
+                    9:00 AM – 8:00 PM
+                  </p>
+                  <p className="text-[11px] text-[#666666] leading-tight">
+                    Mon – Sat (Sun by appt)
+                  </p>
+                </div>
+
+                <div className="space-y-1 sm:border-l sm:border-[#D8D8D5] sm:pl-4">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF4B00] block">
+                    STUDIO LINE
+                  </span>
+                  <a
+                    href={`tel:${companyData.contact.phone}`}
+                    className="font-manrope font-bold text-xs sm:text-sm text-[#111111] hover:text-[#FF4B00] transition-colors leading-snug block"
+                  >
+                    {companyData.contact.phoneFormatted}
+                  </a>
+                  <p className="text-[11px] text-[#666666] leading-tight">
+                    Direct / WhatsApp Available
+                  </p>
+                </div>
               </div>
 
-              <div className="pt-4">
+              {/* Action Buttons: Directions (Maps) + Contact Studio */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+                <a
+                  href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 sm:px-7 py-3.5 bg-[#111111] text-white font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-[#FF4B00] transition-colors rounded-md shadow-md inline-flex items-center justify-center gap-2 group text-center"
+                >
+                  <span>GET DIRECTIONS</span>
+                  <span className="text-sm group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">↗</span>
+                </a>
+
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-3 px-8 py-4 bg-[#111111] text-white font-extrabold text-xs uppercase tracking-widest hover:bg-[#FF4B00] transition-colors rounded-md shadow-lg"
+                  className="px-6 sm:px-7 py-3.5 bg-transparent border border-[#111111]/30 text-[#111111] font-manrope font-extrabold text-xs uppercase tracking-widest hover:border-[#111111] hover:bg-[#111111] hover:text-white transition-colors rounded-md inline-flex items-center justify-center gap-2 group text-center"
                 >
-                  <span>VIEW LOCATION &amp; CONTACT STUDIO</span>
-                  <span className="text-base">→</span>
+                  <span>CONTACT STUDIO</span>
+                  <span className="text-sm group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
               </div>
             </div>
 
-            <div className="lg:col-span-7 relative h-[340px] sm:h-[460px] border border-[#D8D8D5] rounded-2xl overflow-hidden bg-[#111111] shadow-2xl">
+            {/* Right Column — Dominant Real Studio Facility Photograph */}
+            <div className="lg:col-span-7 group relative h-[380px] sm:h-[480px] lg:h-[520px] rounded-2xl overflow-hidden border border-[#D8D8D5] bg-[#111111] shadow-xl hover:shadow-2xl transition-all duration-500">
               <img
-                src="/images/about/tmr-ai-car-care-about-tiruppur-studio.jpg"
-                alt="TMR AI Car Care studio facility on Avinashi Road Tiruppur"
-                className="w-full h-full object-cover"
+                src="/images/about/tmr-ai-car-care-about-facility-tiruppur.jpg"
+                alt="TMR AI Car Care detailing studio facility on Avinashi Road, Tiruppur"
+                className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 text-xs font-mono text-white/90 bg-black/60 backdrop-blur-md px-3.5 py-2 rounded-lg border border-white/10 flex items-center justify-between">
-                <span>Avinashi Road Facility • Tiruppur</span>
-                <span className="text-[#FF4B00] font-semibold">TMR AI Car Care</span>
-              </div>
             </div>
 
           </div>

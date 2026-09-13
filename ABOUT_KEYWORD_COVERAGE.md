@@ -38,13 +38,13 @@
   - No separate duplicate founder biography section.
 * **Streamlined Section Progression**:
   - `HOW WE WORK`: Practical 3-step sequence (`01 INSPECT`, `02 PREPARE`, `03 FINISH`) over cinematic loop video.
-  - `VISIT THE STUDIO`: Practical location details and customer drop-off readiness.
+  - `SEE WHERE THE WORK HAPPENS`: Practical facility destination, compact information rail, direct maps navigation, and appointment inquiry.
   - `FINAL CTA`: Clean conversion action without repeated biography.
 * **Refined Alt Text**: Factual, concise image descriptions:
   - `alt="TMR AI Car Care detailing studio in Tiruppur"`
   - `alt="Meenakshi Sundharam, founder of TMR AI Car Care"`
   - `alt="Machine polishing and paint refinement inside TMR AI Car Care studio"`
-  - `alt="TMR AI Car Care studio facility on Avinashi Road Tiruppur"`
+  - `alt="TMR AI Car Care detailing studio facility on Avinashi Road, Tiruppur"`
   - `alt="Detailed vehicle with mirror finish inside TMR AI Car Care studio"`
 
 ---
@@ -55,7 +55,7 @@
 * **`H2` Tags (Major Sections)**:
   - `FROM YEARS OF REAL VEHICLE CARE to TMR AI Car Care.` (Combined Story + Founder)
   - `HOW WE WORK.` (How We Work)
-  - `VISIT THE studio.` (Visit the Studio)
+  - `SEE WHERE THE WORK happens.` (Visit the Studio)
   - `READY FOR THE RIGHT next step?` (Final CTA)
 * **Hidden / Decorative Headings**: **0**
 
