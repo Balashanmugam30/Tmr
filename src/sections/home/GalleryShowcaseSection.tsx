@@ -30,7 +30,7 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     number: '02',
     title: 'DETAILING SPECIALISTS',
     service: 'CRAFT // ACTIVE WORKSHOP BAY',
-    image: '/images/gallery/team/tmr-ai-car-care-detailing-technicians-thumbs-up.jpg',
+    image: '/images/gallery/team/tmr-ai-car-care-technician-door-jamb-cleaning.png',
     aspect: 'aspect-[4/3]',
     objectPosition: 'center 30%',
     href: '/gallery?category=TEAM#studio-archive',

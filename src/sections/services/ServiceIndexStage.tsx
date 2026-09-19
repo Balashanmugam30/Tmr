@@ -8,7 +8,7 @@ interface ServiceVideoItem {
   title: string;
   shortDesc: string;
   videoSrc: string;
-  posterSrc: string;
+  posterSrc?: string;
 }
 
 export const ServiceIndexStage: React.FC = () => {
@@ -32,7 +32,6 @@ export const ServiceIndexStage: React.FC = () => {
       title: "CAR WASH & CLEANING",
       shortDesc: "Exterior and interior cleaning designed to maintain a clean, well-presented vehicle.",
       videoSrc: "/videos/services/car-wash.mp4",
-      posterSrc: "/videos/services/car-wash-poster.jpg",
     },
     {
       id: "detailing-paint-care",
@@ -41,7 +40,6 @@ export const ServiceIndexStage: React.FC = () => {
       title: "DETAILING & PAINT CARE",
       shortDesc: "Paint correction and detailing designed to restore gloss and surface clarity.",
       videoSrc: "/videos/services/detailing.mp4",
-      posterSrc: "/videos/services/detailing-poster.jpg",
     },
     {
       id: "ceramic-coating",
@@ -50,7 +48,6 @@ export const ServiceIndexStage: React.FC = () => {
       title: "CERAMIC COATING",
       shortDesc: "Hydrophobic surface protection that enhances gloss and simplifies maintenance.",
       videoSrc: "/videos/services/ceramic-coating.mp4",
-      posterSrc: "/videos/services/ceramic-coating-poster.jpg",
     },
     {
       id: "ppf-paint-protection",
@@ -59,7 +56,6 @@ export const ServiceIndexStage: React.FC = () => {
       title: "PPF & PAINT PROTECTION",
       shortDesc: "Physical paint protection against stone chips, scratches and road debris.",
       videoSrc: "/videos/services/ppf.mp4",
-      posterSrc: "/videos/services/ppf-poster.jpg",
     },
     {
       id: "sun-control-films",
@@ -68,7 +64,6 @@ export const ServiceIndexStage: React.FC = () => {
       title: "SUN-CONTROL FILMS",
       shortDesc: "Window films designed to reduce solar heat, glare and UV exposure.",
       videoSrc: "/videos/services/sun-control.mp4",
-      posterSrc: "/videos/services/sun-control-poster.jpg",
     },
     {
       id: "car-accessories",
@@ -77,7 +72,6 @@ export const ServiceIndexStage: React.FC = () => {
       title: "CAR ACCESSORIES",
       shortDesc: "Practical interior and exterior upgrades selected for everyday use.",
       videoSrc: "/videos/services/accessories.mp4",
-      posterSrc: "/videos/services/accessories-poster.jpg",
     },
   ];
 
@@ -451,7 +445,6 @@ export const ServiceIndexStage: React.FC = () => {
                         <div className="aspect-[16/9] w-full overflow-hidden relative border border-[#D8D8D5] bg-[#050505]">
                           <video
                             src={item.videoSrc}
-                            poster={item.posterSrc}
                             muted
                             loop
                             playsInline
@@ -479,7 +472,6 @@ export const ServiceIndexStage: React.FC = () => {
                     key={item.id}
                     ref={(el) => (videoRefs.current[idx] = el)}
                     src={item.videoSrc}
-                    poster={item.posterSrc}
                     muted
                     loop
                     playsInline

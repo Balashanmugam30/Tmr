@@ -41,7 +41,7 @@ export const companyData: CompanyInfo = {
     state: "Tamil Nadu",
     pincode: "641605",
     country: "India",
-    fullText: "TMR AI Car Care, Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu - 641605",
+    fullText: "TMR AI Car Care, Arulpuram, Karaiputhur, Tiruppur, Tamil Nadu - 641605",
   },
   contact: {
     phone: "+919655626217",

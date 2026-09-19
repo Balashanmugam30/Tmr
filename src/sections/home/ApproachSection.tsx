@@ -148,15 +148,6 @@ export const ApproachSection: React.FC = () => {
         ref={videoWrapperRef}
         className="absolute top-0 right-0 w-full lg:w-1/2 h-full z-0 overflow-hidden bg-black rounded-none"
       >
-        {/* POSTER LOADING FALLBACK LAYER */}
-        <img
-          src="/videos/approach/approach-poster.webp"
-          alt="TMR Cinematic Automotive Detailing Studio"
-          className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-700 pointer-events-none z-10 ${
-            isVideoPlaying ? 'opacity-0' : 'opacity-100'
-          }`}
-        />
-
         {/* LOCAL H.264 MP4 CINEMATIC VIDEO (FULL-BLEED COVER CROP) */}
         <video
           ref={videoRef}
@@ -166,9 +157,7 @@ export const ApproachSection: React.FC = () => {
           loop
           playsInline
           preload="auto"
-          className={`w-full h-full object-cover object-center transition-all duration-700 ease-out z-0 ${
-            isVideoPlaying ? 'opacity-100' : 'opacity-0'
-          }`}
+          className="w-full h-full object-cover object-center transition-all duration-700 ease-out z-0 opacity-100"
         >
           Your browser does not support the video tag.
         </video>

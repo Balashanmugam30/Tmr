@@ -23,7 +23,7 @@ export const servicesData: ServiceCategory[] = [
     title: "Car Wash & Cleaning",
     shortDescription: "Precision snow foam washing, deep interior sanitization, and underbody decontamination.",
     fullDescription: "Our car washing and cleaning service transcends conventional vehicle washing. Utilizing pH-neutral snow foam, multi-bucket wash techniques, microfiber drying towels, and deep interior steam extraction, we safeguard your paintwork while restoring your vehicle's pristine interior cleanliness.",
-    heroImage: "/images/car-wash-hero.jpg",
+    heroImage: "/images/services/car-wash/car-wash-stitch-01.jpg",
     features: [
       "pH-neutral high-density snow foam wash",
       "Two-bucket wash method with grit guards",
@@ -57,7 +57,7 @@ export const servicesData: ServiceCategory[] = [
     title: "Detailing & Paint Care",
     shortDescription: "Multi-stage paint correction, swirl mark elimination, and gloss restoration.",
     fullDescription: "Paint correction is the art of permanently eliminating swirl marks, scratches, etching, and oxidation. Using dual-action polishers, specialized compound pads, and precision LED inspection lighting, we measure paint depth and systematically refine the clear coat to achieve optical clarity.",
-    heroImage: "/images/detailing-hero.jpg",
+    heroImage: "/images/services/detailing/detail-paint-hero.jpg",
     features: [
       "Ultrasonic paint depth gauge measurement",
       "Stage 1 Gloss Enhancement",
@@ -86,7 +86,7 @@ export const servicesData: ServiceCategory[] = [
     title: "Ceramic Coating",
     shortDescription: "9H & 10H quartz nano-ceramic shielding with extreme hydrophobic water beading.",
     fullDescription: "TMR Ceramic Coating applies a permanent molecular bond over your car's clear coat. Producing a 9H/10H protective quartz matrix, it shields against UV rays, acid rain, bird dropping etchings, and road grime while delivering a mirror gloss and hydrophobic self-cleaning surface.",
-    heroImage: "/images/ceramic-hero.jpg",
+    heroImage: "/images/services/ceramic/ceramic-hero.jpg",
     features: [
       "9H / 10H Hardness Rating Certified",
       "Superhydrophobic water-beading angle > 110°",
@@ -117,7 +117,7 @@ export const servicesData: ServiceCategory[] = [
     title: "PPF & Paint Protection",
     shortDescription: "Self-healing TPU Paint Protection Film armor against rock chips and road debris.",
     fullDescription: "Paint Protection Film (PPF) is the ultimate physical barrier for your vehicle. Made from ultra-clear Thermoplastic Polyurethane (TPU), TMR PPF self-heals swirl marks under ambient heat, absorbs stone chip impacts, and prevents parking scuffs without altering paint color.",
-    heroImage: "/images/ppf-hero.jpg",
+    heroImage: "/images/services/ppf/ppf-hero.jpg",
     features: [
       "Self-healing TPU technology (heals under sun/warm water)",
       "Impact absorbing thickness (7.5 mil to 10 mil)",
@@ -154,7 +154,7 @@ export const servicesData: ServiceCategory[] = [
     title: "Sun-Control Films",
     shortDescription: "Advanced ceramic window tints with up to 99% UV block and 95% IR heat rejection.",
     fullDescription: "Experience superior cabin cooling and privacy with TMR Sun-Control Window Films. Engineered with non-metallic ceramic nanoparticle technology, our films block solar heat and UV radiation without interfering with GPS, cell signals, or night vision.",
-    heroImage: "/images/tint-hero.jpg",
+    heroImage: "/images/services/sun-control/sun-control-hero.jpg",
     features: [
       "99% Harmful UV Ray Block",
       "Up to 95% Infrared (IR) Solar Heat Rejection",
@@ -185,7 +185,7 @@ export const servicesData: ServiceCategory[] = [
     title: "Car Accessories",
     shortDescription: "Curated interior styling, custom 7D floor mats, ambient lighting, and utility upgrades.",
     fullDescription: "Transform your vehicle's cabin into a bespoke luxury environment. We supply and install custom-fit 7D floor mats, premium leatherette seat covers, OEM-grade ambient lighting, dash cameras, and ergonomic interior accessories tailored to your car's exact dimensions.",
-    heroImage: "/images/accessories-hero.jpg",
+    heroImage: "/images/services/accessories/accessories-hero.jpg",
     features: [
       "Custom 7D & 9D All-Weather Floor Mats",
       "Bespoke Leatherette & Nappa Leather Seat Covers",
