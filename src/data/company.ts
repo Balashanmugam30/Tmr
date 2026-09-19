@@ -55,8 +55,8 @@ export const companyData: CompanyInfo = {
     sunday: "Sunday: 9:30 AM – 7:00 PM",
   },
   social: {
-    instagram: "https://instagram.com/tmrcarcare",
-    facebook: "https://facebook.com/tmrcarcare",
+    instagram: "https://www.instagram.com/tmraicarcare/",
+    facebook: "https://www.facebook.com/profile.php?id=61594308280275",
     youtube: "https://youtube.com/@tmrcarcare",
   },
   mapUrl: "https://maps.app.goo.gl/KJ5ReoumU85SCNRX9?g_st=ac",
