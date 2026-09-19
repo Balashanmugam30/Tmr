@@ -87,7 +87,7 @@ export const CeramicSection: React.FC = () => {
             {/* RESTRAINED CTA */}
             <div className="prot-editorial-item pt-2">
               <Link
-                to="/services"
+                to="/services/ceramic-coating"
                 aria-label="Explore TMR 10H ceramic coating packages in Tiruppur"
                 className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
               >

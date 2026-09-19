@@ -103,7 +103,7 @@ export const PpfSection: React.FC = () => {
           {/* EDITORIAL CTA GROUP */}
           <div className="ppf-anim-item pt-4 flex items-center gap-8 font-intertight">
             <Link
-              to="/services"
+              to="/services/ppf-paint-protection"
               aria-label="Explore TMR self-healing paint protection film packages"
               className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
             >

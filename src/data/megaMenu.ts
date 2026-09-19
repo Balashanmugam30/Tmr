@@ -177,23 +177,23 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
             href: '/gallery#transformation',
           },
           {
-            title: 'DETAILING',
-            description: 'Surface correction and gloss reflections.',
-            href: '/gallery#detailing',
+            title: 'WORKSHOP & BAYS',
+            description: 'The TMR studio environment & bays.',
+            href: '/gallery?category=WORKSHOP#studio-archive',
           },
         ],
       },
       {
         items: [
           {
-            title: 'PROTECTION',
-            description: 'Ceramic coating and PPF installations.',
-            href: '/gallery#protection',
+            title: 'STUDIO & FACILITY',
+            description: 'Storefront elevation & detailing bays.',
+            href: '/gallery?category=STUDIO#studio-archive',
           },
           {
-            title: 'WORKSHOP',
-            description: 'The TMR studio environment & bays.',
-            href: '/gallery#workshop',
+            title: 'TEAM & CRAFT',
+            description: 'Specialists & active surface detailing.',
+            href: '/gallery?category=TEAM#studio-archive',
           },
         ],
       },
@@ -221,7 +221,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'OUR STANDARD',
             description: 'The philosophy behind our craftsmanship.',
-            href: '/about#standard',
+            href: '/about#method',
           },
         ],
       },
@@ -230,7 +230,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
           {
             title: 'OUR WORKSHOP',
             description: 'Inside the Tiruppur studio facility.',
-            href: '/about#workshop',
+            href: '/about#studio',
           },
           {
             title: 'LOCATION',

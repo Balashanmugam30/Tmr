@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { X, Maximize2, Phone, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
@@ -171,11 +172,47 @@ const AuthenticPhotoCard = React.memo<{
 AuthenticPhotoCard.displayName = 'AuthenticPhotoCard';
 
 export const GalleryPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+
   // Category state for interactive filtering
   const [photoCategory, setPhotoCategory] = useState<'ALL' | 'STUDIO' | 'TEAM' | 'WORKSHOP' | 'SHOWROOM'>('ALL');
 
   // Lightbox Modal state (active index in the filtered array, or null)
   const [activeLightboxIndex, setActiveLightboxIndex] = useState<number | null>(null);
+
+  // Sync category filter and hash navigation from URL
+  useEffect(() => {
+    const VALID_CATEGORIES: ('ALL' | 'STUDIO' | 'TEAM' | 'WORKSHOP' | 'SHOWROOM')[] = [
+      'ALL',
+      'STUDIO',
+      'TEAM',
+      'WORKSHOP',
+      'SHOWROOM',
+    ];
+
+    const categoryParam = searchParams.get('category');
+    if (categoryParam) {
+      const upperCategory = categoryParam.trim().toUpperCase() as any;
+      if (VALID_CATEGORIES.includes(upperCategory)) {
+        setPhotoCategory(upperCategory);
+      }
+    }
+
+    // Handle hash aliases and category switching
+    if (location.hash) {
+      const hashClean = location.hash.replace('#', '').toLowerCase();
+      if (hashClean === 'workshop') {
+        setPhotoCategory('WORKSHOP');
+      } else if (hashClean === 'studio') {
+        setPhotoCategory('STUDIO');
+      } else if (hashClean === 'team') {
+        setPhotoCategory('TEAM');
+      } else if (hashClean === 'showroom') {
+        setPhotoCategory('SHOWROOM');
+      }
+    }
+  }, [location.search, location.hash, searchParams]);
 
   // Hero Section Parallax state
   const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -819,7 +856,7 @@ export const GalleryPage: React.FC = () => {
       {/* SECTION 02 — MAIN PHOTO ARCHIVE (CLEAN MASONRY LAYOUT — STAGGERED GSAP ENTRANCE & HOVER ZOOM) */}
       <section
         id="studio-archive"
-        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
+        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 scroll-mt-24"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-12 sm:space-y-16">
           {/* Header & Filter Controls Bar */}
@@ -888,7 +925,8 @@ export const GalleryPage: React.FC = () => {
       {/* SECTION 03 — THE PROCESS (WARM IVORY EDITORIAL HORIZONTAL TIMELINE) */}
       <section
         ref={processSectionRef}
-        className="relative bg-[#FBFBFA] py-20 sm:py-32 overflow-hidden border-b border-[#E5E5E0] text-[#111111]"
+        id="process"
+        className="relative bg-[#FBFBFA] py-20 sm:py-32 overflow-hidden border-b border-[#E5E5E0] text-[#111111] scroll-mt-24"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 space-y-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#E5E5E0] pb-8">
@@ -937,8 +975,9 @@ export const GalleryPage: React.FC = () => {
 
               {/* Stage 02 */}
               <div
+                id="detailing"
                 tabIndex={0}
-                className="group flex flex-col space-y-4 p-6 sm:p-8 rounded-xl border border-transparent hover:border-[#D8D8D5] hover:bg-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:border-[#FF4B00]"
+                className="group flex flex-col space-y-4 p-6 sm:p-8 rounded-xl border border-transparent hover:border-[#D8D8D5] hover:bg-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:border-[#FF4B00] scroll-mt-24"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-manrope font-extrabold text-5xl sm:text-7xl text-[#111111]/30 group-hover:text-[#FF4B00] group-focus:text-[#FF4B00] transition-colors duration-300">
@@ -958,8 +997,9 @@ export const GalleryPage: React.FC = () => {
 
               {/* Stage 03 */}
               <div
+                id="protection"
                 tabIndex={0}
-                className="group flex flex-col space-y-4 p-6 sm:p-8 rounded-xl border border-transparent hover:border-[#D8D8D5] hover:bg-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:border-[#FF4B00]"
+                className="group flex flex-col space-y-4 p-6 sm:p-8 rounded-xl border border-transparent hover:border-[#D8D8D5] hover:bg-white/60 transition-all duration-300 cursor-pointer focus:outline-none focus:border-[#FF4B00] scroll-mt-24"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-manrope font-extrabold text-5xl sm:text-7xl text-[#111111]/30 group-hover:text-[#FF4B00] group-focus:text-[#FF4B00] transition-colors duration-300">
@@ -984,7 +1024,8 @@ export const GalleryPage: React.FC = () => {
       {/* SECTION 04 — TRANSFORMATION (BEFORE & AFTER COMPARISON ON REAL TMR VEHICLES) */}
       <section
         ref={transSectionRef}
-        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10"
+        id="transformation"
+        className="relative bg-[#050505] py-20 sm:py-32 overflow-hidden border-b border-white/10 scroll-mt-24"
       >
         <div className="max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">

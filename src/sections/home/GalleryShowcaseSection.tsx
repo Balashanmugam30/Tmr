@@ -11,6 +11,7 @@ interface TeaserGalleryItem {
   image: string;
   aspect?: string;
   objectPosition?: string;
+  href?: string;
 }
 
 const homepageGalleryItems: TeaserGalleryItem[] = [
@@ -22,6 +23,7 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     image: '/images/gallery/workshop/tmr-ai-car-care-workshop-innova-xuv700-bay.jpg',
     aspect: 'aspect-[4/3]',
     objectPosition: 'center 50%',
+    href: '/gallery?category=WORKSHOP#studio-archive',
   },
   {
     id: 'detailing-technicians',
@@ -31,6 +33,7 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     image: '/images/gallery/team/tmr-ai-car-care-detailing-technicians-thumbs-up.jpg',
     aspect: 'aspect-[4/3]',
     objectPosition: 'center 30%',
+    href: '/gallery?category=TEAM#studio-archive',
   },
   {
     id: 'wash-bay-ramp',
@@ -40,6 +43,7 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     image: '/images/gallery/workshop/tmr-ai-car-care-wash-bay-ramp.jpg',
     aspect: 'aspect-[4/3]',
     objectPosition: 'center 40%',
+    href: '/gallery?category=WORKSHOP#studio-archive',
   },
   {
     id: 'full-team',
@@ -49,6 +53,7 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     image: '/images/gallery/team/tmr-ai-car-care-full-detailing-team.png',
     aspect: 'aspect-[4/3]',
     objectPosition: 'center 45%',
+    href: '/gallery?category=TEAM#studio-archive',
   },
 ];
 
@@ -91,6 +96,7 @@ export const GalleryShowcaseSection: React.FC = () => {
               image={item.image}
               aspect={item.aspect}
               objectPosition={item.objectPosition}
+              href={item.href}
             />
           ))}
         </div>

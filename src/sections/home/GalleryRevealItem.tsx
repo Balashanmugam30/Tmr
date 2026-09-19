@@ -11,6 +11,7 @@ interface GalleryRevealItemProps {
   gridSpan?: string;
   overlapClass?: string;
   objectPosition?: string;
+  href?: string;
 }
 
 export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
@@ -21,6 +22,7 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
   gridSpan = '',
   overlapClass = '',
   objectPosition = 'center',
+  href = '/gallery',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLAnchorElement>(null);
@@ -101,7 +103,7 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
       {/* STATIC LAYOUT CONTAINER (PREVENTS VERTICAL LAYOUT SHIFTS) */}
       <Link
         ref={cardRef}
-        to="/gallery"
+        to={href}
         aria-label={`View ${title} - ${service} in TMR Gallery`}
         className={`w-full ${aspect} relative block overflow-hidden rounded-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-black cursor-pointer group`}
         style={{

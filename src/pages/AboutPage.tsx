@@ -187,7 +187,7 @@ export const AboutPage: React.FC = () => {
           Job: Integrated narrative connecting 2009 roots, hands-on
                scale, Meenakshi Sundharam's leadership, and today's studio.
           ============================================================ */}
-      <section data-navbar-theme="light" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-28 lg:py-32 border-b border-[#D8D8D5]" id="story">
+      <section data-navbar-theme="light" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-20 sm:py-28 lg:py-32 border-b border-[#D8D8D5] scroll-mt-24" id="story">
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10 space-y-12">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
@@ -303,7 +303,8 @@ export const AboutPage: React.FC = () => {
           SECTION 2 — HOW WE WORK
           Job: Practical working sequence. Inspect, Prepare, Finish.
           ============================================================ */}
-      <section className="relative w-full overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00]" id="method">
+      <section className="relative w-full overflow-hidden bg-[#050505] text-white border-b border-white/10 selection:bg-[#FF4B00] scroll-mt-24" id="method">
+        <div id="standard" className="scroll-mt-24 pointer-events-none" />
         
         {/* Full-Width Video Frame */}
         <div className="relative w-full h-[540px] sm:h-[620px] lg:h-[680px] overflow-hidden bg-black flex flex-col justify-between">
@@ -430,6 +431,7 @@ export const AboutPage: React.FC = () => {
           Job: Location and practical visit information. No history.
           ============================================================ */}
       <section data-navbar-theme="light" id="studio" className="bg-[#F5F4EF] text-[#111111] relative w-full overflow-hidden py-16 sm:py-20 lg:py-24 border-b border-[#D8D8D5] scroll-mt-24">
+        <div id="workshop" className="scroll-mt-24 pointer-events-none" />
         <div className="max-w-[1360px] mx-auto px-5 md:px-16 relative z-10">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
