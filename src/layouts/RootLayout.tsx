@@ -8,6 +8,7 @@ import { Footer } from '@/components/Footer';
 import { PageTransition } from '@/components/PageTransition';
 import { OfflineState } from '@/components/OfflineState';
 import { ScrollToHash } from '@/components/ScrollToHash';
+import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
 import { NavbarThemeProvider } from '@/context/NavbarThemeContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -56,6 +57,7 @@ export const RootLayout: React.FC = () => {
         </main>
         <Footer />
         <OfflineState />
+        <FloatingWhatsApp />
       </div>
     </NavbarThemeProvider>
   );

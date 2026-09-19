@@ -6,24 +6,7 @@ import { navigationItems } from '@/data/navigation';
 import { servicesData } from '@/data/services';
 import { Container } from './Container';
 import { Logo } from './Logo';
-
-const WhatsAppIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
-    <path d="M8 12.08a6.37 6.37 0 0 0 4.38 4.38l1.44-1.44a1 1 0 0 1 1.05-.24 8.7 8.7 0 0 0 2.73.43.9.9 0 0 1 .9.9V19a.9.9 0 0 1-.9.9 14.8 14.8 0 0 1-14-14 .9.9 0 0 1 .9-.9h2.9a.9.9 0 0 1 .9.9 8.7 8.7 0 0 0 .43 2.73 1 1 0 0 1-.24 1.05Z" />
-  </svg>
-);
+import { WhatsAppIcon } from './WhatsAppIcon';
 
 export const Footer: React.FC = () => {
   const whatsappUrl = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import gsap from 'gsap';
-import { X, Maximize2, Phone, MessageSquare, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
+import { X, Maximize2, Phone, ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
 import { companyData } from '@/data/company';
+import { WhatsAppIcon } from '@/components/WhatsAppIcon';
 
 // --- PHOTO CARD INTERFACE ---
 interface PhotoItem {
@@ -1088,18 +1089,15 @@ export const GalleryPage: React.FC = () => {
               <a
                 href={`tel:${companyData.contact.phone.replace(/\s+/g, '')}`}
                 aria-label={`Call TMR AI Car Care at ${companyData.contact.phoneFormatted} to book an inspection`}
-                className="group relative inline-flex items-center gap-4 px-6 sm:px-7 py-3.5 min-h-[58px] sm:min-h-[64px] rounded-2xl bg-gradient-to-r from-[#FF4B00] via-[#FF5500] to-[#E04200] text-white border border-[#FF7A3D]/70 shadow-[0_12px_32px_rgba(255,75,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:shadow-[0_18px_44px_rgba(255,75,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_8px_20px_rgba(255,75,0,0.3)] transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-[#FF4B00] focus:ring-offset-2 focus:ring-offset-black cursor-pointer"
+                className="group relative inline-flex items-center gap-3.5 px-6 sm:px-7 py-3.5 min-h-[56px] sm:min-h-[60px] rounded-2xl bg-gradient-to-r from-[#FF4B00] via-[#FF5500] to-[#E04200] text-white border border-[#FF7A3D]/70 shadow-[0_12px_32px_rgba(255,75,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.3)] hover:shadow-[0_18px_44px_rgba(255,75,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.4)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_8px_20px_rgba(255,75,0,0.3)] transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-[#FF4B00] focus:ring-offset-2 focus:ring-offset-black cursor-pointer"
               >
                 <div className="w-10 h-10 rounded-xl bg-black/20 border border-white/20 flex items-center justify-center text-white shrink-0 group-hover:scale-105 group-hover:rotate-6 transition-all duration-200">
                   <Phone className="w-4 h-4 text-white" />
                 </div>
-                <div className="flex flex-col text-left">
+                <div className="flex items-center text-left">
                   <span className="font-manrope font-extrabold text-xs sm:text-sm uppercase tracking-wider text-white flex items-center gap-1.5">
                     <span>BOOK AN INSPECTION</span>
                     <ArrowUpRight className="w-3.5 h-3.5 text-white/80 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-200" />
-                  </span>
-                  <span className="font-mono text-[10px] sm:text-[11px] font-medium text-white/90 tracking-wider">
-                    {companyData.contact.phoneFormatted}
                   </span>
                 </div>
               </a>
@@ -1110,17 +1108,15 @@ export const GalleryPage: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Chat with TMR AI Car Care on WhatsApp for consultation"
-                className="group relative inline-flex items-center gap-4 px-6 sm:px-7 py-3.5 min-h-[58px] sm:min-h-[64px] rounded-2xl bg-gradient-to-b from-[#1c1c1c]/90 to-[#0e0e0e]/95 backdrop-blur-md text-white border border-white/15 hover:border-white/35 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:shadow-[0_14px_36px_rgba(0,0,0,0.7)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-black cursor-pointer"
+                className="group relative inline-flex items-center gap-3.5 px-6 sm:px-7 py-3.5 min-h-[56px] sm:min-h-[60px] rounded-2xl bg-gradient-to-b from-[#1c1c1c]/90 to-[#0e0e0e]/95 backdrop-blur-md text-white border border-white/15 hover:border-white/35 shadow-[0_10px_30px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.08)] hover:shadow-[0_14px_36px_rgba(0,0,0,0.7)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-white/40 focus:ring-offset-2 focus:ring-offset-black cursor-pointer"
               >
                 <div className="w-10 h-10 rounded-xl bg-[#25D366]/10 border border-[#25D366]/25 flex items-center justify-center text-[#25D366] shrink-0 group-hover:bg-[#25D366]/20 group-hover:border-[#25D366]/40 transition-all duration-200 shadow-sm">
-                  <MessageSquare className="w-4 h-4 text-[#25D366]" />
+                  <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
                 </div>
-                <div className="flex flex-col text-left">
-                  <span className="font-manrope font-extrabold text-xs sm:text-sm uppercase tracking-wider text-white">
-                    CHAT ON WHATSAPP
-                  </span>
-                  <span className="font-mono text-[10px] sm:text-[11px] font-medium text-white/50 tracking-wider">
-                    INSTANT CONSULTATION
+                <div className="flex items-center text-left">
+                  <span className="font-manrope font-extrabold text-xs sm:text-sm uppercase tracking-wider text-white flex items-center gap-1.5">
+                    <span>CHAT ON WHATSAPP</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-white/50 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-200" />
                   </span>
                 </div>
               </a>
