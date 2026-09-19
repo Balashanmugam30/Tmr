@@ -48,14 +48,14 @@ export const HomePage: React.FC = () => {
       "url": "https://tmrcarcare.com/",
       "logo": "https://tmrcarcare.com/images/tmr-ai-car-care-logo-dark.png",
       "image": "https://tmrcarcare.com/images/protection/protection-hero.webp",
-      "telephone": "+919944335520",
+      "telephone": "+919655626217",
       "priceRange": "$$",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Avinashi Road, Near Hope College Junction",
+        "streetAddress": "Arulpuram, Karaiputhur",
         "addressLocality": "Tiruppur",
         "addressRegion": "Tamil Nadu",
-        "postalCode": "641602",
+        "postalCode": "641605",
         "addressCountry": "IN"
       },
       "geo": {
@@ -66,9 +66,9 @@ export const HomePage: React.FC = () => {
       "openingHoursSpecification": [
         {
           "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          "opens": "09:00",
-          "closes": "20:00"
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "09:30",
+          "closes": "19:00"
         }
       ]
     };

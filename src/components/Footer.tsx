@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
     },
     {
       name: 'Directions',
-      href: `https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`,
+      href: companyData.mapUrl,
       icon: MapPin,
     },
   ];
@@ -101,7 +101,7 @@ export const Footer: React.FC = () => {
                   WORKING HOURS
                 </div>
                 <div className="font-extrabold text-xs sm:text-sm text-[#F5F4EF]">
-                  {companyData.hours.weekdays} • {companyData.hours.sunday}
+                  Monday – Sunday: 9:30 AM – 7:00 PM
                 </div>
               </div>
             </div>

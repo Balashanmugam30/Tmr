@@ -212,7 +212,7 @@ export const CarWashPage: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-6 left-6 text-white pointer-events-none">
             <p className="font-manrope font-bold text-sm text-white">
-              Professional foam wash at TMR AI Car Care studio, Avinashi Road, Tiruppur
+              Professional foam wash at TMR AI Car Care studio, Arulpuram, Tiruppur
             </p>
           </div>
         </div>

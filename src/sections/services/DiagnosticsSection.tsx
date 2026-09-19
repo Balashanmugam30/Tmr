@@ -190,7 +190,7 @@ export const DiagnosticsSection: React.FC = () => {
             NOT SURE WHICH SERVICE IS RIGHT?
           </span>
           <a
-            href="https://wa.me/919944335520"
+            href="https://wa.me/919655626217"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-manrope font-bold text-xs sm:text-sm uppercase tracking-widest text-[#FF4B00] hover:text-[#111111] transition-colors"

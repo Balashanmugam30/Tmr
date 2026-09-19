@@ -61,15 +61,15 @@ export const AboutPage: React.FC = () => {
             "@type": "Person",
             "name": "Meenakshi Sundharam"
           },
-          "telephone": "+919876543210",
-          "email": "enquiry@tmrcarcare.com",
+          "telephone": "+919655626217",
+          "email": "3m.chandramohankandhavelu@gmail.com",
           "priceRange": "₹₹₹",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Avinashi Road, Near Hope College Junction",
+            "streetAddress": "Arulpuram, Karaiputhur",
             "addressLocality": "Tiruppur",
             "addressRegion": "Tamil Nadu",
-            "postalCode": "641602",
+            "postalCode": "641605",
             "addressCountry": "IN"
           },
           "geo": {
@@ -80,15 +80,9 @@ export const AboutPage: React.FC = () => {
           "openingHoursSpecification": [
             {
               "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-              "opens": "09:00",
-              "closes": "20:00"
-            },
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": "Sunday",
-              "opens": "10:00",
-              "closes": "17:00"
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "09:30",
+              "closes": "19:00"
             }
           ]
         },
@@ -213,7 +207,7 @@ export const AboutPage: React.FC = () => {
 
               <div className="space-y-5 font-manrope text-base sm:text-lg text-[#5f5e5e] leading-relaxed max-w-2xl border-l-2 border-[#FF4B00] pl-6">
                 <p>
-                  The experience behind TMR AI Car Care began in 2009 with a straightforward commitment to looking after vehicles properly. Long before the modern studio opened on Avinashi Road, the work was built directly on the shop floor—learning how factory clear coats respond to different machine compounds, managing humidity during curing, and developing the patience required for genuine paint refinement.
+                  The experience behind TMR AI Car Care began in 2009 with a straightforward commitment to looking after vehicles properly. Long before the modern studio opened in Tiruppur, the work was built directly on the shop floor—learning how factory clear coats respond to different machine compounds, managing humidity during curing, and developing the patience required for genuine paint refinement.
                 </p>
                 <p>
                   Over more than a decade of steady hands-on work, that operational background handled approximately 500 vehicles in a typical month across daily drivers, family sedans, and luxury imports. Every surface challenge encountered across that volume built a disciplined, repeatable standard of care.
@@ -253,7 +247,7 @@ export const AboutPage: React.FC = () => {
                 {/* Sub-Card Identifier */}
                 <div className="pt-3 px-2 pb-1 flex items-center justify-between text-xs font-mono text-[#777777] uppercase tracking-wider">
                   <span>Leadership &amp; Studio Operations</span>
-                  <span className="text-[#FF4B00] font-bold">Avinashi Road</span>
+                  <span className="text-[#FF4B00] font-bold">Arulpuram</span>
                 </div>
               </div>
             </div>
@@ -295,7 +289,7 @@ export const AboutPage: React.FC = () => {
                 CURRENT STUDIO
               </span>
               <p className="text-xs text-[#666666] leading-relaxed font-normal">
-                Avinashi Road, near Hope College Junction.
+                Arulpuram, Tiruppur — 641605.
               </p>
             </div>
 
@@ -453,7 +447,7 @@ export const AboutPage: React.FC = () => {
               </div>
 
               <p className="font-manrope text-sm sm:text-base text-[#5f5e5e] leading-relaxed border-l-2 border-[#FF4B00] pl-4">
-                Our TMR AI Car Care studio is located on Avinashi Road, near Hope College Junction in Tiruppur. We welcome vehicle owners for paint assessments, protective film consultations, and scheduled detailing appointments.
+                Our TMR AI Car Care studio is located at Arulpuram, Karaiputhur in Tiruppur. We welcome vehicle owners for paint assessments, protective film consultations, and scheduled detailing appointments.
               </p>
 
               {/* Compact Information Rail */}
@@ -463,10 +457,10 @@ export const AboutPage: React.FC = () => {
                     LOCATION
                   </span>
                   <p className="font-manrope font-bold text-xs sm:text-sm text-[#111111] leading-snug">
-                    Avinashi Road
+                    Arulpuram
                   </p>
                   <p className="text-[11px] text-[#666666] leading-tight">
-                    Near Hope College Jxn, Tiruppur — 641602
+                    Karaiputhur, Tiruppur — 641605
                   </p>
                 </div>
 
@@ -475,10 +469,10 @@ export const AboutPage: React.FC = () => {
                     OPERATING HOURS
                   </span>
                   <p className="font-manrope font-bold text-xs sm:text-sm text-[#111111] leading-snug">
-                    9:00 AM – 8:00 PM
+                    9:30 AM – 7:00 PM
                   </p>
                   <p className="text-[11px] text-[#666666] leading-tight">
-                    Mon – Sat (Sun by appt)
+                    Monday – Sunday
                   </p>
                 </div>
 
@@ -501,7 +495,7 @@ export const AboutPage: React.FC = () => {
               {/* Action Buttons: Directions (Maps) + Contact Studio */}
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a
-                  href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+                  href={companyData.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 sm:px-7 py-3.5 bg-[#111111] text-white font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-[#FF4B00] transition-colors rounded-md shadow-md inline-flex items-center justify-center gap-2 group text-center"
@@ -524,7 +518,7 @@ export const AboutPage: React.FC = () => {
             <div className="lg:col-span-7 group relative h-[380px] sm:h-[480px] lg:h-[520px] rounded-2xl overflow-hidden border border-[#D8D8D5] bg-[#111111] shadow-xl hover:shadow-2xl transition-all duration-500">
               <img
                 src="/images/about/tmr-ai-car-care-about-facility-tiruppur.jpg"
-                alt="TMR AI Car Care detailing studio facility on Avinashi Road, Tiruppur"
+                alt="TMR AI Car Care detailing studio facility in Arulpuram, Tiruppur"
                 className="w-full h-full object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 ease-out"
               />
             </div>
@@ -604,7 +598,7 @@ export const AboutPage: React.FC = () => {
             <div className="pt-4 border-t border-white/15 text-xs text-[#858585] uppercase tracking-widest font-semibold flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#FF4B00] animate-pulse" />
-                <span>Tiruppur, Tamil Nadu • Avinashi Road</span>
+                <span>Tiruppur, Tamil Nadu • Arulpuram</span>
               </div>
               <span className="text-white/30">•</span>
               <Link to="/gallery" className="text-[#FF4B00] hover:underline flex items-center gap-1">

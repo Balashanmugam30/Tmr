@@ -24,7 +24,7 @@ export const ContactPage: React.FC = () => {
     }
     metaDesc.setAttribute(
       'content',
-      'Contact TMR AI Car Care detailing studio in Tiruppur on Avinashi Road. Book detailing, ceramic coating, or PPF consultations today.'
+      'Contact TMR AI Car Care detailing studio in Arulpuram, Tiruppur. Book detailing, ceramic coating, or PPF consultations today.'
     );
 
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -52,13 +52,13 @@ export const ContactPage: React.FC = () => {
         "@type": "AutomotiveBusiness",
         "name": "TMR AI Car Care Studio Tiruppur",
         "url": "https://tmrcarcare.com/",
-        "telephone": "+919944335520",
+        "telephone": "+919655626217",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Avinashi Road, Near Hope College Junction",
+          "streetAddress": "Arulpuram, Karaiputhur",
           "addressLocality": "Tiruppur",
           "addressRegion": "Tamil Nadu",
-          "postalCode": "641602",
+          "postalCode": "641605",
           "addressCountry": "IN"
         }
       }
@@ -74,13 +74,13 @@ export const ContactPage: React.FC = () => {
       q: "Where is TMR AI Car Care located in Tiruppur?",
       a: (
         <>
-          Our studio is located on Avinashi Road, Near Hope College Junction, Tiruppur, Tamil Nadu — 641602. You can view our live studio location or get directions via{' '}
+          Our studio is located at Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu — 641605. You can view our live studio location or get directions via{' '}
           <a href="#studio-location" className="text-[#FF4B00] font-bold underline hover:text-[#0A0A0A] transition-colors">
             Google Maps on this page
           </a>.
         </>
       ),
-      plainAnswer: "Our studio is located on Avinashi Road, Near Hope College Junction, Tiruppur, Tamil Nadu — 641602.",
+      plainAnswer: "Our studio is located at Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu — 641605.",
     },
     {
       id: "faq-services",
@@ -165,20 +165,20 @@ export const ContactPage: React.FC = () => {
     {
       id: "faq-inspection",
       q: "Can my vehicle be inspected before choosing a detailing service?",
-      a: "Absolutely. We conduct pre-service paint inspections at our Avinashi Road studio to measure paint depth, analyze surface defects, and recommend the exact service your vehicle requires.",
-      plainAnswer: "Absolutely. We conduct pre-service paint inspections at our Avinashi Road studio to measure paint depth, analyze surface defects, and recommend the exact service your vehicle requires.",
+      a: "Absolutely. We conduct pre-service paint inspections at our Arulpuram studio to measure paint depth, analyze surface defects, and recommend the exact service your vehicle requires.",
+      plainAnswer: "Absolutely. We conduct pre-service paint inspections at our Arulpuram studio to measure paint depth, analyze surface defects, and recommend the exact service your vehicle requires.",
     },
     {
       id: "faq-hours",
       q: "What are TMR AI Car Care's studio working hours?",
-      a: "Our Tiruppur studio is open Monday through Saturday from 9:00 AM to 8:00 PM, and Sunday from 10:00 AM to 5:00 PM (by appointment only).",
-      plainAnswer: "Our Tiruppur studio is open Monday through Saturday from 9:00 AM to 8:00 PM, and Sunday from 10:00 AM to 5:00 PM (by appointment only).",
+      a: "Our Tiruppur studio is open Monday through Sunday from 9:30 AM to 7:00 PM.",
+      plainAnswer: "Our Tiruppur studio is open Monday through Sunday from 9:30 AM to 7:00 PM.",
     },
     {
       id: "faq-contact",
       q: "How can I contact TMR AI Car Care for a detailing enquiry?",
-      a: "You can reach our team via WhatsApp at +91 98765 43210, call our studio at +91 98765 43210, email enquiry@tmrcarcare.com, or submit the direct consultation form above.",
-      plainAnswer: "You can reach our team via WhatsApp at +91 98765 43210, call our studio at +91 98765 43210, email enquiry@tmrcarcare.com, or submit the direct consultation form above.",
+      a: "You can reach our team via WhatsApp at +91 96556 26217, call our studio at +91 96556 26217, email 3m.chandramohankandhavelu@gmail.com, or submit the direct consultation form above.",
+      plainAnswer: "You can reach our team via WhatsApp at +91 96556 26217, call our studio at +91 96556 26217, email 3m.chandramohankandhavelu@gmail.com, or submit the direct consultation form above.",
     },
   ];
 
@@ -380,7 +380,7 @@ export const ContactPage: React.FC = () => {
                   </p>
                   <div className="pt-1">
                     <a
-                      href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+                      href={companyData.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 font-mono font-bold text-xs uppercase tracking-widest text-[#FF4B00] hover:text-[#0A0A0A] transition-colors group"
@@ -453,7 +453,7 @@ export const ContactPage: React.FC = () => {
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+91 98765 43210"
+                          placeholder="+91 96556 26217"
                           className="w-full bg-white/[0.04] border border-white/15 rounded-lg p-3.5 text-sm text-white focus:border-[#FF4B00] focus:bg-white/[0.08] focus:outline-none transition-all duration-300 placeholder:text-white/40"
                         />
                       </div>
@@ -542,7 +542,7 @@ export const ContactPage: React.FC = () => {
 
             <div>
               <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+                href={companyData.mapUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#FF4B00] text-white px-8 py-4 font-manrope font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#0A0A0A] transition-colors shadow-lg inline-flex items-center gap-2"

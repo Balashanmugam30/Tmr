@@ -119,7 +119,7 @@ export const FinalCtaSection: React.FC = () => {
             </a>
 
             <a
-              href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+              href={companyData.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Get Google Maps driving directions to TMR Studio in Tiruppur"

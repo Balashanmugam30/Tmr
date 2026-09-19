@@ -36,7 +36,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
         items: [
           {
             title: 'FLAGSHIP STUDIO',
-            description: 'Avinashi Road, Near Hope College, Tiruppur, Tamil Nadu — 641602.',
+            description: 'Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu — 641605.',
             href: '/#flagship-studio',
           },
         ],
@@ -257,7 +257,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
         items: [
           {
             title: 'TIRUPPUR WORKSHOP',
-            description: 'Avinashi Road, Tiruppur, Tamil Nadu.',
+            description: 'Arulpuram, Tiruppur, Tamil Nadu.',
             href: '/contact#tiruppur-workshop',
           },
         ],
@@ -266,7 +266,7 @@ export const megaMenuData: Record<string, MegaMenuConfig> = {
         items: [
           {
             title: 'WORKSHOP HOURS',
-            description: 'Mon–Sat: 9:00 AM – 8:00 PM | Sun: 10:00 AM – 5:00 PM (By Appt)',
+            description: 'Mon–Sun: 9:30 AM – 7:00 PM',
             href: '/contact#workshop-hours',
           },
         ],

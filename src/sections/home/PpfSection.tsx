@@ -115,7 +115,7 @@ export const PpfSection: React.FC = () => {
             </Link>
 
             <a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/919655626217"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"

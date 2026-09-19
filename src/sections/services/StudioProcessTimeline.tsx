@@ -151,7 +151,7 @@ export const StudioProcessTimeline: React.FC = () => {
                 NOT SURE WHERE TO START?
               </span>
               <a
-                href="https://wa.me/919944335520"
+                href="https://wa.me/919655626217"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 font-manrope font-bold text-xs uppercase tracking-widest text-[#FF4B00] hover:text-white transition-colors"

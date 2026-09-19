@@ -192,9 +192,9 @@ export const GalleryPage: React.FC = () => {
   // HERO DEDICATED AUTHENTIC VISUAL (1 unique establishing photograph)
   const heroVisual = {
     src: '/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg',
-    alt: 'Panoramic establishing view of TMR AI Car Care facility, entrance totem sign, and forecourt on Avinashi Road, Tiruppur',
+    alt: 'Panoramic establishing view of TMR AI Car Care facility, entrance totem sign, and forecourt in Arulpuram, Tiruppur',
     title: 'AUTOMOTIVE CRAFTSMANSHIP',
-    caption: 'Establishing panoramic view of TMR AI Car Care on Avinashi Road, Tiruppur, showing the roadside entrance totem, customer driveway, and studio building.',
+    caption: 'Establishing panoramic view of TMR AI Car Care in Arulpuram, Tiruppur, showing the roadside entrance totem, customer driveway, and studio building.',
   };
 
   // MAIN UNIQUE PHOTO ARCHIVE (28 unique authentic real photographs across studio, team, workshop, showroom)
@@ -828,7 +828,7 @@ export const GalleryPage: React.FC = () => {
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">craft</span> GALLERY.
               </h2>
               <p className="font-manrope text-sm sm:text-base text-[#D8D8D5] leading-relaxed max-w-xl">
-                High-resolution visual evidence of our active vehicle detailing bays, certified craftsmanship, customer showroom, and equipment on Avinashi Road, Tiruppur.
+                High-resolution visual evidence of our active vehicle detailing bays, certified craftsmanship, customer showroom, and equipment in Arulpuram, Tiruppur.
               </p>
             </div>
 
@@ -1080,7 +1080,7 @@ export const GalleryPage: React.FC = () => {
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">finish.</span>
             </h2>
             <p className="font-manrope text-base sm:text-lg text-[#D8D8D5] leading-relaxed max-w-xl">
-              Bring your vehicle to our studio on Avinashi Road, Tiruppur for genuine 3M detailing, graphene ceramic coating, and precision paint care.
+              Bring your vehicle to our studio in Arulpuram, Tiruppur for genuine 3M detailing, graphene ceramic coating, and precision paint care.
             </p>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-5 pt-2">

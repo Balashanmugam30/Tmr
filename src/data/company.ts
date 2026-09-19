@@ -27,6 +27,7 @@ export interface CompanyInfo {
     facebook: string;
     youtube: string;
   };
+  mapUrl: string;
 }
 
 export const companyData: CompanyInfo = {
@@ -34,28 +35,29 @@ export const companyData: CompanyInfo = {
   tagline: "Premium Automotive Care & Detailing Flagship",
   subtitle: "Brutalist Editorial Detail Studio in Tiruppur, Tamil Nadu",
   address: {
-    street: "Avinashi Road, Near Hope College Junction",
-    area: "Tiruppur North",
+    street: "Arulpuram",
+    area: "Karaiputhur",
     city: "Tiruppur",
     state: "Tamil Nadu",
-    pincode: "641602",
+    pincode: "641605",
     country: "India",
-    fullText: "Avinashi Road, Near Hope College Junction, Tiruppur, Tamil Nadu - 641602",
+    fullText: "TMR AI Car Care, Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu - 641605",
   },
   contact: {
-    phone: "+919876543210",
-    phoneFormatted: "+91 98765 43210",
-    whatsapp: "919876543210",
-    whatsappFormatted: "+91 98765 43210",
-    email: "enquiry@tmrcarcare.com",
+    phone: "+919655626217",
+    phoneFormatted: "+91 96556 26217",
+    whatsapp: "919655626217",
+    whatsappFormatted: "+91 96556 26217",
+    email: "3m.chandramohankandhavelu@gmail.com",
   },
   hours: {
-    weekdays: "Monday – Saturday: 9:00 AM – 8:00 PM",
-    sunday: "Sunday: 10:00 AM – 5:00 PM (By Appointment Only)",
+    weekdays: "Monday – Saturday: 9:30 AM – 7:00 PM",
+    sunday: "Sunday: 9:30 AM – 7:00 PM",
   },
   social: {
     instagram: "https://instagram.com/tmrcarcare",
     facebook: "https://facebook.com/tmrcarcare",
     youtube: "https://youtube.com/@tmrcarcare",
   },
+  mapUrl: "https://maps.app.goo.gl/KJ5ReoumU85SCNRX9?g_st=ac",
 };

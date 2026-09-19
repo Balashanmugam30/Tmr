@@ -39,13 +39,13 @@ export const ServicesIndexPage: React.FC = () => {
     "@type": "AutoRepair",
     "name": "TMR AI Car Care Studio Tiruppur",
     "url": "https://tmrcarcare.com/services",
-    "telephone": "+919944335520",
+    "telephone": "+919655626217",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Avinashi Road, Near Hope College Junction",
+      "streetAddress": "Arulpuram, Karaiputhur",
       "addressLocality": "Tiruppur",
       "addressRegion": "Tamil Nadu",
-      "postalCode": "641602",
+      "postalCode": "641605",
       "addressCountry": "IN"
     },
     "hasOfferCatalog": {

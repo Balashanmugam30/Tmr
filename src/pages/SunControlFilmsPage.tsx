@@ -40,8 +40,8 @@ export const SunControlFilmsPage: React.FC = () => {
     {
       id: "faq-availability-tiruppur",
       q: "Is sun-control film service available in Tiruppur?",
-      a: "Yes. TMR AI Car Care offers professional automotive sun-control and window film installation services at our facility on Avinashi Road, Tiruppur, suited for the demanding solar heat of Tamil Nadu.",
-      plainAnswer: "Yes. TMR AI Car Care offers professional automotive sun-control and window film installation services at our facility on Avinashi Road, Tiruppur.",
+      a: "Yes. TMR AI Car Care offers professional automotive sun-control and window film installation services at our facility at Arulpuram, Tiruppur, suited for the demanding solar heat of Tamil Nadu.",
+      plainAnswer: "Yes. TMR AI Car Care offers professional automotive sun-control and window film installation services at our facility at Arulpuram, Tiruppur.",
     },
     {
       id: "faq-heat-reduction",

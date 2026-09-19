@@ -102,7 +102,7 @@ export const ShowroomSection: React.FC = () => {
           {/* PRIMARY & SECONDARY ACTION LINKS */}
           <div className="showroom-anim-item pt-3 flex items-center gap-8 font-intertight">
             <a
-              href={`https://maps.google.com/?q=${encodeURIComponent(companyData.address.fullText)}`}
+              href={companyData.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Get Google Maps driving directions to TMR AI Car Care studio in Tiruppur"
@@ -116,7 +116,7 @@ export const ShowroomSection: React.FC = () => {
             </a>
 
             <a
-              href="https://wa.me/919876543210"
+              href={`https://wa.me/${companyData.contact.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"

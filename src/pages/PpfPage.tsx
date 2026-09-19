@@ -40,14 +40,14 @@ export const PpfPage: React.FC = () => {
     {
       id: "faq-ppf-tiruppur",
       q: "Is PPF service available in Tiruppur?",
-      a: "Yes. TMR AI Car Care provides professional Paint Protection Film (PPF) installation services at our studio on Avinashi Road, Tiruppur, catering to luxury, executive, and daily-driven passenger vehicles.",
-      plainAnswer: "Yes. TMR AI Car Care provides professional Paint Protection Film (PPF) installation services at our studio on Avinashi Road, Tiruppur.",
+      a: "Yes. TMR AI Car Care provides professional Paint Protection Film (PPF) installation services at our studio at Arulpuram, Tiruppur, catering to luxury, executive, and daily-driven passenger vehicles.",
+      plainAnswer: "Yes. TMR AI Car Care provides professional Paint Protection Film (PPF) installation services at our studio at Arulpuram, Tiruppur.",
     },
     {
       id: "faq-ppf-location",
       q: "Where can I get PPF installation in Tiruppur?",
-      a: "You can get professional PPF installation at TMR AI Car Care Studio, located on Avinashi Road, near Hope College Junction, Tiruppur, Tamil Nadu. Our facility is equipped with controlled lighting and prep bays for precision film installation.",
-      plainAnswer: "You can get professional PPF installation at TMR AI Car Care Studio, located on Avinashi Road, near Hope College Junction, Tiruppur, Tamil Nadu.",
+      a: "You can get professional PPF installation at TMR AI Car Care Studio, located at Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu — 641605. Our facility is equipped with controlled lighting and prep bays for precision film installation.",
+      plainAnswer: "You can get professional PPF installation at TMR AI Car Care Studio, located at Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu — 641605.",
     },
     {
       id: "faq-ppf-cost",
