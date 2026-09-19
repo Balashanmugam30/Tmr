@@ -3,22 +3,24 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 
 interface GalleryRevealItemProps {
-  number: string;
+  number?: string;
   title: string;
   service: string;
   image: string;
-  aspect: string;
-  gridSpan: string;
+  aspect?: string;
+  gridSpan?: string;
   overlapClass?: string;
+  objectPosition?: string;
 }
 
 export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
   title,
   service,
   image,
-  aspect,
-  gridSpan,
+  aspect = 'aspect-[4/3]',
+  gridSpan = '',
   overlapClass = '',
+  objectPosition = 'center',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLAnchorElement>(null);
@@ -118,6 +120,7 @@ export const GalleryRevealItem: React.FC<GalleryRevealItemProps> = ({
           }`}
           style={{
             transform: 'translateX(-24px) scale(1.025)',
+            objectPosition: objectPosition || 'center',
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none opacity-40 group-hover:opacity-65 transition-opacity duration-500" />

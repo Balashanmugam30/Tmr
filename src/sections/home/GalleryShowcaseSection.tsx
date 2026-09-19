@@ -9,9 +9,8 @@ interface TeaserGalleryItem {
   title: string;
   service: string;
   image: string;
-  aspect: string;
-  gridSpan: string;
-  overlapClass?: string;
+  aspect?: string;
+  objectPosition?: string;
 }
 
 const homepageGalleryItems: TeaserGalleryItem[] = [
@@ -21,17 +20,17 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     title: 'INNOVA HYCROSS & XUV700',
     service: 'FEATURE // WORKSHOP DETAILING BAY',
     image: '/images/gallery/workshop/tmr-ai-car-care-workshop-innova-xuv700-bay.jpg',
-    aspect: 'aspect-[16/9]',
-    gridSpan: 'lg:col-span-12',
+    aspect: 'aspect-[4/3]',
+    objectPosition: 'center 50%',
   },
   {
-    id: 'technician-masking',
+    id: 'detailing-technicians',
     number: '02',
-    title: 'SURFACE PREPARATION',
-    service: 'CRAFT // PRECISION WHEEL & BODY MASKING',
-    image: '/images/gallery/team/tmr-ai-car-care-technician-masking.png',
-    aspect: 'aspect-[4/5]',
-    gridSpan: 'lg:col-span-5',
+    title: 'DETAILING SPECIALISTS',
+    service: 'CRAFT // ACTIVE WORKSHOP BAY',
+    image: '/images/gallery/team/tmr-ai-car-care-detailing-technicians-thumbs-up.jpg',
+    aspect: 'aspect-[4/3]',
+    objectPosition: 'center 30%',
   },
   {
     id: 'wash-bay-ramp',
@@ -39,9 +38,8 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     title: 'HYDRAULIC WASH RAMP',
     service: 'FACILITY // CHASSIS & UNDERBODY CARE',
     image: '/images/gallery/workshop/tmr-ai-car-care-wash-bay-ramp.jpg',
-    aspect: 'aspect-[3/4]',
-    gridSpan: 'lg:col-span-7',
-    overlapClass: 'lg:-mt-8',
+    aspect: 'aspect-[4/3]',
+    objectPosition: 'center 40%',
   },
   {
     id: 'full-team',
@@ -49,8 +47,8 @@ const homepageGalleryItems: TeaserGalleryItem[] = [
     title: 'TMR DETAILING CREW',
     service: 'TEAM // CERTIFIED DETAILING SPECIALISTS',
     image: '/images/gallery/team/tmr-ai-car-care-full-detailing-team.png',
-    aspect: 'aspect-[16/9]',
-    gridSpan: 'lg:col-span-12',
+    aspect: 'aspect-[4/3]',
+    objectPosition: 'center 45%',
   },
 ];
 
@@ -82,8 +80,8 @@ export const GalleryShowcaseSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 4-IMAGE ASYMMETRICAL EDITORIAL TEASER GRID (EACH ITEM HAS INDEPENDENT OBSERVER REVEAL) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
+        {/* 4-IMAGE UNIFORM EDITORIAL TEASER GRID (2 EQUAL COLUMNS, UNIFORM 4:3 ASPECT RATIO) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           {homepageGalleryItems.map((item) => (
             <GalleryRevealItem
               key={item.id}
@@ -92,8 +90,7 @@ export const GalleryShowcaseSection: React.FC = () => {
               service={item.service}
               image={item.image}
               aspect={item.aspect}
-              gridSpan={item.gridSpan}
-              overlapClass={item.overlapClass}
+              objectPosition={item.objectPosition}
             />
           ))}
         </div>
