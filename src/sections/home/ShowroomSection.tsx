@@ -66,8 +66,8 @@ export const ShowroomSection: React.FC = () => {
       {/* 1. REAL STOREFRONT PHOTOGRAPHY AS FULL-BLEED BACKGROUND */}
       <img
         ref={imageRef}
-        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrGobyku5YJCXyB2Rc0aowUUYUcvOsUHhFFYxg9qCACu7gFr-kFiwSKAx0hYp8qMGzf_D70GQMVNwX_SjbhsUI5NF9dEQPxxVHoUUsrqWESfHMzjz6XchhOZAAsG__azrHGdukeQWWcGpC7yfuCkaJ1GXFeOgV5pJMK2CLlynLo_QnKbd6Hp1BqYHhfwoeYoxHWhDlv-0pLT1VzFIAKoy1Kf8vooQeryIOsNaeWKFpFBZVQZO8MTA3"
-        alt="TMR AI Car Care studio exterior in Tiruppur"
+        src="/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg"
+        alt="TMR AI Car Care studio facility overview in Arulpuram, Tiruppur"
         className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-1000 ease-out pointer-events-none"
         onError={(e) => {
           const target = e.target as HTMLImageElement;

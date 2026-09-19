@@ -1,135 +1,75 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React from 'react';
+import { ReactCompareSlider, ReactCompareSliderImage, ReactCompareSliderHandle } from 'react-compare-slider';
 
 interface BeforeAfterRevealProps {
-  beforeImage: string;
-  afterImage: string;
+  beforeImage?: string;
+  afterImage?: string;
+  beforeAlt?: string;
+  afterAlt?: string;
   beforeLabel?: string;
   afterLabel?: string;
+  className?: string;
 }
 
 export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
-  beforeImage,
-  afterImage,
-  beforeLabel = 'BEFORE / PAINT DEFECTS',
-  afterLabel = 'AFTER / HIGH GLOSS',
+  beforeImage = '/images/gallery/gallery-tmr-vehicle-before.jpg',
+  afterImage = '/images/gallery/gallery-tmr-vehicle-after.jpg',
+  beforeAlt = 'Toyota Innova Hycross and Mahindra XUV700 with road dust, surface haze, and water spotting before detailing at TMR AI Car Care in Tiruppur',
+  afterAlt = 'Toyota Innova Hycross and Mahindra XUV700 with deep gloss finish and ceramic coating at TMR AI Car Care in Tiruppur',
+  beforeLabel = 'BEFORE',
+  afterLabel = 'AFTER',
+  className = 'w-full aspect-[16/10] sm:aspect-[21/9] rounded-2xl overflow-hidden border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.85)]',
 }) => {
-  const [sliderPos, setSliderPos] = useState<number>(50);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const updatePosition = useCallback((clientX: number) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const pos = Math.max(0, Math.min(100, (x / rect.width) * 100));
-    setSliderPos(pos);
-  }, []);
-
-  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
-    setIsDragging(true);
-    e.currentTarget.setPointerCapture(e.pointerId);
-    updatePosition(e.clientX);
-  };
-
-  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
-    updatePosition(e.clientX);
-  };
-
-  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (isDragging) {
-      setIsDragging(false);
-      try {
-        e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {
-        // Safe release
-      }
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'ArrowLeft') {
-      const step = e.shiftKey ? 10 : 2;
-      setSliderPos((prev) => Math.max(0, prev - step));
-    } else if (e.key === 'ArrowRight') {
-      const step = e.shiftKey ? 10 : 2;
-      setSliderPos((prev) => Math.min(100, prev + step));
-    }
-  };
-
   return (
-    <div
-      ref={containerRef}
-      role="slider"
-      aria-label="Before and after paint correction comparison slider. Click anywhere or drag to reveal changes."
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-valuenow={Math.round(sliderPos)}
-      tabIndex={0}
-      className="relative w-full aspect-[16/9] max-h-[75vh] overflow-hidden rounded-xl border border-white/15 shadow-[0_30px_90px_rgba(0,0,0,0.85)] cursor-ew-resize select-none touch-none bg-black group focus:outline-none focus:ring-2 focus:ring-[#FF4B00]"
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerUp}
-      onKeyDown={handleKeyDown}
-    >
-      {/* 1. BEFORE IMAGE (BASE UNDERLAY) */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none">
-        <img
-          src={beforeImage}
-          alt="Vehicle paint panel showing swirl marks and defects before correction"
-          className="w-full h-full object-cover"
-        />
-        {/* BEFORE EDITORIAL LABEL */}
-        <div className="absolute top-6 left-6 font-intertight">
-          <span className="bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-white/70 border border-white/10">
-            {beforeLabel}
-          </span>
-        </div>
-      </div>
-
-      {/* 2. AFTER IMAGE (CLIPPED OVERLAY) */}
-      <div
-        className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-10"
-        style={{
-          clipPath: `polygon(0 0, ${sliderPos}% 0, ${sliderPos}% 100%, 0 100%)`,
-        }}
-      >
-        <img
-          src={afterImage}
-          alt="Vehicle paint panel showing 10H specular mirror gloss after correction"
-          className="w-full h-full object-cover"
-        />
-        {/* AFTER EDITORIAL LABEL */}
-        <div className="absolute top-6 right-6 font-intertight">
-          <span className="bg-black/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-widest text-[#FF4B00] border border-[#FF4B00]/30">
-            {afterLabel}
-          </span>
-        </div>
-      </div>
-
-      {/* 3. PRECISION TMR ORANGE DIVIDER LINE */}
-      <div
-        className="absolute top-0 bottom-0 w-[2px] bg-[#FF4B00] z-20 pointer-events-none transition-shadow duration-300 shadow-[0_0_15px_rgba(255,75,0,0.8)]"
-        style={{ left: `${sliderPos}%` }}
-      >
-        {/* MINIMAL CIRCULAR CAMERA INSPECTION HANDLE */}
-        <div
-          className={`absolute top-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/90 border-2 border-[#FF4B00] flex items-center justify-center text-white shadow-2xl transition-transform duration-300 ${
-            isDragging ? 'scale-110 shadow-[0_0_25px_rgba(255,75,0,0.9)]' : 'group-hover:scale-105'
-          }`}
-        >
-          <span className="font-intertight text-xs font-black text-[#FF4B00] tracking-tighter">
-            ↔
-          </span>
-        </div>
-      </div>
-
-      {/* BOTTOM DRAG INSTRUCTION BAR */}
-      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none font-intertight text-[10px] font-bold uppercase tracking-widest text-white/50 z-20">
-        <span>CLICK OR DRAG ANYWHERE TO INSPECT CLEARCOAT RECOVERY</span>
-        <span className="text-[#FF4B00]">MULTI-STAGE CORRECTION</span>
-      </div>
+    <div className="w-full relative select-none">
+      <ReactCompareSlider
+        itemOne={
+          <div className="relative w-full h-full">
+            <ReactCompareSliderImage
+              src={beforeImage}
+              alt={beforeAlt}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+            <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-10 px-3 sm:px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/90 uppercase pointer-events-none shadow-lg">
+              {beforeLabel}
+            </div>
+          </div>
+        }
+        itemTwo={
+          <div className="relative w-full h-full">
+            <ReactCompareSliderImage
+              src={afterImage}
+              alt={afterAlt}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+            <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-10 px-3 sm:px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#FF4B00] uppercase pointer-events-none shadow-lg">
+              {afterLabel}
+            </div>
+          </div>
+        }
+        handle={
+          <ReactCompareSliderHandle
+            buttonStyle={{
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              backgroundColor: 'rgba(15, 15, 15, 0.92)',
+              border: '1.5px solid rgba(255, 255, 255, 0.4)',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.7), 0 0 16px rgba(255, 75, 0, 0.4)',
+              color: '#FF4B00',
+              width: '44px',
+              height: '44px',
+              borderRadius: '9999px',
+            }}
+            linesStyle={{
+              width: '2px',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              boxShadow: '0 0 8px rgba(0, 0, 0, 0.8)',
+            }}
+          />
+        }
+        defaultPosition={50}
+        className={className}
+      />
     </div>
   );
 };

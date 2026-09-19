@@ -86,10 +86,12 @@ export const TransformationSection: React.FC = () => {
         {/* DOMINANT DRAGGABLE BEFORE/AFTER REVEAL SLIDER */}
         <div ref={revealWrapperRef} className="w-full">
           <BeforeAfterReveal
-            beforeImage="/images/transformation/before.webp"
-            afterImage="/images/transformation/after.webp"
-            beforeLabel="BEFORE / PAINT DEFECTS"
-            afterLabel="AFTER / HIGH GLOSS"
+            beforeImage="/images/gallery/gallery-tmr-vehicle-before.jpg"
+            afterImage="/images/gallery/gallery-tmr-vehicle-after.jpg"
+            beforeAlt="Toyota Innova Hycross and Mahindra XUV700 with road dust, surface haze, and water spotting before detailing at TMR AI Car Care in Tiruppur"
+            afterAlt="Toyota Innova Hycross and Mahindra XUV700 with deep gloss finish and ceramic coating at TMR AI Car Care in Tiruppur"
+            beforeLabel="BEFORE"
+            afterLabel="AFTER"
           />
         </div>
       </Container>
