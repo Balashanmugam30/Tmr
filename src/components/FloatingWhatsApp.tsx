@@ -105,26 +105,13 @@ export const FloatingWhatsApp: React.FC = () => {
             aria-hidden="true"
           />
 
-          {/* Desktop Hover Tooltip (Smooth slide-in to the left) */}
-          <div
-            className="hidden sm:flex absolute right-[calc(100%+16px)] items-center pointer-events-none opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 ease-out"
-            aria-hidden="true"
-          >
-            <div className="bg-[#0e0e0e]/95 backdrop-blur-xl text-white text-[11px] font-manrope font-extrabold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-2xl border border-white/15 whitespace-nowrap flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
-              <span>CHAT ON WHATSAPP</span>
-              <span className="text-[#FF4B00] font-mono text-[10px]">TMR CAR CARE</span>
-            </div>
-          </div>
-
-          {/* Main Floating Capsule Button: Larger Liquid Glass Stadium with TMR Theme */}
+          {/* Main Floating Capsule Button: Pure Icon, Zero Tooltip, Zero Bottom Dot */}
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat with TMR AI Car Care on WhatsApp"
-            title="Chat with TMR AI Car Care on WhatsApp"
-            className="group/btn relative w-[54px] h-[86px] sm:w-[60px] sm:h-[94px] rounded-full bg-gradient-to-b from-[#242428]/85 via-[#121214]/90 to-[#08080a]/95 backdrop-blur-2xl border border-white/25 hover:border-[#FF4B00]/80 animate-tmr-liquid-shadow flex flex-col items-center justify-center gap-1.5 hover:scale-[1.06] active:scale-[0.96] transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4B00] focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer overflow-hidden"
+            className="group/btn relative w-[54px] h-[86px] sm:w-[60px] sm:h-[94px] rounded-full bg-gradient-to-b from-[#242428]/85 via-[#121214]/90 to-[#08080a]/95 backdrop-blur-2xl border border-white/25 hover:border-[#FF4B00]/80 animate-tmr-liquid-shadow flex items-center justify-center hover:scale-[1.06] active:scale-[0.96] transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF4B00] focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer overflow-hidden"
           >
             {/* Liquid Glass Top Specular Arc Reflection */}
             <span
@@ -138,17 +125,12 @@ export const FloatingWhatsApp: React.FC = () => {
               aria-hidden="true"
             />
 
-            {/* Glowing WhatsApp Icon with Green Radiance */}
+            {/* Glowing New Modern Meta WhatsApp Icon centered with Green Radiance */}
             <div className="relative z-10 flex items-center justify-center drop-shadow-[0_0_12px_rgba(37,211,102,0.65)] group-hover/btn:drop-shadow-[0_0_18px_rgba(37,211,102,0.9)] transition-all duration-300">
               <WhatsAppIcon
                 variant="brand"
-                className="w-7 h-7 sm:w-8 sm:h-8 transition-transform duration-300 group-hover/btn:scale-110"
+                className="w-8 h-8 sm:w-9 sm:h-9 transition-transform duration-300 group-hover/btn:scale-110"
               />
-            </div>
-
-            {/* TMR Signature Flame Orange Micro-Dot Accent */}
-            <div className="relative z-10 flex items-center justify-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B00] shadow-[0_0_8px_#FF4B00] group-hover/btn:scale-125 transition-transform duration-200" />
             </div>
           </a>
         </div>
