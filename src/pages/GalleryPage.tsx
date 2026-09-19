@@ -758,7 +758,8 @@ export const GalleryPage: React.FC = () => {
           <img
             src={heroVisual.src}
             alt={heroVisual.alt}
-            fetchPriority="high"
+            loading="eager"
+            {...{ fetchpriority: 'high' }}
             className="w-full h-full object-cover will-change-transform scale-105 brightness-105 contrast-105"
             style={{
               transform: isReducedMotion
