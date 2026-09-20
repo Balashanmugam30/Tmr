@@ -293,23 +293,23 @@ export const ScrollyHero: React.FC = () => {
           
           {/* STATE 01 — SURFACE (BOTTOM-LEFT / LOWER-LEFT ANCHOR: left 8vw, top 44vh) */}
           <div
-            className={`absolute left-[6vw] lg:left-[8vw] top-[40vh] md:top-[44vh] w-[88vw] max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute left-[6vw] lg:left-[8vw] top-[28vh] sm:top-[36vh] md:top-[44vh] w-[88vw] max-w-[calc(100vw-3rem)] sm:max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 0
                 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <h1 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[84px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
+            <h1 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-7xl lg:text-[84px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
               THE ART OF CAR CARE.
             </h1>
-            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic mb-6 leading-tight">
+            <p className="font-editorial text-base sm:text-xl md:text-2xl text-white/85 italic mb-6 leading-tight">
               Precision begins with the surface.
             </p>
             <div>
               <Link
                 to="/services"
                 aria-label="Explore TMR AI Car Care detailing services in Tiruppur"
-                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors py-2 min-h-[44px] justify-center"
               >
                 <span className="inline-flex items-center gap-1.5">
                   <span>EXPLORE SERVICES</span>
@@ -322,71 +322,71 @@ export const ScrollyHero: React.FC = () => {
 
           {/* STATE 02 — REVEAL (TOP-LEFT / UPPER THIRD: left 8vw, top 22vh) */}
           <div
-            className={`absolute left-[6vw] lg:left-[8vw] top-[18vh] md:top-[22vh] w-[88vw] max-w-lg transition-all duration-500 ease-out ${
+            className={`absolute left-[6vw] lg:left-[8vw] top-[16vh] md:top-[22vh] w-[88vw] max-w-[calc(100vw-3rem)] sm:max-w-lg transition-all duration-500 ease-out ${
               activeStateIndex === 1
                 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
+            <h2 className="font-intertight font-extrabold text-2xl sm:text-4xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
               EVERY SURFACE MATTERS.
             </h2>
-            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic leading-tight">
+            <p className="font-editorial text-base sm:text-xl md:text-2xl text-white/85 italic leading-tight">
               Paint. Reflection. Finish.
             </p>
           </div>
 
           {/* STATE 03 — APPROACH (RIGHT SIDE / MID-LOW: right 8vw, top 48vh) */}
           <div
-            className={`absolute right-[6vw] lg:right-[8vw] top-[44vh] md:top-[48vh] w-[88vw] max-w-md text-left transition-all duration-500 ease-out ${
+            className={`absolute right-[6vw] lg:right-[8vw] top-[32vh] sm:top-[40vh] md:top-[48vh] w-[88vw] max-w-[calc(100vw-3rem)] sm:max-w-md text-left transition-all duration-500 ease-out ${
               activeStateIndex === 2
                 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
+            <h2 className="font-intertight font-extrabold text-2xl sm:text-4xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
               PRECISION IN MOTION.
             </h2>
-            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic leading-tight">
+            <p className="font-editorial text-base sm:text-xl md:text-2xl text-white/85 italic leading-tight">
               Measured work. Controlled finish.
             </p>
           </div>
 
           {/* STATE 04 — CRAFT (UPPER-RIGHT CAPTION: right 8vw, top 20vh) */}
           <div
-            className={`absolute right-[6vw] lg:right-[8vw] top-[16vh] md:top-[20vh] w-[88vw] max-w-md text-left transition-all duration-500 ease-out ${
+            className={`absolute right-[6vw] lg:right-[8vw] top-[16vh] md:top-[20vh] w-[88vw] max-w-[calc(100vw-3rem)] sm:max-w-md text-left transition-all duration-500 ease-out ${
               activeStateIndex === 3
                 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
+            <h2 className="font-intertight font-extrabold text-2xl sm:text-4xl md:text-6xl lg:text-7xl text-white uppercase leading-[0.94] tracking-[-0.045em] mb-3">
               CRAFT, NOT COMMERCE.
             </h2>
-            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic leading-tight">
+            <p className="font-editorial text-base sm:text-xl md:text-2xl text-white/85 italic leading-tight">
               Every pass is intentional.
             </p>
           </div>
 
           {/* STATE 05 — FINISH (EDITORIAL BOOKEND: LOWER-LEFT ANCHOR MATCHING STATE 01) */}
           <div
-            className={`absolute left-[6vw] lg:left-[8vw] top-[40vh] md:top-[44vh] w-[88vw] max-w-xl transition-all duration-500 ease-out ${
+            className={`absolute left-[6vw] lg:left-[8vw] top-[28vh] sm:top-[36vh] md:top-[44vh] w-[88vw] max-w-[calc(100vw-3rem)] sm:max-w-xl transition-all duration-500 ease-out ${
               activeStateIndex === 4
                 ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto z-20'
                 : 'opacity-0 -translate-y-4 scale-[0.98] pointer-events-none z-0'
             }`}
           >
-            <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[80px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
+            <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-7xl lg:text-[80px] text-white uppercase leading-[0.94] tracking-[-0.045em] mb-4">
               FINISHED WITH INTENT.
             </h2>
-            <p className="font-editorial text-lg sm:text-2xl text-white/85 italic mb-6 leading-tight">
+            <p className="font-editorial text-base sm:text-xl md:text-2xl text-white/85 italic mb-6 leading-tight">
               The final surface is the standard.
             </p>
             <div>
               <Link
                 to="/services"
                 aria-label="Book a car detailing consultation at TMR Tiruppur"
-                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors py-2 min-h-[44px] justify-center"
               >
                 <span className="inline-flex items-center gap-1.5">
                   <span>BOOK YOUR DETAIL</span>

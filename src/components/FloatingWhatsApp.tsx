@@ -81,14 +81,9 @@ export const FloatingWhatsApp: React.FC = () => {
 
       <aside
         aria-label="Contact via WhatsApp"
-        className={`fixed z-40 print:hidden select-none transition-all duration-500 ease-out tmr-entrance ${
+        className={`fixed z-40 print:hidden select-none transition-all duration-500 ease-out tmr-entrance bottom-[calc(5.5rem+env(safe-area-inset-bottom,0px))] md:bottom-[calc(9.5rem+env(safe-area-inset-bottom,0px))] right-4 sm:right-6 ${
           isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
         }`}
-        style={{
-          /* Placed significantly higher up as requested */
-          bottom: 'calc(9.5rem + env(safe-area-inset-bottom, 0px))',
-          right: '1.5rem',
-        }}
       >
         {/* Floating wrapper: bobs up and down smoothly */}
         <div className="relative flex items-center justify-center group animate-tmr-liquid-float sm:right-1">

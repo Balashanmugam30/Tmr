@@ -218,6 +218,18 @@ export const GalleryPage: React.FC = () => {
   const [heroParallax, setHeroParallax] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
+  // Lock body scroll when lightbox is open
+  useEffect(() => {
+    if (activeLightboxIndex !== null) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [activeLightboxIndex]);
+
   // DOM Refs
   const transSectionRef = useRef<HTMLElement>(null);
   const processSectionRef = useRef<HTMLElement>(null);
@@ -831,7 +843,7 @@ export const GalleryPage: React.FC = () => {
         {/* Layer 3: Editorial Typography Content - Cleaned of legacy scaffolding tags */}
         <div className="relative z-20 max-w-[1360px] w-full mx-auto px-5 md:px-16 pb-16 sm:pb-24 flex flex-col justify-end space-y-6">
           <div className="flex flex-col space-y-4 max-w-2xl">
-            <h1 className="font-manrope font-extrabold text-5xl sm:text-7xl lg:text-8xl uppercase tracking-tighter text-white leading-[0.92] drop-shadow-2xl">
+            <h1 className="font-manrope font-extrabold text-3xl sm:text-6xl md:text-7xl lg:text-8xl uppercase tracking-tighter text-white leading-[0.92] drop-shadow-2xl">
               AUTOMOTIVE <br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase tracking-normal">in</span> FOCUS.
             </h1>
@@ -843,7 +855,7 @@ export const GalleryPage: React.FC = () => {
             <div className="pt-4 flex items-center gap-6">
               <a
                 href="#studio-archive"
-                className="inline-flex items-center font-bold text-xs text-white tracking-widest uppercase group hover:text-[#FF4B00] transition-colors"
+                className="inline-flex items-center font-bold text-xs text-white tracking-widest uppercase group hover:text-[#FF4B00] transition-colors py-2 min-h-[44px]"
               >
                 <span>VIEW PHOTO COLLECTION</span>
                 <span className="ml-2 text-base group-hover:translate-y-1 transition-transform">↓</span>
@@ -862,7 +874,7 @@ export const GalleryPage: React.FC = () => {
           {/* Header & Filter Controls Bar */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 border-b border-white/10 pb-8">
             <div className="space-y-4 max-w-2xl">
-              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05]">
+              <h2 className="font-manrope font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-[1.05]">
                 STUDIO, WORKSHOP &amp; <br />
                 <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">craft</span> GALLERY.
               </h2>
@@ -895,7 +907,7 @@ export const GalleryPage: React.FC = () => {
                 <button
                   key={tab.val}
                   onClick={() => setPhotoCategory(tab.val as any)}
-                  className={`text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-2 rounded-lg border transition-all duration-300 ${
+                  className={`text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider px-3.5 py-2.5 rounded-lg border transition-all duration-300 min-h-[44px] inline-flex items-center ${
                     photoCategory === tab.val
                       ? 'bg-[#FF4B00] border-[#FF4B00] text-white shadow-[0_0_20px_rgba(255,75,0,0.4)]'
                       : 'bg-white/5 border-white/10 text-white/70 hover:text-white hover:border-white/30'
@@ -1118,7 +1130,7 @@ export const GalleryPage: React.FC = () => {
               <span>BOOK YOUR VEHICLE SERVICE</span>
             </div>
 
-            <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
+            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-white leading-[0.92] tracking-tighter">
               EXPERIENCE THE <br />
               <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">finish.</span>
             </h2>

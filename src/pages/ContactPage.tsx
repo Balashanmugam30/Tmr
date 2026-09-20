@@ -237,7 +237,7 @@ export const ContactPage: React.FC = () => {
             
             {/* Headline — First Major Visual Element */}
             <div>
-              <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl lg:text-[88px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] select-none">
+              <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-3xl sm:text-6xl lg:text-[88px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] select-none">
                 GET IN <br />
                 TOUCH WITH <br />
                 <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-4 inline-block transform -rotate-1">
@@ -247,7 +247,7 @@ export const ContactPage: React.FC = () => {
             </div>
 
             {/* Supporting Copy & CTA */}
-            <div className="space-y-6 pt-8 sm:pt-12">
+            <div className="space-y-6 pt-6 sm:pt-12">
               <p className="font-manrope text-sm sm:text-base text-[#3A3837] leading-relaxed max-w-md font-normal border-l-2 border-[#FF4B00] pl-4">
                 Tell us what your vehicle needs and we'll help you find the right next step.
               </p>
@@ -259,7 +259,7 @@ export const ContactPage: React.FC = () => {
                     e.preventDefault();
                     document.getElementById('contact-details')?.scrollIntoView({ behavior: 'smooth' });
                   }}
-                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
+                  className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
                 >
                   <span>CONTACT TMR</span>
                   <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -289,15 +289,17 @@ export const ContactPage: React.FC = () => {
         {/* Subtle Atmospheric Vignette Layer */}
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_45%,_rgba(0,0,0,0.05)_100%)]" />
 
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-16">
+        <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* LEFT COLUMN (6 cols): Editorial Contact & Info */}
+            {/* LEFT COLUMN (6 cols): Pure Editorial Contact Details & Channels */}
             <div className="lg:col-span-6 space-y-10">
               
-              {/* Editorial Headline & Intro */}
               <div className="space-y-4">
-                <h2 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl uppercase tracking-tight text-[#0A0A0A] leading-[0.96]">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
+                  COMMUNICATION CHANNELS
+                </span>
+                <h2 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-3xl sm:text-5xl lg:text-7xl uppercase tracking-tight text-[#0A0A0A] leading-[0.96]">
                   TELL US WHAT <br />
                   YOUR CAR <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-2 inline-block transform -rotate-1">needs.</span>
                 </h2>
@@ -313,7 +315,7 @@ export const ContactPage: React.FC = () => {
                   href={`https://wa.me/${companyData.contact.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300"
+                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300 min-h-[44px]"
                 >
                   <div>
                     <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
@@ -332,7 +334,7 @@ export const ContactPage: React.FC = () => {
                 {/* Call Row */}
                 <a
                   href={`tel:${companyData.contact.phone}`}
-                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300"
+                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300 min-h-[44px]"
                 >
                   <div>
                     <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
@@ -351,13 +353,13 @@ export const ContactPage: React.FC = () => {
                 {/* Email Row */}
                 <a
                   href={`mailto:${companyData.contact.email}`}
-                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300"
+                  className="py-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2 group hover:pl-3 transition-all duration-300 min-h-[44px]"
                 >
                   <div>
                     <span className="font-mono text-[11px] font-bold text-[#FF4B00] uppercase tracking-widest block mb-1">
                       03 / EMAIL CONSULTATION
                     </span>
-                    <span className="font-manrope font-extrabold text-lg sm:text-xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors">
+                    <span className="font-manrope font-extrabold text-sm sm:text-base md:text-lg lg:text-xl text-[#0A0A0A] group-hover:text-[#FF4B00] transition-colors break-all">
                       {companyData.contact.email}
                     </span>
                   </div>

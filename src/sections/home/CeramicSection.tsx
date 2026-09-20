@@ -74,7 +74,7 @@ export const CeramicSection: React.FC = () => {
           {/* LEFT / RESTRAINED EDITORIAL COPY GROUP (COLUMNS 1–5) */}
           <div ref={textGroupRef} className="lg:col-span-5 space-y-6 max-w-[440px]">
             {/* MAIN HEADLINE */}
-            <h2 className="prot-editorial-item font-intertight font-extrabold text-4xl sm:text-6xl uppercase text-white leading-[0.92] tracking-[-0.04em]">
+            <h2 className="prot-editorial-item font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl uppercase text-white leading-[0.92] tracking-[-0.04em]">
               PROTECT <br />
               THE <span className="text-[#FF4B00]">FINISH.</span>
             </h2>
@@ -89,7 +89,7 @@ export const CeramicSection: React.FC = () => {
               <Link
                 to="/services/ceramic-coating"
                 aria-label="Explore TMR 10H ceramic coating packages in Tiruppur"
-                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+                className="group inline-flex flex-col gap-1 text-xs font-intertight font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors py-2 min-h-[44px] justify-center"
               >
                 <span className="inline-flex items-center gap-2">
                   <span>EXPLORE CERAMIC PACKAGES</span>

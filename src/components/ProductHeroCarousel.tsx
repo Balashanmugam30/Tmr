@@ -57,8 +57,8 @@ export const ProductHeroCarousel: React.FC<ProductHeroCarouselProps> = ({
       const isMobile = window.innerWidth < 640;
       const isTablet = window.innerWidth >= 640 && window.innerWidth < 1024;
 
-      const radius = isMobile ? 360 : isTablet ? 620 : 880;
-      const angleStep = isMobile ? 0.44 : isTablet ? 0.35 : 0.28;
+      const radius = isMobile ? 260 : isTablet ? 620 : 880;
+      const angleStep = isMobile ? 0.52 : isTablet ? 0.35 : 0.28;
 
       products.forEach((_, i) => {
         const itemEl = itemsRef.current[i];

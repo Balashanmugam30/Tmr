@@ -107,16 +107,16 @@ export const TermsPage: React.FC = () => {
       </header>
 
       {/* MOBILE HORIZONTAL CLAUSE RAIL */}
-      <div className="lg:hidden sticky top-20 z-20 bg-[#0C0C0B]/95 backdrop-blur border-b border-white/10 py-3 px-5 overflow-x-auto no-scrollbar flex items-center gap-4 text-xs font-extrabold uppercase tracking-wider">
+      <div className="lg:hidden sticky top-20 z-20 bg-[#0C0C0B]/95 backdrop-blur border-b border-white/10 py-1 px-5 overflow-x-auto no-scrollbar flex items-center gap-4 text-xs font-extrabold uppercase tracking-wider">
         <span className="text-[#888885] shrink-0 text-[10px]">CLAUSES:</span>
         {clauses.map((clause) => (
           <button
             key={clause.id}
             onClick={() => scrollToClause(clause.id)}
             type="button"
-            className={`shrink-0 whitespace-nowrap transition-colors ${
+            className={`shrink-0 whitespace-nowrap transition-colors min-h-[44px] inline-flex items-center py-2 px-1 ${
               activeClause === clause.id
-                ? 'text-[#FF4B00] border-b border-[#FF4B00] pb-0.5'
+                ? 'text-[#FF4B00] border-b-2 border-[#FF4B00]'
                 : 'text-[#A0A09C] hover:text-white'
             }`}
           >
@@ -353,10 +353,10 @@ export const TermsPage: React.FC = () => {
             </section>
 
             {/* FINAL NEED CLARIFICATION LINK */}
-            <div className="pt-12 border-t border-white/10 flex items-center justify-between">
+            <div className="pt-12 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors min-h-[44px]"
               >
                 <span>NEED CLARIFICATION? CONTACT TMR STUDIO</span>
                 <span className="text-base">→</span>
@@ -364,7 +364,7 @@ export const TermsPage: React.FC = () => {
 
               <Link
                 to="/privacy-policy"
-                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#888885] hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#888885] hover:text-white transition-colors min-h-[44px]"
               >
                 <span>VIEW PRIVACY POLICY</span>
                 <span className="text-base">→</span>

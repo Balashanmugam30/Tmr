@@ -71,6 +71,18 @@ export const Navbar: React.FC = () => {
     setIsMobileOpen(false);
   }, [location.pathname]);
 
+  // Lock body scroll when mobile drawer is open
+  useEffect(() => {
+    if (isMobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileOpen]);
+
   const handleMouseEnterTab = (label: string) => {
     if (navTimeoutRef.current) {
       clearTimeout(navTimeoutRef.current);
@@ -115,7 +127,7 @@ export const Navbar: React.FC = () => {
               width={600}
               height={60}
               preserveAspectRatio="none"
-              href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'600'%20height%3D'60'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'gx'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'100%25'%20y2%3D'0%25'%3E%3Cstop%20offset%3D'0%25'%20stop-color%3D'%23000'%2F%3E%3Cstop%20offset%3D'100%25'%20stop-color%3D'%23f00'%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D'gy'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'0%25'%20y2%3D'100%25'%3E%3Cstop%20offset%3D'0%25'%20stop-color%3D'%23000'%2F%3E%3Cstop%20offset%3D'100%25'%20stop-color%3D'%230f0'%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D'b'%3E%3CfeGaussianBlur%20stdDeviation%3D'8'%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'url(%23gx)'%20style%3D'mix-blend-mode%3Ascreen'%2F%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'url(%23gy)'%20style%3D'mix-blend-mode%3Ascreen'%2F%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'%23808080'%20filter%3D'url(%23b)'%2F%3E%3C%2Fsvg%3E"
+              href="data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'600'%20height%3D'60'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'gx'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'100%25'%20y2%3D'0%25'%3E%3Cstop%20offset%3D'0%25'%20stop-color%3D'%23000'%2F%3E%3Cstop%20offset%3D'100%25'%20stop-color%3D'%23f00'%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D'gy'%20x1%3D'0%25'%20y1%3D'0%25'%20x2%3D'0%25'%20y2%3D'100%25'%3E%3Cstop%20offset%3D'0%25'%20stop-color%3D'%23000'%2F%3E%3Cstop%20offset%3D'100%25'%20stop-color%3D'%230f0'%2F%3E%3C%2FlinearGradient%3E%3Cfilter%20id%3D'b'%3E%3CfeGaussianBlur%20stdDeviation%3D'8'%2F%3E%3C%2Ffilter%3E%3C%2Fdefs%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'url(%23gx)'%20style%3D'mix-blend-mode%3Ascreen'%2F%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'url(%23gy)'%20style%3D'mix-blend-mode%3Ascreen'%2F%3E%3Crect%20width%3D'600'%20height%3D'60'%20rx%3D'30'%20fill%3D'url(%23808080)'%20filter%3D'url(%23b)'%2F%3E%3C%2Fsvg%3E"
             />
             <feDisplacementMap
               in="SourceGraphic"
@@ -130,7 +142,7 @@ export const Navbar: React.FC = () => {
 
       {/* GLOBAL NAVBAR CONTAINER LAYER */}
       <header
-        className={`fixed top-4 md:top-6 left-0 right-0 z-[1000] px-4 md:px-8 pointer-events-none transition-all duration-300 ${
+        className={`fixed top-4 md:top-6 left-0 right-0 z-[1000] px-3 sm:px-4 md:px-8 pointer-events-none transition-all duration-300 ${
           isVisible ? 'translate-y-0 opacity-100 scale-100' : '-translate-y-24 opacity-0 scale-95'
         }`}
       >
@@ -196,8 +208,8 @@ export const Navbar: React.FC = () => {
             </LiquidGlassSurface>
           </div>
 
-          {/* ZONE 3: RIGHT CONTACT ACTION CAPSULE (PERFECTLY CENTERED LIQUID GLASS CONTROL) */}
-          <div className="pointer-events-auto shrink-0 z-[1010]">
+          {/* ZONE 3: RIGHT CONTACT ACTION CAPSULE (DESKTOP ONLY — AVOIDS COLLISION WITH MOBILE TRIGGER) */}
+          <div className="pointer-events-auto shrink-0 z-[1010] hidden lg:block">
             <Link to="/contact" className="inline-flex">
               <LiquidGlassSurface className="h-[62px] px-6 border border-white/20 hover:border-[#FF4B00]/60 transition-colors">
                 <div className="group inline-flex items-center justify-center gap-2 text-white font-manrope font-extrabold text-xs uppercase tracking-widest leading-none relative z-10 my-auto">

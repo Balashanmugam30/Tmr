@@ -95,8 +95,8 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                 "{currentStage.description}"
               </p>
 
-              {/* EDITORIAL LEFT-SIDE VERTICAL PROCESS RAIL NAVIGATION WITH LARGE BOLD ACTIVE ITEM */}
-              <div className="pt-2 sm:pt-4 border-l-2 border-black/20 space-y-3 sm:space-y-4 pl-4 sm:pl-6">
+              {/* EDITORIAL LEFT-SIDE VERTICAL PROCESS RAIL NAVIGATION WITH LARGE BOLD ACTIVE ITEM (DESKTOP) */}
+              <div className="hidden lg:block pt-2 sm:pt-4 border-l-2 border-black/20 space-y-3 sm:space-y-4 pl-4 sm:pl-6">
                 {processStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
                   return (
@@ -128,19 +128,41 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                   );
                 })}
               </div>
+
+              {/* COMPACT HORIZONTAL STEP PILL INDICATOR (MOBILE & TABLET) */}
+              <div className="flex lg:hidden items-center gap-1.5 sm:gap-2 pt-1 overflow-x-auto no-scrollbar py-1">
+                {processStages.map((stage, idx) => {
+                  const isActive = activeStageIndex === idx;
+                  return (
+                    <button
+                      key={stage.id}
+                      onClick={() => setActiveStageIndex(idx)}
+                      type="button"
+                      className={`min-h-[44px] px-3 py-1.5 rounded-full font-mono text-xs font-bold transition-all duration-300 flex items-center gap-1.5 shrink-0 ${
+                        isActive
+                          ? 'bg-[#111111] text-white shadow-md'
+                          : 'bg-black/10 text-black/60 hover:bg-black/15'
+                      }`}
+                    >
+                      <span className={isActive ? 'text-[#FF4B00]' : 'text-black/40'}>{stage.number}</span>
+                      <span>{stage.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* RIGHT / RESPONSIVE ACTIVE DISPLAY TITLE & CINEMATIC STAGE VISUAL (COLUMNS 6–12) */}
             <div className="lg:col-span-7 relative w-full flex flex-col items-start lg:items-end justify-center">
               
               {/* RESPONSIVE CLAMPED DISPLAY TITLE */}
-              <h2 className="font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[110px] uppercase text-[#111111] leading-[0.85] tracking-[-0.05em] mb-2 sm:mb-3 text-left lg:text-right w-full shrink-0">
+              <h2 className="font-intertight font-extrabold text-3xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-[110px] uppercase text-[#111111] leading-[0.85] tracking-[-0.05em] mb-2 sm:mb-3 text-left lg:text-right w-full shrink-0">
                 <span className="text-[#FF4B00]">0{activeStageIndex + 1}</span>{' '}
                 <span className="text-[#111111]">{currentStage.title}</span>
               </h2>
 
               {/* VIEWPORT-HEIGHT CONSTRAINED STAGE IMAGE FRAME */}
-              <div className="w-full aspect-[16/10] max-h-[32vh] sm:max-h-[36vh] lg:max-h-[42vh] max-h-[420px] relative overflow-hidden rounded-2xl border border-black/15 shadow-[0_20px_50px_rgba(0,0,0,0.12)] bg-black shrink-0">
+              <div className="w-full aspect-[16/10] max-h-[25vh] sm:max-h-[32vh] lg:max-h-[42vh] max-h-[420px] relative overflow-hidden rounded-2xl border border-black/15 shadow-[0_20px_50px_rgba(0,0,0,0.12)] bg-black shrink-0">
                 {processStages.map((stage, idx) => {
                   const isActive = activeStageIndex === idx;
                   return (

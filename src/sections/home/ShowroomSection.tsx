@@ -60,7 +60,7 @@ export const ShowroomSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="flagship-studio"
-      className="relative w-full min-h-[90svh] h-[90svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-center isolate font-intertight scroll-mt-24"
+      className="relative w-full min-h-[75svh] h-auto lg:h-[90svh] lg:min-h-[90svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-center isolate font-intertight scroll-mt-24"
       style={{ backgroundColor: '#070809' }}
     >
       {/* 1. REAL STOREFRONT PHOTOGRAPHY AS FULL-BLEED BACKGROUND */}
@@ -84,13 +84,13 @@ export const ShowroomSection: React.FC = () => {
         <div ref={contentRef} className="max-w-[560px] space-y-5">
           
           {/* MAIN HEADLINE */}
-          <h2 className="showroom-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-white leading-[0.88] tracking-[-0.04em]">
+          <h2 className="showroom-anim-item font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-white leading-[0.88] tracking-[-0.04em]">
             COME SEE <br />
             THE <span className="text-[#FF4B00]">DIFFERENCE.</span>
           </h2>
 
           {/* EDITORIAL SUBTITLE */}
-          <p className="showroom-anim-item font-editorial text-2xl sm:text-3xl italic text-[#FF4B00]">
+          <p className="showroom-anim-item font-editorial text-xl sm:text-3xl italic text-[#FF4B00]">
             Our Tiruppur Studio.
           </p>
 
@@ -100,13 +100,13 @@ export const ShowroomSection: React.FC = () => {
           </p>
 
           {/* PRIMARY & SECONDARY ACTION LINKS */}
-          <div className="showroom-anim-item pt-3 flex items-center gap-8 font-intertight">
+          <div className="showroom-anim-item pt-3 flex flex-wrap items-center gap-6 sm:gap-8 font-intertight">
             <a
               href={companyData.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Get Google Maps driving directions to TMR AI Car Care studio in Tiruppur"
-              className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors py-2 min-h-[44px] justify-center"
             >
               <span className="inline-flex items-center gap-2">
                 <span>GET DIRECTIONS</span>
@@ -119,7 +119,7 @@ export const ShowroomSection: React.FC = () => {
               href={`https://wa.me/${companyData.contact.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors py-2 min-h-[44px] inline-flex items-center"
             >
               WHATSAPP TMR
             </a>

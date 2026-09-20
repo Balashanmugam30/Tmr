@@ -62,7 +62,7 @@ export const PpfSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="ppf-protection"
-      className="relative w-full min-h-[100svh] h-[100svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-center py-8 lg:py-12 isolate cursor-crosshair"
+      className="relative w-full min-h-[100svh] h-auto lg:h-[100svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-center py-8 lg:py-12 isolate cursor-crosshair"
       style={{ backgroundColor: '#070809' }}
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
@@ -82,16 +82,16 @@ export const PpfSection: React.FC = () => {
 
       {/* 2. MAIN EDITORIAL COMPOSITION (ANCHORED IN LOWER-LEFT VIEWPORT) */}
       <Container className="relative z-20 my-auto py-6 lg:py-8">
-        <div ref={textGroupRef} className="max-w-[560px] space-y-6">
+        <div ref={textGroupRef} className="max-w-[560px] space-y-5 sm:space-y-6">
           
           {/* MAIN HEADLINE */}
-          <h2 className="ppf-anim-item font-intertight font-extrabold text-5xl sm:text-7xl lg:text-[100px] uppercase text-white leading-[0.88] tracking-[-0.045em]">
+          <h2 className="ppf-anim-item font-intertight font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-[100px] uppercase text-white leading-[0.9] tracking-[-0.045em]">
             THE INVISIBLE <br />
             SHIELD<span className="text-[#FF4B00]">.</span>
           </h2>
 
           {/* SHORT EDITORIAL STATEMENT */}
-          <p className="ppf-anim-item font-editorial text-xl sm:text-2xl lg:text-3xl italic text-white/90 leading-tight max-w-[480px]">
+          <p className="ppf-anim-item font-editorial text-lg sm:text-2xl lg:text-3xl italic text-white/90 leading-tight max-w-[480px]">
             "Protection you don't notice. Performance that stays."
           </p>
 
@@ -101,11 +101,11 @@ export const PpfSection: React.FC = () => {
           </p>
 
           {/* EDITORIAL CTA GROUP */}
-          <div className="ppf-anim-item pt-4 flex items-center gap-8 font-intertight">
+          <div className="ppf-anim-item pt-3 sm:pt-4 flex flex-wrap items-center gap-6 sm:gap-8 font-intertight">
             <Link
               to="/services/ppf-paint-protection"
               aria-label="Explore TMR self-healing paint protection film packages"
-              className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors"
+              className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors py-2 min-h-[44px] justify-center"
             >
               <span className="inline-flex items-center gap-2">
                 <span>EXPLORE PPF</span>
@@ -118,7 +118,7 @@ export const PpfSection: React.FC = () => {
               href="https://wa.me/919655626217"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+              className="text-xs font-bold uppercase tracking-widest text-white/50 hover:text-white transition-colors py-2 min-h-[44px] inline-flex items-center"
             >
               WHATSAPP TMR
             </a>

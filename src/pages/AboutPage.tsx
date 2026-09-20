@@ -147,7 +147,7 @@ export const AboutPage: React.FC = () => {
           <div className="max-w-xl flex flex-col space-y-5 sm:space-y-6">
             
             {/* Display Headline */}
-            <h1 className="font-['Syncopate'] font-bold text-4xl sm:text-6xl md:text-[68px] lg:text-[76px] text-white uppercase tracking-[0.14em] leading-[1.05] select-none max-w-xl">
+            <h1 className="font-['Syncopate'] font-bold text-3xl sm:text-5xl md:text-[68px] lg:text-[76px] text-white uppercase tracking-[0.14em] leading-[1.05] select-none max-w-xl">
               <span className="block font-medium tracking-[0.16em] text-white">BUILT</span>
               <span className="block font-bold tracking-[0.12em] text-white">AROUND</span>
               <span className="block font-['Bricolage_Grotesque'] font-extrabold italic text-[#FF4B00] lowercase pr-4 tracking-normal transform -rotate-1 hover:rotate-0 transition-transform duration-300">
@@ -165,7 +165,7 @@ export const AboutPage: React.FC = () => {
             <div className="pt-2">
               <a
                 href="#story"
-                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-white hover:text-[#FF4B00] transition-colors group"
+                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-[0.2em] text-white hover:text-[#FF4B00] transition-colors group py-2 min-h-[44px]"
               >
                 <span>DISCOVER THE TMR STORY</span>
                 <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -199,7 +199,7 @@ export const AboutPage: React.FC = () => {
                 <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
                   OUR STORY
                 </span>
-                <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-6xl tracking-tighter uppercase text-[#111111] leading-[0.95]">
+                <h2 className="font-manrope font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tighter uppercase text-[#111111] leading-[0.95]">
                   FROM YEARS OF REAL VEHICLE CARE <br />
                   <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">to TMR AI Car Care.</span>
                 </h2>
@@ -339,7 +339,7 @@ export const AboutPage: React.FC = () => {
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4B00] block">
                 METHODOLOGY
               </span>
-              <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-3xl sm:text-5xl md:text-6xl lg:text-[72px] xl:text-[78px] leading-[1.04] tracking-[-0.015em] uppercase text-white select-none max-w-[540px] xl:max-w-[620px]">
+              <h2 className="font-['Plus_Jakarta_Sans','Geist','Inter_Tight',sans-serif] font-normal text-2xl sm:text-4xl md:text-5xl lg:text-[72px] xl:text-[78px] leading-[1.04] tracking-[-0.015em] uppercase text-white select-none max-w-[540px] xl:max-w-[620px]">
                 <span className="block font-normal text-white">HOW</span>
                 <span className="block font-normal text-white">WE</span>
                 <span className="block font-normal italic text-[#FF4B00] relative inline-block border-b-2 border-[#FF4B00]/70 pb-1">
@@ -556,7 +556,7 @@ export const AboutPage: React.FC = () => {
               TMR AI CAR CARE
             </span>
 
-            <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl uppercase text-white leading-[0.98] tracking-tighter">
+            <h2 className="font-manrope font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl uppercase text-white leading-[0.98] tracking-tighter">
               READY FOR THE <br />
               RIGHT <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">next step?</span>
             </h2>

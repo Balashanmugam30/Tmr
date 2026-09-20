@@ -165,7 +165,7 @@ export const CarWashPage: React.FC = () => {
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
           <div className="col-span-1 md:col-span-12">
-            <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-4xl sm:text-6xl lg:text-[76px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] mb-6">
+            <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-3xl sm:text-5xl lg:text-[76px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] mb-6">
               PROFESSIONAL CAR WASH &amp; CLEANING<br />
               <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-4 inline-block transform -rotate-1">
                 in tiruppur.
@@ -181,19 +181,19 @@ export const CarWashPage: React.FC = () => {
               Water wash, foam wash and hand wash for everyday vehicle maintenance.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-8 pt-4">
               <a
                 href={`https://wa.me/${companyData.contact.whatsapp}?text=Booking%20Car%20Wash%20%26%20Cleaning%20Service`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
+                className="inline-flex items-center justify-center sm:justify-start gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
               >
                 <span>WHATSAPP TMR</span>
                 <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
               </a>
               <a
                 href={`tel:${companyData.contact.phone}`}
-                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
+                className="inline-flex items-center justify-center sm:justify-start gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
               >
                 <span>CALL TMR</span>
                 <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -515,7 +515,7 @@ export const CarWashPage: React.FC = () => {
                     onClick={() => togglePinFaq(idx)}
                     onFocus={() => setHoveredFaq(idx)}
                     onBlur={() => setHoveredFaq(null)}
-                    className="w-full flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00] cursor-pointer"
+                    className="w-full flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00] cursor-pointer min-h-[44px] py-3"
                   >
                     <span
                       className={`font-manrope font-extrabold text-base sm:text-lg uppercase transition-colors pr-4 ${
@@ -556,7 +556,7 @@ export const CarWashPage: React.FC = () => {
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_45%,_rgba(0,0,0,0.65)_100%)]" />
 
         <div className="relative z-10 max-w-3xl mx-auto px-6 text-center space-y-8">
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl uppercase tracking-tight text-white leading-none">
+          <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-7xl uppercase tracking-tight text-white leading-none">
             READY FOR A<br />
             <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase tracking-normal inline-block">
               cleaner finish?
@@ -567,19 +567,19 @@ export const CarWashPage: React.FC = () => {
             Tell us what your vehicle needs and we'll help you choose the right wash and cleaning service.
           </p>
 
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-8 pt-4">
+          <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 sm:gap-8 pt-4">
             <a
               href={`https://wa.me/${companyData.contact.whatsapp}?text=Booking%20Car%20Wash%20%26%20Cleaning%20Service`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer"
+              className="inline-flex items-center justify-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
             >
               <span>WHATSAPP TMR</span>
               <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
             </a>
             <a
               href={`tel:${companyData.contact.phone}`}
-              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer"
+              className="inline-flex items-center justify-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
             >
               <span>CALL TMR</span>
               <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>

@@ -70,7 +70,7 @@ export const FinalCtaSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="final-cta"
-      className="w-full min-h-[100svh] h-[100svh] bg-[#050505] text-[#F5F4EF] border-t border-b border-white/10 relative overflow-hidden isolate font-intertight flex flex-col justify-center z-20"
+      className="w-full min-h-[100svh] h-auto lg:h-[100svh] bg-[#050505] text-[#F5F4EF] border-t border-b border-white/10 relative overflow-hidden isolate font-intertight flex flex-col justify-center z-20"
       style={{ backgroundColor: '#050505' }}
     >
       {/* 4K FULL BLEED CINEMATIC VIDEO BACKGROUND (STATIC VIEWPORT FIT) */}
@@ -96,7 +96,7 @@ export const FinalCtaSection: React.FC = () => {
         {/* LOWER-LEFT EDITORIAL CONVERTING TEXT COMPOSITION */}
         <div ref={contentRef} className="w-full max-w-[700px] space-y-6 text-left my-auto pl-0 sm:pl-4">
           {/* EDITORIAL RESTRAINED HEADLINE */}
-          <h2 className="cta-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-[72px] uppercase text-white leading-[0.90] tracking-[-0.03em] max-w-[620px] text-left">
+          <h2 className="cta-anim-item font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-[72px] uppercase text-white leading-[0.90] tracking-[-0.03em] max-w-[620px] text-left">
             THE FINISH MATTERS<span className="text-[#FF4B00]">.</span>
           </h2>
 
@@ -106,13 +106,13 @@ export const FinalCtaSection: React.FC = () => {
           </p>
 
           {/* CONVERSIONS: ARCHITECTURAL PRIMARY CTA & SECONDARY LINK */}
-          <div className="cta-anim-item pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 font-intertight">
+          <div className="cta-anim-item pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 font-intertight">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Book a car detailing consultation with TMR AI Car Care via WhatsApp"
-              className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-8 h-[54px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.35)] hover:-translate-y-0.5"
+              className="group inline-flex items-center justify-center gap-3 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest px-6 sm:px-8 h-[54px] rounded-[14px] border border-white/20 hover:bg-white hover:text-black transition-all duration-300 shadow-[0_8px_24px_rgba(255,75,0,0.35)] hover:-translate-y-0.5 text-center"
             >
               <span>BOOK A CONSULTATION</span>
               <span className="group-hover:translate-x-1.5 transition-transform">↗</span>
@@ -123,7 +123,7 @@ export const FinalCtaSection: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Get Google Maps driving directions to TMR Studio in Tiruppur"
-              className="group inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-white/80 hover:text-white transition-colors py-2"
+              className="group inline-flex items-center justify-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-white/80 hover:text-white transition-colors py-2 min-h-[44px]"
             >
               <span>GET DIRECTIONS</span>
               <span className="text-[#FF4B00] group-hover:translate-x-1 transition-transform">↗</span>

@@ -129,7 +129,7 @@ export const SunControlFilmsPage: React.FC = () => {
 
         <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
           <div className="col-span-1 md:col-span-12">
-            <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-5xl sm:text-7xl lg:text-[88px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] mb-6">
+            <h1 className="font-['Instrument_Serif','Editorial_New',serif] font-normal text-3xl sm:text-5xl lg:text-[88px] text-[#0A0A0A] uppercase tracking-tight leading-[0.96] mb-6">
               CONTROL THE HEAT. <br />
               <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase pr-4 inline-block transform -rotate-1">
                 keep the view.
@@ -146,10 +146,10 @@ export const SunControlFilmsPage: React.FC = () => {
             </p>
             
             {/* Minimal Editorial Text Link CTAs — NO Box / Rectangle */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-8 pt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-8 pt-4">
               <a
                 href="#selection"
-                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
+                className="inline-flex items-center justify-center sm:justify-start gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
               >
                 <span>EXPLORE FILMS</span>
                 <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -158,7 +158,7 @@ export const SunControlFilmsPage: React.FC = () => {
                 href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20Sun-Control%20Films`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer"
+                className="inline-flex items-center justify-center sm:justify-start gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-[#0A0A0A] hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
               >
                 <span>BOOK CONSULTATION</span>
                 <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -517,13 +517,13 @@ export const SunControlFilmsPage: React.FC = () => {
                       aria-expanded={isOpen}
                       aria-controls={`sun-faq-ans-${idx}`}
                       onClick={() => toggleFaq(idx)}
-                      className="w-full py-7 px-2 flex items-center justify-between text-left group cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#FF4B00]/40"
+                      className="w-full py-4 px-2 flex items-center justify-between text-left group cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#FF4B00]/40 min-h-[44px]"
                     >
                       <div className="flex items-baseline gap-4 pr-6">
                         <span className="font-mono text-xs font-bold text-[#FF4B00] shrink-0">
                           {idx < 9 ? `0${idx + 1}` : idx + 1}
                         </span>
-                        <span className={`font-manrope font-extrabold text-lg sm:text-xl transition-colors duration-300 ${
+                        <span className={`font-manrope font-extrabold text-base sm:text-lg uppercase transition-colors duration-300 ${
                           isOpen ? 'text-[#FF4B00]' : 'text-[#0A0A0A] group-hover:text-[#FF4B00]'
                         }`}>
                           {faq.q}
@@ -564,7 +564,7 @@ export const SunControlFilmsPage: React.FC = () => {
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_45%,_rgba(0,0,0,0.65)_100%)]" />
 
         <div className="relative z-10 max-w-3xl mx-auto px-6 text-center space-y-8">
-          <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl md:text-7xl uppercase tracking-tight text-white leading-none">
+          <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-7xl uppercase tracking-tight text-white leading-none">
             READY TO CONTROL <br />
             <span className="font-['Bricolage_Grotesque',serif] font-extrabold italic text-[#FF4B00] lowercase tracking-normal inline-block">
               the light?
@@ -576,19 +576,19 @@ export const SunControlFilmsPage: React.FC = () => {
           </p>
 
           {/* Minimal Editorial Text Link CTAs — NO Box / Rectangle */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-8 pt-4">
+          <div className="flex flex-col sm:flex-row justify-center items-stretch sm:items-center gap-4 sm:gap-8 pt-4">
             <a
               href={`https://wa.me/${companyData.contact.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer"
+              className="inline-flex items-center justify-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
             >
               <span>BOOK CONSULTATION</span>
               <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
             </a>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer"
+              className="inline-flex items-center justify-center gap-3 font-manrope font-extrabold text-xs uppercase tracking-widest text-white hover:text-[#FF4B00] transition-colors group cursor-pointer py-2 min-h-[44px]"
             >
               <span>CONTACT TMR</span>
               <span className="text-base text-[#FF4B00] group-hover:translate-x-1.5 transition-transform duration-300">→</span>

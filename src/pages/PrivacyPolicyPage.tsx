@@ -104,16 +104,16 @@ export const PrivacyPolicyPage: React.FC = () => {
       </header>
 
       {/* MOBILE HORIZONTAL NAVIGATION RAIL */}
-      <div className="lg:hidden sticky top-20 z-20 bg-[#F6F5F0]/95 backdrop-blur border-b border-[#E2DFD7] py-3 px-5 overflow-x-auto no-scrollbar flex items-center gap-4 text-xs font-extrabold uppercase tracking-wider">
+      <div className="lg:hidden sticky top-20 z-20 bg-[#F6F5F0]/95 backdrop-blur border-b border-[#E2DFD7] py-1 px-5 overflow-x-auto no-scrollbar flex items-center gap-4 text-xs font-extrabold uppercase tracking-wider">
         <span className="text-[#999790] shrink-0 text-[10px]">ON THIS PAGE:</span>
         {sections.map((section) => (
           <button
             key={section.id}
             onClick={() => scrollToSection(section.id)}
             type="button"
-            className={`shrink-0 whitespace-nowrap transition-colors ${
+            className={`shrink-0 whitespace-nowrap transition-colors min-h-[44px] inline-flex items-center py-2 px-1 ${
               activeSection === section.id
-                ? 'text-[#FF4B00] border-b border-[#FF4B00] pb-0.5'
+                ? 'text-[#FF4B00] border-b-2 border-[#FF4B00]'
                 : 'text-[#555450] hover:text-[#141414]'
             }`}
           >
@@ -324,10 +324,10 @@ export const PrivacyPolicyPage: React.FC = () => {
             </section>
 
             {/* FINAL BACK TO CONTACT LINK */}
-            <div className="pt-12 border-t border-[#E2DFD7] flex items-center justify-between">
+            <div className="pt-12 border-t border-[#E2DFD7] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#141414] border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#141414] border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors min-h-[44px]"
               >
                 <span>BACK TO CONTACT STUDIO</span>
                 <span className="text-base">→</span>
@@ -335,7 +335,7 @@ export const PrivacyPolicyPage: React.FC = () => {
 
               <Link
                 to="/terms"
-                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#777570] hover:text-[#141414] transition-colors"
+                className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#777570] hover:text-[#141414] transition-colors min-h-[44px]"
               >
                 <span>VIEW TERMS & CONDITIONS</span>
                 <span className="text-base">→</span>

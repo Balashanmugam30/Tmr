@@ -56,7 +56,7 @@ export const TransformationSection: React.FC = () => {
         {/* EDITORIAL HEADER GROUP */}
         <div ref={textGroupRef} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
           <div className="lg:col-span-6 space-y-4">
-            <h2 className="trans-anim-item font-intertight font-extrabold text-4xl sm:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.92] tracking-[-0.04em]">
+            <h2 className="trans-anim-item font-intertight font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl uppercase text-[#111111] leading-[0.92] tracking-[-0.04em]">
               FROM <br />
               DEFECT <br />
               TO <span className="text-[#FF4B00]">REFLECTION.</span>
@@ -71,7 +71,7 @@ export const TransformationSection: React.FC = () => {
               <Link
                 to="/gallery#transformation"
                 aria-label="View TMR paint correction and detailing transformation gallery"
-                className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-[#111111] hover:text-[#FF4B00] transition-colors"
+                className="group inline-flex flex-col gap-1 text-xs font-extrabold uppercase tracking-widest text-[#111111] hover:text-[#FF4B00] transition-colors py-2 min-h-[44px] justify-center"
               >
                 <span className="inline-flex items-center gap-2">
                   <span>SEE OUR WORK</span>

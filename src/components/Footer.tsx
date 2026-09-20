@@ -42,7 +42,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer
-      className="w-full bg-[#050505] text-[#F5F4EF] pt-12 md:pt-16 pb-8 border-t border-white/10 relative overflow-hidden font-intertight flex flex-col justify-between min-h-[100svh]"
+      className="w-full bg-[#050505] text-[#F5F4EF] pt-12 md:pt-16 pb-8 border-t border-white/10 relative overflow-hidden font-intertight flex flex-col justify-between min-h-0 lg:min-h-[100svh]"
       style={{ backgroundColor: '#050505' }}
     >
       {/* SUBTLE FINE NOISE OVERLAY */}
@@ -156,9 +156,9 @@ export const Footer: React.FC = () => {
             <ul className="space-y-2 text-xs">
               {servicesData.map((service) => (
                 <li key={service.id}>
-                  <Link
+                    <Link
                     to={`/services/${service.slug}`}
-                    className="group flex items-center justify-between py-1 border-b border-white/10 hover:border-[#FF4B00] transition-colors"
+                    className="group flex items-center justify-between py-2 sm:py-1 border-b border-white/10 hover:border-[#FF4B00] transition-colors"
                   >
                     <div className="flex items-center gap-2">
                       <span className="font-extrabold text-[10px] text-[#FF4B00]">
@@ -185,12 +185,12 @@ export const Footer: React.FC = () => {
                 <p>{companyData.address.fullText}</p>
                 <div className="space-y-1 font-bold text-white pt-1">
                   <p>
-                    <a href={`tel:${companyData.contact.phone}`} className="hover:text-[#FF4B00] transition-colors">
+                    <a href={`tel:${companyData.contact.phone}`} className="hover:text-[#FF4B00] transition-colors inline-block py-1">
                       {companyData.contact.phoneFormatted}
                     </a>
                   </p>
                   <p>
-                    <a href={`mailto:${companyData.contact.email}`} className="hover:text-[#FF4B00] transition-colors">
+                    <a href={`mailto:${companyData.contact.email}`} className="hover:text-[#FF4B00] transition-colors inline-block py-1 break-all">
                       {companyData.contact.email}
                     </a>
                   </p>
@@ -211,7 +211,7 @@ export const Footer: React.FC = () => {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#F5F4EF]/80 hover:text-[#FF4B00] hover:bg-[#FF4B00]/10 hover:border-[#FF4B00]/40 transition-all duration-300"
+                      className="group w-11 h-11 sm:w-10 sm:h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#F5F4EF]/80 hover:text-[#FF4B00] hover:bg-[#FF4B00]/10 hover:border-[#FF4B00]/40 transition-all duration-300"
                       aria-label={social.name}
                       title={social.name}
                     >
@@ -236,18 +236,18 @@ export const Footer: React.FC = () => {
         <div className="pt-4 border-t border-white/10 flex flex-col md:flex-row items-center justify-between text-xs text-[#F5F4EF]/50 font-semibold gap-4">
           <p>© {new Date().getFullYear()} TMR AI CAR CARE. ALL RIGHTS RESERVED.</p>
 
-          <div className="flex items-center gap-6">
-            <Link to="/privacy-policy" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <Link to="/privacy-policy" className="hover:text-white transition-colors py-1">
               PRIVACY POLICY
             </Link>
-            <Link to="/terms" className="hover:text-white transition-colors">
+            <Link to="/terms" className="hover:text-white transition-colors py-1">
               TERMS & CONDITIONS
             </Link>
             <span className="hidden sm:inline-block">TIRUPPUR, TAMIL NADU</span>
             <button
               onClick={scrollToTop}
               type="button"
-              className="flex items-center gap-1.5 text-[#FF4B00] hover:text-white transition-colors uppercase font-extrabold"
+              className="flex items-center gap-1.5 text-[#FF4B00] hover:text-white transition-colors uppercase font-extrabold py-1"
               aria-label="Back to top"
             >
               <span>BACK TO TOP</span>

@@ -461,10 +461,10 @@ export const ProductsPage: React.FC = () => {
         <div className="relative z-10 max-w-[1360px] mx-auto px-5 md:px-16 w-full flex flex-col items-center text-center">
           {/* Main Headline Stack (SEO H1 Target) */}
           <h1 className="flex flex-col items-center leading-[0.95] tracking-tighter mb-5">
-            <span className="font-editorial italic font-normal text-white text-3xl sm:text-5xl md:text-6xl lg:text-[68px] mb-2">
+            <span className="font-editorial italic font-normal text-white text-2xl sm:text-4xl md:text-6xl lg:text-[68px] mb-2">
               3M Car Care &amp; Professional Detailing
             </span>
-            <span className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-[72px] uppercase text-[#F5F4EF]">
+            <span className="font-manrope font-extrabold text-2xl sm:text-4xl md:text-6xl lg:text-[72px] uppercase text-[#F5F4EF]">
               Products in Tiruppur
             </span>
           </h1>
@@ -475,10 +475,10 @@ export const ProductsPage: React.FC = () => {
           </p>
 
           {/* Capsule Button matching reference image button style */}
-          <div className="flex flex-wrap justify-center gap-4 items-center mb-8">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 items-stretch sm:items-center mb-8 w-full sm:w-auto">
             <a
               href="#product-catalogue"
-              className="px-8 py-4 bg-[#FF4B00] text-white rounded-full font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors inline-flex items-center gap-2 shadow-xl"
+              className="px-5 sm:px-8 py-3.5 sm:py-4 bg-[#FF4B00] text-white rounded-full font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors inline-flex items-center justify-center gap-2 shadow-xl min-h-[44px]"
             >
               <span>EXPLORE PRODUCTS COLLECTION</span>
               <span className="text-base">→</span>
@@ -487,7 +487,7 @@ export const ProductsPage: React.FC = () => {
               href={`https://wa.me/${companyData.contact.whatsapp}?text=Enquiry%20regarding%20TMR%20Product%20Vault`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 border border-white/20 text-[#F5F4EF] rounded-full font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors inline-flex items-center gap-2"
+              className="px-5 sm:px-8 py-3.5 sm:py-4 border border-white/20 text-[#F5F4EF] rounded-full font-bold text-xs sm:text-sm uppercase tracking-widest hover:bg-white hover:text-[#050505] transition-colors inline-flex items-center justify-center gap-2 min-h-[44px]"
             >
               <span>WHATSAPP TMR</span>
               <span className="text-base">→</span>
@@ -794,7 +794,7 @@ export const ProductsPage: React.FC = () => {
         <div className="w-full max-w-none px-5 sm:px-10 lg:px-16 pb-6">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start md:items-end mb-8">
             <div className="col-span-12 md:col-span-5 lg:col-span-4">
-              <h2 className="font-manrope font-extrabold text-4xl sm:text-6xl uppercase tracking-tighter text-[#111111] leading-none mb-2">
+              <h2 className="font-manrope font-extrabold text-3xl sm:text-5xl md:text-6xl uppercase tracking-tighter text-[#111111] leading-none mb-2">
                 THE <span className="font-editorial italic font-normal text-[#FF4B00] lowercase">products.</span>
               </h2>
               <p className="font-manrope text-xs sm:text-sm text-[#333333] font-semibold uppercase tracking-widest">
@@ -829,7 +829,7 @@ export const ProductsPage: React.FC = () => {
                   <button
                     key={filter}
                     onClick={() => setSelectedCategoryFilter(filter)}
-                    className={`px-4 py-2 rounded-full font-manrope font-bold text-xs uppercase tracking-widest transition-all ${
+                    className={`px-3.5 sm:px-4 py-2 rounded-full font-manrope font-bold text-xs uppercase tracking-widest transition-all min-h-[44px] inline-flex items-center ${
                       selectedCategoryFilter === filter
                         ? "bg-[#FF4B00] text-white shadow-lg"
                         : "bg-white/10 text-[#333333] hover:bg-black/10 hover:text-black"
@@ -849,14 +849,14 @@ export const ProductsPage: React.FC = () => {
             <button
               onClick={() => scrollRunway('left')}
               aria-label="Scroll products left"
-              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors cursor-pointer"
+              className="w-11 h-11 sm:w-10 sm:h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors cursor-pointer"
             >
               ←
             </button>
             <button
               onClick={() => scrollRunway('right')}
               aria-label="Scroll products right"
-              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors cursor-pointer"
+              className="w-11 h-11 sm:w-10 sm:h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:bg-[#FF4B00] hover:border-[#FF4B00] transition-colors cursor-pointer"
             >
               →
             </button>

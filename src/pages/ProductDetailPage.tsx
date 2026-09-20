@@ -184,7 +184,7 @@ export const ProductDetailPage: React.FC = () => {
               </span>
 
               {/* Product Name H1 */}
-              <h1 className="font-manrope font-extrabold text-3xl sm:text-5xl lg:text-6xl text-white mb-4 leading-tight tracking-tighter uppercase">
+              <h1 className="font-manrope font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-4 leading-tight tracking-tighter uppercase">
                 {product.seoH1 || product.name}
               </h1>
 
@@ -199,12 +199,12 @@ export const ProductDetailPage: React.FC = () => {
               </span>
 
               {/* Minimal Text/Line CTAs (NO BOXY BUTTONS) */}
-              <div className="flex flex-wrap items-center gap-6 pt-2">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 pt-2">
                 <a
                   href={`https://wa.me/${companyData.contact.whatsapp}?text=Inquiry%20regarding%20${encodeURIComponent(product.name)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors py-2 min-h-[44px]"
                 >
                   <span>ENQUIRE ABOUT THIS PRODUCT</span>
                   <span className="text-sm">→</span>
@@ -213,7 +213,7 @@ export const ProductDetailPage: React.FC = () => {
                   href={`https://wa.me/${companyData.contact.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#A0A0A0] border-b-2 border-white/20 pb-1 hover:text-white hover:border-white transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#A0A0A0] border-b-2 border-white/20 pb-1 hover:text-white hover:border-white transition-colors py-2 min-h-[44px]"
                 >
                   <span>WHATSAPP TMR</span>
                   <span className="text-sm">→</span>
@@ -434,7 +434,7 @@ export const ProductDetailPage: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Shop automotive care products — opens external store"
-              className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-all rounded shrink-0 shadow group cursor-pointer"
+              className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#FF4B00] text-white font-extrabold text-xs uppercase tracking-widest hover:bg-white hover:text-[#111111] transition-all rounded shrink-0 shadow group cursor-pointer w-full sm:w-auto min-h-[44px]"
             >
               <span>SHOP PRODUCTS</span>
               <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -464,14 +464,14 @@ export const ProductDetailPage: React.FC = () => {
                     key={idx}
                     onMouseEnter={() => setOpenFaq(idx)}
                     onMouseLeave={() => setOpenFaq(null)}
-                    className="transition-colors group py-5"
+                    className="transition-colors group py-4"
                   >
                     <button
                       type="button"
                       onClick={() => setOpenFaq(isOpen ? null : idx)}
                       onFocus={() => setOpenFaq(idx)}
                       aria-expanded={isOpen}
-                      className="w-full flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00]"
+                      className="w-full flex justify-between items-center text-left focus:outline-none focus:text-[#FF4B00] min-h-[44px] py-2"
                     >
                       <span className="font-manrope font-bold text-base sm:text-lg text-white group-hover:text-[#FF4B00] transition-colors pr-4">
                         {faq.q}
@@ -514,19 +514,19 @@ export const ProductDetailPage: React.FC = () => {
             Talk to TMR AI Car Care about product availability or application for your vehicle in Tiruppur.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-8 pt-4">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 pt-4">
             <a
               href={`https://wa.me/${companyData.contact.whatsapp}?text=Ordering%20${encodeURIComponent(product.name)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-white border-b-2 border-[#FF4B00] pb-1 hover:text-[#FF4B00] transition-colors py-2 min-h-[44px]"
             >
               <span>WHATSAPP TMR STUDIO</span>
               <span className="text-sm">→</span>
             </a>
             <a
               href={`tel:${companyData.contact.phone}`}
-              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#A0A0A0] border-b-2 border-white/20 pb-1 hover:text-white hover:border-white transition-colors"
+              className="inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-widest text-[#A0A0A0] border-b-2 border-white/20 pb-1 hover:text-white hover:border-white transition-colors py-2 min-h-[44px]"
             >
               <span>CALL TMR AI CAR CARE</span>
               <span className="text-sm">→</span>
