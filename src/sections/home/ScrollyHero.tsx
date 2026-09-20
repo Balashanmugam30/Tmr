@@ -32,6 +32,7 @@ export const ScrollyHero: React.FC = () => {
   // Performance refs (NO React state for high-frequency updates)
   const targetFrameRef = useRef<number>(0);
   const displayedFrameRef = useRef<number>(-1); // Strictly records what is visually on screen
+  const rawProgressRef = useRef<number>(0); // Raw ScrollTrigger progress [0.0 -> 1.0]
   const stateIndexRef = useRef<number>(0);
   const isVisibleRef = useRef<boolean>(true);
   const hasScrolledRef = useRef<boolean>(false);
@@ -90,30 +91,63 @@ export const ScrollyHero: React.FC = () => {
   }, []);
 
   // Full-Viewport Object-Fit: Cover Canvas Rendering
-  const renderCanvasFrame = useCallback((frameIdx: number): boolean => {
+  // Returns the EXACT frame index that was drawn, or -1 if nothing drawn
+  const renderCanvasFrame = useCallback((targetIdx: number): number => {
     const canvas = canvasRef.current;
-    if (!canvas) return false;
+    if (!canvas) return -1;
 
     if (!ctxRef.current) {
       ctxRef.current = canvas.getContext('2d', { alpha: false });
     }
     const ctx = ctxRef.current;
-    if (!ctx) return false;
+    if (!ctx) return -1;
 
-    const img = imageCacheRef.current.get(frameIdx);
-    if (!img) return false;
+    let frameToDraw = targetIdx;
+    let img: CachedFrame | undefined = imageCacheRef.current.get(targetIdx);
 
+    // If exact target frame is not yet in cache, find nearest available frame without freezing
+    if (!img) {
+      const direction = scrollDirectionRef.current;
+      let fallbackIdx = -1;
+
+      for (let offset = 1; offset <= 15; offset++) {
+        const preferred = direction >= 0 ? targetIdx - offset : targetIdx + offset;
+        const alternate = direction >= 0 ? targetIdx + offset : targetIdx - offset;
+
+        if (imageCacheRef.current.has(preferred)) {
+          fallbackIdx = preferred;
+          break;
+        }
+        if (imageCacheRef.current.has(alternate)) {
+          fallbackIdx = alternate;
+          break;
+        }
+      }
+
+      if (fallbackIdx >= 0) {
+        frameToDraw = fallbackIdx;
+        img = imageCacheRef.current.get(fallbackIdx);
+      }
+    }
+
+    if (!img) return -1;
+
+    // Mobile DPR optimization: cap DPR at 1.25 on mobile to cut GPU fill-rate while maintaining crisp quality
     let { width, height, dpr } = dimensionsRef.current;
     if (width === 0 || height === 0) {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const isMobile = window.innerWidth < 768;
+      const maxDpr = isMobile ? 1.25 : 2;
+      dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
       width = window.innerWidth;
       height = window.innerHeight;
       dimensionsRef.current = { width, height, dpr };
     }
 
-    if (canvas.width !== Math.round(width * dpr) || canvas.height !== Math.round(height * dpr)) {
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
+    const targetWidth = Math.round(width * dpr);
+    const targetHeight = Math.round(height * dpr);
+    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+      canvas.width = targetWidth;
+      canvas.height = targetHeight;
     }
 
     ctx.save();
@@ -131,8 +165,45 @@ export const ScrollyHero: React.FC = () => {
     ctx.drawImage(img as CanvasImageSource, offsetX, offsetY, drawWidth, drawHeight);
     ctx.restore();
 
-    displayedFrameRef.current = frameIdx;
-    return true;
+    displayedFrameRef.current = frameToDraw;
+    return frameToDraw;
+  }, []);
+
+  // Synchronize Text Overlay, Phase Indicator, and Exit Animation to the ACTUAL DISPLAYED FRAME
+  const updateVisualState = useCallback((drawnFrameIdx: number) => {
+    if (drawnFrameIdx < 0) return;
+
+    // Calculate visual progress from the actual displayed frame
+    const visualCameraProgress = drawnFrameIdx / (TOTAL_FRAMES - 1);
+    const visualScrollProgress = visualCameraProgress * SEQUENCE_END;
+
+    let newState = 0;
+    if (visualScrollProgress < 0.166) newState = 0;
+    else if (visualScrollProgress < 0.333) newState = 1;
+    else if (visualScrollProgress < 0.50) newState = 2;
+    else if (visualScrollProgress < 0.666) newState = 3;
+    else if (visualScrollProgress < 0.833) newState = 4;
+    else newState = 5;
+
+    if (newState !== stateIndexRef.current) {
+      stateIndexRef.current = newState;
+      setActiveStateIndex(newState);
+    }
+
+    // Synchronize sticky exit transition: only exits when the frame animation has reached the end
+    if (stickyRef.current) {
+      const rawProgress = rawProgressRef.current;
+      if (rawProgress > SEQUENCE_END && visualCameraProgress >= 0.98) {
+        const exitProgress = (rawProgress - SEQUENCE_END) / (1 - SEQUENCE_END);
+        const scale = 1 - exitProgress * 0.04;
+        const opacity = 1 - exitProgress * 0.35;
+        stickyRef.current.style.transform = `scale(${scale})`;
+        stickyRef.current.style.opacity = `${opacity}`;
+      } else {
+        stickyRef.current.style.transform = 'scale(1)';
+        stickyRef.current.style.opacity = '1';
+      }
+    }
   }, []);
 
   // Visual Update Handler: Strictly tracks displayedFrame vs targetFrame
@@ -141,39 +212,14 @@ export const ScrollyHero: React.FC = () => {
 
     const target = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
 
-    // 1. If target is already on screen, nothing to do
-    if (displayedFrameRef.current === target) return;
+    // Attempt to render target or closest available frame
+    const drawnIdx = renderCanvasFrame(target);
 
-    // 2. If target is ready in cache, draw it directly
-    if (imageCacheRef.current.has(target)) {
-      renderCanvasFrame(target);
-      return;
+    // Synchronize visual text states and exit animation to the actual drawn frame
+    if (drawnIdx >= 0) {
+      updateVisualState(drawnIdx);
     }
-
-    // 3. Fallback: find nearest already-decoded frame in cache without freezing
-    const direction = scrollDirectionRef.current;
-    let fallbackIdx = -1;
-
-    for (let offset = 1; offset <= 15; offset++) {
-      const preferred = direction >= 0 ? target - offset : target + offset;
-      const alternate = direction >= 0 ? target + offset : target - offset;
-
-      if (imageCacheRef.current.has(preferred)) {
-        fallbackIdx = preferred;
-        break;
-      }
-      if (imageCacheRef.current.has(alternate)) {
-        fallbackIdx = alternate;
-        break;
-      }
-    }
-
-    // If fallback is found and not already on screen, draw it
-    if (fallbackIdx >= 0 && fallbackIdx !== displayedFrameRef.current) {
-      renderCanvasFrame(fallbackIdx);
-      // Note: displayedFrameRef.current is now fallbackIdx, NOT target!
-    }
-  }, [renderCanvasFrame]);
+  }, [renderCanvasFrame, updateVisualState]);
 
   // Event-Driven RAF Render Scheduler (No continuous 60fps loop when idle)
   const requestRender = useCallback(() => {
@@ -225,7 +271,7 @@ export const ScrollyHero: React.FC = () => {
           imageCacheRef.current.set(target, bitmap);
           inFlightRef.current.delete(target);
 
-          // Target frame arrived: immediately schedule render!
+          // Target frame arrived: immediately schedule render and visual synchronization!
           requestRender();
 
           if (imageCacheRef.current.size > maxCache) {
@@ -299,7 +345,7 @@ export const ScrollyHero: React.FC = () => {
           imageCacheRef.current.set(frameIdx, bitmap);
           inFlightRef.current.delete(frameIdx);
 
-          // If this frame is closer to target than what is currently displayed, render it
+          // If this frame is closer to target than what is currently displayed, render it and synchronize
           const currentTarget = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
           if (
             displayedFrameRef.current !== currentTarget &&
@@ -382,7 +428,10 @@ export const ScrollyHero: React.FC = () => {
         if (!isMounted) return;
         imageCacheRef.current.set(0, bitmap);
         setIsFirstFrameLoaded(true);
-        renderCanvasFrame(0);
+        const drawnIdx = renderCanvasFrame(0);
+        if (drawnIdx >= 0) {
+          updateVisualState(drawnIdx);
+        }
         pumpQueue();
       })
       .catch(() => {});
@@ -391,12 +440,14 @@ export const ScrollyHero: React.FC = () => {
       isMounted = false;
       controller.abort();
     };
-  }, [fetchAndDecodeFrame, renderCanvasFrame, pumpQueue]);
+  }, [fetchAndDecodeFrame, renderCanvasFrame, updateVisualState, pumpQueue]);
 
   // Resize Handler: Updates cached dimensions and triggers render
   useEffect(() => {
     const handleResize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const isMobile = window.innerWidth < 768;
+      const maxDpr = isMobile ? 1.25 : 2;
+      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
       dimensionsRef.current = {
         width: window.innerWidth,
         height: window.innerHeight,
@@ -425,6 +476,7 @@ export const ScrollyHero: React.FC = () => {
         scrub: 0.1,
         onUpdate: (self) => {
           const progress = self.progress;
+          rawProgressRef.current = progress;
           scrollDirectionRef.current = progress >= prevProgress ? 1 : -1;
           prevProgress = progress;
 
@@ -436,46 +488,25 @@ export const ScrollyHero: React.FC = () => {
           // Notify preloader queue
           pumpQueue();
 
-          let newState = 0;
-          if (progress < 0.166) newState = 0;
-          else if (progress < 0.333) newState = 1;
-          else if (progress < 0.50) newState = 2;
-          else if (progress < 0.666) newState = 3;
-          else if (progress < 0.833) newState = 4;
-          else newState = 5;
-
-          if (newState !== stateIndexRef.current) {
-            stateIndexRef.current = newState;
-            setActiveStateIndex(newState);
-          }
-
-          // Single boolean state update for scroll cue instead of 100 percentage updates
-          if (!hasScrolledRef.current && progress > 0.02) {
+          // Single boolean state update for scroll cue
+          if (!hasScrolledRef.current && (progress > 0.02 || displayedFrameRef.current > 10)) {
             hasScrolledRef.current = true;
             setHasScrolled(true);
-          } else if (hasScrolledRef.current && progress <= 0.01) {
+          } else if (hasScrolledRef.current && progress <= 0.01 && displayedFrameRef.current <= 5) {
             hasScrolledRef.current = false;
             setHasScrolled(false);
           }
 
-          if (stickyRef.current) {
-            if (progress > SEQUENCE_END) {
-              const exitProgress = (progress - SEQUENCE_END) / (1 - SEQUENCE_END);
-              const scale = 1 - exitProgress * 0.04;
-              const opacity = 1 - exitProgress * 0.35;
-              stickyRef.current.style.transform = `scale(${scale})`;
-              stickyRef.current.style.opacity = `${opacity}`;
-            } else {
-              stickyRef.current.style.transform = 'scale(1)';
-              stickyRef.current.style.opacity = '1';
-            }
+          // If frame animation is at the end, update sticky exit in sync with scroll progress
+          if (displayedFrameRef.current >= 0) {
+            updateVisualState(displayedFrameRef.current);
           }
         },
       });
     }, containerRef);
 
     return () => ctx.revert();
-  }, [requestRender, pumpQueue]);
+  }, [requestRender, pumpQueue, updateVisualState]);
 
   return (
     <section
