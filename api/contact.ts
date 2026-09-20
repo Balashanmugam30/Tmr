@@ -198,6 +198,8 @@ https://tmraicarcare.com`;
 </html>`;
 
     // 9. Dispatch via Resend REST API
+    const fromSender = process.env.RESEND_FROM_EMAIL || 'TMR AI Car Care <enquiry@tmraicarcare.com>';
+
     const resendResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -205,7 +207,7 @@ https://tmraicarcare.com`;
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'TMR AI Car Care <onboarding@resend.dev>',
+        from: fromSender,
         to: ['3m.chandramohankandhavelu@gmail.com'],
         subject: `New TMR AI Car Care Enquiry — ${trimmedName}`,
         text: textContent,
@@ -216,7 +218,9 @@ https://tmraicarcare.com`;
     if (!resendResponse.ok) {
       const errorData = await resendResponse.json().catch(() => ({}));
       console.error('[TMR Contact API] Resend dispatch failed:', resendResponse.status, errorData?.message || 'Unknown error');
-      return res.status(500).json({ error: 'Failed to deliver enquiry notification.' });
+      return res.status(500).json({
+        error: errorData?.message || 'Failed to deliver enquiry notification. Please try submitting via WhatsApp directly.'
+      });
     }
 
     return res.status(200).json({ success: true });

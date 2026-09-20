@@ -6,10 +6,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FRAMES = 960;
-const CACHE_FORWARD_WINDOW = 18; // Preload forward window
-const CACHE_BACKWARD_WINDOW = 4; // Minimal backward window
-const MAX_CACHE_SIZE = 65; // Max decoded image objects in memory
+const MAX_CONCURRENT_FETCHES = 4; // Measured optimal concurrency for HTTP/2 pipeline
+const FORWARD_PRELOAD_WINDOW = 12; // Focused forward lookahead
+const BACKWARD_PRELOAD_WINDOW = 3; // Tight backward safety window
+const MAX_CACHE_SIZE = 80; // Bounded in-memory decoded frames
 const SEQUENCE_END = 0.833333; // 500vh out of 600vh total height
+
+type CachedFrame = ImageBitmap | HTMLImageElement;
 
 const getFramePath = (index: number) => {
   const paddedIndex = String(index + 1).padStart(4, '0');
@@ -23,9 +26,7 @@ export const ScrollyHero: React.FC = () => {
 
   // Performance refs (NO React state for high-frequency updates)
   const targetFrameRef = useRef<number>(0);
-  const renderedFrameRef = useRef<number>(0);
-  const currentDrawIndexRef = useRef<number>(-1);
-  const currentBucketRef = useRef<number>(-1);
+  const currentDrawnIndexRef = useRef<number>(-1);
   const stateIndexRef = useRef<number>(0);
   const isVisibleRef = useRef<boolean>(true);
   const isLoopRunningRef = useRef<boolean>(false);
@@ -33,155 +34,208 @@ export const ScrollyHero: React.FC = () => {
   const scrollDirectionRef = useRef<number>(1);
   const dimensionsRef = useRef<{ width: number; height: number; dpr: number }>({ width: 0, height: 0, dpr: 1 });
 
-  // Rolling Cache & in-flight fetch deduplication
-  const imageCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
-  const inFlightFetchesRef = useRef<Map<number, Promise<HTMLImageElement>>>(new Map());
+  // Bounded Frame Cache & In-flight Network Request Tracking
+  const imageCacheRef = useRef<Map<number, CachedFrame>>(new Map());
+  const inFlightRef = useRef<Map<number, AbortController>>(new Map());
 
   // Low-frequency UI state only
   const [activeStateIndex, setActiveStateIndex] = useState<number>(0);
   const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const [isFirstFrameLoaded, setIsFirstFrameLoaded] = useState<boolean>(false);
 
-  // Single Frame Preloader with in-flight deduplication and non-blocking decode
-  const loadSingleFrame = useCallback((index: number): Promise<HTMLImageElement> => {
-    if (imageCacheRef.current.has(index)) {
-      return Promise.resolve(imageCacheRef.current.get(index)!);
+  // Non-blocking, off-thread frame fetch and decode using ImageBitmap
+  const fetchAndDecodeFrame = useCallback(async (index: number, signal: AbortSignal): Promise<CachedFrame> => {
+    const url = getFramePath(index);
+    const res = await fetch(url, { signal });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const blob = await res.blob();
+    if (typeof createImageBitmap === 'function') {
+      return await createImageBitmap(blob);
     }
-
-    if (inFlightFetchesRef.current.has(index)) {
-      return inFlightFetchesRef.current.get(index)!;
-    }
-
-    const promise = new Promise<HTMLImageElement>((resolve, reject) => {
+    return new Promise<HTMLImageElement>((resolve, reject) => {
       const img = new Image();
-      img.src = getFramePath(index);
-
+      const objectUrl = URL.createObjectURL(blob);
       img.onload = () => {
-        imageCacheRef.current.set(index, img);
-        inFlightFetchesRef.current.delete(index);
+        URL.revokeObjectURL(objectUrl);
         resolve(img);
       };
-
       img.onerror = (err) => {
-        inFlightFetchesRef.current.delete(index);
+        URL.revokeObjectURL(objectUrl);
         reject(err);
       };
-
-      if ('decode' in img && typeof img.decode === 'function') {
-        img
-          .decode()
-          .then(() => {
-            imageCacheRef.current.set(index, img);
-            inFlightFetchesRef.current.delete(index);
-            resolve(img);
-          })
-          .catch(() => {
-            // Fallback handled by onload
-          });
-      }
+      img.src = objectUrl;
     });
-
-    inFlightFetchesRef.current.set(index, promise);
-    return promise;
   }, []);
 
-  // Direction-aware, throttled cache manager
-  const manageCacheBucket = useCallback(
-    (centerIndex: number) => {
-      const bucket = Math.floor(centerIndex / 12);
-      if (bucket === currentBucketRef.current) return;
-      currentBucketRef.current = bucket;
-
-      const direction = scrollDirectionRef.current;
-      const minIndex = Math.max(0, centerIndex - (direction >= 0 ? CACHE_BACKWARD_WINDOW : CACHE_FORWARD_WINDOW));
-      const maxIndex = Math.min(TOTAL_FRAMES - 1, centerIndex + (direction >= 0 ? CACHE_FORWARD_WINDOW : CACHE_BACKWARD_WINDOW));
-
-      // Limit concurrent active fetches to prevent network starvation
-      let activeCount = inFlightFetchesRef.current.size;
-      for (let i = centerIndex; i <= maxIndex && activeCount < 6; i++) {
-        if (!imageCacheRef.current.has(i) && !inFlightFetchesRef.current.has(i)) {
-          activeCount++;
-          loadSingleFrame(i).catch(() => {});
-        }
-      }
-      for (let i = centerIndex - 1; i >= minIndex && activeCount < 6; i--) {
-        if (!imageCacheRef.current.has(i) && !inFlightFetchesRef.current.has(i)) {
-          activeCount++;
-          loadSingleFrame(i).catch(() => {});
-        }
-      }
-
-      // Purge distant images to keep memory bounded
-      if (imageCacheRef.current.size > MAX_CACHE_SIZE) {
-        for (const [key] of imageCacheRef.current.entries()) {
-          if (key < centerIndex - CACHE_FORWARD_WINDOW * 2 || key > centerIndex + CACHE_FORWARD_WINDOW * 2) {
-            imageCacheRef.current.delete(key);
-          }
-        }
-      }
-    },
-    [loadSingleFrame]
-  );
-
   // Full-Viewport Object-Fit: Cover Canvas Rendering
-  const renderCanvasFrame = useCallback(
-    (frameIdx: number) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+  const renderCanvasFrame = useCallback((frameIdx: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) return;
 
-      let img = imageCacheRef.current.get(frameIdx);
-      if (!img || !img.complete || img.naturalWidth === 0) {
-        // Fast search for closest available decoded frame
-        for (let offset = 1; offset <= 20; offset++) {
-          const prev = imageCacheRef.current.get(frameIdx - offset);
-          if (prev && prev.complete && prev.naturalWidth !== 0) {
-            img = prev;
-            break;
-          }
-          const next = imageCacheRef.current.get(frameIdx + offset);
-          if (next && next.complete && next.naturalWidth !== 0) {
-            img = next;
-            break;
-          }
+    let img: CachedFrame | undefined = imageCacheRef.current.get(frameIdx);
+
+    // If exact frame is not yet in cache, find nearest available frame without freezing
+    if (!img) {
+      const direction = scrollDirectionRef.current;
+      for (let offset = 1; offset <= 15; offset++) {
+        const preferred = direction >= 0 ? frameIdx - offset : frameIdx + offset;
+        const alternate = direction >= 0 ? frameIdx + offset : frameIdx - offset;
+
+        if (imageCacheRef.current.has(preferred)) {
+          img = imageCacheRef.current.get(preferred);
+          break;
+        }
+        if (imageCacheRef.current.has(alternate)) {
+          img = imageCacheRef.current.get(alternate);
+          break;
         }
       }
+    }
 
-      if (!img) return;
+    if (!img) return;
 
-      let { width, height, dpr } = dimensionsRef.current;
-      if (width === 0 || height === 0) {
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
-        width = window.innerWidth;
-        height = window.innerHeight;
-        dimensionsRef.current = { width, height, dpr };
+    let { width, height, dpr } = dimensionsRef.current;
+    if (width === 0 || height === 0) {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dimensionsRef.current = { width, height, dpr };
+    }
+
+    if (canvas.width !== Math.round(width * dpr) || canvas.height !== Math.round(height * dpr)) {
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+    }
+
+    ctx.save();
+    ctx.scale(dpr, dpr);
+
+    const imgWidth = 'naturalWidth' in img ? img.naturalWidth : (img as ImageBitmap).width || 1920;
+    const imgHeight = 'naturalHeight' in img ? img.naturalHeight : (img as ImageBitmap).height || 1080;
+    const scale = Math.max(width / imgWidth, height / imgHeight);
+
+    const drawWidth = imgWidth * scale;
+    const drawHeight = imgHeight * scale;
+    const offsetX = (width - drawWidth) / 2;
+    const offsetY = (height - drawHeight) / 2;
+
+    ctx.drawImage(img as CanvasImageSource, offsetX, offsetY, drawWidth, drawHeight);
+    ctx.restore();
+
+    currentDrawnIndexRef.current = frameIdx;
+  }, []);
+
+  // Distance-based LRU memory eviction
+  const purgeDistantFrames = useCallback((centerIndex: number) => {
+    const entries = Array.from(imageCacheRef.current.keys()).sort(
+      (a, b) => Math.abs(b - centerIndex) - Math.abs(a - centerIndex)
+    );
+    while (imageCacheRef.current.size > MAX_CACHE_SIZE && entries.length > 0) {
+      const furthestKey = entries.shift()!;
+      // Preserve frame 0 (initial poster) and frames within 10 of current position
+      if (furthestKey === 0 || Math.abs(furthestKey - centerIndex) <= 10) continue;
+      const item = imageCacheRef.current.get(furthestKey);
+      if (item && 'close' in item && typeof item.close === 'function') {
+        item.close();
       }
+      imageCacheRef.current.delete(furthestKey);
+    }
+  }, []);
 
-      if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
-        canvas.width = width * dpr;
-        canvas.height = height * dpr;
+  // Adaptive, direction-aware priority frame scheduler
+  const scheduleFrameLoads = useCallback(() => {
+    if (!isVisibleRef.current) return;
+
+    const target = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
+    const direction = scrollDirectionRef.current;
+
+    // 1. Build priority queue
+    const priorityList: number[] = [];
+    if (!imageCacheRef.current.has(target)) {
+      priorityList.push(target);
+    }
+
+    const fwdDist = direction >= 0 ? FORWARD_PRELOAD_WINDOW : BACKWARD_PRELOAD_WINDOW;
+    const bwdDist = direction >= 0 ? BACKWARD_PRELOAD_WINDOW : FORWARD_PRELOAD_WINDOW;
+
+    if (direction >= 0) {
+      for (let i = 1; i <= fwdDist; i++) {
+        const idx = target + i;
+        if (idx < TOTAL_FRAMES && !imageCacheRef.current.has(idx)) {
+          priorityList.push(idx);
+        }
       }
+      for (let i = 1; i <= bwdDist; i++) {
+        const idx = target - i;
+        if (idx >= 0 && !imageCacheRef.current.has(idx)) {
+          priorityList.push(idx);
+        }
+      }
+    } else {
+      for (let i = 1; i <= fwdDist; i++) {
+        const idx = target - i;
+        if (idx >= 0 && !imageCacheRef.current.has(idx)) {
+          priorityList.push(idx);
+        }
+      }
+      for (let i = 1; i <= bwdDist; i++) {
+        const idx = target + i;
+        if (idx < TOTAL_FRAMES && !imageCacheRef.current.has(idx)) {
+          priorityList.push(idx);
+        }
+      }
+    }
 
-      ctx.save();
-      ctx.scale(dpr, dpr);
-      ctx.clearRect(0, 0, width, height);
+    // 2. Abort stale in-flight requests outside active window
+    const activeMin = Math.max(0, target - bwdDist - 4);
+    const activeMax = Math.min(TOTAL_FRAMES - 1, target + fwdDist + 4);
 
-      const imgWidth = img.naturalWidth || 1920;
-      const imgHeight = img.naturalHeight || 1080;
-      const scale = Math.max(width / imgWidth, height / imgHeight);
+    for (const [idx, controller] of inFlightRef.current.entries()) {
+      if (idx < activeMin || idx > activeMax) {
+        controller.abort();
+        inFlightRef.current.delete(idx);
+      }
+    }
 
-      const drawWidth = imgWidth * scale;
-      const drawHeight = imgHeight * scale;
-      const offsetX = (width - drawWidth) / 2;
-      const offsetY = (height - drawHeight) / 2;
+    // 3. Dispatch new requests up to MAX_CONCURRENT_FETCHES
+    for (const frameIdx of priorityList) {
+      if (inFlightRef.current.size >= MAX_CONCURRENT_FETCHES) break;
+      if (inFlightRef.current.has(frameIdx)) continue;
 
-      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
-      ctx.restore();
-    },
-    []
-  );
+      const controller = new AbortController();
+      inFlightRef.current.set(frameIdx, controller);
+
+      fetchAndDecodeFrame(frameIdx, controller.signal)
+        .then((bitmap) => {
+          imageCacheRef.current.set(frameIdx, bitmap);
+          inFlightRef.current.delete(frameIdx);
+
+          // If this frame is the target frame or closer than what is currently drawn, redraw immediately
+          const currentTarget = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
+          if (
+            frameIdx === currentTarget ||
+            Math.abs(frameIdx - currentTarget) < Math.abs(currentDrawnIndexRef.current - currentTarget)
+          ) {
+            renderCanvasFrame(frameIdx);
+          }
+
+          if (imageCacheRef.current.size > MAX_CACHE_SIZE) {
+            purgeDistantFrames(currentTarget);
+          }
+
+          scheduleFrameLoads();
+        })
+        .catch((err) => {
+          inFlightRef.current.delete(frameIdx);
+          if (err.name !== 'AbortError') {
+            scheduleFrameLoads();
+          }
+        });
+    }
+  }, [fetchAndDecodeFrame, renderCanvasFrame, purgeDistantFrames]);
 
   // Smooth RAF Render Loop with IntersectionObserver pause/resume
   useEffect(() => {
@@ -194,32 +248,32 @@ export const ScrollyHero: React.FC = () => {
       }
 
       isLoopRunningRef.current = true;
-      const diff = targetFrameRef.current - renderedFrameRef.current;
-      const absDiff = Math.abs(diff);
+      const target = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
 
-      if (absDiff > 0.01) {
-        // Dynamic lerp: catches up faster during rapid swipes to eliminate lag/stalls
-        const lerpRate = absDiff > 50 ? 0.32 : absDiff > 15 ? 0.22 : 0.14;
-        renderedFrameRef.current += diff * lerpRate;
-        const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(renderedFrameRef.current)));
-
-        if (frameIndex !== currentDrawIndexRef.current) {
-          currentDrawIndexRef.current = frameIndex;
-          renderCanvasFrame(frameIndex);
-          manageCacheBucket(frameIndex);
-        }
+      if (target !== currentDrawnIndexRef.current) {
+        renderCanvasFrame(target);
       }
 
       animFrameId = requestAnimationFrame(renderLoop);
     };
 
-    // IntersectionObserver to pause the loop when offscreen and resume when visible
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           isVisibleRef.current = entry.isIntersecting;
-          if (entry.isIntersecting && !isLoopRunningRef.current) {
-            animFrameId = requestAnimationFrame(renderLoop);
+          if (entry.isIntersecting) {
+            scheduleFrameLoads();
+            if (!isLoopRunningRef.current) {
+              animFrameId = requestAnimationFrame(renderLoop);
+            }
+          } else {
+            // Abort lookahead fetches when offscreen to save bandwidth
+            for (const [idx, ctrl] of inFlightRef.current.entries()) {
+              if (idx !== 0) {
+                ctrl.abort();
+                inFlightRef.current.delete(idx);
+              }
+            }
           }
         });
       },
@@ -235,26 +289,39 @@ export const ScrollyHero: React.FC = () => {
     return () => {
       cancelAnimationFrame(animFrameId);
       observer.disconnect();
+      for (const ctrl of inFlightRef.current.values()) {
+        ctrl.abort();
+      }
+      inFlightRef.current.clear();
+      for (const item of imageCacheRef.current.values()) {
+        if (item && 'close' in item && typeof item.close === 'function') {
+          item.close();
+        }
+      }
+      imageCacheRef.current.clear();
     };
-  }, [renderCanvasFrame, manageCacheBucket]);
+  }, [renderCanvasFrame, scheduleFrameLoads]);
 
   // Initial Load Strategy: Prioritize Frame 0 immediately
   useEffect(() => {
     let isMounted = true;
+    const controller = new AbortController();
 
-    loadSingleFrame(0)
-      .then(() => {
+    fetchAndDecodeFrame(0, controller.signal)
+      .then((bitmap) => {
         if (!isMounted) return;
+        imageCacheRef.current.set(0, bitmap);
         setIsFirstFrameLoaded(true);
         renderCanvasFrame(0);
-        manageCacheBucket(0);
+        scheduleFrameLoads();
       })
       .catch(() => {});
 
     return () => {
       isMounted = false;
+      controller.abort();
     };
-  }, [loadSingleFrame, renderCanvasFrame, manageCacheBucket]);
+  }, [fetchAndDecodeFrame, renderCanvasFrame, scheduleFrameLoads]);
 
   // Resize Handler: Updates cached dimensions
   useEffect(() => {
@@ -265,7 +332,7 @@ export const ScrollyHero: React.FC = () => {
         height: window.innerHeight,
         dpr,
       };
-      renderCanvasFrame(currentDrawIndexRef.current >= 0 ? currentDrawIndexRef.current : 0);
+      renderCanvasFrame(currentDrawnIndexRef.current >= 0 ? currentDrawnIndexRef.current : 0);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -293,6 +360,7 @@ export const ScrollyHero: React.FC = () => {
 
           const cameraProgress = Math.min(1, progress / SEQUENCE_END);
           targetFrameRef.current = cameraProgress * (TOTAL_FRAMES - 1);
+          scheduleFrameLoads();
 
           let newState = 0;
           if (progress < 0.166) newState = 0;
@@ -333,7 +401,7 @@ export const ScrollyHero: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [scheduleFrameLoads]);
 
   return (
     <section
