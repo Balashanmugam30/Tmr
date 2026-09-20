@@ -6,13 +6,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FRAMES = 960;
-const MAX_CONCURRENT_FETCHES = 4; // Measured optimal concurrency for HTTP/2 pipeline
-const FORWARD_PRELOAD_WINDOW = 12; // Focused forward lookahead
-const BACKWARD_PRELOAD_WINDOW = 3; // Tight backward safety window
-const MAX_CACHE_SIZE = 80; // Bounded in-memory decoded frames
+const MAX_CONCURRENT_FETCHES = 4; // 1 reserved target slot + up to 3 directional prefetch slots
+const FORWARD_PRELOAD_WINDOW = 10; // Modest directional prefetch
+const BACKWARD_PRELOAD_WINDOW = 2; // Tight backward safety
 const SEQUENCE_END = 0.833333; // 500vh out of 600vh total height
 
 type CachedFrame = ImageBitmap | HTMLImageElement;
+
+const getAdaptiveCacheLimit = (): number => {
+  if (typeof window === 'undefined') return 16;
+  return window.innerWidth < 768 ? 12 : 20; // 8-12 on mobile, 16-24 on desktop
+};
 
 const getFramePath = (index: number) => {
   const paddedIndex = String(index + 1).padStart(4, '0');
@@ -23,20 +27,21 @@ export const ScrollyHero: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
   // Performance refs (NO React state for high-frequency updates)
   const targetFrameRef = useRef<number>(0);
-  const currentDrawnIndexRef = useRef<number>(-1);
+  const displayedFrameRef = useRef<number>(-1); // Strictly records what is visually on screen
   const stateIndexRef = useRef<number>(0);
   const isVisibleRef = useRef<boolean>(true);
-  const isLoopRunningRef = useRef<boolean>(false);
   const hasScrolledRef = useRef<boolean>(false);
   const scrollDirectionRef = useRef<number>(1);
   const dimensionsRef = useRef<{ width: number; height: number; dpr: number }>({ width: 0, height: 0, dpr: 1 });
+  const rafIdRef = useRef<number | null>(null);
 
   // Bounded Frame Cache & In-flight Network Request Tracking
   const imageCacheRef = useRef<Map<number, CachedFrame>>(new Map());
-  const inFlightRef = useRef<Map<number, AbortController>>(new Map());
+  const inFlightRef = useRef<Map<number, { controller: AbortController; isTarget: boolean }>>(new Map());
 
   // Low-frequency UI state only
   const [activeStateIndex, setActiveStateIndex] = useState<number>(0);
@@ -67,35 +72,36 @@ export const ScrollyHero: React.FC = () => {
     });
   }, []);
 
-  // Full-Viewport Object-Fit: Cover Canvas Rendering
-  const renderCanvasFrame = useCallback((frameIdx: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d', { alpha: false });
-    if (!ctx) return;
-
-    let img: CachedFrame | undefined = imageCacheRef.current.get(frameIdx);
-
-    // If exact frame is not yet in cache, find nearest available frame without freezing
-    if (!img) {
-      const direction = scrollDirectionRef.current;
-      for (let offset = 1; offset <= 15; offset++) {
-        const preferred = direction >= 0 ? frameIdx - offset : frameIdx + offset;
-        const alternate = direction >= 0 ? frameIdx + offset : frameIdx - offset;
-
-        if (imageCacheRef.current.has(preferred)) {
-          img = imageCacheRef.current.get(preferred);
-          break;
-        }
-        if (imageCacheRef.current.has(alternate)) {
-          img = imageCacheRef.current.get(alternate);
-          break;
-        }
+  // Distance-based LRU memory eviction
+  const purgeDistantFrames = useCallback((centerIndex: number, maxCache: number) => {
+    const entries = Array.from(imageCacheRef.current.keys()).sort(
+      (a, b) => Math.abs(b - centerIndex) - Math.abs(a - centerIndex)
+    );
+    while (imageCacheRef.current.size > maxCache && entries.length > 0) {
+      const furthestKey = entries.shift()!;
+      // Never evict frame 0 (initial poster) or frames within 3 of current position
+      if (furthestKey === 0 || Math.abs(furthestKey - centerIndex) <= 3) continue;
+      const item = imageCacheRef.current.get(furthestKey);
+      if (item && 'close' in item && typeof item.close === 'function') {
+        item.close();
       }
+      imageCacheRef.current.delete(furthestKey);
     }
+  }, []);
 
-    if (!img) return;
+  // Full-Viewport Object-Fit: Cover Canvas Rendering
+  const renderCanvasFrame = useCallback((frameIdx: number): boolean => {
+    const canvas = canvasRef.current;
+    if (!canvas) return false;
+
+    if (!ctxRef.current) {
+      ctxRef.current = canvas.getContext('2d', { alpha: false });
+    }
+    const ctx = ctxRef.current;
+    if (!ctx) return false;
+
+    const img = imageCacheRef.current.get(frameIdx);
+    if (!img) return false;
 
     let { width, height, dpr } = dimensionsRef.current;
     if (width === 0 || height === 0) {
@@ -125,152 +131,216 @@ export const ScrollyHero: React.FC = () => {
     ctx.drawImage(img as CanvasImageSource, offsetX, offsetY, drawWidth, drawHeight);
     ctx.restore();
 
-    currentDrawnIndexRef.current = frameIdx;
+    displayedFrameRef.current = frameIdx;
+    return true;
   }, []);
 
-  // Distance-based LRU memory eviction
-  const purgeDistantFrames = useCallback((centerIndex: number) => {
-    const entries = Array.from(imageCacheRef.current.keys()).sort(
-      (a, b) => Math.abs(b - centerIndex) - Math.abs(a - centerIndex)
-    );
-    while (imageCacheRef.current.size > MAX_CACHE_SIZE && entries.length > 0) {
-      const furthestKey = entries.shift()!;
-      // Preserve frame 0 (initial poster) and frames within 10 of current position
-      if (furthestKey === 0 || Math.abs(furthestKey - centerIndex) <= 10) continue;
-      const item = imageCacheRef.current.get(furthestKey);
-      if (item && 'close' in item && typeof item.close === 'function') {
-        item.close();
-      }
-      imageCacheRef.current.delete(furthestKey);
+  // Visual Update Handler: Strictly tracks displayedFrame vs targetFrame
+  const renderVisual = useCallback(() => {
+    if (!isVisibleRef.current) return;
+
+    const target = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
+
+    // 1. If target is already on screen, nothing to do
+    if (displayedFrameRef.current === target) return;
+
+    // 2. If target is ready in cache, draw it directly
+    if (imageCacheRef.current.has(target)) {
+      renderCanvasFrame(target);
+      return;
     }
-  }, []);
 
-  // Adaptive, direction-aware priority frame scheduler
-  const scheduleFrameLoads = useCallback(() => {
+    // 3. Fallback: find nearest already-decoded frame in cache without freezing
+    const direction = scrollDirectionRef.current;
+    let fallbackIdx = -1;
+
+    for (let offset = 1; offset <= 15; offset++) {
+      const preferred = direction >= 0 ? target - offset : target + offset;
+      const alternate = direction >= 0 ? target + offset : target - offset;
+
+      if (imageCacheRef.current.has(preferred)) {
+        fallbackIdx = preferred;
+        break;
+      }
+      if (imageCacheRef.current.has(alternate)) {
+        fallbackIdx = alternate;
+        break;
+      }
+    }
+
+    // If fallback is found and not already on screen, draw it
+    if (fallbackIdx >= 0 && fallbackIdx !== displayedFrameRef.current) {
+      renderCanvasFrame(fallbackIdx);
+      // Note: displayedFrameRef.current is now fallbackIdx, NOT target!
+    }
+  }, [renderCanvasFrame]);
+
+  // Event-Driven RAF Render Scheduler (No continuous 60fps loop when idle)
+  const requestRender = useCallback(() => {
+    if (rafIdRef.current !== null || !isVisibleRef.current) return;
+    rafIdRef.current = requestAnimationFrame(() => {
+      rafIdRef.current = null;
+      renderVisual();
+    });
+  }, [renderVisual]);
+
+  // Target-First Persistent Preloader Queue
+  const pumpQueue = useCallback(() => {
     if (!isVisibleRef.current) return;
 
     const target = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
     const direction = scrollDirectionRef.current;
+    const maxCache = getAdaptiveCacheLimit();
 
-    // 1. Build priority queue
-    const priorityList: number[] = [];
-    if (!imageCacheRef.current.has(target)) {
-      priorityList.push(target);
+    // 1. Target Frame Reservation: Priority 0
+    if (!imageCacheRef.current.has(target) && !inFlightRef.current.has(target)) {
+      // If all slots are occupied by prefetch frames, abort the lowest-priority background prefetch
+      if (inFlightRef.current.size >= MAX_CONCURRENT_FETCHES) {
+        let furthestDist = -1;
+        let furthestKey = -1;
+        for (const [idx, item] of inFlightRef.current.entries()) {
+          if (!item.isTarget) {
+            const dist = Math.abs(idx - target);
+            if (dist > furthestDist) {
+              furthestDist = dist;
+              furthestKey = idx;
+            }
+          }
+        }
+        if (furthestKey >= 0) {
+          const item = inFlightRef.current.get(furthestKey);
+          if (item) {
+            item.controller.abort();
+            inFlightRef.current.delete(furthestKey);
+          }
+        }
+      }
+
+      // Dispatch target fetch
+      const controller = new AbortController();
+      inFlightRef.current.set(target, { controller, isTarget: true });
+
+      fetchAndDecodeFrame(target, controller.signal)
+        .then((bitmap) => {
+          imageCacheRef.current.set(target, bitmap);
+          inFlightRef.current.delete(target);
+
+          // Target frame arrived: immediately schedule render!
+          requestRender();
+
+          if (imageCacheRef.current.size > maxCache) {
+            purgeDistantFrames(target, maxCache);
+          }
+
+          pumpQueue();
+        })
+        .catch((err) => {
+          inFlightRef.current.delete(target);
+          if (err.name !== 'AbortError') {
+            pumpQueue();
+          }
+        });
     }
 
+    // 2. Build directional prefetch priority list
+    const priorityList: number[] = [];
     const fwdDist = direction >= 0 ? FORWARD_PRELOAD_WINDOW : BACKWARD_PRELOAD_WINDOW;
     const bwdDist = direction >= 0 ? BACKWARD_PRELOAD_WINDOW : FORWARD_PRELOAD_WINDOW;
 
     if (direction >= 0) {
       for (let i = 1; i <= fwdDist; i++) {
         const idx = target + i;
-        if (idx < TOTAL_FRAMES && !imageCacheRef.current.has(idx)) {
+        if (idx < TOTAL_FRAMES && !imageCacheRef.current.has(idx) && !inFlightRef.current.has(idx)) {
           priorityList.push(idx);
         }
       }
       for (let i = 1; i <= bwdDist; i++) {
         const idx = target - i;
-        if (idx >= 0 && !imageCacheRef.current.has(idx)) {
+        if (idx >= 0 && !imageCacheRef.current.has(idx) && !inFlightRef.current.has(idx)) {
           priorityList.push(idx);
         }
       }
     } else {
       for (let i = 1; i <= fwdDist; i++) {
         const idx = target - i;
-        if (idx >= 0 && !imageCacheRef.current.has(idx)) {
+        if (idx >= 0 && !imageCacheRef.current.has(idx) && !inFlightRef.current.has(idx)) {
           priorityList.push(idx);
         }
       }
       for (let i = 1; i <= bwdDist; i++) {
         const idx = target + i;
-        if (idx < TOTAL_FRAMES && !imageCacheRef.current.has(idx)) {
+        if (idx < TOTAL_FRAMES && !imageCacheRef.current.has(idx) && !inFlightRef.current.has(idx)) {
           priorityList.push(idx);
         }
       }
     }
 
-    // 2. Abort stale in-flight requests outside active window
+    // 3. Prune only TRULY OBSOLETE background requests (not nearby ones to prevent churn)
     const activeMin = Math.max(0, target - bwdDist - 4);
-    const activeMax = Math.min(TOTAL_FRAMES - 1, target + fwdDist + 4);
+    const activeMax = Math.min(TOTAL_FRAMES - 1, target + fwdDist + 6);
 
-    for (const [idx, controller] of inFlightRef.current.entries()) {
-      if (idx < activeMin || idx > activeMax) {
-        controller.abort();
+    for (const [idx, item] of inFlightRef.current.entries()) {
+      if (!item.isTarget && (idx < activeMin || idx > activeMax)) {
+        item.controller.abort();
         inFlightRef.current.delete(idx);
       }
     }
 
-    // 3. Dispatch new requests up to MAX_CONCURRENT_FETCHES
+    // 4. Fill available concurrency slots with directional prefetch frames
     for (const frameIdx of priorityList) {
       if (inFlightRef.current.size >= MAX_CONCURRENT_FETCHES) break;
       if (inFlightRef.current.has(frameIdx)) continue;
 
       const controller = new AbortController();
-      inFlightRef.current.set(frameIdx, controller);
+      inFlightRef.current.set(frameIdx, { controller, isTarget: false });
 
       fetchAndDecodeFrame(frameIdx, controller.signal)
         .then((bitmap) => {
           imageCacheRef.current.set(frameIdx, bitmap);
           inFlightRef.current.delete(frameIdx);
 
-          // If this frame is the target frame or closer than what is currently drawn, redraw immediately
+          // If this frame is closer to target than what is currently displayed, render it
           const currentTarget = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
           if (
-            frameIdx === currentTarget ||
-            Math.abs(frameIdx - currentTarget) < Math.abs(currentDrawnIndexRef.current - currentTarget)
+            displayedFrameRef.current !== currentTarget &&
+            Math.abs(frameIdx - currentTarget) < Math.abs(displayedFrameRef.current - currentTarget)
           ) {
-            renderCanvasFrame(frameIdx);
+            requestRender();
           }
 
-          if (imageCacheRef.current.size > MAX_CACHE_SIZE) {
-            purgeDistantFrames(currentTarget);
+          if (imageCacheRef.current.size > maxCache) {
+            purgeDistantFrames(currentTarget, maxCache);
           }
 
-          scheduleFrameLoads();
+          pumpQueue();
         })
         .catch((err) => {
           inFlightRef.current.delete(frameIdx);
           if (err.name !== 'AbortError') {
-            scheduleFrameLoads();
+            pumpQueue();
           }
         });
     }
-  }, [fetchAndDecodeFrame, renderCanvasFrame, purgeDistantFrames]);
+  }, [fetchAndDecodeFrame, requestRender, purgeDistantFrames]);
 
-  // Smooth RAF Render Loop with IntersectionObserver pause/resume
+  // Viewport IntersectionObserver Setup (Halts work when offscreen)
   useEffect(() => {
-    let animFrameId: number;
-
-    const renderLoop = () => {
-      if (!isVisibleRef.current) {
-        isLoopRunningRef.current = false;
-        return;
-      }
-
-      isLoopRunningRef.current = true;
-      const target = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(targetFrameRef.current)));
-
-      if (target !== currentDrawnIndexRef.current) {
-        renderCanvasFrame(target);
-      }
-
-      animFrameId = requestAnimationFrame(renderLoop);
-    };
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           isVisibleRef.current = entry.isIntersecting;
           if (entry.isIntersecting) {
-            scheduleFrameLoads();
-            if (!isLoopRunningRef.current) {
-              animFrameId = requestAnimationFrame(renderLoop);
-            }
+            requestRender();
+            pumpQueue();
           } else {
-            // Abort lookahead fetches when offscreen to save bandwidth
-            for (const [idx, ctrl] of inFlightRef.current.entries()) {
-              if (idx !== 0) {
-                ctrl.abort();
+            if (rafIdRef.current !== null) {
+              cancelAnimationFrame(rafIdRef.current);
+              rafIdRef.current = null;
+            }
+            // Cancel background prefetch when offscreen
+            for (const [idx, item] of inFlightRef.current.entries()) {
+              if (!item.isTarget) {
+                item.controller.abort();
                 inFlightRef.current.delete(idx);
               }
             }
@@ -284,13 +354,13 @@ export const ScrollyHero: React.FC = () => {
       observer.observe(containerRef.current);
     }
 
-    animFrameId = requestAnimationFrame(renderLoop);
-
     return () => {
-      cancelAnimationFrame(animFrameId);
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
       observer.disconnect();
-      for (const ctrl of inFlightRef.current.values()) {
-        ctrl.abort();
+      for (const item of inFlightRef.current.values()) {
+        item.controller.abort();
       }
       inFlightRef.current.clear();
       for (const item of imageCacheRef.current.values()) {
@@ -300,7 +370,7 @@ export const ScrollyHero: React.FC = () => {
       }
       imageCacheRef.current.clear();
     };
-  }, [renderCanvasFrame, scheduleFrameLoads]);
+  }, [requestRender, pumpQueue]);
 
   // Initial Load Strategy: Prioritize Frame 0 immediately
   useEffect(() => {
@@ -313,7 +383,7 @@ export const ScrollyHero: React.FC = () => {
         imageCacheRef.current.set(0, bitmap);
         setIsFirstFrameLoaded(true);
         renderCanvasFrame(0);
-        scheduleFrameLoads();
+        pumpQueue();
       })
       .catch(() => {});
 
@@ -321,9 +391,9 @@ export const ScrollyHero: React.FC = () => {
       isMounted = false;
       controller.abort();
     };
-  }, [fetchAndDecodeFrame, renderCanvasFrame, scheduleFrameLoads]);
+  }, [fetchAndDecodeFrame, renderCanvasFrame, pumpQueue]);
 
-  // Resize Handler: Updates cached dimensions
+  // Resize Handler: Updates cached dimensions and triggers render
   useEffect(() => {
     const handleResize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -332,11 +402,11 @@ export const ScrollyHero: React.FC = () => {
         height: window.innerHeight,
         dpr,
       };
-      renderCanvasFrame(currentDrawnIndexRef.current >= 0 ? currentDrawnIndexRef.current : 0);
+      requestRender();
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [renderCanvasFrame]);
+  }, [requestRender]);
 
   // GSAP ScrollTrigger Setup
   useEffect(() => {
@@ -360,7 +430,11 @@ export const ScrollyHero: React.FC = () => {
 
           const cameraProgress = Math.min(1, progress / SEQUENCE_END);
           targetFrameRef.current = cameraProgress * (TOTAL_FRAMES - 1);
-          scheduleFrameLoads();
+
+          // Request visual render on next animation frame
+          requestRender();
+          // Notify preloader queue
+          pumpQueue();
 
           let newState = 0;
           if (progress < 0.166) newState = 0;
@@ -401,7 +475,7 @@ export const ScrollyHero: React.FC = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, [scheduleFrameLoads]);
+  }, [requestRender, pumpQueue]);
 
   return (
     <section
