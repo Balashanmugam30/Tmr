@@ -68,6 +68,8 @@ export const ShowroomSection: React.FC = () => {
         ref={imageRef}
         src="/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg"
         alt="TMR AI Car Care studio facility overview in Arulpuram, Tiruppur"
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-1000 ease-out pointer-events-none"
         onError={(e) => {
           const target = e.target as HTMLImageElement;

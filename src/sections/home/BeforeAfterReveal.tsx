@@ -28,6 +28,8 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
             <ReactCompareSliderImage
               src={beforeImage}
               alt={beforeAlt}
+              loading="lazy"
+              decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <div className="absolute top-4 sm:top-6 left-4 sm:left-6 z-10 px-3 sm:px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-white/90 uppercase pointer-events-none shadow-lg">
@@ -40,6 +42,8 @@ export const BeforeAfterReveal: React.FC<BeforeAfterRevealProps> = ({
             <ReactCompareSliderImage
               src={afterImage}
               alt={afterAlt}
+              loading="lazy"
+              decoding="async"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <div className="absolute top-4 sm:top-6 right-4 sm:right-6 z-10 px-3 sm:px-4 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-[10px] sm:text-xs font-mono font-bold tracking-widest text-[#FF4B00] uppercase pointer-events-none shadow-lg">

@@ -10,7 +10,7 @@ interface ProcessTheatreSectionProps {
   onProgressUpdate?: (stageProgress: number) => void;
 }
 
-export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
+export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = React.memo(({
   onProgressUpdate,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -177,6 +177,8 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
                       <img
                         src={stage.image}
                         alt={stage.alt}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
@@ -192,4 +194,4 @@ export const ProcessTheatreSection: React.FC<ProcessTheatreSectionProps> = ({
       </div>
     </div>
   );
-};
+});

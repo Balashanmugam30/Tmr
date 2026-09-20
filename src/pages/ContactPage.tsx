@@ -11,6 +11,7 @@ export const ContactPage: React.FC = () => {
     vehicle: '',
     service: 'Detailing & Paint Care',
     message: '',
+    honeypot: '',
   });
 
   useEffect(() => {
@@ -200,11 +201,13 @@ export const ContactPage: React.FC = () => {
   const [generatedWhatsappUrl, setGeneratedWhatsappUrl] = useState<string>('');
   const [formErrorMessage, setFormErrorMessage] = useState<string>('');
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.name.trim() || !formData.phone.trim() || !formData.vehicle.trim()) {
@@ -213,15 +216,40 @@ export const ContactPage: React.FC = () => {
       return;
     }
 
+    setIsSubmitting(true);
+    setFormErrorMessage('');
+
     try {
-      const text = `Hello TMR AI Car Care!\n\nName: ${formData.name}\nPhone: ${formData.phone}\nVehicle: ${formData.vehicle}\nService Interest: ${formData.service}\nNotes: ${formData.message}`;
-      const url = `https://wa.me/${companyData.contact.whatsapp}?text=${encodeURIComponent(text)}`;
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setFormErrorMessage(
+          data?.error || "We couldn't send your enquiry right now. Please try again or contact us directly on WhatsApp."
+        );
+        setSubmitStatus('error');
+        return;
+      }
+
+      // WhatsApp URL with encoded message
+      const whatsappText = `TMR AI Car Care — Website Enquiry\nName: ${formData.name.trim()}\nPhone: ${formData.phone.trim()}\nVehicle: ${formData.vehicle.trim()}\nService: ${formData.service.trim()}\nMessage: ${formData.message.trim() || 'None provided'}\nWebsite:\nhttps://tmraicarcare.com`;
+      const url = `https://wa.me/919655626217?text=${encodeURIComponent(whatsappText)}`;
+
       setGeneratedWhatsappUrl(url);
       setSubmitStatus('success');
       window.open(url, '_blank');
     } catch {
-      setFormErrorMessage('An unexpected error occurred while generating your WhatsApp enquiry.');
+      setFormErrorMessage("We couldn't send your enquiry right now. Please try again or contact us directly on WhatsApp.");
       setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -508,11 +536,25 @@ export const ContactPage: React.FC = () => {
                       />
                     </div>
 
+                    {/* Invisible anti-spam honeypot */}
+                    <div style={{ display: 'none' }} aria-hidden="true">
+                      <label htmlFor="hp_contact_site">Leave empty</label>
+                      <input
+                        id="hp_contact_site"
+                        type="text"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        value={formData.honeypot}
+                        onChange={(e) => setFormData({ ...formData, honeypot: e.target.value })}
+                      />
+                    </div>
+
                     <button
                       type="submit"
-                      className="w-full py-4 sm:py-5 bg-[#FF4B00] text-white font-manrope font-extrabold text-xs uppercase tracking-widest rounded-lg hover:bg-white hover:text-[#0A0A0A] transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl"
+                      disabled={isSubmitting}
+                      className="w-full py-4 sm:py-5 bg-[#FF4B00] text-white font-manrope font-extrabold text-xs uppercase tracking-widest rounded-lg hover:bg-white hover:text-[#0A0A0A] transition-all duration-300 flex items-center justify-center gap-3 group shadow-xl disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                     >
-                      <span>SUBMIT ENQUIRY VIA WHATSAPP</span>
+                      <span>{isSubmitting ? 'PROCESSING ENQUIRY...' : 'SUBMIT ENQUIRY VIA WHATSAPP'}</span>
                       <span className="text-base group-hover:translate-x-1.5 transition-transform duration-300">→</span>
                     </button>
                   </form>

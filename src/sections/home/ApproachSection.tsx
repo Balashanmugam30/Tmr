@@ -6,7 +6,7 @@ import { Container } from '@/components/Container';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const ApproachSection: React.FC = () => {
+export const ApproachSection: React.FC = React.memo(() => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -14,7 +14,7 @@ export const ApproachSection: React.FC = () => {
   const grainRef = useRef<HTMLDivElement>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState<boolean>(false);
 
-  // Programmatic Video Playback & Viewport Intersection Observer
+  // Programmatic Video Playback & Viewport Intersection Observer with pre-activation
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -28,24 +28,17 @@ export const ApproachSection: React.FC = () => {
     };
 
     video.addEventListener('playing', handlePlaying);
-    video.addEventListener('timeupdate', () => {
-      if (video.currentTime > 0 && !isVideoPlaying) {
-        setIsVideoPlaying(true);
-      }
-    });
 
-    // Programmatic play attempt
     const playVideo = async () => {
       try {
         video.muted = true;
         await video.play();
-        setIsVideoPlaying(true);
       } catch (err) {
-        console.warn('Approach video autoplay interaction required:', err);
+        // Autoplay may be restricted until user interaction
       }
     };
 
-    // IntersectionObserver to play video when in viewport and pause when out
+    // IntersectionObserver to load and play video when approaching viewport, pause when far
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -56,7 +49,7 @@ export const ApproachSection: React.FC = () => {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.05, rootMargin: '250px' }
     );
 
     if (sectionRef.current) {
@@ -67,7 +60,7 @@ export const ApproachSection: React.FC = () => {
       video.removeEventListener('playing', handlePlaying);
       observer.disconnect();
     };
-  }, [isVideoPlaying]);
+  }, []);
 
   // GSAP Entrance Timelines
   useEffect(() => {
@@ -152,11 +145,10 @@ export const ApproachSection: React.FC = () => {
         <video
           ref={videoRef}
           src="/videos/approach/approach-cinematic.mp4"
-          autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="none"
           className="w-full h-full object-cover object-center transition-all duration-700 ease-out z-0 opacity-100"
         >
           Your browser does not support the video tag.
@@ -210,4 +202,4 @@ export const ApproachSection: React.FC = () => {
       </div>
     </section>
   );
-};
+});

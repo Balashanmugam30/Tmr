@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface PpfInteractiveSurfaceProps {
   imageSrc: string;
-  isHovered: boolean;
-  pointerPos: { x: number; y: number };
-  velocity: number;
+  isHovered?: boolean;
+  pointerPos?: { x: number; y: number };
+  velocity?: number;
 }
 
 export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
@@ -19,11 +19,13 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
   // Shader refs for 60fps performance without React re-renders
   const mouseRef = useRef<{ x: number; y: number }>({ x: 0.5, y: 0.5 });
   const velocityRef = useRef<number>(0);
+  const isHoveredRef = useRef<boolean>(false);
 
   useEffect(() => {
-    mouseRef.current = pointerPos;
-    velocityRef.current = velocity;
-  }, [pointerPos, velocity]);
+    if (pointerPos) mouseRef.current = pointerPos;
+    if (velocity !== undefined) velocityRef.current = velocity;
+    if (isHovered !== undefined) isHoveredRef.current = isHovered;
+  }, [pointerPos, velocity, isHovered]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -188,11 +190,55 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
       imageLoaded = true;
     };
 
+    // Direct pointer event listeners on the container to prevent React rerenders
+    let lastTime = 0;
+    let lastPos = { x: 0.5, y: 0.5 };
+    const container = canvas.parentElement;
+
+    const handlePointerMove = (e: PointerEvent) => {
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      mouseRef.current = { x, y };
+
+      const now = performance.now();
+      const dt = Math.max(1, now - lastTime);
+      const dx = x - lastPos.x;
+      const dy = y - lastPos.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      velocityRef.current = Math.min(1.0, velocityRef.current * 0.9 + (dist / dt) * 10.0);
+      lastPos = { x, y };
+      lastTime = now;
+    };
+
+    const handlePointerEnter = () => {
+      isHoveredRef.current = true;
+    };
+
+    const handlePointerLeave = () => {
+      isHoveredRef.current = false;
+    };
+
+    if (container) {
+      container.addEventListener('pointermove', handlePointerMove, { passive: true });
+      container.addEventListener('pointerenter', handlePointerEnter);
+      container.addEventListener('pointerleave', handlePointerLeave);
+    }
+
     let animationFrameId: number;
     let hoverValue = 0;
     let currentMouse = { x: 0.5, y: 0.5 };
+    let isVisible = false;
+    let isRunning = false;
 
     const render = (time: number) => {
+      if (!isVisible) {
+        isRunning = false;
+        return;
+      }
+      isRunning = true;
+
       if (canvas.parentElement) {
         const width = canvas.parentElement.clientWidth;
         const height = canvas.parentElement.clientHeight;
@@ -206,7 +252,7 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
       currentMouse.x += (mouseRef.current.x - currentMouse.x) * 0.08;
       currentMouse.y += (mouseRef.current.y - currentMouse.y) * 0.08;
 
-      const targetHover = isHovered ? 1.0 : 0.0;
+      const targetHover = isHoveredRef.current ? 1.0 : 0.0;
       hoverValue += (targetHover - hoverValue) * 0.05;
 
       if (imageLoaded) {
@@ -232,12 +278,31 @@ export const PpfInteractiveSurface: React.FC<PpfInteractiveSurfaceProps> = ({
       animationFrameId = requestAnimationFrame(render);
     };
 
-    animationFrameId = requestAnimationFrame(render);
+    // IntersectionObserver to pause rendering when offscreen
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !isRunning) {
+            animationFrameId = requestAnimationFrame(render);
+          }
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    observer.observe(canvas);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
+      if (container) {
+        container.removeEventListener('pointermove', handlePointerMove);
+        container.removeEventListener('pointerenter', handlePointerEnter);
+        container.removeEventListener('pointerleave', handlePointerLeave);
+      }
     };
-  }, [imageSrc, isHovered]);
+  }, [imageSrc]);
 
   if (!webglSupported) {
     return (

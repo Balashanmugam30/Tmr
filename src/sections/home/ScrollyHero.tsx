@@ -6,8 +6,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FRAMES = 960;
-const CACHE_WINDOW_SIZE = 25; // Preload window around current frame
-const MAX_CACHE_SIZE = 60; // Max decoded image objects in memory
+const CACHE_FORWARD_WINDOW = 18; // Preload forward window
+const CACHE_BACKWARD_WINDOW = 4; // Minimal backward window
+const MAX_CACHE_SIZE = 65; // Max decoded image objects in memory
 const SEQUENCE_END = 0.833333; // 500vh out of 600vh total height
 
 const getFramePath = (index: number) => {
@@ -26,38 +27,52 @@ export const ScrollyHero: React.FC = () => {
   const currentDrawIndexRef = useRef<number>(-1);
   const currentBucketRef = useRef<number>(-1);
   const stateIndexRef = useRef<number>(0);
-  const progressPercentRef = useRef<number>(0);
+  const isVisibleRef = useRef<boolean>(true);
+  const isLoopRunningRef = useRef<boolean>(false);
+  const hasScrolledRef = useRef<boolean>(false);
+  const scrollDirectionRef = useRef<number>(1);
+  const dimensionsRef = useRef<{ width: number; height: number; dpr: number }>({ width: 0, height: 0, dpr: 1 });
 
-  // Rolling Cache (Frame Index -> HTMLImageElement)
+  // Rolling Cache & in-flight fetch deduplication
   const imageCacheRef = useRef<Map<number, HTMLImageElement>>(new Map());
+  const inFlightFetchesRef = useRef<Map<number, Promise<HTMLImageElement>>>(new Map());
 
   // Low-frequency UI state only
   const [activeStateIndex, setActiveStateIndex] = useState<number>(0);
-  const [displayProgress, setDisplayProgress] = useState<number>(0);
+  const [hasScrolled, setHasScrolled] = useState<boolean>(false);
   const [isFirstFrameLoaded, setIsFirstFrameLoaded] = useState<boolean>(false);
 
-  // Single Frame Preloader with non-blocking decode
+  // Single Frame Preloader with in-flight deduplication and non-blocking decode
   const loadSingleFrame = useCallback((index: number): Promise<HTMLImageElement> => {
-    return new Promise((resolve, reject) => {
-      if (imageCacheRef.current.has(index)) {
-        resolve(imageCacheRef.current.get(index)!);
-        return;
-      }
+    if (imageCacheRef.current.has(index)) {
+      return Promise.resolve(imageCacheRef.current.get(index)!);
+    }
 
+    if (inFlightFetchesRef.current.has(index)) {
+      return inFlightFetchesRef.current.get(index)!;
+    }
+
+    const promise = new Promise<HTMLImageElement>((resolve, reject) => {
       const img = new Image();
       img.src = getFramePath(index);
 
       img.onload = () => {
         imageCacheRef.current.set(index, img);
+        inFlightFetchesRef.current.delete(index);
         resolve(img);
       };
-      img.onerror = (err) => reject(err);
+
+      img.onerror = (err) => {
+        inFlightFetchesRef.current.delete(index);
+        reject(err);
+      };
 
       if ('decode' in img && typeof img.decode === 'function') {
         img
           .decode()
           .then(() => {
             imageCacheRef.current.set(index, img);
+            inFlightFetchesRef.current.delete(index);
             resolve(img);
           })
           .catch(() => {
@@ -65,29 +80,41 @@ export const ScrollyHero: React.FC = () => {
           });
       }
     });
+
+    inFlightFetchesRef.current.set(index, promise);
+    return promise;
   }, []);
 
-  // Bucket-based cache manager
+  // Direction-aware, throttled cache manager
   const manageCacheBucket = useCallback(
     (centerIndex: number) => {
-      const bucket = Math.floor(centerIndex / 15);
+      const bucket = Math.floor(centerIndex / 12);
       if (bucket === currentBucketRef.current) return;
       currentBucketRef.current = bucket;
 
-      const minIndex = Math.max(0, centerIndex - CACHE_WINDOW_SIZE);
-      const maxIndex = Math.min(TOTAL_FRAMES - 1, centerIndex + CACHE_WINDOW_SIZE);
+      const direction = scrollDirectionRef.current;
+      const minIndex = Math.max(0, centerIndex - (direction >= 0 ? CACHE_BACKWARD_WINDOW : CACHE_FORWARD_WINDOW));
+      const maxIndex = Math.min(TOTAL_FRAMES - 1, centerIndex + (direction >= 0 ? CACHE_FORWARD_WINDOW : CACHE_BACKWARD_WINDOW));
 
-      // Preload target window
-      for (let i = minIndex; i <= maxIndex; i++) {
-        if (!imageCacheRef.current.has(i)) {
+      // Limit concurrent active fetches to prevent network starvation
+      let activeCount = inFlightFetchesRef.current.size;
+      for (let i = centerIndex; i <= maxIndex && activeCount < 6; i++) {
+        if (!imageCacheRef.current.has(i) && !inFlightFetchesRef.current.has(i)) {
+          activeCount++;
+          loadSingleFrame(i).catch(() => {});
+        }
+      }
+      for (let i = centerIndex - 1; i >= minIndex && activeCount < 6; i--) {
+        if (!imageCacheRef.current.has(i) && !inFlightFetchesRef.current.has(i)) {
+          activeCount++;
           loadSingleFrame(i).catch(() => {});
         }
       }
 
-      // Purge distant images to keep cache bounded
+      // Purge distant images to keep memory bounded
       if (imageCacheRef.current.size > MAX_CACHE_SIZE) {
         for (const [key] of imageCacheRef.current.entries()) {
-          if (key < centerIndex - CACHE_WINDOW_SIZE * 2 || key > centerIndex + CACHE_WINDOW_SIZE * 2) {
+          if (key < centerIndex - CACHE_FORWARD_WINDOW * 2 || key > centerIndex + CACHE_FORWARD_WINDOW * 2) {
             imageCacheRef.current.delete(key);
           }
         }
@@ -107,7 +134,8 @@ export const ScrollyHero: React.FC = () => {
 
       let img = imageCacheRef.current.get(frameIdx);
       if (!img || !img.complete || img.naturalWidth === 0) {
-        for (let offset = 1; offset <= 15; offset++) {
+        // Fast search for closest available decoded frame
+        for (let offset = 1; offset <= 20; offset++) {
           const prev = imageCacheRef.current.get(frameIdx - offset);
           if (prev && prev.complete && prev.naturalWidth !== 0) {
             img = prev;
@@ -123,27 +151,31 @@ export const ScrollyHero: React.FC = () => {
 
       if (!img) return;
 
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
+      let { width, height, dpr } = dimensionsRef.current;
+      if (width === 0 || height === 0) {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dimensionsRef.current = { width, height, dpr };
+      }
 
-      if (canvas.width !== viewportWidth * dpr || canvas.height !== viewportHeight * dpr) {
-        canvas.width = viewportWidth * dpr;
-        canvas.height = viewportHeight * dpr;
+      if (canvas.width !== width * dpr || canvas.height !== height * dpr) {
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
       }
 
       ctx.save();
       ctx.scale(dpr, dpr);
-      ctx.clearRect(0, 0, viewportWidth, viewportHeight);
+      ctx.clearRect(0, 0, width, height);
 
       const imgWidth = img.naturalWidth || 1920;
       const imgHeight = img.naturalHeight || 1080;
-      const scale = Math.max(viewportWidth / imgWidth, viewportHeight / imgHeight);
+      const scale = Math.max(width / imgWidth, height / imgHeight);
 
       const drawWidth = imgWidth * scale;
       const drawHeight = imgHeight * scale;
-      const offsetX = (viewportWidth - drawWidth) / 2;
-      const offsetY = (viewportHeight - drawHeight) / 2;
+      const offsetX = (width - drawWidth) / 2;
+      const offsetY = (height - drawHeight) / 2;
 
       ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
       ctx.restore();
@@ -151,14 +183,24 @@ export const ScrollyHero: React.FC = () => {
     []
   );
 
-  // Smooth RAF Render Loop
+  // Smooth RAF Render Loop with IntersectionObserver pause/resume
   useEffect(() => {
     let animFrameId: number;
 
     const renderLoop = () => {
+      if (!isVisibleRef.current) {
+        isLoopRunningRef.current = false;
+        return;
+      }
+
+      isLoopRunningRef.current = true;
       const diff = targetFrameRef.current - renderedFrameRef.current;
-      if (Math.abs(diff) > 0.01) {
-        renderedFrameRef.current += diff * 0.14;
+      const absDiff = Math.abs(diff);
+
+      if (absDiff > 0.01) {
+        // Dynamic lerp: catches up faster during rapid swipes to eliminate lag/stalls
+        const lerpRate = absDiff > 50 ? 0.32 : absDiff > 15 ? 0.22 : 0.14;
+        renderedFrameRef.current += diff * lerpRate;
         const frameIndex = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(renderedFrameRef.current)));
 
         if (frameIndex !== currentDrawIndexRef.current) {
@@ -171,11 +213,32 @@ export const ScrollyHero: React.FC = () => {
       animFrameId = requestAnimationFrame(renderLoop);
     };
 
+    // IntersectionObserver to pause the loop when offscreen and resume when visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting;
+          if (entry.isIntersecting && !isLoopRunningRef.current) {
+            animFrameId = requestAnimationFrame(renderLoop);
+          }
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
     animFrameId = requestAnimationFrame(renderLoop);
-    return () => cancelAnimationFrame(animFrameId);
+
+    return () => {
+      cancelAnimationFrame(animFrameId);
+      observer.disconnect();
+    };
   }, [renderCanvasFrame, manageCacheBucket]);
 
-  // Initial Load Strategy
+  // Initial Load Strategy: Prioritize Frame 0 immediately
   useEffect(() => {
     let isMounted = true;
 
@@ -193,9 +256,15 @@ export const ScrollyHero: React.FC = () => {
     };
   }, [loadSingleFrame, renderCanvasFrame, manageCacheBucket]);
 
-  // Resize Handler
+  // Resize Handler: Updates cached dimensions
   useEffect(() => {
     const handleResize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dimensionsRef.current = {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        dpr,
+      };
       renderCanvasFrame(currentDrawIndexRef.current >= 0 ? currentDrawIndexRef.current : 0);
     };
     window.addEventListener('resize', handleResize);
@@ -209,6 +278,8 @@ export const ScrollyHero: React.FC = () => {
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (isReducedMotion) return;
 
+    let prevProgress = 0;
+
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: containerRef.current,
@@ -217,6 +288,8 @@ export const ScrollyHero: React.FC = () => {
         scrub: 0.1,
         onUpdate: (self) => {
           const progress = self.progress;
+          scrollDirectionRef.current = progress >= prevProgress ? 1 : -1;
+          prevProgress = progress;
 
           const cameraProgress = Math.min(1, progress / SEQUENCE_END);
           targetFrameRef.current = cameraProgress * (TOTAL_FRAMES - 1);
@@ -234,10 +307,13 @@ export const ScrollyHero: React.FC = () => {
             setActiveStateIndex(newState);
           }
 
-          const pct = Math.round(progress * 100);
-          if (pct !== progressPercentRef.current) {
-            progressPercentRef.current = pct;
-            setDisplayProgress(pct);
+          // Single boolean state update for scroll cue instead of 100 percentage updates
+          if (!hasScrolledRef.current && progress > 0.02) {
+            hasScrolledRef.current = true;
+            setHasScrolled(true);
+          } else if (hasScrolledRef.current && progress <= 0.01) {
+            hasScrolledRef.current = false;
+            setHasScrolled(false);
           }
 
           if (stickyRef.current) {
@@ -404,7 +480,7 @@ export const ScrollyHero: React.FC = () => {
           {/* Scroll Cue (Fades out when scrolling begins) */}
           <div
             className={`flex items-center gap-2.5 transition-opacity duration-500 ${
-              displayProgress > 2 ? 'opacity-0' : 'opacity-100'
+              hasScrolled ? 'opacity-0' : 'opacity-100'
             }`}
           >
             <span className="text-[11px] font-bold uppercase tracking-widest text-white/70">SCROLL</span>

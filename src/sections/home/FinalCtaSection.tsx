@@ -78,11 +78,10 @@ export const FinalCtaSection: React.FC = () => {
         <video
           ref={videoRef}
           src="/videos/cta/cta-cinematic.mp4"
-          autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           className="w-full h-full object-cover object-center scale-105"
         />
 

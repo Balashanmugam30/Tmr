@@ -222,8 +222,16 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
 
     let animationFrameId: number;
     let hoverValue = 0;
+    let isVisible = false;
+    let isRunning = false;
 
     const render = (time: number) => {
+      if (!isVisible) {
+        isRunning = false;
+        return;
+      }
+      isRunning = true;
+
       if (canvas.parentElement) {
         const width = canvas.parentElement.clientWidth;
         const height = canvas.parentElement.clientHeight;
@@ -272,10 +280,23 @@ export const ServicesLiquidHeroCanvas: React.FC<ServicesLiquidHeroCanvasProps> =
       animationFrameId = requestAnimationFrame(render);
     };
 
-    animationFrameId = requestAnimationFrame(render);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !isRunning) {
+            animationFrameId = requestAnimationFrame(render);
+          }
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    observer.observe(canvas);
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
     };
   }, [imageSrc]);
 

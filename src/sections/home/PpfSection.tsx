@@ -4,15 +4,9 @@ import gsap from 'gsap';
 import { Container } from '@/components/Container';
 import { PpfInteractiveSurface } from './PpfInteractiveSurface';
 
-export const PpfSection: React.FC = () => {
+export const PpfSection: React.FC = React.memo(() => {
   const sectionRef = useRef<HTMLElement>(null);
   const textGroupRef = useRef<HTMLDivElement>(null);
-  
-  const [isHovered, setIsHovered] = useState<boolean>(false);
-  const [pointerPos, setPointerPos] = useState<{ x: number; y: number }>({ x: 0.5, y: 0.5 });
-  const [velocity, setVelocity] = useState<number>(0);
-  
-  const lastMouseRef = useRef<{ x: number; y: number; time: number }>({ x: 0.5, y: 0.5, time: 0 });
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -38,42 +32,16 @@ export const PpfSection: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  // Pointer interaction captured across the entire section viewport
-  const handlePointerMove = (e: React.PointerEvent<HTMLElement>) => {
-    if (!sectionRef.current) return;
-    const rect = sectionRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-
-    setPointerPos({ x, y });
-
-    const now = performance.now();
-    const dt = Math.max(1, now - lastMouseRef.current.time);
-    const dx = x - lastMouseRef.current.x;
-    const dy = y - lastMouseRef.current.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    const speed = dist / dt;
-
-    setVelocity((prev) => Math.min(1.0, prev * 0.9 + speed * 10.0));
-    lastMouseRef.current = { x, y, time: now };
-  };
-
   return (
     <section
       ref={sectionRef}
       id="ppf-protection"
       className="relative w-full min-h-[100svh] h-auto lg:h-[100svh] bg-[#070809] text-[#F5F4EF] overflow-hidden border-t border-b border-white/10 selection:bg-[#FF4B00] selection:text-white flex flex-col justify-center py-8 lg:py-12 isolate cursor-crosshair"
       style={{ backgroundColor: '#070809' }}
-      onPointerEnter={() => setIsHovered(true)}
-      onPointerLeave={() => setIsHovered(false)}
-      onPointerMove={handlePointerMove}
     >
       {/* 1. FULLVIEWPORT WEBGL INTERACTIVE PPF MATERIAL SURFACE (BACKGROUND) */}
       <PpfInteractiveSurface
         imageSrc="/images/ppf/ppf-surface.webp"
-        isHovered={isHovered}
-        pointerPos={pointerPos}
-        velocity={velocity}
       />
 
       {/* DARK EDITORIAL GRADIENT OVERLAYS FOR CRISP READABILITY & DEPTH */}
@@ -128,4 +96,4 @@ export const PpfSection: React.FC = () => {
       </Container>
     </section>
   );
-};
+});

@@ -126,6 +126,8 @@ export const CeramicSection: React.FC = () => {
               <img
                 src="/images/protection/protection-hero.webp"
                 alt="Hydrophobic water beading on 10H ceramic coated car paint surface at TMR Studio Tiruppur"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />

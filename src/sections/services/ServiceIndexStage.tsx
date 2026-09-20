@@ -268,7 +268,16 @@ export const ServiceIndexStage: React.FC = () => {
 
     let lastTime = performance.now();
 
+    let isVisible = false;
+    let isRunning = false;
+
     const render = (time: number) => {
+      if (!isVisible) {
+        isRunning = false;
+        return;
+      }
+      isRunning = true;
+
       const dt = (time - lastTime) / 1000.0;
       lastTime = time;
 
@@ -352,10 +361,23 @@ export const ServiceIndexStage: React.FC = () => {
       animFrameRef.current = requestAnimationFrame(render);
     };
 
-    animFrameRef.current = requestAnimationFrame(render);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && !isRunning) {
+            animFrameRef.current = requestAnimationFrame(render);
+          }
+        });
+      },
+      { threshold: 0.01 }
+    );
+
+    observer.observe(canvas);
 
     return () => {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
+      observer.disconnect();
     };
   }, [activeIndex, prevIndex]);
 
