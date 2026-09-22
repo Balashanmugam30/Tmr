@@ -8,8 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 const TOTAL_FRAMES = 960;
 const MAX_CONCURRENT_FETCHES = 4; // Strictly bounded HTTP concurrency
-const RUNWAY_FORWARD = 12; // Directional contiguous runway ahead of displayedFrame
-const RUNWAY_BACKWARD = 3; // Directional safety buffer behind displayedFrame
+const RUNWAY_FORWARD = 16; // Directional contiguous runway ahead of displayedFrame
+const RUNWAY_BACKWARD = 16; // Symmetrical directional runway behind displayedFrame
 const SEQUENCE_END = 0.833333; // 500vh out of 600vh total height
 
 type CachedFrame = ImageBitmap | HTMLImageElement;
@@ -25,9 +25,13 @@ const getFramePath = (index: number) => {
 };
 
 export const ScrollyHero: React.FC = () => {
-  const { lenis, setHeroGateActive } = useLenis();
+  const { lenis, setHeroGateActive, setHeroReverseGateActive, setHeroBackpressure } = useLenis();
   const setHeroGateActiveRef = useRef(setHeroGateActive);
   setHeroGateActiveRef.current = setHeroGateActive;
+  const setHeroReverseGateActiveRef = useRef(setHeroReverseGateActive);
+  setHeroReverseGateActiveRef.current = setHeroReverseGateActive;
+  const setHeroBackpressureRef = useRef(setHeroBackpressure);
+  setHeroBackpressureRef.current = setHeroBackpressure;
   const lenisRef = useRef(lenis);
   useEffect(() => {
     lenisRef.current = lenis;
@@ -50,6 +54,7 @@ export const ScrollyHero: React.FC = () => {
   const dimensionsRef = useRef<{ width: number; height: number; dpr: number }>({ width: 0, height: 0, dpr: 1 });
   const rafIdRef = useRef<number | null>(null);
   const heroCompletionGateRef = useRef<boolean>(false); // Active when scroll reaches sequence end before displayedFrame reaches 959
+  const heroReverseGateRef = useRef<boolean>(false); // Active when scroll reaches top before displayedFrame reaches 0
   const gateScrollYRef = useRef<number>(0); // Scroll position in px corresponding to SEQUENCE_END
   const touchStartYRef = useRef<number>(0);
 
@@ -89,7 +94,7 @@ export const ScrollyHero: React.FC = () => {
     });
   }, []);
 
-  // Distance-based LRU memory eviction: strictly protects active runway
+  // Distance-based LRU memory eviction: strictly protects active runway and adjacent frames
   const purgeDistantFrames = useCallback((centerIndex: number, maxCache: number) => {
     if (decodedFrameCacheRef.current.size <= maxCache) return;
 
@@ -99,14 +104,71 @@ export const ScrollyHero: React.FC = () => {
 
     while (decodedFrameCacheRef.current.size > maxCache && entries.length > 0) {
       const furthestKey = entries.shift()!;
-      // Never evict frame 0 (poster) or frames within the active runway (RUNWAY_FORWARD + 2)
-      if (furthestKey === 0 || Math.abs(furthestKey - centerIndex) <= RUNWAY_FORWARD + 2) continue;
+      // Never evict frame 0 (poster), frame 959 (exit poster), adjacent frames, or frames within active runway
+      if (
+        furthestKey === 0 ||
+        furthestKey === TOTAL_FRAMES - 1 ||
+        furthestKey === centerIndex + 1 ||
+        furthestKey === centerIndex - 1 ||
+        Math.abs(furthestKey - centerIndex) <= RUNWAY_FORWARD + 2
+      ) {
+        continue;
+      }
       const item = decodedFrameCacheRef.current.get(furthestKey);
       if (item && 'close' in item && typeof item.close === 'function') {
         item.close();
       }
       decodedFrameCacheRef.current.delete(furthestKey);
     }
+  }, []);
+
+  // Resource-Aware Scroll Backpressure: Constrains Lenis scroll progression to decoded frame readiness
+  const updateScrollBackpressure = useCallback((currentDisplayed: number) => {
+    if (currentDisplayed < 0) return;
+    const gateScrollY = gateScrollYRef.current;
+    if (gateScrollY <= 0) return;
+
+    const cache = decodedFrameCacheRef.current;
+    const nextForward = currentDisplayed + 1;
+    const nextReverse = currentDisplayed - 1;
+    const isNextForwardReady = nextForward < TOTAL_FRAMES ? cache.has(nextForward) : true;
+    const isNextReverseReady = nextReverse >= 0 ? cache.has(nextReverse) : true;
+
+    let readyForward = 0;
+    while (currentDisplayed + 1 + readyForward < TOTAL_FRAMES && cache.has(currentDisplayed + 1 + readyForward)) {
+      readyForward++;
+    }
+
+    let readyReverse = 0;
+    while (currentDisplayed - 1 - readyReverse >= 0 && cache.has(currentDisplayed - 1 - readyReverse)) {
+      readyReverse++;
+    }
+
+    const MAX_LEAD = 12;
+
+    // Calculate forward ceiling
+    const forwardLead = isNextForwardReady ? Math.max(MAX_LEAD, readyForward + 4) : Math.max(1, readyForward);
+    const maxAllowedForwardFrame = Math.min(TOTAL_FRAMES - 1, currentDisplayed + forwardLead);
+
+    // Calculate reverse floor
+    const reverseLead = isNextReverseReady ? Math.max(MAX_LEAD, readyReverse + 4) : Math.max(1, readyReverse);
+    const minAllowedReverseFrame = Math.max(0, currentDisplayed - reverseLead);
+
+    const maxScrollY = currentDisplayed >= TOTAL_FRAMES - 1
+      ? Infinity
+      : (maxAllowedForwardFrame / (TOTAL_FRAMES - 1)) * gateScrollY;
+
+    const minScrollY = currentDisplayed <= 0
+      ? 0
+      : (minAllowedReverseFrame / (TOTAL_FRAMES - 1)) * gateScrollY;
+
+    // Backpressure is active while inside the hero sequence
+    const isInsideHero = window.scrollY <= gateScrollY + 50;
+    setHeroBackpressureRef.current({
+      active: isInsideHero && (currentDisplayed < TOTAL_FRAMES - 1 || window.scrollY < gateScrollY),
+      maxScrollY,
+      minScrollY,
+    });
   }, []);
 
   // Authoritative Canvas Drawing: ENFORCES STRICT ADJACENT-FRAME INVARIANT
@@ -233,24 +295,24 @@ export const ScrollyHero: React.FC = () => {
         priorityList.push(i);
       }
       // Tight backward safety buffer
-      const backwardLimit = Math.max(0, current - RUNWAY_BACKWARD);
+      const backwardLimit = Math.max(0, current - 4);
       for (let i = current - 1; i >= backwardLimit; i--) {
         priorityList.push(i);
       }
     } else if (destination < current) {
       // Moving backward: Priority 0 is immediate next frame (current - 1)
-      const backwardLimit = Math.max(0, Math.max(destination, current - RUNWAY_FORWARD));
+      const backwardLimit = Math.max(0, Math.max(destination, current - RUNWAY_BACKWARD));
       for (let i = current - 1; i >= backwardLimit; i--) {
         priorityList.push(i);
       }
       // Tight forward safety buffer
-      const forwardLimit = Math.min(TOTAL_FRAMES - 1, current + RUNWAY_BACKWARD);
+      const forwardLimit = Math.min(TOTAL_FRAMES - 1, current + 4);
       for (let i = current + 1; i <= forwardLimit; i++) {
         priorityList.push(i);
       }
     } else {
       // Idle at destination: keep immediate surrounding buffer warm
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 4; i++) {
         if (current + i < TOTAL_FRAMES) priorityList.push(current + i);
         if (current - i >= 0) priorityList.push(current - i);
       }
@@ -277,6 +339,7 @@ export const ScrollyHero: React.FC = () => {
           }
 
           decodedFrameCacheRef.current.set(frameIdx, bitmap);
+          updateScrollBackpressure(displayedFrameRef.current);
 
           // If the arrived frame is the immediate next frame the playhead needs, advance playhead!
           const cur = displayedFrameRef.current;
@@ -303,7 +366,7 @@ export const ScrollyHero: React.FC = () => {
           }
         });
     }
-  }, [fetchAndDecodeFrame, purgeDistantFrames]);
+  }, [fetchAndDecodeFrame, purgeDistantFrames, updateScrollBackpressure]);
 
   // Sequential Playhead Engine (Section 8)
   // Advances strictly ONE adjacent frame per visual tick. Holds if next frame is not ready.
@@ -340,15 +403,43 @@ export const ScrollyHero: React.FC = () => {
     // Next is ready: draw EXACTLY next
     const drawn = drawExactFrame(next);
     if (drawn) {
-      // Release completion gate when final frame is drawn
+      // Release forward completion gate when final frame is drawn
       if (next === TOTAL_FRAMES - 1) {
         heroCompletionGateRef.current = false;
         setHeroGateActiveRef.current(false);
+        setHeroBackpressureRef.current({
+          active: false,
+          maxScrollY: Infinity,
+          minScrollY: 0,
+        });
+        if (containerRef.current) {
+          containerRef.current.style.zIndex = '10';
+        }
         const activeLenis = lenisRef.current || (typeof window !== 'undefined' ? (window as any).__TMR_LENIS__ : null);
         if (activeLenis && gateScrollYRef.current > 0) {
           activeLenis.scrollTo(gateScrollYRef.current, { immediate: true });
         }
+      } else if (heroCompletionGateRef.current) {
+        // While forward gate is active, smoothly step destination frame ahead
+        destinationFrameRef.current = Math.min(next + 12, TOTAL_FRAMES - 1);
       }
+
+      // Release reverse completion gate when initial frame 0 is drawn
+      if (next === 0) {
+        heroReverseGateRef.current = false;
+        setHeroReverseGateActiveRef.current(false);
+        setHeroBackpressureRef.current({
+          active: false,
+          maxScrollY: Infinity,
+          minScrollY: 0,
+        });
+      } else if (heroReverseGateRef.current) {
+        // While reverse gate is active, smoothly step destination frame backward
+        destinationFrameRef.current = Math.max(next - 12, 0);
+      }
+
+      // Update resource-aware backpressure with the new authoritative displayed frame
+      updateScrollBackpressure(next);
 
       // Synchronize visual editorial text and phase indicator
       updateVisualState(next);
@@ -367,7 +458,7 @@ export const ScrollyHero: React.FC = () => {
         requestPlayheadTickRef.current();
       }
     }
-  }, [drawExactFrame, updateVisualState, purgeDistantFrames, pumpContiguousQueue]);
+  }, [drawExactFrame, updateVisualState, purgeDistantFrames, pumpContiguousQueue, updateScrollBackpressure]);
 
   // Request Playhead Tick Scheduler
   const requestPlayheadTick = useCallback(() => {
@@ -523,9 +614,10 @@ export const ScrollyHero: React.FC = () => {
     };
   }, []);
 
-  // Non-invasive Scroll Gate: Coordinates with Lenis while heroCompletionGate is active
+  // Non-invasive Scroll Gate: Coordinates with Lenis while hero gates are active
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
+      // Forward gate: prevent downward wheel when gate is active
       if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0) {
         if (window.scrollY >= gateScrollYRef.current && e.deltaY > 0) {
           e.preventDefault();
@@ -534,7 +626,22 @@ export const ScrollyHero: React.FC = () => {
         if (window.scrollY + e.deltaY >= gateScrollYRef.current && e.deltaY > 0) {
           e.preventDefault();
           heroCompletionGateRef.current = true;
+          if (containerRef.current) containerRef.current.style.zIndex = '30';
           setHeroGateActiveRef.current(true, gateScrollYRef.current);
+          return;
+        }
+      }
+
+      // Reverse gate: prevent upward wheel when at top and displayedFrame > 0
+      if (displayedFrameRef.current > 0) {
+        if (window.scrollY <= 1 && e.deltaY < 0) {
+          e.preventDefault();
+          return;
+        }
+        if (window.scrollY + e.deltaY <= 0 && e.deltaY < 0) {
+          e.preventDefault();
+          heroReverseGateRef.current = true;
+          setHeroReverseGateActiveRef.current(true);
           return;
         }
       }
@@ -547,29 +654,61 @@ export const ScrollyHero: React.FC = () => {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0 && e.touches.length > 0) {
+      if (e.touches.length > 0) {
         const touchCurrentY = e.touches[0].clientY;
         const deltaY = touchStartYRef.current - touchCurrentY;
-        if (window.scrollY >= gateScrollYRef.current && deltaY > 0) {
-          e.preventDefault();
-          return;
+
+        // Forward gate touch prevention
+        if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0) {
+          if (window.scrollY >= gateScrollYRef.current && deltaY > 0) {
+            e.preventDefault();
+            return;
+          }
+          if (window.scrollY + deltaY >= gateScrollYRef.current && deltaY > 0) {
+            e.preventDefault();
+            heroCompletionGateRef.current = true;
+            if (containerRef.current) containerRef.current.style.zIndex = '30';
+            setHeroGateActiveRef.current(true, gateScrollYRef.current);
+            return;
+          }
         }
-        if (window.scrollY + deltaY >= gateScrollYRef.current && deltaY > 0) {
-          e.preventDefault();
-          heroCompletionGateRef.current = true;
-          setHeroGateActiveRef.current(true, gateScrollYRef.current);
-          return;
+
+        // Reverse gate touch prevention
+        if (displayedFrameRef.current > 0) {
+          if (window.scrollY <= 1 && deltaY < 0) {
+            e.preventDefault();
+            return;
+          }
+          if (window.scrollY + deltaY <= 0 && deltaY < 0) {
+            e.preventDefault();
+            heroReverseGateRef.current = true;
+            setHeroReverseGateActiveRef.current(true);
+            return;
+          }
         }
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Forward gate key prevention
       if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0) {
         if (window.scrollY >= gateScrollYRef.current - 5) {
           if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault();
             heroCompletionGateRef.current = true;
+            if (containerRef.current) containerRef.current.style.zIndex = '30';
             setHeroGateActiveRef.current(true, gateScrollYRef.current);
+          }
+        }
+      }
+
+      // Reverse gate key prevention
+      if (displayedFrameRef.current > 0) {
+        if (window.scrollY <= 5) {
+          if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            heroReverseGateRef.current = true;
+            setHeroReverseGateActiveRef.current(true);
           }
         }
       }
@@ -588,18 +727,30 @@ export const ScrollyHero: React.FC = () => {
     };
   }, []);
 
-  // Section 20 Telemetry Hook for Browser Automation & Testing
+  // Section 20 & 11 Master Telemetry Hook for Automated Verification
   useEffect(() => {
     if (typeof window !== 'undefined') {
       (window as any).__TMR_HERO_TELEMETRY__ = () => {
         const activeLenis = lenisRef.current || (window as any).__TMR_LENIS__ || null;
+        const current = displayedFrameRef.current;
+        const dir = scrollDirectionRef.current;
+        const nextAdjacent = current + dir;
+        const adjacentReady =
+          nextAdjacent >= 0 && nextAdjacent < TOTAL_FRAMES
+            ? decodedFrameCacheRef.current.has(nextAdjacent)
+            : false;
+
         return {
           rawProgress: rawProgressRef.current,
           destinationFrame: destinationFrameRef.current,
-          displayedFrame: displayedFrameRef.current,
-          playheadGap: Math.abs(destinationFrameRef.current - displayedFrameRef.current),
-          scrollDirection: scrollDirectionRef.current,
+          displayedFrame: current,
+          playheadGap: Math.abs(destinationFrameRef.current - current),
+          scrollDirection: dir,
           heroCompletionGate: heroCompletionGateRef.current,
+          reverseCompletionGate: heroReverseGateRef.current,
+          adjacentFrameReady: adjacentReady,
+          inFlightRequestCount: inFlightRef.current.size,
+          decodedCacheSize: decodedFrameCacheRef.current.size,
           gateScrollY: gateScrollYRef.current,
           scrollY: typeof window !== 'undefined' ? window.scrollY : 0,
           lenisCurrent: activeLenis ? activeLenis.animatedScroll : null,
@@ -651,14 +802,38 @@ export const ScrollyHero: React.FC = () => {
             setHeroGateActiveRef.current(isGateActive, gateScrollY);
           }
 
+          // Gated stacking context: Cover next section completely during forward gate
+          if (containerRef.current) {
+            containerRef.current.style.zIndex = isGateActive ? '30' : '10';
+          }
+
+          // Reverse Completion Gate: active if physical scroll reaches top while displayedFrame > 0
+          const isReverseGateActive =
+            (progress <= 0.0005 || self.scroll() <= 1) &&
+            displayedFrameRef.current > 0;
+
+          if (isReverseGateActive !== heroReverseGateRef.current) {
+            heroReverseGateRef.current = isReverseGateActive;
+            setHeroReverseGateActiveRef.current(isReverseGateActive);
+          }
+
+          const cur = displayedFrameRef.current >= 0 ? displayedFrameRef.current : 0;
+          const MAX_LEAD = 12;
+
           if (isGateActive) {
-            // Pin destination to final frame to complete sequential playback
-            destinationFrameRef.current = TOTAL_FRAMES - 1;
+            // Pin destination to step towards final frame bounded by MAX_LEAD
+            destinationFrameRef.current = Math.min(cur + MAX_LEAD, TOTAL_FRAMES - 1);
+          } else if (isReverseGateActive) {
+            destinationFrameRef.current = Math.max(cur - MAX_LEAD, 0);
           } else {
             const cameraProgress = Math.min(1, progress / SEQUENCE_END);
             const dest = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(cameraProgress * (TOTAL_FRAMES - 1))));
-            destinationFrameRef.current = dest;
+            const boundedDest = Math.min(cur + MAX_LEAD, Math.max(cur - MAX_LEAD, dest));
+            destinationFrameRef.current = boundedDest;
           }
+
+          // Update resource-aware backpressure with current displayed frame
+          updateScrollBackpressure(displayedFrameRef.current);
 
           // Notify sequential playhead and preloader that destination has updated
           requestPlayheadTick();

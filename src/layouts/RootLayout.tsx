@@ -16,11 +16,19 @@ gsap.registerPlugin(ScrollTrigger);
 export interface LenisContextType {
   lenis: Lenis | null;
   setHeroGateActive: (active: boolean, gateScrollY?: number) => void;
+  setHeroReverseGateActive: (active: boolean) => void;
+  setHeroBackpressure: (constraints: {
+    active: boolean;
+    maxScrollY?: number;
+    minScrollY?: number;
+  }) => void;
 }
 
 export const LenisContext = createContext<LenisContextType>({
   lenis: null,
   setHeroGateActive: () => {},
+  setHeroReverseGateActive: () => {},
+  setHeroBackpressure: () => {},
 });
 
 export const useLenis = () => useContext(LenisContext);
@@ -28,13 +36,24 @@ export const useLenis = () => useContext(LenisContext);
 export const RootLayout: React.FC = () => {
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
-  const heroGateRef = useRef<{ active: boolean; gateScrollY: number }>({
-    active: false,
+  const heroGateRef = useRef<{
+    forwardActive: boolean;
+    gateScrollY: number;
+    reverseActive: boolean;
+    backpressureActive: boolean;
+    maxScrollY: number;
+    minScrollY: number;
+  }>({
+    forwardActive: false,
     gateScrollY: 0,
+    reverseActive: false,
+    backpressureActive: false,
+    maxScrollY: Infinity,
+    minScrollY: 0,
   });
 
   const setHeroGateActive = useCallback((active: boolean, gateScrollY?: number) => {
-    heroGateRef.current.active = active;
+    heroGateRef.current.forwardActive = active;
     if (typeof gateScrollY === 'number' && gateScrollY > 0) {
       heroGateRef.current.gateScrollY = gateScrollY;
     }
@@ -46,6 +65,37 @@ export const RootLayout: React.FC = () => {
       if (targetY > 0) {
         lenis.scrollTo(targetY, { immediate: true });
       }
+    }
+  }, []);
+
+  const setHeroReverseGateActive = useCallback((active: boolean) => {
+    heroGateRef.current.reverseActive = active;
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+
+    if (active) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+  }, []);
+
+  const setHeroBackpressure = useCallback((constraints: {
+    active: boolean;
+    maxScrollY?: number;
+    minScrollY?: number;
+  }) => {
+    heroGateRef.current.backpressureActive = constraints.active;
+    heroGateRef.current.maxScrollY = typeof constraints.maxScrollY === 'number' ? constraints.maxScrollY : Infinity;
+    heroGateRef.current.minScrollY = typeof constraints.minScrollY === 'number' ? constraints.minScrollY : 0;
+
+    const lenis = lenisRef.current;
+    if (!lenis || !constraints.active) return;
+
+    // Smoothly constrain targetScroll if it has overshot the active boundary
+    if (typeof constraints.maxScrollY === 'number' && lenis.targetScroll > constraints.maxScrollY) {
+      lenis.targetScroll = constraints.maxScrollY;
+    }
+    if (typeof constraints.minScrollY === 'number' && lenis.targetScroll < constraints.minScrollY) {
+      lenis.targetScroll = constraints.minScrollY;
     }
   }, []);
 
@@ -64,13 +114,57 @@ export const RootLayout: React.FC = () => {
       smoothWheel: true,
       wheelMultiplier: 1,
       virtualScroll: (data) => {
-        // Freeze downward scroll accumulation when hero completion gate is active
-        if (heroGateRef.current.active && data.deltaY > 0) {
+        // 1. Forward completion gate: Freeze downward scroll accumulation
+        if (heroGateRef.current.forwardActive && data.deltaY > 0) {
           if (data.event?.cancelable) {
             data.event.preventDefault();
           }
           return false;
         }
+
+        // 2. Reverse completion gate: Freeze upward scroll accumulation at top
+        if (heroGateRef.current.reverseActive && data.deltaY < 0) {
+          if (data.event?.cancelable) {
+            data.event.preventDefault();
+          }
+          return false;
+        }
+
+        // 3. Resource-aware scroll backpressure: Constrain physical/Lenis accumulation
+        if (heroGateRef.current.backpressureActive) {
+          const currentTarget = lenisRef.current ? lenisRef.current.targetScroll : window.scrollY;
+
+          if (data.deltaY > 0 && typeof heroGateRef.current.maxScrollY === 'number') {
+            if (currentTarget >= heroGateRef.current.maxScrollY) {
+              if (data.event?.cancelable) {
+                data.event.preventDefault();
+              }
+              return false;
+            } else if (currentTarget + data.deltaY > heroGateRef.current.maxScrollY) {
+              data.deltaY = Math.max(0, heroGateRef.current.maxScrollY - currentTarget);
+              if (data.deltaY <= 0) {
+                if (data.event?.cancelable) data.event.preventDefault();
+                return false;
+              }
+            }
+          }
+
+          if (data.deltaY < 0 && typeof heroGateRef.current.minScrollY === 'number') {
+            if (currentTarget <= heroGateRef.current.minScrollY) {
+              if (data.event?.cancelable) {
+                data.event.preventDefault();
+              }
+              return false;
+            } else if (currentTarget + data.deltaY < heroGateRef.current.minScrollY) {
+              data.deltaY = Math.min(0, heroGateRef.current.minScrollY - currentTarget);
+              if (data.deltaY >= 0) {
+                if (data.event?.cancelable) data.event.preventDefault();
+                return false;
+              }
+            }
+          }
+        }
+
         return true;
       },
     });
@@ -98,7 +192,14 @@ export const RootLayout: React.FC = () => {
   }, []);
 
   return (
-    <LenisContext.Provider value={{ lenis: lenisInstance, setHeroGateActive }}>
+    <LenisContext.Provider
+      value={{
+        lenis: lenisInstance,
+        setHeroGateActive,
+        setHeroReverseGateActive,
+        setHeroBackpressure,
+      }}
+    >
       <NavbarThemeProvider>
         <ScrollToHash />
         <div className="min-h-screen flex flex-col bg-tmr-black text-tmr-softblack font-sans selection:bg-tmr-orange selection:text-white">
