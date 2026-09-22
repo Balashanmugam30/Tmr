@@ -2,7 +2,7 @@
 **Document Version:** 1.0.0 (Master Pre-Deployment Audit)  
 **Date of Audit:** September 19, 2026  
 **Auditor:** Antigravity Forensic SEO Engine  
-**Domain Target:** `https://tmrcarcare.com`  
+**Domain Target:** `https://tmraicarcare.com`  
 **Operating Entity:** TMR AI Car Care  
 **Geographic Base:** Arulpuram, Tiruppur, Tamil Nadu - 641605  
 **Core Reference Dataset:** `TMR_Car_Care_SEO_Master_Keyword_Research.xlsx` (3,000 queries)  
@@ -67,9 +67,9 @@ The site structure comprises **77 distinct public routes**:
 
 ## 4. Indexability, Crawlability & Canonicalization Audit
 
-- **Robots.txt:** Standard, syntactically clean, allows all search engine bots, disallows `/api/` and `/admin/`, declares `Sitemap: https://tmrcarcare.com/sitemap.xml`.
+- **Robots.txt:** Standard, syntactically clean, allows all search engine bots, disallows `/api/` and `/admin/`, declares `Sitemap: https://tmraicarcare.com/sitemap.xml`.
 - **Sitemap:** Exactly 77 URLs matching production routes 1:1. Zero missing, zero extra, zero duplicates.
-- **Canonical Tags:** 100% coverage across all 77 routes. All canonicals are absolute, self-referential, and specify `https://tmrcarcare.com/...`.
+- **Canonical Tags:** 100% coverage across all 77 routes. All canonicals are absolute, self-referential, and specify `https://tmraicarcare.com/...`.
 
 ---
 
@@ -275,10 +275,10 @@ TMR AI Car Care implements **8 distinct Schema.org classes**:
 
 ## 26. Google Search Console & GBP Pre-Launch Checklist
 
-- [ ] Add GSC Domain Property: `tmrcarcare.com`.
-- [ ] Submit Sitemap: `https://tmrcarcare.com/sitemap.xml`.
+- [ ] Add GSC Domain Property: `tmraicarcare.com`.
+- [ ] Submit Sitemap: `https://tmraicarcare.com/sitemap.xml`.
 - [ ] Verify Google Business Profile (Name: TMR AI Car Care, Address: Arulpuram, Tiruppur - 641605).
-- [ ] Cross-link GBP website link to `https://tmrcarcare.com`.
+- [ ] Cross-link GBP website link to `https://tmraicarcare.com`.
 - [ ] Add 63 products to GBP Product Showcase.
 
 ---

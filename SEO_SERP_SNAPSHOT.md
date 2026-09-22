@@ -3,21 +3,21 @@
 **Date of Audit:** September 19, 2026  
 **Auditor:** Antigravity Forensic SEO Engine  
 **Methodology:** Live Google Search Observation & Verification via Search Grounding API  
-**Target Domain:** `https://tmrcarcare.com`  
+**Target Domain:** `https://tmraicarcare.com`  
 **Target Market:** Tiruppur, Tamil Nadu, India (PIN: 641605)  
 
 ---
 
-## 1. Domain Indexation Status (`tmrcarcare.com`)
+## 1. Domain Indexation Status (`tmraicarcare.com`)
 
 | Query | Live SERP Observation | Status |
 | :--- | :--- | :---: |
-| `site:tmrcarcare.com` | "No results were found for the site tmrcarcare.com." | **UNINDEXED (Pre-Launch)** |
-| `info:tmrcarcare.com` | No cached version or indexed document returned. | **UNINDEXED** |
+| `site:tmraicarcare.com` | "No results were found for the site tmraicarcare.com." | **UNINDEXED (Pre-Launch)** |
+| `info:tmraicarcare.com` | No cached version or indexed document returned. | **UNINDEXED** |
 
 > [!IMPORTANT]
 > **Pre-Launch Baseline Verification:**  
-> The production domain `tmrcarcare.com` is completely fresh and unindexed. There is zero historical penalty, zero algorithmic suppression, and zero legacy bloat. Post-launch indexing will require standard Google Search Console (GSC) sitemap submission, domain verification, and initial crawl discovery.
+> The production domain `tmraicarcare.com` is completely fresh and unindexed. There is zero historical penalty, zero algorithmic suppression, and zero legacy bloat. Post-launch indexing will require standard Google Search Console (GSC) sitemap submission, domain verification, and initial crawl discovery.
 
 ---
 
@@ -28,7 +28,7 @@ We executed live search queries to evaluate brand entity recognition in the Tiru
 | Search Query | Top SERP Results & Observed Entities | Organic Ranking of TMR | Analysis & Risk Assessment |
 | :--- | :--- | :---: | :--- |
 | `"TMR AI Car Care"` | No exact entity returned. Google suggests "Thirumurugan Car Care (often shortened to TMR)" and generic automotive queries. | **Not Present** | Brand entity is nascent. Upon deployment, brand anchor text and GBP listing will rapidly establish entity ownership for this exact phrase. |
-| `"TMR AI Car Care" Tiruppur` | Justdial listings for Thirumurugan Car Care, 3M Car Care, Moto 38, TotalEnergies Quartz. | **Not Present** | High upside. As soon as `tmrcarcare.com` and its Google Business Profile are indexed, this zero-competition branded phrase will achieve Position #1. |
+| `"TMR AI Car Care" Tiruppur` | Justdial listings for Thirumurugan Car Care, 3M Car Care, Moto 38, TotalEnergies Quartz. | **Not Present** | High upside. As soon as `tmraicarcare.com` and its Google Business Profile are indexed, this zero-competition branded phrase will achieve Position #1. |
 | `"TMR Car Care Tiruppur"` | Mentions of Thirumurugan Car Care, local garage listings, 3M Car Care Tiruppur. | **Not Present** | Historical confusion possible with legacy "Thirumurugan Car Care". Branding as "TMR AI Car Care" provides distinct entity differentiation. |
 | `"TMR Car Care"` | Dispersed national/international entities, UK/US automotive workshops, generic acronyms. | **Not Present** | Broad acronym query. Local pack signals and Tamil Nadu IP targeting will localize results post-launch. |
 
@@ -73,7 +73,7 @@ We analyzed the live competitive landscape in Tiruppur for the core services off
 
 | Feature / Metric | TMR AI Car Care | 3M Car Care Tiruppur (Palladam Rd) | The Detailing Mafia | Detailing Wolves |
 | :--- | :---: | :---: | :---: | :---: |
-| **Website URL** | `tmrcarcare.com` | Subpage on `3mindia.co.in` | Subpage on national site | Independent local site |
+| **Website URL** | `tmraicarcare.com` | Subpage on `3mindia.co.in` | Subpage on national site | Independent local site |
 | **Dedicated Routes** | **77 Routes** | 1 (directory page) | 1 (location page) | ~5-8 pages |
 | **3M Product Catalogue** | **63 Dedicated Pages** | None (mention only) | None | None |
 | **Structured Data (Schema)** | **8 Schemas** (Local, Product, FAQ, etc.) | Basic LocalBusiness | Basic Organization | Minimal |
@@ -92,7 +92,7 @@ To translate TMR's website SEO architecture into top-tier Google Local 3-Pack ra
    - **Name:** TMR AI Car Care
    - **Address:** TMR AI Car Care, Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu - 641605
    - **Phone:** +91 96556 26217
-   - **Website URL:** `https://tmrcarcare.com`
+   - **Website URL:** `https://tmraicarcare.com`
 2. **Primary Category:** Car Detailing Service
 3. **Secondary Categories:** Car Wash, Auto Restoration Service, Car Accessories Store, Window Tinting Service.
 4. **Google Maps CID Linkage:** Connect Google Maps link (`https://maps.app.goo.gl/KJ5ReoumU85SCNRX9?g_st=ac`) to the website footer and Contact page.

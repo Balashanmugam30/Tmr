@@ -25,7 +25,7 @@ export const DetailingPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/services/detailing-paint-care');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/services/detailing-paint-care');
 
     window.scrollTo(0, 0);
   }, []);

@@ -25,7 +25,7 @@ export const CarAccessoriesPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/services/car-accessories');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/services/car-accessories');
 
     window.scrollTo(0, 0);
   }, []);

@@ -2,7 +2,7 @@
 **Document Version:** 1.0.0 (Pre-Deployment Technical Audit)  
 **Date of Audit:** September 19, 2026  
 **Auditor:** Antigravity Forensic SEO Engine  
-**Domain Target:** `https://tmrcarcare.com`  
+**Domain Target:** `https://tmraicarcare.com`  
 **Total Production Routes:** 77 (14 Architecture Routes + 63 Product Detail Routes)  
 
 ---
@@ -37,20 +37,20 @@ All 14 static routes are declared in `src/App.tsx`, implemented in `src/pages/`,
 
 | Route | Page Component | HTTP Priority | Changefreq | Canonical URL |
 | :--- | :--- | :---: | :---: | :--- |
-| `/` | `HomePage.tsx` | 1.0 | weekly | `https://tmrcarcare.com/` |
-| `/services` | `ServicesIndexPage.tsx` | 0.9 | weekly | `https://tmrcarcare.com/services` |
-| `/services/car-wash-cleaning` | `CarWashPage.tsx` | 0.8 | monthly | `https://tmrcarcare.com/services/car-wash-cleaning` |
-| `/services/detailing-paint-care` | `DetailingPage.tsx` | 0.8 | monthly | `https://tmrcarcare.com/services/detailing-paint-care` |
-| `/services/ceramic-coating` | `CeramicCoatingPage.tsx` | 0.8 | monthly | `https://tmrcarcare.com/services/ceramic-coating` |
-| `/services/ppf-paint-protection` | `PpfPage.tsx` | 0.8 | monthly | `https://tmrcarcare.com/services/ppf-paint-protection` |
-| `/services/sun-control-films` | `SunControlFilmsPage.tsx` | 0.8 | monthly | `https://tmrcarcare.com/services/sun-control-films` |
-| `/services/car-accessories` | `CarAccessoriesPage.tsx` | 0.8 | monthly | `https://tmrcarcare.com/services/car-accessories` |
-| `/products` | `ProductsPage.tsx` | 0.9 | weekly | `https://tmrcarcare.com/products` |
-| `/gallery` | `GalleryPage.tsx` | 0.7 | monthly | `https://tmrcarcare.com/gallery` |
-| `/about` | `AboutPage.tsx` | 0.7 | monthly | `https://tmrcarcare.com/about` |
-| `/contact` | `ContactPage.tsx` | 0.8 | monthly | `https://tmrcarcare.com/contact` |
-| `/privacy-policy` | `PrivacyPolicyPage.tsx` | 0.3 | yearly | `https://tmrcarcare.com/privacy-policy` |
-| `/terms` | `TermsPage.tsx` | 0.3 | yearly | `https://tmrcarcare.com/terms` |
+| `/` | `HomePage.tsx` | 1.0 | weekly | `https://tmraicarcare.com/` |
+| `/services` | `ServicesIndexPage.tsx` | 0.9 | weekly | `https://tmraicarcare.com/services` |
+| `/services/car-wash-cleaning` | `CarWashPage.tsx` | 0.8 | monthly | `https://tmraicarcare.com/services/car-wash-cleaning` |
+| `/services/detailing-paint-care` | `DetailingPage.tsx` | 0.8 | monthly | `https://tmraicarcare.com/services/detailing-paint-care` |
+| `/services/ceramic-coating` | `CeramicCoatingPage.tsx` | 0.8 | monthly | `https://tmraicarcare.com/services/ceramic-coating` |
+| `/services/ppf-paint-protection` | `PpfPage.tsx` | 0.8 | monthly | `https://tmraicarcare.com/services/ppf-paint-protection` |
+| `/services/sun-control-films` | `SunControlFilmsPage.tsx` | 0.8 | monthly | `https://tmraicarcare.com/services/sun-control-films` |
+| `/services/car-accessories` | `CarAccessoriesPage.tsx` | 0.8 | monthly | `https://tmraicarcare.com/services/car-accessories` |
+| `/products` | `ProductsPage.tsx` | 0.9 | weekly | `https://tmraicarcare.com/products` |
+| `/gallery` | `GalleryPage.tsx` | 0.7 | monthly | `https://tmraicarcare.com/gallery` |
+| `/about` | `AboutPage.tsx` | 0.7 | monthly | `https://tmraicarcare.com/about` |
+| `/contact` | `ContactPage.tsx` | 0.8 | monthly | `https://tmraicarcare.com/contact` |
+| `/privacy-policy` | `PrivacyPolicyPage.tsx` | 0.3 | yearly | `https://tmraicarcare.com/privacy-policy` |
+| `/terms` | `TermsPage.tsx` | 0.3 | yearly | `https://tmraicarcare.com/terms` |
 
 ### B. Product Detail Routes (63 Routes)
 
@@ -58,7 +58,7 @@ All 63 products from `src/data/products.ts` have:
 - Dedicated parameterized route: `/products/:slug` handled by `ProductDetailPage.tsx`.
 - Priority: `0.7` in `public/sitemap.xml`.
 - Changefreq: `monthly`.
-- Self-referential canonical URL: `https://tmrcarcare.com/products/{slug}`.
+- Self-referential canonical URL: `https://tmraicarcare.com/products/{slug}`.
 - Dedicated `Product` and `BreadcrumbList` JSON-LD schemas.
 
 ---
@@ -72,17 +72,17 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://tmrcarcare.com/sitemap.xml
+Sitemap: https://tmraicarcare.com/sitemap.xml
 ```
 - **Syntax Evaluation:** Valid standard robots.txt format.
 - **Directives:** Allows all search engine crawlers full access to public assets and routes; disallows `/api/` and `/admin/` paths.
-- **Sitemap Declaration:** Absolute URL to `https://tmrcarcare.com/sitemap.xml` correctly specified.
+- **Sitemap Declaration:** Absolute URL to `https://tmraicarcare.com/sitemap.xml` correctly specified.
 
 ### B. `public/sitemap.xml`
 - **Total `<url>` elements:** 77.
 - **Encoding:** `UTF-8`.
 - **Schema:** Standard `http://www.sitemaps.org/schemas/sitemap/0.9`.
-- **Domain consistency:** 100% of URLs begin with `https://tmrcarcare.com/`. No trailing slashes on sub-paths, root has trailing slash. 100% valid XML.
+- **Domain consistency:** 100% of URLs begin with `https://tmraicarcare.com/`. No trailing slashes on sub-paths, root has trailing slash. 100% valid XML.
 
 ---
 
@@ -176,7 +176,7 @@ The website implements **8 distinct Schema.org structured data types**:
 | Line Number in `index.html` | Stale / Incorrect Value Found | Correct Value Required |
 | :---: | :--- | :--- |
 | **Line 53** | `"telephone": "+919876543210"` | `"+919655626217"` |
-| **Line 54** | `"email": "enquiry@tmrcarcare.com"` | `"3m.chandramohankandhavelu@gmail.com"` |
+| **Line 54** | `"email": "enquiry@tmraicarcare.com"` | `"3m.chandramohankandhavelu@gmail.com"` |
 | **Line 58** | `"streetAddress": "Avinashi Road, Near Hope College Junction"` | `"Arulpuram, Karaiputhur"` |
 | **Line 61** | `"postalCode": "641602"` | `"641605"` |
 | **Line 163** | `<p>...Avinashi Road, Near Hope College Junction, Tiruppur - 641602...</p>` | `TMR AI Car Care, Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu - 641605` |

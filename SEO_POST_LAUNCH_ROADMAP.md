@@ -1,6 +1,6 @@
 # TMR AI CAR CARE — POST-LAUNCH SEO OPTIMIZATION ROADMAP
 **Document Version:** 1.0.0  
-**Target Domain:** `https://tmrcarcare.com`  
+**Target Domain:** `https://tmraicarcare.com`  
 **Scope:** P2 Optimizations, P3 Backlog, and Long-Term Organic Authority Growth  
 
 ---

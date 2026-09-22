@@ -25,7 +25,7 @@ export const SunControlFilmsPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/services/sun-control-films');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/services/sun-control-films');
 
     window.scrollTo(0, 0);
   }, []);

@@ -65,7 +65,7 @@
 
 * **Title**: `About TMR AI Car Care | Automotive Detailing in Tiruppur | Experience Since 2009`
 * **Meta Description**: `Learn about TMR AI Car Care in Tiruppur. Automotive-care experience dating back to 2009, founded by Meenakshi Sundharam, specializing in detailing, ceramic coating, and PPF.`
-* **Canonical URL**: `https://tmrcarcare.com/about`
+* **Canonical URL**: `https://tmraicarcare.com/about`
 * **JSON-LD Schema**: `AutoRepair` + `LocalBusiness` + `BreadcrumbList` valid graph with Meenakshi Sundharam as founder and no unverified founding year.
 * **TypeScript Check (`npx tsc --noEmit`)**: **PASS (0 errors)**
 * **Vite Production Build (`npm run build`)**: **PASS**

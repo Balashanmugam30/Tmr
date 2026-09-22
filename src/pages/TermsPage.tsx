@@ -30,7 +30,7 @@ export const TermsPage: React.FC = () => {
     // Dynamic SEO Metadata
     const titleText = `Terms & Conditions | TMR AI Car Care Tiruppur`;
     const descText = `Read the official website terms, enquiry rules, quote policies, and service interaction conditions for TMR AI Car Care in Tiruppur.`;
-    const canonicalUrl = `https://tmrcarcare.com/terms`;
+    const canonicalUrl = `https://tmraicarcare.com/terms`;
 
     document.title = titleText;
 
@@ -178,7 +178,7 @@ export const TermsPage: React.FC = () => {
                 </h2>
               </div>
               <p>
-                By accessing or browsing the TMR AI Car Care website (<strong className="text-white">tmrcarcare.com</strong>), you agree to comply with these Terms &amp; Conditions. This website is provided to communicate detailing, ceramic coating, paint protection film (PPF), and car care service information for our facility located in Tiruppur, Tamil Nadu.
+                By accessing or browsing the TMR AI Car Care website (<strong className="text-white">tmraicarcare.com</strong>), you agree to comply with these Terms &amp; Conditions. This website is provided to communicate detailing, ceramic coating, paint protection film (PPF), and car care service information for our facility located in Tiruppur, Tamil Nadu.
               </p>
               <p>
                 Access to the website is permitted on a temporary basis. TMR AI Car Care reserves the right to modify, suspend, or discontinue any aspect of the digital platform at any time without prior notice.

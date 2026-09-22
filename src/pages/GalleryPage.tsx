@@ -622,7 +622,7 @@ export const GalleryPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/gallery');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/gallery');
 
     let ogTitle = document.querySelector('meta[property="og:title"]');
     if (!ogTitle) {
@@ -646,7 +646,7 @@ export const GalleryPage: React.FC = () => {
       ogUrl.setAttribute('property', 'og:url');
       document.head.appendChild(ogUrl);
     }
-    ogUrl.setAttribute('content', 'https://tmrcarcare.com/gallery');
+    ogUrl.setAttribute('content', 'https://tmraicarcare.com/gallery');
 
     let ogImage = document.querySelector('meta[property="og:image"]');
     if (!ogImage) {
@@ -654,7 +654,7 @@ export const GalleryPage: React.FC = () => {
       ogImage.setAttribute('property', 'og:image');
       document.head.appendChild(ogImage);
     }
-    ogImage.setAttribute('content', 'https://tmrcarcare.com/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg');
+    ogImage.setAttribute('content', 'https://tmraicarcare.com/images/gallery/studio/tmr-ai-car-care-facility-overview.jpg');
 
     let schemaScript = document.getElementById('gallery-schema-script');
     if (!schemaScript) {
@@ -674,22 +674,22 @@ export const GalleryPage: React.FC = () => {
               "@type": "ListItem",
               "position": 1,
               "name": "Home",
-              "item": "https://tmrcarcare.com/"
+              "item": "https://tmraicarcare.com/"
             },
             {
               "@type": "ListItem",
               "position": 2,
               "name": "Gallery",
-              "item": "https://tmrcarcare.com/gallery"
+              "item": "https://tmraicarcare.com/gallery"
             }
           ]
         },
         {
           "@type": "ImageGallery",
-          "@id": "https://tmrcarcare.com/gallery/#imagegallery",
+          "@id": "https://tmraicarcare.com/gallery/#imagegallery",
           "name": "TMR AI Car Care Tiruppur Authentic Studio & Workshop Gallery",
           "description": "Visual archive of authentic photographs from TMR AI Car Care facility, workshop bays, detailing technicians, and customer showroom in Tiruppur, Tamil Nadu.",
-          "url": "https://tmrcarcare.com/gallery",
+          "url": "https://tmraicarcare.com/gallery",
           "publisher": {
             "@type": "AutoRepair",
             "name": "TMR AI Car Care",

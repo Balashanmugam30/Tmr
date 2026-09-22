@@ -2,7 +2,7 @@
 **Document Version:** 1.0.0  
 **Date of Evaluation:** September 19, 2026  
 **Auditor:** Antigravity Forensic SEO Engine  
-**Target Domain:** `https://tmrcarcare.com`  
+**Target Domain:** `https://tmraicarcare.com`  
 
 ---
 
@@ -57,7 +57,7 @@ The website architecture, route structure, meta tag generation, Schema.org imple
 
 | Issue ID | File / Location | Forensic Audit Finding | Remediation Performed | Status |
 | :---: | :--- | :--- | :--- | :---: |
-| **P1-01** | `index.html`<br>(Lines 53, 54, 58, 61, 157) | The static raw `index.html` previously contained stale development placeholder data (`+919876543210`, `enquiry@tmrcarcare.com`, `Avinashi Road`, `641602`). | Replaced with verified production business data:<br>- Phone: `+919655626217`<br>- Email: `3m.chandramohankandhavelu@gmail.com`<br>- Address: `Arulpuram, Karaiputhur, Tiruppur, Tamil Nadu - 641605`<br>- Hours: `09:30 - 19:00` (Mon–Sun) | **RESOLVED & VERIFIED** |
+| **P1-01** | `index.html`<br>(Lines 53, 54, 58, 61, 157) | The static raw `index.html` previously contained stale development placeholder data (`+919876543210`, `enquiry@tmraicarcare.com`, `Avinashi Road`, `641602`). | Replaced with verified production business data:<br>- Phone: `+919655626217`<br>- Email: `3m.chandramohankandhavelu@gmail.com`<br>- Address: `Arulpuram, Karaiputhur, Tiruppur, Tamil Nadu - 641605`<br>- Hours: `09:30 - 19:00` (Mon–Sun) | **RESOLVED & VERIFIED** |
 
 ---
 
@@ -86,16 +86,16 @@ The website architecture, route structure, meta tag generation, Schema.org imple
 ### A. Pre-Deployment (Immediate)
 - [ ] Approve resolution of **P1-01** in `index.html`.
 - [ ] Confirm production domain DNS points to hosting server with active SSL (HTTPS).
-- [ ] Ensure `https://tmrcarcare.com` redirects `http://` to `https://` and `www.` to non-`www.` (or vice-versa).
+- [ ] Ensure `https://tmraicarcare.com` redirects `http://` to `https://` and `www.` to non-`www.` (or vice-versa).
 
 ### B. Day 1 Post-Deployment (Go-Live)
 - [ ] **Google Search Console Setup:**
-  - Add property `https://tmrcarcare.com`.
-  - Submit sitemap URL: `https://tmrcarcare.com/sitemap.xml`.
+  - Add property `https://tmraicarcare.com`.
+  - Submit sitemap URL: `https://tmraicarcare.com/sitemap.xml`.
   - Perform URL Inspection on `/`, `/services`, and `/products`.
 - [ ] **Google Business Profile (GBP) Verification:**
   - Ensure GBP name matches `TMR AI Car Care`.
-  - Link GBP website button to `https://tmrcarcare.com`.
+  - Link GBP website button to `https://tmraicarcare.com`.
   - Ensure address is `Arulpuram, Tiruppur - 641605`.
   - Ensure phone is `+91 96556 26217`.
 - [ ] **Live Crawl Test:**

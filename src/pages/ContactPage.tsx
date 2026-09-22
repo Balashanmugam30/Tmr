@@ -34,7 +34,7 @@ export const ContactPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/contact');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/contact');
 
     // Contact & LocalBusiness JSON-LD Schema
     let schemaScript = document.getElementById('contact-local-business-schema');
@@ -48,11 +48,11 @@ export const ContactPage: React.FC = () => {
       "@context": "https://schema.org",
       "@type": "ContactPage",
       "name": "Contact TMR AI Car Care Studio Tiruppur",
-      "url": "https://tmrcarcare.com/contact",
+      "url": "https://tmraicarcare.com/contact",
       "mainEntity": {
         "@type": "AutomotiveBusiness",
         "name": "TMR AI Car Care Studio Tiruppur",
-        "url": "https://tmrcarcare.com/",
+        "url": "https://tmraicarcare.com/",
         "telephone": "+919655626217",
         "address": {
           "@type": "PostalAddress",

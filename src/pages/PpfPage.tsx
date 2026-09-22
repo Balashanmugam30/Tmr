@@ -25,7 +25,7 @@ export const PpfPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/services/ppf-paint-protection');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/services/ppf-paint-protection');
 
     window.scrollTo(0, 0);
   }, []);

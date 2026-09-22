@@ -28,7 +28,7 @@ export const ServicesIndexPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/services');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/services');
 
     window.scrollTo(0, 0);
   }, []);
@@ -38,7 +38,7 @@ export const ServicesIndexPage: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "AutoRepair",
     "name": "TMR AI Car Care Studio Tiruppur",
-    "url": "https://tmrcarcare.com/services",
+    "url": "https://tmraicarcare.com/services",
     "telephone": "+919655626217",
     "address": {
       "@type": "PostalAddress",
@@ -57,7 +57,7 @@ export const ServicesIndexPage: React.FC = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Car Wash & Cleaning",
-            "url": "https://tmrcarcare.com/services/car-wash-cleaning"
+            "url": "https://tmraicarcare.com/services/car-wash-cleaning"
           }
         },
         {
@@ -65,7 +65,7 @@ export const ServicesIndexPage: React.FC = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Detailing & Paint Care",
-            "url": "https://tmrcarcare.com/services/detailing-paint-care"
+            "url": "https://tmraicarcare.com/services/detailing-paint-care"
           }
         },
         {
@@ -73,7 +73,7 @@ export const ServicesIndexPage: React.FC = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Ceramic Coating",
-            "url": "https://tmrcarcare.com/services/ceramic-coating"
+            "url": "https://tmraicarcare.com/services/ceramic-coating"
           }
         },
         {
@@ -81,7 +81,7 @@ export const ServicesIndexPage: React.FC = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "PPF & Paint Protection",
-            "url": "https://tmrcarcare.com/services/ppf-paint-protection"
+            "url": "https://tmraicarcare.com/services/ppf-paint-protection"
           }
         },
         {
@@ -89,7 +89,7 @@ export const ServicesIndexPage: React.FC = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Sun-Control Films",
-            "url": "https://tmrcarcare.com/services/sun-control-films"
+            "url": "https://tmraicarcare.com/services/sun-control-films"
           }
         },
         {
@@ -97,7 +97,7 @@ export const ServicesIndexPage: React.FC = () => {
           "itemOffered": {
             "@type": "Service",
             "name": "Car Accessories",
-            "url": "https://tmrcarcare.com/services/car-accessories"
+            "url": "https://tmraicarcare.com/services/car-accessories"
           }
         }
       ]

@@ -33,7 +33,7 @@ export const AboutPage: React.FC = () => {
 
     const canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) {
-      canonical.setAttribute('href', 'https://tmrcarcare.com/about');
+      canonical.setAttribute('href', 'https://tmraicarcare.com/about');
     }
 
     // Inject About Page JSON-LD Structured Data (Organization + BreadcrumbList + LocalBusiness)
@@ -51,11 +51,11 @@ export const AboutPage: React.FC = () => {
       "@graph": [
         {
           "@type": ["AutoRepair", "LocalBusiness"],
-          "@id": "https://tmrcarcare.com/about/#organization",
+          "@id": "https://tmraicarcare.com/about/#organization",
           "name": "TMR AI Car Care",
-          "url": "https://tmrcarcare.com/about",
-          "logo": "https://tmrcarcare.com/images/tmr-ai-car-care-logo.png",
-          "image": "https://tmrcarcare.com/images/about/about-hero-static.jpg",
+          "url": "https://tmraicarcare.com/about",
+          "logo": "https://tmraicarcare.com/images/tmr-ai-car-care-logo.png",
+          "image": "https://tmraicarcare.com/images/about/about-hero-static.jpg",
           "description": "TMR AI Car Care is Tiruppur's premier automotive detailing studio founded by Meenakshi Sundharam, built on automotive-care experience dating back to 2009. Specialized in professional car care, paint correction, ceramic coating, and PPF protection.",
           "founder": {
             "@type": "Person",
@@ -88,19 +88,19 @@ export const AboutPage: React.FC = () => {
         },
         {
           "@type": "BreadcrumbList",
-          "@id": "https://tmrcarcare.com/about/#breadcrumb",
+          "@id": "https://tmraicarcare.com/about/#breadcrumb",
           "itemListElement": [
             {
               "@type": "ListItem",
               "position": 1,
               "name": "Home",
-              "item": "https://tmrcarcare.com/"
+              "item": "https://tmraicarcare.com/"
             },
             {
               "@type": "ListItem",
               "position": 2,
               "name": "About TMR AI Car Care",
-              "item": "https://tmrcarcare.com/about"
+              "item": "https://tmraicarcare.com/about"
             }
           ]
         }

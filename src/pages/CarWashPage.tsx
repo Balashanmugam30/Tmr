@@ -21,18 +21,18 @@ export const CarWashPage: React.FC = () => {
 
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (canonical) {
-      canonical.href = 'https://tmrcarcare.com/services/car-wash-cleaning';
+      canonical.href = 'https://tmraicarcare.com/services/car-wash-cleaning';
     } else {
       canonical = document.createElement('link');
       canonical.rel = 'canonical';
-      canonical.href = 'https://tmrcarcare.com/services/car-wash-cleaning';
+      canonical.href = 'https://tmraicarcare.com/services/car-wash-cleaning';
       document.head.appendChild(canonical);
     }
 
     window.scrollTo(0, 0);
 
     return () => {
-      const can = document.querySelector('link[rel="canonical"][href="https://tmrcarcare.com/services/car-wash-cleaning"]');
+      const can = document.querySelector('link[rel="canonical"][href="https://tmraicarcare.com/services/car-wash-cleaning"]');
       if (can) can.remove();
     };
   }, []);
@@ -144,9 +144,9 @@ export const CarWashPage: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tmrcarcare.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://tmrcarcare.com/services" },
-      { "@type": "ListItem", "position": 3, "name": "Car Wash & Cleaning", "item": "https://tmrcarcare.com/services/car-wash-cleaning" },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://tmraicarcare.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://tmraicarcare.com/services" },
+      { "@type": "ListItem", "position": 3, "name": "Car Wash & Cleaning", "item": "https://tmraicarcare.com/services/car-wash-cleaning" },
     ],
   };
 

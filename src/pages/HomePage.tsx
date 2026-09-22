@@ -31,7 +31,7 @@ export const HomePage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/');
 
     // LocalBusiness JSON-LD Schema
     let schemaScript = document.getElementById('home-local-business-schema');
@@ -45,9 +45,9 @@ export const HomePage: React.FC = () => {
       "@context": "https://schema.org",
       "@type": "AutomotiveBusiness",
       "name": "TMR AI Car Care Studio Tiruppur",
-      "url": "https://tmrcarcare.com/",
-      "logo": "https://tmrcarcare.com/images/tmr-ai-car-care-logo-dark.png",
-      "image": "https://tmrcarcare.com/images/protection/protection-hero.webp",
+      "url": "https://tmraicarcare.com/",
+      "logo": "https://tmraicarcare.com/images/tmr-ai-car-care-logo-dark.png",
+      "image": "https://tmraicarcare.com/images/protection/protection-hero.webp",
       "telephone": "+919655626217",
       "priceRange": "$$",
       "address": {

@@ -48,7 +48,7 @@ export const ProductsPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', 'https://tmrcarcare.com/products');
+    canonical.setAttribute('href', 'https://tmraicarcare.com/products');
   }, []);
 
   // Sync category filter from URL query parameter ?category=
@@ -265,7 +265,7 @@ export const ProductsPage: React.FC = () => {
       canonicalLink.setAttribute('rel', 'canonical');
       document.head.appendChild(canonicalLink);
     }
-    canonicalLink.setAttribute('href', 'https://tmrcarcare.com/products');
+    canonicalLink.setAttribute('href', 'https://tmraicarcare.com/products');
 
     // OpenGraph Title & Description
     let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -300,7 +300,7 @@ export const ProductsPage: React.FC = () => {
       "@type": "ItemList",
       "name": "3M Car Care & Professional Detailing Products in Tiruppur",
       "description": "Curated professional 3M automotive detailing compounds, abrasives, polishes, and surface protection products at TMR AI Car Care Tiruppur.",
-      "url": "https://tmrcarcare.com/products",
+      "url": "https://tmraicarcare.com/products",
       "itemListElement": productsData.map((prod, index) => ({
         "@type": "ListItem",
         "position": index + 1,
@@ -313,8 +313,8 @@ export const ProductsPage: React.FC = () => {
             "name": prod.brand
           },
           "description": prod.shortDescription,
-          "image": `https://tmrcarcare.com${prod.image}`,
-          "url": `https://tmrcarcare.com${prod.detailRoute}`
+          "image": `https://tmraicarcare.com${prod.image}`,
+          "url": `https://tmraicarcare.com${prod.detailRoute}`
         }
       }))
     };

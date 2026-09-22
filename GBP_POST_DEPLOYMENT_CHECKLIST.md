@@ -17,7 +17,7 @@ To maximize Local 3-Pack rankings and ensure complete algorithmic trust between 
 | **Primary Email** | `3m.chandramohankandhavelu@gmail.com` | Exact Match |
 | **Physical Address** | `TMR AI Car Care, Arulpuram, Tiruppur, Karaiputhur, Tamil Nadu - 641605` | Exact Match |
 | **PIN Code** | `641605` | Exact Match |
-| **Website URL** | `https://tmrcarcare.com` | Exact Match |
+| **Website URL** | `https://tmraicarcare.com` | Exact Match |
 | **Google Maps Link** | `https://maps.app.goo.gl/KJ5ReoumU85SCNRX9?g_st=ac` | Exact Match |
 | **Operating Hours** | `Monday – Sunday: 9:30 AM – 7:00 PM` | Exact Match |
 
@@ -35,12 +35,12 @@ To maximize Local 3-Pack rankings and ensure complete algorithmic trust between 
 
 ### B. Service Offerings
 Add the 6 core services mapped to the website URLs:
-1. [ ] **Car Wash & Cleaning** $\rightarrow$ `https://tmrcarcare.com/services/car-wash-cleaning`
-2. [ ] **Detailing & Paint Care** $\rightarrow$ `https://tmrcarcare.com/services/detailing-paint-care`
-3. [ ] **Ceramic Coating** $\rightarrow$ `https://tmrcarcare.com/services/ceramic-coating`
-4. [ ] **Paint Protection Film (PPF)** $\rightarrow$ `https://tmrcarcare.com/services/ppf-paint-protection`
-5. [ ] **Sun-Control Films** $\rightarrow$ `https://tmrcarcare.com/services/sun-control-films`
-6. [ ] **Car Accessories** $\rightarrow$ `https://tmrcarcare.com/services/car-accessories`
+1. [ ] **Car Wash & Cleaning** $\rightarrow$ `https://tmraicarcare.com/services/car-wash-cleaning`
+2. [ ] **Detailing & Paint Care** $\rightarrow$ `https://tmraicarcare.com/services/detailing-paint-care`
+3. [ ] **Ceramic Coating** $\rightarrow$ `https://tmraicarcare.com/services/ceramic-coating`
+4. [ ] **Paint Protection Film (PPF)** $\rightarrow$ `https://tmraicarcare.com/services/ppf-paint-protection`
+5. [ ] **Sun-Control Films** $\rightarrow$ `https://tmraicarcare.com/services/sun-control-films`
+6. [ ] **Car Accessories** $\rightarrow$ `https://tmraicarcare.com/services/car-accessories`
 
 ### C. Product Showcase
 - [ ] Upload the top 10 high-demand 3M products to the GBP "Products" section:
@@ -49,7 +49,7 @@ Add the 6 core services mapped to the website URLs:
   - 3M Quick Wax & Microfiber Detailing Cloth
   - 3M Dashboard Dresser & Interior Cleaner
   - 3M Headlight Restoration Kit
-- [ ] Set button link on each product to its dedicated URL (e.g. `https://tmrcarcare.com/products/3m-perfect-it-ex-ac-rubbing-compound`).
+- [ ] Set button link on each product to its dedicated URL (e.g. `https://tmraicarcare.com/products/3m-perfect-it-ex-ac-rubbing-compound`).
 
 ### D. Studio Photography Upload
 - [ ] Upload authentic high-resolution studio photographs from `/gallery`:

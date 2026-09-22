@@ -35,7 +35,7 @@ export const ProductDetailPage: React.FC = () => {
       canonical.setAttribute('rel', 'canonical');
       document.head.appendChild(canonical);
     }
-    canonical.setAttribute('href', `https://tmrcarcare.com/products/${product.slug}`);
+    canonical.setAttribute('href', `https://tmraicarcare.com/products/${product.slug}`);
 
     // OpenGraph Title & Description Target
     let ogTitle = document.querySelector('meta[property="og:title"]');
@@ -72,8 +72,8 @@ export const ProductDetailPage: React.FC = () => {
         name: product.brand,
       },
       description: product.shortDescription,
-      image: `https://tmrcarcare.com${product.image}`,
-      url: `https://tmrcarcare.com/products/${product.slug}`,
+      image: `https://tmraicarcare.com${product.image}`,
+      url: `https://tmraicarcare.com/products/${product.slug}`,
     };
     productSchema.textContent = JSON.stringify(productLd);
 
@@ -93,19 +93,19 @@ export const ProductDetailPage: React.FC = () => {
           '@type': 'ListItem',
           position: 1,
           name: 'Home',
-          item: 'https://tmrcarcare.com',
+          item: 'https://tmraicarcare.com',
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Products',
-          item: 'https://tmrcarcare.com/products',
+          item: 'https://tmraicarcare.com/products',
         },
         {
           '@type': 'ListItem',
           position: 3,
           name: product.name,
-          item: `https://tmrcarcare.com/products/${product.slug}`,
+          item: `https://tmraicarcare.com/products/${product.slug}`,
         },
       ],
     };

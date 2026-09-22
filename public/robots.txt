@@ -3,4 +3,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://tmrcarcare.com/sitemap.xml
+Sitemap: https://tmraicarcare.com/sitemap.xml

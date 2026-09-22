@@ -1,7 +1,7 @@
 # TMR AI CAR CARE — POST-DEPLOYMENT GSC & SEO LAUNCH PROTOCOL
 **Document Version:** 1.0.0 (Production Launch Checklist)  
-**Target Domain:** `https://tmrcarcare.com`  
-**Sitemap URL:** `https://tmrcarcare.com/sitemap.xml`  
+**Target Domain:** `https://tmraicarcare.com`  
+**Sitemap URL:** `https://tmraicarcare.com/sitemap.xml`  
 **Total Production URLs:** 77  
 
 ---
@@ -11,7 +11,7 @@
 ### A. Google Search Console (GSC) Domain Property Verification
 - [ ] Log in to Google Search Console (`https://search.google.com/search-console`).
 - [ ] Select **Add Property** $\rightarrow$ choose **Domain** (not URL prefix).
-- [ ] Enter `tmrcarcare.com`.
+- [ ] Enter `tmraicarcare.com`.
 - [ ] Copy the provided DNS TXT record.
 - [ ] Add the TXT record to the domain DNS settings at the registrar (e.g. Cloudflare, GoDaddy, Namecheap).
 - [ ] Click **Verify** in GSC to secure domain-level ownership covering all protocols (`http`, `https`, `www`, and subdomains).
@@ -24,16 +24,16 @@
 
 ### C. Live URL Inspection & Priority Crawl Requests
 Perform URL Inspection for the primary architecture pages and submit for indexing:
-1. [ ] `https://tmrcarcare.com/` (Home)
-2. [ ] `https://tmrcarcare.com/services` (Services Index)
-3. [ ] `https://tmrcarcare.com/products` (Products Catalogue Hub)
-4. [ ] `https://tmrcarcare.com/gallery` (Studio Photography & Proof)
-5. [ ] `https://tmrcarcare.com/about` (Founder & Heritage)
-6. [ ] `https://tmrcarcare.com/contact` (Studio Location & Enquiries)
-7. [ ] Representative Service: `https://tmrcarcare.com/services/ceramic-coating`
-8. [ ] Representative Service: `https://tmrcarcare.com/services/ppf-paint-protection`
-9. [ ] Representative Product: `https://tmrcarcare.com/products/3m-perfect-it-ex-ac-rubbing-compound`
-10. [ ] Representative Product: `https://tmrcarcare.com/products/3m-synthetic-wax-protectant`
+1. [ ] `https://tmraicarcare.com/` (Home)
+2. [ ] `https://tmraicarcare.com/services` (Services Index)
+3. [ ] `https://tmraicarcare.com/products` (Products Catalogue Hub)
+4. [ ] `https://tmraicarcare.com/gallery` (Studio Photography & Proof)
+5. [ ] `https://tmraicarcare.com/about` (Founder & Heritage)
+6. [ ] `https://tmraicarcare.com/contact` (Studio Location & Enquiries)
+7. [ ] Representative Service: `https://tmraicarcare.com/services/ceramic-coating`
+8. [ ] Representative Service: `https://tmraicarcare.com/services/ppf-paint-protection`
+9. [ ] Representative Product: `https://tmraicarcare.com/products/3m-perfect-it-ex-ac-rubbing-compound`
+10. [ ] Representative Product: `https://tmraicarcare.com/products/3m-synthetic-wax-protectant`
 
 ---
 

@@ -27,7 +27,7 @@ export const PrivacyPolicyPage: React.FC = () => {
     // Dynamic SEO Metadata
     const titleText = `Privacy Policy | TMR AI Car Care Tiruppur`;
     const descText = `Learn how TMR AI Car Care collects, uses, and protects personal information provided through our website, contact forms, and WhatsApp enquiries in Tiruppur.`;
-    const canonicalUrl = `https://tmrcarcare.com/privacy-policy`;
+    const canonicalUrl = `https://tmraicarcare.com/privacy-policy`;
 
     document.title = titleText;
 
@@ -174,7 +174,7 @@ export const PrivacyPolicyPage: React.FC = () => {
               </h2>
               <p>
                 TMR AI Car Care (&quot;TMR&quot;, &quot;we&quot;, &quot;our&quot;, or &quot;us&quot;) operates the website located at{' '}
-                <strong className="text-[#141414]">tmrcarcare.com</strong> and provides automotive detailing, ceramic coating, paint protection film (PPF), sun control film, and car care services in Tiruppur, Tamil Nadu.
+                <strong className="text-[#141414]">tmraicarcare.com</strong> and provides automotive detailing, ceramic coating, paint protection film (PPF), sun control film, and car care services in Tiruppur, Tamil Nadu.
               </p>
               <p>
                 This Privacy Policy describes how we handle information collected directly from vehicle owners, studio visitors, and prospective customers through website browsing, online contact form submissions, and direct communication channels including WhatsApp, phone calls, and email.
