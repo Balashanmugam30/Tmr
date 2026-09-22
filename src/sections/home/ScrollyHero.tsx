@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useLenis } from '@/layouts/RootLayout';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,6 +25,14 @@ const getFramePath = (index: number) => {
 };
 
 export const ScrollyHero: React.FC = () => {
+  const { lenis, setHeroGateActive } = useLenis();
+  const setHeroGateActiveRef = useRef(setHeroGateActive);
+  setHeroGateActiveRef.current = setHeroGateActive;
+  const lenisRef = useRef(lenis);
+  useEffect(() => {
+    lenisRef.current = lenis;
+  }, [lenis]);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -334,6 +343,11 @@ export const ScrollyHero: React.FC = () => {
       // Release completion gate when final frame is drawn
       if (next === TOTAL_FRAMES - 1) {
         heroCompletionGateRef.current = false;
+        setHeroGateActiveRef.current(false);
+        const activeLenis = lenisRef.current || (typeof window !== 'undefined' ? (window as any).__TMR_LENIS__ : null);
+        if (activeLenis && gateScrollYRef.current > 0) {
+          activeLenis.scrollTo(gateScrollYRef.current, { immediate: true });
+        }
       }
 
       // Synchronize visual editorial text and phase indicator
@@ -509,7 +523,7 @@ export const ScrollyHero: React.FC = () => {
     };
   }, []);
 
-  // Non-invasive Scroll Gate: Holds scroll at gateScrollY while heroCompletionGate is active
+  // Non-invasive Scroll Gate: Coordinates with Lenis while heroCompletionGate is active
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0) {
@@ -520,7 +534,7 @@ export const ScrollyHero: React.FC = () => {
         if (window.scrollY + e.deltaY >= gateScrollYRef.current && e.deltaY > 0) {
           e.preventDefault();
           heroCompletionGateRef.current = true;
-          window.scrollTo({ top: gateScrollYRef.current, behavior: 'instant' });
+          setHeroGateActiveRef.current(true, gateScrollYRef.current);
           return;
         }
       }
@@ -543,7 +557,7 @@ export const ScrollyHero: React.FC = () => {
         if (window.scrollY + deltaY >= gateScrollYRef.current && deltaY > 0) {
           e.preventDefault();
           heroCompletionGateRef.current = true;
-          window.scrollTo({ top: gateScrollYRef.current, behavior: 'instant' });
+          setHeroGateActiveRef.current(true, gateScrollYRef.current);
           return;
         }
       }
@@ -555,7 +569,7 @@ export const ScrollyHero: React.FC = () => {
           if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Spacebar') {
             e.preventDefault();
             heroCompletionGateRef.current = true;
-            window.scrollTo({ top: gateScrollYRef.current, behavior: 'instant' });
+            setHeroGateActiveRef.current(true, gateScrollYRef.current);
           }
         }
       }
@@ -577,17 +591,25 @@ export const ScrollyHero: React.FC = () => {
   // Section 20 Telemetry Hook for Browser Automation & Testing
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      (window as any).__TMR_HERO_TELEMETRY__ = () => ({
-        rawProgress: rawProgressRef.current,
-        destinationFrame: destinationFrameRef.current,
-        displayedFrame: displayedFrameRef.current,
-        playheadGap: Math.abs(destinationFrameRef.current - displayedFrameRef.current),
-        scrollDirection: scrollDirectionRef.current,
-        heroCompletionGate: heroCompletionGateRef.current,
-        nextSectionTop: document.querySelector('section:nth-of-type(2)')?.getBoundingClientRect().top ?? null,
-        stickyOpacity: stickyRef.current ? window.getComputedStyle(stickyRef.current).opacity : null,
-        stickyTransform: stickyRef.current ? window.getComputedStyle(stickyRef.current).transform : null,
-      });
+      (window as any).__TMR_HERO_TELEMETRY__ = () => {
+        const activeLenis = lenisRef.current || (window as any).__TMR_LENIS__ || null;
+        return {
+          rawProgress: rawProgressRef.current,
+          destinationFrame: destinationFrameRef.current,
+          displayedFrame: displayedFrameRef.current,
+          playheadGap: Math.abs(destinationFrameRef.current - displayedFrameRef.current),
+          scrollDirection: scrollDirectionRef.current,
+          heroCompletionGate: heroCompletionGateRef.current,
+          gateScrollY: gateScrollYRef.current,
+          scrollY: typeof window !== 'undefined' ? window.scrollY : 0,
+          lenisCurrent: activeLenis ? activeLenis.animatedScroll : null,
+          lenisTarget: activeLenis ? activeLenis.targetScroll : null,
+          lenisStopped: activeLenis ? activeLenis.isStopped : null,
+          nextSectionTop: document.querySelector('section:nth-of-type(2)')?.getBoundingClientRect().top ?? null,
+          stickyOpacity: stickyRef.current ? window.getComputedStyle(stickyRef.current).opacity : null,
+          stickyTransform: stickyRef.current ? window.getComputedStyle(stickyRef.current).transform : null,
+        };
+      };
     }
     return () => {
       if (typeof window !== 'undefined') {
@@ -624,15 +646,14 @@ export const ScrollyHero: React.FC = () => {
             (progress >= SEQUENCE_END || self.scroll() >= gateScrollY) &&
             displayedFrameRef.current < TOTAL_FRAMES - 1;
 
-          heroCompletionGateRef.current = isGateActive;
+          if (isGateActive !== heroCompletionGateRef.current) {
+            heroCompletionGateRef.current = isGateActive;
+            setHeroGateActiveRef.current(isGateActive, gateScrollY);
+          }
 
           if (isGateActive) {
             // Pin destination to final frame to complete sequential playback
             destinationFrameRef.current = TOTAL_FRAMES - 1;
-            // Prevent physical scroll from overtaking the unfinished hero
-            if (self.scroll() > gateScrollY) {
-              window.scrollTo({ top: gateScrollY, behavior: 'instant' });
-            }
           } else {
             const cameraProgress = Math.min(1, progress / SEQUENCE_END);
             const dest = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(cameraProgress * (TOTAL_FRAMES - 1))));

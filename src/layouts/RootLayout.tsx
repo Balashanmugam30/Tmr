@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef, useCallback, createContext, useContext } from 'react';
 import { Outlet } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
@@ -13,7 +13,42 @@ import { NavbarThemeProvider } from '@/context/NavbarThemeContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
+export interface LenisContextType {
+  lenis: Lenis | null;
+  setHeroGateActive: (active: boolean, gateScrollY?: number) => void;
+}
+
+export const LenisContext = createContext<LenisContextType>({
+  lenis: null,
+  setHeroGateActive: () => {},
+});
+
+export const useLenis = () => useContext(LenisContext);
+
 export const RootLayout: React.FC = () => {
+  const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+  const heroGateRef = useRef<{ active: boolean; gateScrollY: number }>({
+    active: false,
+    gateScrollY: 0,
+  });
+
+  const setHeroGateActive = useCallback((active: boolean, gateScrollY?: number) => {
+    heroGateRef.current.active = active;
+    if (typeof gateScrollY === 'number' && gateScrollY > 0) {
+      heroGateRef.current.gateScrollY = gateScrollY;
+    }
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+
+    if (active) {
+      const targetY = typeof gateScrollY === 'number' && gateScrollY > 0 ? gateScrollY : heroGateRef.current.gateScrollY;
+      if (targetY > 0) {
+        lenis.scrollTo(targetY, { immediate: true });
+      }
+    }
+  }, []);
+
   useEffect(() => {
     // Check prefers-reduced-motion
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -28,7 +63,21 @@ export const RootLayout: React.FC = () => {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       wheelMultiplier: 1,
+      virtualScroll: (data) => {
+        // Freeze downward scroll accumulation when hero completion gate is active
+        if (heroGateRef.current.active && data.deltaY > 0) {
+          if (data.event?.cancelable) {
+            data.event.preventDefault();
+          }
+          return false;
+        }
+        return true;
+      },
     });
+
+    lenisRef.current = lenis;
+    setLenisInstance(lenis);
+    (window as any).__TMR_LENIS__ = lenis;
 
     // Synchronize Lenis scroll with GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
@@ -40,25 +89,30 @@ export const RootLayout: React.FC = () => {
     gsap.ticker.add(updateLenis);
 
     return () => {
+      delete (window as any).__TMR_LENIS__;
       gsap.ticker.remove(updateLenis);
       lenis.destroy();
+      lenisRef.current = null;
+      setLenisInstance(null);
     };
   }, []);
 
   return (
-    <NavbarThemeProvider>
-      <ScrollToHash />
-      <div className="min-h-screen flex flex-col bg-tmr-black text-tmr-softblack font-sans selection:bg-tmr-orange selection:text-white">
-        <Navbar />
-        <main className="flex-grow w-full overflow-x-clip">
-          <PageTransition>
-            <Outlet />
-          </PageTransition>
-        </main>
-        <Footer />
-        <OfflineState />
-        <FloatingWhatsApp />
-      </div>
-    </NavbarThemeProvider>
+    <LenisContext.Provider value={{ lenis: lenisInstance, setHeroGateActive }}>
+      <NavbarThemeProvider>
+        <ScrollToHash />
+        <div className="min-h-screen flex flex-col bg-tmr-black text-tmr-softblack font-sans selection:bg-tmr-orange selection:text-white">
+          <Navbar />
+          <main className="flex-grow w-full overflow-x-clip">
+            <PageTransition>
+              <Outlet />
+            </PageTransition>
+          </main>
+          <Footer />
+          <OfflineState />
+          <FloatingWhatsApp />
+        </div>
+      </NavbarThemeProvider>
+    </LenisContext.Provider>
   );
 };
