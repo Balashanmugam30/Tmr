@@ -40,6 +40,9 @@ export const ScrollyHero: React.FC = () => {
   const hasScrolledRef = useRef<boolean>(false);
   const dimensionsRef = useRef<{ width: number; height: number; dpr: number }>({ width: 0, height: 0, dpr: 1 });
   const rafIdRef = useRef<number | null>(null);
+  const heroCompletionGateRef = useRef<boolean>(false); // Active when scroll reaches sequence end before displayedFrame reaches 959
+  const gateScrollYRef = useRef<number>(0); // Scroll position in px corresponding to SEQUENCE_END
+  const touchStartYRef = useRef<number>(0);
 
   // In-flight network tracking (deduplicated by frame index, NO scroll-abort churn)
   const inFlightRef = useRef<Set<number>>(new Set());
@@ -183,9 +186,10 @@ export const ScrollyHero: React.FC = () => {
     }
 
     // Smooth sticky exit transition when physical scroll exceeds SEQUENCE_END
+    // Strictly gated on displayed frame reaching sequence completion (TOTAL_FRAMES - 1 = 959)
     if (stickyRef.current) {
       const rawProgress = rawProgressRef.current;
-      if (rawProgress > SEQUENCE_END) {
+      if (drawnFrameIdx >= TOTAL_FRAMES - 1 && rawProgress > SEQUENCE_END) {
         const exitProgress = (rawProgress - SEQUENCE_END) / (1 - SEQUENCE_END);
         const scale = 1 - exitProgress * 0.04;
         const opacity = 1 - exitProgress * 0.35;
@@ -327,6 +331,11 @@ export const ScrollyHero: React.FC = () => {
     // Next is ready: draw EXACTLY next
     const drawn = drawExactFrame(next);
     if (drawn) {
+      // Release completion gate when final frame is drawn
+      if (next === TOTAL_FRAMES - 1) {
+        heroCompletionGateRef.current = false;
+      }
+
       // Synchronize visual editorial text and phase indicator
       updateVisualState(next);
 
@@ -500,6 +509,93 @@ export const ScrollyHero: React.FC = () => {
     };
   }, []);
 
+  // Non-invasive Scroll Gate: Holds scroll at gateScrollY while heroCompletionGate is active
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0) {
+        if (window.scrollY >= gateScrollYRef.current && e.deltaY > 0) {
+          e.preventDefault();
+          return;
+        }
+        if (window.scrollY + e.deltaY >= gateScrollYRef.current && e.deltaY > 0) {
+          e.preventDefault();
+          heroCompletionGateRef.current = true;
+          window.scrollTo({ top: gateScrollYRef.current, behavior: 'instant' });
+          return;
+        }
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        touchStartYRef.current = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0 && e.touches.length > 0) {
+        const touchCurrentY = e.touches[0].clientY;
+        const deltaY = touchStartYRef.current - touchCurrentY;
+        if (window.scrollY >= gateScrollYRef.current && deltaY > 0) {
+          e.preventDefault();
+          return;
+        }
+        if (window.scrollY + deltaY >= gateScrollYRef.current && deltaY > 0) {
+          e.preventDefault();
+          heroCompletionGateRef.current = true;
+          window.scrollTo({ top: gateScrollYRef.current, behavior: 'instant' });
+          return;
+        }
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (displayedFrameRef.current < TOTAL_FRAMES - 1 && gateScrollYRef.current > 0) {
+        if (window.scrollY >= gateScrollYRef.current - 5) {
+          if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ' || e.key === 'Spacebar') {
+            e.preventDefault();
+            heroCompletionGateRef.current = true;
+            window.scrollTo({ top: gateScrollYRef.current, behavior: 'instant' });
+          }
+        }
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
+  // Section 20 Telemetry Hook for Browser Automation & Testing
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).__TMR_HERO_TELEMETRY__ = () => ({
+        rawProgress: rawProgressRef.current,
+        destinationFrame: destinationFrameRef.current,
+        displayedFrame: displayedFrameRef.current,
+        playheadGap: Math.abs(destinationFrameRef.current - displayedFrameRef.current),
+        scrollDirection: scrollDirectionRef.current,
+        heroCompletionGate: heroCompletionGateRef.current,
+        nextSectionTop: document.querySelector('section:nth-of-type(2)')?.getBoundingClientRect().top ?? null,
+        stickyOpacity: stickyRef.current ? window.getComputedStyle(stickyRef.current).opacity : null,
+        stickyTransform: stickyRef.current ? window.getComputedStyle(stickyRef.current).transform : null,
+      });
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        delete (window as any).__TMR_HERO_TELEMETRY__;
+      }
+    };
+  }, []);
+
   // GSAP ScrollTrigger Setup (Section 16: ScrollTrigger controls destination, not direct rendering)
   useEffect(() => {
     if (!containerRef.current) return;
@@ -513,13 +609,35 @@ export const ScrollyHero: React.FC = () => {
         start: 'top top',
         end: 'bottom bottom',
         scrub: 0.1,
+        onRefresh: (self) => {
+          gateScrollYRef.current = self.start + SEQUENCE_END * (self.end - self.start);
+        },
         onUpdate: (self) => {
           const progress = self.progress;
           rawProgressRef.current = progress;
 
-          const cameraProgress = Math.min(1, progress / SEQUENCE_END);
-          const dest = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(cameraProgress * (TOTAL_FRAMES - 1))));
-          destinationFrameRef.current = dest;
+          const gateScrollY = self.start + SEQUENCE_END * (self.end - self.start);
+          gateScrollYRef.current = gateScrollY;
+
+          // Hero Completion Gate: active if physical scroll reaches SEQUENCE_END while displayedFrame < 959
+          const isGateActive =
+            (progress >= SEQUENCE_END || self.scroll() >= gateScrollY) &&
+            displayedFrameRef.current < TOTAL_FRAMES - 1;
+
+          heroCompletionGateRef.current = isGateActive;
+
+          if (isGateActive) {
+            // Pin destination to final frame to complete sequential playback
+            destinationFrameRef.current = TOTAL_FRAMES - 1;
+            // Prevent physical scroll from overtaking the unfinished hero
+            if (self.scroll() > gateScrollY) {
+              window.scrollTo({ top: gateScrollY, behavior: 'instant' });
+            }
+          } else {
+            const cameraProgress = Math.min(1, progress / SEQUENCE_END);
+            const dest = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(cameraProgress * (TOTAL_FRAMES - 1))));
+            destinationFrameRef.current = dest;
+          }
 
           // Notify sequential playhead and preloader that destination has updated
           requestPlayheadTick();
