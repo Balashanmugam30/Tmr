@@ -204,7 +204,7 @@ export const ScrollyHero: React.FC = () => {
   // Contiguous Runway Preloader: Prioritizes immediate adjacent frames around displayedFrame
   // Zero Abort Churn: In-flight requests are allowed to finish naturally during scrolling
   const pumpContiguousQueue = useCallback(() => {
-    if (!isVisibleRef.current) return;
+    if (!isVisibleRef.current || unmountControllerRef.current.signal.aborted) return;
 
     const current = displayedFrameRef.current >= 0 ? displayedFrameRef.current : 0;
     const destination = destinationFrameRef.current;
@@ -253,8 +253,17 @@ export const ScrollyHero: React.FC = () => {
 
       fetchAndDecodeFrame(frameIdx, unmountControllerRef.current.signal)
         .then((bitmap) => {
-          decodedFrameCacheRef.current.set(frameIdx, bitmap);
           inFlightRef.current.delete(frameIdx);
+
+          // If component unmounted while fetch was in flight, immediately release bitmap to avoid memory leak
+          if (unmountControllerRef.current.signal.aborted) {
+            if (bitmap && 'close' in bitmap && typeof bitmap.close === 'function') {
+              bitmap.close();
+            }
+            return;
+          }
+
+          decodedFrameCacheRef.current.set(frameIdx, bitmap);
 
           // If the arrived frame is the immediate next frame the playhead needs, advance playhead!
           const cur = displayedFrameRef.current;
@@ -276,7 +285,7 @@ export const ScrollyHero: React.FC = () => {
         })
         .catch((err) => {
           inFlightRef.current.delete(frameIdx);
-          if (err.name !== 'AbortError') {
+          if (err.name !== 'AbortError' && !unmountControllerRef.current.signal.aborted) {
             pumpContiguousQueue();
           }
         });
@@ -343,6 +352,23 @@ export const ScrollyHero: React.FC = () => {
     rafIdRef.current = requestAnimationFrame(advanceOneFrameIfPossible);
   }, [advanceOneFrameIfPossible]);
 
+  // Master Component Lifecycle: Fresh AbortController per mount cycle (React.StrictMode safe)
+  useEffect(() => {
+    const controller = new AbortController();
+    unmountControllerRef.current = controller;
+
+    return () => {
+      controller.abort();
+      inFlightRef.current.clear();
+      for (const item of decodedFrameCacheRef.current.values()) {
+        if (item && 'close' in item && typeof item.close === 'function') {
+          item.close();
+        }
+      }
+      decodedFrameCacheRef.current.clear();
+    };
+  }, []);
+
   // Keep ref up-to-date for async fetch callbacks
   useEffect(() => {
     requestPlayheadTickRef.current = requestPlayheadTick;
@@ -375,16 +401,9 @@ export const ScrollyHero: React.FC = () => {
     return () => {
       if (rafIdRef.current !== null) {
         cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
       }
       observer.disconnect();
-      unmountControllerRef.current.abort();
-      inFlightRef.current.clear();
-      for (const item of decodedFrameCacheRef.current.values()) {
-        if (item && 'close' in item && typeof item.close === 'function') {
-          item.close();
-        }
-      }
-      decodedFrameCacheRef.current.clear();
     };
   }, [requestPlayheadTick, pumpContiguousQueue]);
 
@@ -392,9 +411,25 @@ export const ScrollyHero: React.FC = () => {
   useEffect(() => {
     let isMounted = true;
 
+    if (decodedFrameCacheRef.current.has(0) || inFlightRef.current.has(0)) {
+      if (decodedFrameCacheRef.current.has(0) && displayedFrameRef.current < 0) {
+        drawExactFrame(0);
+        updateVisualState(0);
+      }
+      return;
+    }
+
+    inFlightRef.current.add(0);
+
     fetchAndDecodeFrame(0, unmountControllerRef.current.signal)
       .then((bitmap) => {
-        if (!isMounted) return;
+        inFlightRef.current.delete(0);
+        if (!isMounted || unmountControllerRef.current.signal.aborted) {
+          if (bitmap && 'close' in bitmap && typeof bitmap.close === 'function') {
+            bitmap.close();
+          }
+          return;
+        }
         decodedFrameCacheRef.current.set(0, bitmap);
         setIsFirstFrameLoaded(true);
         previousDisplayedRef.current = -1; // Reset assertion baseline for initial frame
@@ -404,50 +439,65 @@ export const ScrollyHero: React.FC = () => {
         }
         pumpContiguousQueue();
       })
-      .catch(() => {});
+      .catch((err) => {
+        inFlightRef.current.delete(0);
+        if (err.name !== 'AbortError') {
+          console.error('Failed to load initial frame 0:', err);
+        }
+      });
 
     return () => {
       isMounted = false;
     };
   }, [fetchAndDecodeFrame, drawExactFrame, updateVisualState, pumpContiguousQueue]);
 
-  // Resize Handler: Updates cached dimensions and triggers redraw
+  // Resize Handler: Updates cached dimensions and triggers redraw via RAF
   useEffect(() => {
+    let resizeRafId: number | null = null;
     const handleResize = () => {
-      const isMobile = window.innerWidth < 768;
-      const maxDpr = isMobile ? 1.25 : 2;
-      const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
-      dimensionsRef.current = {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        dpr,
-      };
-      if (displayedFrameRef.current >= 0) {
-        // Redraw current displayed frame with updated dimensions
-        const img = decodedFrameCacheRef.current.get(displayedFrameRef.current);
-        const canvas = canvasRef.current;
-        const ctx = ctxRef.current;
-        if (img && canvas && ctx) {
-          const targetWidth = Math.round(window.innerWidth * dpr);
-          const targetHeight = Math.round(window.innerHeight * dpr);
-          canvas.width = targetWidth;
-          canvas.height = targetHeight;
-          ctx.save();
-          ctx.scale(dpr, dpr);
-          const imgWidth = 'naturalWidth' in img ? img.naturalWidth : (img as ImageBitmap).width || 1920;
-          const imgHeight = 'naturalHeight' in img ? img.naturalHeight : (img as ImageBitmap).height || 1080;
-          const scale = Math.max(window.innerWidth / imgWidth, window.innerHeight / imgHeight);
-          const drawWidth = imgWidth * scale;
-          const drawHeight = imgHeight * scale;
-          const offsetX = (window.innerWidth - drawWidth) / 2;
-          const offsetY = (window.innerHeight - drawHeight) / 2;
-          ctx.drawImage(img as CanvasImageSource, offsetX, offsetY, drawWidth, drawHeight);
-          ctx.restore();
+      if (resizeRafId !== null) return;
+      resizeRafId = requestAnimationFrame(() => {
+        resizeRafId = null;
+        const isMobile = window.innerWidth < 768;
+        const maxDpr = isMobile ? 1.25 : 2;
+        const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+        dimensionsRef.current = {
+          width: window.innerWidth,
+          height: window.innerHeight,
+          dpr,
+        };
+        if (displayedFrameRef.current >= 0) {
+          // Redraw current displayed frame with updated dimensions
+          const img = decodedFrameCacheRef.current.get(displayedFrameRef.current);
+          const canvas = canvasRef.current;
+          const ctx = ctxRef.current;
+          if (img && canvas && ctx) {
+            const targetWidth = Math.round(window.innerWidth * dpr);
+            const targetHeight = Math.round(window.innerHeight * dpr);
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            ctx.save();
+            ctx.scale(dpr, dpr);
+            const imgWidth = 'naturalWidth' in img ? img.naturalWidth : (img as ImageBitmap).width || 1920;
+            const imgHeight = 'naturalHeight' in img ? img.naturalHeight : (img as ImageBitmap).height || 1080;
+            const scale = Math.max(window.innerWidth / imgWidth, window.innerHeight / imgHeight);
+            const drawWidth = imgWidth * scale;
+            const drawHeight = imgHeight * scale;
+            const offsetX = (window.innerWidth - drawWidth) / 2;
+            const offsetY = (window.innerHeight - drawHeight) / 2;
+            ctx.drawImage(img as CanvasImageSource, offsetX, offsetY, drawWidth, drawHeight);
+            ctx.restore();
+          }
         }
+      });
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (resizeRafId !== null) {
+        cancelAnimationFrame(resizeRafId);
       }
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // GSAP ScrollTrigger Setup (Section 16: ScrollTrigger controls destination, not direct rendering)
